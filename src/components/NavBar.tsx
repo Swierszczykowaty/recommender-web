@@ -1,6 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 import Link from 'next/link';
+import { AnimatePresence, motion } from 'framer-motion';
 
 export default function NavBar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -15,11 +16,11 @@ export default function NavBar() {
         </Link>
 
         {/* Desktop menu */}
-        <div className="hidden md:flex space-x-6 text-white">
-          <Link href="/">Start</Link>
-          <Link href="/movies">Baza filmów</Link>
-          <Link href="/recommender">Rekomender</Link>
-          <Link href="/recommender">O Projekcie</Link>
+        <div className="hidden md:flex space-x-8 xl:space-x-16 text-white">
+          <Link className='hover:text-orange-200 active:text-orange-700 duration-100' href="/">Start</Link>
+          <Link className='hover:text-orange-200 active:text-orange-700 duration-100' href="/recommender">Rekomender</Link>
+          <Link className='hover:text-orange-200 active:text-orange-700 duration-100' href="/movies">Baza filmów</Link>
+          <Link className='hover:text-orange-200 active:text-orange-700 duration-100' href="/about">O Projekcie</Link>
         </div>
 
         {/* Mobile hamburger */}
@@ -34,14 +35,23 @@ export default function NavBar() {
       </div>
 
       {/* Mobile menu */}
-      {menuOpen && (
-        <div className="md:hidden px-6 pb-4 text-white space-y-2">
-          <Link href="/" onClick={() => setMenuOpen(false)}>Start</Link>
-          <Link href="/movies" onClick={() => setMenuOpen(false)}>Baza filmów</Link>
-          <Link href="/recommender" onClick={() => setMenuOpen(false)}>Rekomender</Link>
-          <Link href="/about" onClick={() => setMenuOpen(false)}>O Projekcie</Link>
-        </div>
-      )}
+<AnimatePresence>
+  {menuOpen && (
+<motion.div
+  key="mobileMenu"
+  initial={{ opacity: 0, maxHeight: 0 }}
+  animate={{ opacity: 1, maxHeight: 500 }}
+  exit={{ opacity: 0, maxHeight: 0 }}
+  transition={{ duration: 0.3, ease: 'easeInOut' }}
+  className="md:hidden overflow-hidden flex flex-col px-6 pb-4 text-white space-y-2"
+>
+  <Link href="/" onClick={() => setMenuOpen(false)}>Start</Link>
+  <Link href="/recommender" onClick={() => setMenuOpen(false)}>Rekomender</Link>
+  <Link href="/movies" onClick={() => setMenuOpen(false)}>Baza filmów</Link>
+  <Link href="/about" onClick={() => setMenuOpen(false)}>O Projekcie</Link>
+</motion.div>
+  )}
+</AnimatePresence>
     </nav>
   );
 }

@@ -39,7 +39,7 @@ export default function Hero() {
 
         {/* Nagłówek sekcji */}
         <motion.div
-        className="relative z-10 w-full max-w-4xl text-center my-20"
+        className="relative z-10 w-full max-w-4xl text-center mb-28"
         initial={{ opacity: 0}} // Stan początkowy: niewidoczny i lekko poniżej
         animate={{ opacity: 1, y: 0 }} // Stan końcowy: w pełni widoczny, na swojej pozycji
         transition={{ duration: 1, ease: "easeOut" }} // Czas trwania, opóźnienie i funkcja przejścia
@@ -47,7 +47,7 @@ export default function Hero() {
           <h2 className="text-4xl md:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-orange-600 via-yellow-500 to-amber-600 drop-shadow-lg">
             Rekomendacje filmowe
           </h2>
-          <p className="mt-2 text-lg text-white/80">
+          <p className="mt-2 text-lg text-white">
             Wybierz, co Cię interesuje
           </p>
         </motion.div>
