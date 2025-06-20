@@ -1,7 +1,11 @@
-import type { Config } from 'tailwindcss'
+import type { Config } from 'tailwindcss';
 
 const config: Config = {
-    content: ['./src/**/*.{ts,tsx,js,jsx,html}'],
+  content: [
+    './app/**/*.{ts,tsx}',
+    './pages/**/*.{ts,tsx}',
+    './components/**/*.{ts,tsx}',
+  ],
   theme: {
     extend: {
       animation: {
@@ -18,6 +22,6 @@ const config: Config = {
     },
   },
   plugins: [],
-}
+};
 
-export default config
+export default config;
