@@ -18,9 +18,9 @@ export default function NavBar() {
         {/* Desktop menu */}
         <div className="hidden md:flex space-x-8 xl:space-x-16 text-white">
           <Link className='hover:text-orange-200 active:text-orange-700 duration-100' href="/">Start</Link>
-          <Link className='hover:text-orange-200 active:text-orange-700 duration-100' href="/movies">Baza filmów</Link>
           <Link className='hover:text-orange-200 active:text-orange-700 duration-100' href="/recommender">Rekomender</Link>
-          <Link className='hover:text-orange-200 active:text-orange-700 duration-100' href="/recommender">O Projekcie</Link>
+          <Link className='hover:text-orange-200 active:text-orange-700 duration-100' href="/movies">Baza filmów</Link>
+          <Link className='hover:text-orange-200 active:text-orange-700 duration-100' href="/about">O Projekcie</Link>
         </div>
 
         {/* Mobile hamburger */}
@@ -46,8 +46,8 @@ export default function NavBar() {
   className="md:hidden overflow-hidden flex flex-col px-6 pb-4 text-white space-y-2"
 >
   <Link href="/" onClick={() => setMenuOpen(false)}>Start</Link>
-  <Link href="/movies" onClick={() => setMenuOpen(false)}>Baza filmów</Link>
   <Link href="/recommender" onClick={() => setMenuOpen(false)}>Rekomender</Link>
+  <Link href="/movies" onClick={() => setMenuOpen(false)}>Baza filmów</Link>
   <Link href="/about" onClick={() => setMenuOpen(false)}>O Projekcie</Link>
 </motion.div>
   )}
