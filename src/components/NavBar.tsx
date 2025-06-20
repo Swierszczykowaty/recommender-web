@@ -16,11 +16,11 @@ export default function NavBar() {
         </Link>
 
         {/* Desktop menu */}
-        <div className="hidden md:flex space-x-6 text-white">
-          <Link href="/">Start</Link>
-          <Link href="/movies">Baza filmów</Link>
-          <Link href="/recommender">Rekomender</Link>
-          <Link href="/recommender">O Projekcie</Link>
+        <div className="hidden md:flex space-x-8 xl:space-x-16 text-white">
+          <Link className='hover:text-orange-200 active:text-orange-700 duration-100' href="/">Start</Link>
+          <Link className='hover:text-orange-200 active:text-orange-700 duration-100' href="/movies">Baza filmów</Link>
+          <Link className='hover:text-orange-200 active:text-orange-700 duration-100' href="/recommender">Rekomender</Link>
+          <Link className='hover:text-orange-200 active:text-orange-700 duration-100' href="/recommender">O Projekcie</Link>
         </div>
 
         {/* Mobile hamburger */}
