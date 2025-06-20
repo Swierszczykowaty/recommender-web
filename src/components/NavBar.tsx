@@ -11,8 +11,8 @@ export default function NavBar() {
       <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
         {/* Logo + nazwa */}
         <Link href="/" className="flex items-center text-white text-xl font-bold gap-2">
-          <span className="material-icons">blur_on</span>
-          Rekomender Filmowy
+          <span className="material-icons !text-[35px]">blur_on</span>
+          Rekomender WWSI
         </Link>
 
         {/* Desktop menu */}
