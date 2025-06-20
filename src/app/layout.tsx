@@ -1,6 +1,13 @@
 import './globals.css';
 import { ReactNode } from 'react';
 import NavBar from '@/components/NavBar';
+import { Archivo } from 'next/font/google';
+const archivo = Archivo({
+  subsets: ['latin'],
+  weight: ['300','400', '500', '600', '700'], // dodaj więcej jeśli potrzebujesz
+  display: 'swap',
+});
+
 
 
 export const metadata = {
@@ -17,7 +24,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           rel="stylesheet"
         />
       </head>
-      <body className="bg-gray-900 text-white">
+      <body className={`${archivo.className} bg-gray-900 text-white`}>
         <NavBar />
         {/* Main content area */}
         {children}
