@@ -1,8 +1,14 @@
+import Title from '@/components/Title';
+import Container from '@/components/Container';
+
 export default function MoviesPage() {
   return (
-    <div className="p-8 text-white mt-20">
-      <h1 className="text-4xl font-bold mb-4">Baza Filmów</h1>
-      <p>Tu znajdziesz wszystkie dostępne filmy z naszej bazy.</p>
-    </div>
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden px-4 md:px-8 py-16">
+    <Container>
+     <div className="relative flex flex-col items-center z-10 w-full mx-auto">
+        <Title subtitle="">Baza filmów</Title>
+      </div>
+      </Container>
+    </section>
   );
 }
