@@ -39,7 +39,7 @@ export default function Hero() {
 
         {/* Nagłówek sekcji */}
         <motion.div
-        className="relative z-10 w-full max-w-4xl text-center mb-28"
+        className="relative z-10 w-full max-w-4xl text-center my-28"
         initial={{ opacity: 0}} // Stan początkowy: niewidoczny i lekko poniżej
         animate={{ opacity: 1, y: 0 }} // Stan końcowy: w pełni widoczny, na swojej pozycji
         transition={{ duration: 1, ease: "easeOut" }} // Czas trwania, opóźnienie i funkcja przejścia
