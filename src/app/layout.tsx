@@ -11,6 +11,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="pl">
       <head>
+        <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
         <link
           href="https://fonts.googleapis.com/icon?family=Material+Icons"
           rel="stylesheet"
