@@ -1,6 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 import Link from 'next/link';
+import { AnimatePresence, motion } from 'framer-motion';
 
 export default function NavBar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -34,14 +35,23 @@ export default function NavBar() {
       </div>
 
       {/* Mobile menu */}
-      {menuOpen && (
-        <div className="md:hidden px-6 pb-4 text-white space-y-2">
-          <Link href="/" onClick={() => setMenuOpen(false)}>Start</Link>
-          <Link href="/movies" onClick={() => setMenuOpen(false)}>Baza filmów</Link>
-          <Link href="/recommender" onClick={() => setMenuOpen(false)}>Rekomender</Link>
-          <Link href="/about" onClick={() => setMenuOpen(false)}>O Projekcie</Link>
-        </div>
-      )}
+<AnimatePresence>
+  {menuOpen && (
+<motion.div
+  key="mobileMenu"
+  initial={{ opacity: 0, maxHeight: 0 }}
+  animate={{ opacity: 1, maxHeight: 500 }}
+  exit={{ opacity: 0, maxHeight: 0 }}
+  transition={{ duration: 0.3, ease: 'easeInOut' }}
+  className="md:hidden overflow-hidden flex flex-col px-6 pb-4 text-white space-y-2"
+>
+  <Link href="/" onClick={() => setMenuOpen(false)}>Start</Link>
+  <Link href="/movies" onClick={() => setMenuOpen(false)}>Baza filmów</Link>
+  <Link href="/recommender" onClick={() => setMenuOpen(false)}>Rekomender</Link>
+  <Link href="/about" onClick={() => setMenuOpen(false)}>O Projekcie</Link>
+</motion.div>
+  )}
+</AnimatePresence>
     </nav>
   );
 }
