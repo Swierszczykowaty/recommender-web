@@ -11,7 +11,14 @@ export default function AboutPage() {
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden px-4 md:px-8 py-16">
     <Container>
      <div className="relative flex flex-col items-center z-10 w-full mx-auto">
-        <Title subtitle="">O Projekcie</Title>
+        <motion.div
+          className=""
+          initial={{ opacity: 0, y:-20}} 
+          animate={{ opacity: 1, y: 0 }} 
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          >
+          <Title subtitle="">O Projekcie</Title>
+        </motion.div>
 
         <motion.div
           initial={{ opacity: 0, y: 40 }}
