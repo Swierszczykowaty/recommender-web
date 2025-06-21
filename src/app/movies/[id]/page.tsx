@@ -6,7 +6,7 @@ import Container from '@/components/Container';
 import Image from 'next/image';
 import { useState } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-
+import Link from 'next/link';
 const moviesData: Movie[] = rawMoviesData as Movie[];
 
 export default function MovieDetailPage() {
@@ -130,9 +130,12 @@ export default function MovieDetailPage() {
         </div>
 
         {/* Back Button */}
-        <div className="my-10 text-center cursor-pointer">
+        <div className="my-10 text-center cursor-pointer gap-6 flex justify-center items-center">
           {/* Zmieniono Link na button i dodano onClick */}
-          <button
+            <Link href={`/recommender?recommend=${movie.id}`}>
+            <button className="inline-block px-6 py-3 bg-white/10 border border-white/30 rounded-lg text-white hover:bg-white/20 transition cursor-pointer">🔁 Generuj rekomendacje</button>
+            </Link>
+            <button
             onClick={handleGoBack}
             className="inline-block px-6 py-3 bg-white/10 border border-white/30 rounded-lg text-white hover:bg-white/20 transition cursor-pointer"
           >
