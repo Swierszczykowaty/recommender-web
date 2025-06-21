@@ -121,9 +121,9 @@ export default function MovieDetailPage() {
 
           {/* Additional info */}
           <div className="mt-8 border-t border-white/20 pt-6 grid grid-cols-1 sm:grid-cols-2 gap-4 text-white/90">
-            <p><strong>Popularność:</strong> {movie.popularity}</p>
             <p><strong>Budżet:</strong> ${movie.budget?.toLocaleString()}</p>
             <p><strong>Przychód:</strong> ${movie.revenue?.toLocaleString()}</p>
+            <p><strong>Popularność:</strong> {movie.popularity}</p>
             <p><strong>Języki:</strong> {movie.spoken_languages}</p>
             <p className="sm:col-span-2"><strong>Studia produkcyjne:</strong> {movie.production_companies}</p>
           </div>

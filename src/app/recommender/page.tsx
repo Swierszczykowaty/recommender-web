@@ -92,7 +92,7 @@ const fetchRecommendations = async (movie: Movie) => {
   return (
     <section className="relative min-h-screen flex justify-center overflow-hidden px-4 md:px-8 pt-32">
       <Container>
-        <div className="flex flex-col items-center w-full mx-auto">
+        <div className="flex flex-col items-center w-full mx-auto mb-20">
           <Title subtitle="Wybierz film, a my znajdziemy podobne!">
             Generowanie Rekomendacji
           </Title>
@@ -137,7 +137,7 @@ const fetchRecommendations = async (movie: Movie) => {
 
           {/* Ostatnio popularne */}
           {popularMovies.length > 0 && searchResults.length === 0 && !selectedMovie && !isLoading && (
-            <div className="flex flex-col items-center w-full mx-auto mt-8">
+            <div className="flex flex-col items-center w-full mx-auto mt-2">
               <h2 className="text-white/80 text-sm">Ostatnio popularne:</h2>
               <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6 w-full mb-16">
                 {popularMovies.map((movie) => (
