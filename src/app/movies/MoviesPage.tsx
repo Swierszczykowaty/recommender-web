@@ -30,14 +30,23 @@ export default function MoviesPage() {
     router.push(`/movies?page=${page}`);
   };
 
-  const handleSearch = (query: string) => {
-    const lowerQuery = query.toLowerCase();
-    const filtered = moviesData.filter((movie) =>
-    typeof movie.title === 'string' && movie.title.toLowerCase().includes(lowerQuery)
-    );
-    setFilteredMovies(filtered);
-    setCurrentPage(1);
-  };
+const handleSearch = (query: string) => {
+  const lowerQuery = query.toLowerCase();
+
+  const filtered = moviesData.filter((movie) => {
+    const titleMatch =
+      typeof movie.title === 'string' && movie.title.toLowerCase().includes(lowerQuery);
+
+    const keywordsMatch =
+      typeof movie.keywords === 'string' && movie.keywords.toLowerCase().includes(lowerQuery);
+
+    return titleMatch || keywordsMatch;
+  });
+
+  setFilteredMovies(filtered);
+  setCurrentPage(1); // resetuj na pierwszą stronę po wyszukiwaniu
+};
+
 
   const paginatedMovies = filteredMovies.slice(
     (currentPage - 1) * ITEMS_PER_PAGE,
@@ -71,11 +80,11 @@ export default function MoviesPage() {
             Strona {currentPage} z {totalPages}
           </p>
 
-          <div className="mt-8 w-full max-w-xl">
+          <div className="mt-8 w-full max-w-2xl">
             <SearchBar onSearch={handleSearch} />
           </div>
 
-          <div className="mt-10 md:mt-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full">
+          <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full">
             {paginatedMovies.map((movie) => (
               <MovieCard key={movie.id} movie={movie} />
             ))}
