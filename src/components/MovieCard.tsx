@@ -49,7 +49,7 @@ export default function MovieCard({ movie }: { movie: Movie }) {
       {/* Tekst */}
       <div className="p-3 text-white flex flex-col justify-center sm:p-4">
         <h2 className="text-sm font-semibold line-clamp-2 mb-2 md:mb-0">{title}</h2>
-        <p className="text-white/70 text-xs">{release_date}</p>
+        <p className="text-white/70 text-xs">{release_date?.slice(0, 4)}</p>
         <p className="text-white/50 text-[10px] italic line-clamp-1">{genres}</p>
       </div>
     </Link>
