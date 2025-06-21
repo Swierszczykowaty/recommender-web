@@ -14,7 +14,7 @@ export default function SmallMovieCard({ movie, onSelect }: SmallMovieCardProps)
       className="w-full flex items-center gap-6 p-3 bg-white/10 rounded-lg hover:bg-white/20 transition cursor-pointer"
       onClick={() => onSelect(movie)}
     >
-      <div className="w-20 h-30 relative flex-shrink-0">
+      <div className="w-20 h-28 relative flex-shrink-0">
         <Image
           src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
           alt={movie.title}
@@ -36,7 +36,7 @@ export default function SmallMovieCard({ movie, onSelect }: SmallMovieCardProps)
         </p>
       </div>
 
-      <button className="ml-4 px-5 py-2 bg-white/20 hover:bg-white/30 text-white rounded">
+      <button className="ml-4 px-5 py-2 bg-white/20 hover:bg-white/30 text-white rounded cursor-pointer">
         Wybierz
       </button>
     </div>

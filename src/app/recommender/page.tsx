@@ -21,12 +21,16 @@ export default function RecommenderPage() {
   const [searchResults, setSearchResults] = useState<Movie[]>([]);
   const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
   const [recommendations, setRecommendations] = useState<Movie[]>([]);
+  const [searchQuery, setSearchQuery] = useState<string>('');
 
   const handleSearch = (query: string) => {
-  const filtered = movies.filter(
-    (movie) => typeof movie.title === 'string' && movie.title.toLowerCase().includes(query.toLowerCase())
-  );
-    setSearchResults(filtered.slice(0, 10)); // limit wyników
+    setSearchQuery(query); // nowy kod
+    const filtered = movies.filter(
+      (movie) =>
+        typeof movie.title === 'string' &&
+        movie.title.toLowerCase().includes(query.toLowerCase())
+    );
+    setSearchResults(filtered.slice(0, 10));
     setSelectedMovie(null);
     setRecommendations([]);
   };
@@ -63,7 +67,7 @@ useEffect(() => {
 }, []);
 
   return (
-    <section className="relative min-h-screen flex justify-center overflow-hidden px-4 md:px-8 pt-32 md:pt-44">
+    <section className="relative min-h-screen flex justify-center overflow-hidden px-4 md:px-8 pt-32">
       <Container>
         <div className="flex flex-col items-center w-full mx-auto">
           <Title subtitle='Wybierz film, a my znajdziemy podobne!'>
@@ -73,21 +77,26 @@ useEffect(() => {
           
           <SearchBar onSearch={handleSearch} placeholder="Wpisz tytuł filmu..." />
           </div>  
-          
           {searchResults.length > 0 && (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6 w-full mb-16">
-              {searchResults.map((movie) => (
-                <div
-                  key={movie.id}
-                  onClick={() => fetchRecommendations(movie)}
-                  className="cursor-pointer"
-                >
-                  <SmallMovieCard movie={movie} onSelect={fetchRecommendations} />
-                </div>
-              ))}
-            </div>
-          )}
-
+            <>
+              <h2 className="text-white/80 text-sm mt-2">
+                {searchQuery
+                  ? `Wyniki dla: "${searchQuery}"`
+                  : 'Ostatnio popularne:'}
+              </h2>
+              <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6 w-full mb-16">
+                {searchResults.map((movie) => (
+                  <div
+                    key={movie.id}
+                    onClick={() => fetchRecommendations(movie)}
+                    className="cursor-pointer"
+                  >
+                    <SmallMovieCard movie={movie} onSelect={fetchRecommendations} />
+                  </div>
+                ))}
+              </div>
+            </>
+        )}
           {selectedMovie && (
             <div className="mt-16 w-full">
               <h2 className="text-2xl font-bold text-white text-center mb-6">

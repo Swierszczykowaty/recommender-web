@@ -72,7 +72,7 @@ const handleSearch = (query: string) => {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden px-4 md:px-8 pt-32 md:pt-44">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden px-4 md:px-8 pt-32">
       <Container>
         <div className="relative flex flex-col items-center z-10 w-full mx-auto">
           <Title subtitle='Poznaj filmy, które musisz zobaczyć.'>Baza filmów</Title>
