@@ -62,7 +62,7 @@ useEffect(() => {
 
     setSearchResults(filtered);
   }
-}, []);
+}, [searchResults.length, selectedMovie]);
 
   return (
     <section className="relative min-h-screen flex justify-center overflow-hidden px-4 md:px-8 pt-32">

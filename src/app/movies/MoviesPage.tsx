@@ -32,7 +32,6 @@ export default function MoviesPage() {
   };
 
 const handleSearch = (query: string) => {
-  const lowerQuery = query.toLowerCase();
 
 const filtered = filterMovies(moviesData, query);
 
