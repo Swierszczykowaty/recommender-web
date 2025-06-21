@@ -4,7 +4,8 @@ import type { Movie } from '@/types/movie';
 import rawMoviesData from '@/data/full_data_web.json';
 import Container from '@/components/Container';
 import Image from 'next/image';
-import { useState } from 'react'; // Usunęliśmy 'Link', ponieważ zastąpimy go przyciskiem
+import { useState } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
 
 const moviesData: Movie[] = rawMoviesData as Movie[];
 
@@ -12,6 +13,8 @@ export default function MovieDetailPage() {
   const params = useParams();
   const movieId = Number(params.id);
   const movie = moviesData.find((m) => m.id === movieId);
+  const { scrollY } = useScroll();
+  const scrollYProgress = useTransform(scrollY, [0, 300], [0, -100]);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -33,19 +36,24 @@ export default function MovieDetailPage() {
 <section className="relative min-h-screen text-white ">
   {/* Backdrop Image with Gradient or Placeholder */}
   {movie.backdrop_path ? (
-    <div className="relative w-full h-[600px]">
-      <Image
-        src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
-        alt={movie.title}
-        fill
-        className="object-cover"
-        style={{
-          objectPosition: 'center 20%',
-          WebkitMaskImage: 'linear-gradient(to bottom, black 40%, transparent 100%)',
-          maskImage: 'linear-gradient(to bottom, black 40%, transparent 100%)'
-        }}
-        priority
-      />
+    <div className="relative w-full h-[600px] overflow-hidden">
+        <motion.div
+            className="absolute inset-0 z-0"
+            style={{ y: scrollYProgress }}
+        >
+            <Image
+            src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
+            alt={movie.title}
+            fill
+            className="object-cover"
+            style={{
+                objectPosition: 'center 20%',
+                WebkitMaskImage: 'linear-gradient(to bottom, black 40%, transparent 100%)',
+                maskImage: 'linear-gradient(to bottom, black 40%, transparent 100%)'
+            }}
+            priority
+            />
+  </motion.div>
       <div className="absolute inset-0 bg-gradient-to-b from-black/70 to-transparent z-10" />
         <div className="absolute inset-0 flex flex-col justify-center items-center text-center px-4 z-10 drop-shadow-2xl -mt-40">
         <h1 className="text-4xl md:text-5xl font-bold text-white mb-2">{movie.title}</h1>
