@@ -4,8 +4,7 @@ import type { Movie } from '@/types/movie';
 import rawMoviesData from '@/data/full_data_web.json';
 import Container from '@/components/Container';
 import Image from 'next/image';
-import Link from 'next/link';
-import { useState } from 'react';
+import { useState } from 'react'; // Usunęliśmy 'Link', ponieważ zastąpimy go przyciskiem
 
 const moviesData: Movie[] = rawMoviesData as Movie[];
 
@@ -23,6 +22,11 @@ export default function MovieDetailPage() {
     if (rating >= 7) return 'bg-green-600';
     if (rating >= 5) return 'bg-amber-500';
     return 'bg-red-600';
+  };
+
+  // Dodana funkcja do cofania w historii przeglądarki
+  const handleGoBack = () => {
+    window.history.back();
   };
 
   return (
@@ -103,13 +107,14 @@ export default function MovieDetailPage() {
         </div>
 
         {/* Back Button */}
-        <div className="my-10 text-center">
-          <Link
-                href="/movies"
-            className="inline-block px-6 py-3 bg-white/10 border border-white/30 rounded-lg text-white hover:bg-white/20 transition"
+        <div className="my-10 text-center cursor-pointer">
+          {/* Zmieniono Link na button i dodano onClick */}
+          <button
+            onClick={handleGoBack}
+            className="inline-block px-6 py-3 bg-white/10 border border-white/30 rounded-lg text-white hover:bg-white/20 transition cursor-pointer"
           >
-            ← Powrót do bazy filmów
-          </Link>
+            ← Powrót do poprzedniej strony
+          </button>
         </div>
       </Container>
 

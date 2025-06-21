@@ -8,10 +8,6 @@ import MovieCard from '@/components/MovieCard';
 import type { Movie } from '@/types/movie';
 import moviesDataRaw from '@/data/full_data_web.json';
 
-
-const searchParams = useSearchParams();
-const currentPage = searchParams.get('page') || '1';
-
 const moviesData: Movie[] = moviesDataRaw as Movie[];
 const ITEMS_PER_PAGE = 24;
 const totalPages = Math.ceil(moviesData.length / ITEMS_PER_PAGE);
