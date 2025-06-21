@@ -27,16 +27,17 @@ export default function MovieDetailPage() {
             fill
             className="object-cover"
             style={{
+            objectPosition: 'center 20%',
             WebkitMaskImage: 'linear-gradient(to bottom, black 20%, transparent 100%)',
             maskImage: 'linear-gradient(to bottom, black 50%, transparent 100%)'
             }}
             priority
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-transparent z-10" />
-        <div className="absolute inset-0 flex flex-col justify-center items-center text-center px-4 z-10">
-            <h1 className="text-4xl md:text-5xl font-bold text-white mb-2 drop-shadow-md">{movie.title}</h1>
+        <div className="absolute inset-0 bg-gradient-to-b from-black/70 to-transparent z-10" />
+        <div className="absolute inset-0 flex flex-col justify-center items-center text-center px-4 z-10 drop-shadow-2xl">
+            <h1 className="text-4xl md:text-5xl font-bold text-white mb-2 ">{movie.title}</h1>
             {movie.tagline && (
-            <p className="text-lg italic text-white/80">{movie.tagline}</p>
+            <p className="text-lg italic text-white">{movie.tagline}</p>
             )}
         </div>
         </div>
