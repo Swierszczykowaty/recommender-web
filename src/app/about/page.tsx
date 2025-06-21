@@ -27,10 +27,11 @@ export default function AboutPage() {
           className="mt-12 p-8 rounded-xl bg-white/10 backdrop-blur-lg border border-white/20 text-white shadow-xl"
         >
           <p className="text-lg leading-relaxed">
-            Projekt powstał jako narzędzie rekomendujące filmy dopasowane do Twoich preferencji. Wykorzystuje techniki uczenia maszynowego oraz przyjazny interfejs użytkownika.
+            Ten projekt to inteligentna platforma filmowa, która łączy nowoczesny interfejs z systemem rekomendacji opartym na danych. Umożliwia przeglądanie bazy filmów, wyszukiwanie po tytule lub słowach kluczowych oraz znajdowanie podobnych filmów dzięki AI.
           </p>
+
           <p className="mt-4 text-white/80">
-            Znajdziesz tu bazę filmów, które możesz przeglądać i dodawać do ulubionych, a także system rekomendacji, który uczy się Twoich wyborów.
+            Wykorzystuje techniki uczenia maszynowego, dane z TMDB oraz dynamiczne komponenty zbudowane w Next.js. Dzięki integracji z Framer Motion i Tailwind CSS całość działa płynnie i nowocześnie.
           </p>
         </motion.div>
       </div>

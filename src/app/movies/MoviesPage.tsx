@@ -8,6 +8,7 @@ import MovieCard from '@/components/MovieCard';
 import type { Movie } from '@/types/movie';
 import moviesDataRaw from '@/data/full_data_web.json';
 import SearchBar from '@/components/SearchBar';
+import { filterMovies } from '@/lib/filterMovies';
 
 const moviesData: Movie[] = moviesDataRaw as Movie[];
 const ITEMS_PER_PAGE = 24;
@@ -33,15 +34,7 @@ export default function MoviesPage() {
 const handleSearch = (query: string) => {
   const lowerQuery = query.toLowerCase();
 
-  const filtered = moviesData.filter((movie) => {
-    const titleMatch =
-      typeof movie.title === 'string' && movie.title.toLowerCase().includes(lowerQuery);
-
-    const keywordsMatch =
-      typeof movie.keywords === 'string' && movie.keywords.toLowerCase().includes(lowerQuery);
-
-    return titleMatch || keywordsMatch;
-  });
+const filtered = filterMovies(moviesData, query);
 
   setFilteredMovies(filtered);
   setCurrentPage(1); // resetuj na pierwszą stronę po wyszukiwaniu
@@ -89,7 +82,7 @@ const handleSearch = (query: string) => {
           </div>
 
           {/* PAGINATION CONTROLS */}
-          <div className="mt-20 mb-10 flex flex-wrap gap-2 justify-center items-center">
+          <div className="mt-20 flex flex-wrap gap-2 justify-center items-center">
             <button
               onClick={() => handleChangePage(currentPage - 1)}
               disabled={currentPage <= 1}

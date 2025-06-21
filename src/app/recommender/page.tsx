@@ -9,6 +9,7 @@ import SmallMovieCard from '@/components/SmallMovieCard';
 import SearchBar from '@/components/SearchBar';
 import type { Movie } from '@/types/movie';
 import allMovies from '@/data/full_data_web.json';
+import { filterMovies } from '@/lib/filterMovies';
 
 interface Recommendation {
   id: number;
@@ -25,11 +26,8 @@ export default function RecommenderPage() {
 
   const handleSearch = (query: string) => {
     setSearchQuery(query); // nowy kod
-    const filtered = movies.filter(
-      (movie) =>
-        typeof movie.title === 'string' &&
-        movie.title.toLowerCase().includes(query.toLowerCase())
-    );
+const filtered = filterMovies(movies, query);
+
     setSearchResults(filtered.slice(0, 10));
     setSelectedMovie(null);
     setRecommendations([]);
@@ -74,8 +72,7 @@ useEffect(() => {
             Generowanie Rekomendacji
           </Title>
           <div className="mt-8 w-full max-w-2xl">
-          
-          <SearchBar onSearch={handleSearch} placeholder="Wpisz tytuł filmu..." />
+            <SearchBar onSearch={handleSearch} placeholder="Wpisz tytuł filmu..." />
           </div>  
           {searchResults.length > 0 && (
             <>
@@ -98,11 +95,11 @@ useEffect(() => {
             </>
         )}
           {selectedMovie && (
-            <div className="mt-16 w-full">
-              <h2 className="text-2xl font-bold text-white text-center mb-6">
+            <div className="flex flex-col items-center w-full mx-auto">
+              <h2 className="text-white/80 text-sm mt-2">
                 Rekomendacje dla: {selectedMovie.title}
               </h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 w-full">
+              <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 w-full">
                 {recommendations.map((movie) => (
                   <MovieCard key={movie.id} movie={movie} />
                 ))}

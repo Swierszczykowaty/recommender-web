@@ -26,7 +26,8 @@ export default function SmallMovieCard({ movie, onSelect }: SmallMovieCardProps)
 
       <div className="flex-1 text-white overflow-hidden">
         <h3 className="text-xl font-semibold truncate">{movie.title}</h3>
-        <p className="text-white/60 text-sm">{movie.release_date?.slice(0, 4)}</p>
+        <p className="text-white/60 text-sm mt-1">{movie.release_date?.slice(0, 4)}</p>
+        <p className="text-white/70 text-sm">Ocena: {movie.vote_average?.toFixed(1) ?? '–'}</p>
         <p className="text-white/80 text-sm truncate">
           {Array.isArray(movie.genres)
             ? movie.genres.join(', ')
