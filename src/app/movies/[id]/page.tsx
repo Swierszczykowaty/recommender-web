@@ -1,14 +1,13 @@
 'use client';
 
-import { useParams } from 'next/navigation';
-import type { Movie } from '@/types/movie'; 
+import { useParams, notFound } from 'next/navigation';
+import type { Movie } from '@/types/movie';
 import rawMoviesData from '@/data/full_data_web.json';
 import Container from '@/components/Container';
-import Title from '@/components/Title';
 import Image from 'next/image';
-import { notFound } from 'next/navigation';
+import Link from 'next/link';
 
-const moviesData: Movie[] = rawMoviesData as Movie[]; 
+const moviesData: Movie[] = rawMoviesData as Movie[];
 
 export default function MovieDetailPage() {
   const params = useParams();
@@ -18,27 +17,51 @@ export default function MovieDetailPage() {
   if (!movie) return notFound();
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden px-4 md:px-8 py-16">
+    <section className="relative min-h-screen text-white">
+      {/* Backdrop Image with Gradient */}
+      {movie.backdrop_path && (
+        <div className="relative w-full h-[400px]">
+        <Image
+            src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
+            alt={movie.title}
+            fill
+            className="object-cover"
+            style={{
+            WebkitMaskImage: 'linear-gradient(to bottom, black 20%, transparent 100%)',
+            maskImage: 'linear-gradient(to bottom, black 50%, transparent 100%)'
+            }}
+            priority
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-transparent z-10" />
+        <div className="absolute inset-0 flex flex-col justify-center items-center text-center px-4 z-10">
+            <h1 className="text-4xl md:text-5xl font-bold text-white mb-2 drop-shadow-md">{movie.title}</h1>
+            {movie.tagline && (
+            <p className="text-lg italic text-white/80">{movie.tagline}</p>
+            )}
+        </div>
+        </div>
+      )}
+
+      {/* Main content */}
       <Container>
-        <div className="relative z-10 w-full max-w-4xl mx-auto backdrop-blur-lg bg-white/10 border border-white/20 p-8 rounded-xl text-white shadow-xl">
-          <Title subtitle={movie.tagline}>{movie.title}</Title>
-          <div className="mt-6 flex flex-col md:flex-row gap-6">
+        <div className="relative z-10 w-full max-w-5xl mx-auto bg-white/10 border border-white/20 p-8 rounded-xl backdrop-blur-md shadow-xl -mt-24">
+          <div className="flex flex-col md:flex-row gap-6">
             <div className="w-full md:w-1/3">
-                {movie.poster_path ? (
+              {movie.poster_path ? (
                 <Image
-                    src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                    alt={movie.title}
-                    width={500}
-                    height={750}
-                    className="rounded-lg object-cover"
+                  src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                  alt={movie.title}
+                  width={500}
+                  height={750}
+                  className="rounded-lg object-cover"
                 />
-                ) : (
+              ) : (
                 <div className="w-full h-[750px] bg-gray-700 rounded-lg flex items-center justify-center text-white">
-                    Brak plakatu
+                  Brak plakatu
                 </div>
-                )}
+              )}
             </div>
-            <div className="w-full md:w-2/3 space-y-4">
+            <div className="w-full md:w-2/3 space-y-4 flex flex-col">
               <p className="text-white/80">{movie.overview}</p>
               <p><strong>Data premiery:</strong> {movie.release_date}</p>
               <p><strong>Czas trwania:</strong> {movie.runtime} minut</p>
@@ -46,6 +69,15 @@ export default function MovieDetailPage() {
               <p><strong>Język oryginalny:</strong> {movie.original_language}</p>
               <p><strong>Gatunki:</strong> {movie.genres}</p>
               <p><strong>Kraje produkcji:</strong> {movie.production_countries}</p>
+                {/* Back Button */}
+                <div className="mt-auto text-center">
+                    <Link
+                    href="/movies"
+                    className="inline-block px-6 py-3 bg-white/10 border border-white/30 rounded-lg text-white hover:bg-white/20 transition"
+                    >
+                    ← Powrót do bazy filmów
+                    </Link>
+                </div>
             </div>
           </div>
         </div>

@@ -20,15 +20,15 @@ export default function MovieCard({ movie }: { movie: Movie }) {
       href={`/movies/${id}`}
       className="group bg-white/10 backdrop-blur-lg border border-white/20 rounded-xl overflow-hidden shadow-xl transition hover:bg-white/20 flex flex-col"
     >
-      <div className="relative w-full h-[400px]">
+      <div className="relative w-full h-[500px] overflow-hidden">
         <Image
           src={`https://image.tmdb.org/t/p/w500${poster_path}`}
           alt={title}
           fill
-          className="object-cover group-hover:scale-105 transition-transform duration-300"
+          className="object-cover group-hover:scale-105 transition-transform duration-300 "
         />
       </div>
-      <div className="p-4 text-white flex flex-col justify-between h-full">
+      <div className="p-4 text-white flex flex-col ">
         <h2 className="text-xl font-semibold mb-1">{title}</h2>
         <p className="text-white/70 text-sm">
         {release_date} | {typeof vote_average === 'number' ? vote_average.toFixed(1) : '—'} ★

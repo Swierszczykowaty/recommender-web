@@ -10,14 +10,14 @@ import { useState } from 'react';
 const moviesData: Movie[] = moviesDataRaw as Movie[];
 
 export default function MoviesPage() {
-  const [visibleMovies, setVisibleMovies] = useState(100);
+  const [visibleMovies, setVisibleMovies] = useState(25);
 
   const handleLoadMore = () => {
-    setVisibleMovies((prev) => prev + 100);
+    setVisibleMovies((prev) => prev + 25);
   };
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden px-4 md:px-8 py-16">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden px-4 md:px-8 py-32">
       <Container>
         <div className="relative flex flex-col items-center z-10 w-full mx-auto">
           <Title>Baza filmów</Title>
