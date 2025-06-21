@@ -6,7 +6,7 @@ import AnimatedBackground from '@/components/Background';
 import { Archivo } from 'next/font/google';
 const archivo = Archivo({
   subsets: ['latin'],
-  weight: ['300','400', '500', '600', '700'], // dodaj więcej jeśli potrzebujesz
+  weight: ['300','400', '500', '600', '700'], 
   display: 'swap',
 });
 

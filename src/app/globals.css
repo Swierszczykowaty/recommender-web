@@ -21,3 +21,11 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+.parallax {
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+}
+html {
+  scroll-behavior: smooth;
+}

@@ -8,6 +8,7 @@ import MovieCard from '@/components/MovieCard';
 import type { Movie } from '@/types/movie';
 import moviesDataRaw from '@/data/full_data_web.json';
 import SearchBar from '@/components/SearchBar';
+import { filterMovies } from '@/lib/filterMovies';
 
 const moviesData: Movie[] = moviesDataRaw as Movie[];
 const ITEMS_PER_PAGE = 24;
@@ -31,17 +32,8 @@ export default function MoviesPage() {
   };
 
 const handleSearch = (query: string) => {
-  const lowerQuery = query.toLowerCase();
 
-  const filtered = moviesData.filter((movie) => {
-    const titleMatch =
-      typeof movie.title === 'string' && movie.title.toLowerCase().includes(lowerQuery);
-
-    const keywordsMatch =
-      typeof movie.keywords === 'string' && movie.keywords.toLowerCase().includes(lowerQuery);
-
-    return titleMatch || keywordsMatch;
-  });
+const filtered = filterMovies(moviesData, query);
 
   setFilteredMovies(filtered);
   setCurrentPage(1); // resetuj na pierwszą stronę po wyszukiwaniu
@@ -72,19 +64,17 @@ const handleSearch = (query: string) => {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden px-4 md:px-8 pt-32 md:pt-44">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden px-4 md:px-8 pt-32">
       <Container>
         <div className="relative flex flex-col items-center z-10 w-full mx-auto">
-          <Title>Baza filmów</Title>
-          <p className="text-white/80 text-sm mt-2">
-            Strona {currentPage} z {totalPages}
-          </p>
-
+          <Title subtitle='Poznaj filmy, które musisz zobaczyć.'>Baza filmów</Title>
           <div className="mt-8 w-full max-w-2xl">
             <SearchBar onSearch={handleSearch} />
           </div>
-
-          <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full">
+            <p className="text-white/80 text-sm mt-2">
+            Strona {currentPage} z {totalPages}
+          </p>
+          <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full">
             {paginatedMovies.map((movie) => (
               <MovieCard key={movie.id} movie={movie} />
             ))}
