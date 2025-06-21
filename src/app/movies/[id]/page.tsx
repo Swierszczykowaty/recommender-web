@@ -30,52 +30,70 @@ export default function MovieDetailPage() {
   };
 
   return (
-    <section className="relative min-h-screen text-white">
-      {/* Backdrop Image with Gradient */}
-      {movie.backdrop_path && (
-        <div className="relative w-full h-[400px]">
-          <Image
-            src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
-            alt={movie.title}
-            fill
-            className="object-cover"
-            style={{
-              objectPosition: 'center 20%',
-              WebkitMaskImage: 'linear-gradient(to bottom, black 50%, transparent 100%)',
-              maskImage: 'linear-gradient(to bottom, black 50%, transparent 100%)'
-            }}
-            priority
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/70 to-transparent z-10" />
-          <div className="absolute inset-0 flex flex-col justify-center items-center text-center px-4 z-10 drop-shadow-2xl">
-            <h1 className="text-4xl md:text-5xl font-bold text-white mb-2">{movie.title}</h1>
-            {movie.tagline && (
-              <p className="text-lg italic text-white mt-2">{movie.tagline}</p>
-            )}
-          </div>
-        </div>
+<section className="relative min-h-screen text-white">
+  {/* Backdrop Image with Gradient or Placeholder */}
+  {movie.backdrop_path ? (
+    <div className="relative w-full h-[400px]">
+      <Image
+        src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
+        alt={movie.title}
+        fill
+        className="object-cover"
+        style={{
+          objectPosition: 'center 20%',
+          WebkitMaskImage: 'linear-gradient(to bottom, black 50%, transparent 100%)',
+          maskImage: 'linear-gradient(to bottom, black 50%, transparent 100%)'
+        }}
+        priority
+      />
+      <div className="absolute inset-0 bg-gradient-to-b from-black/70 to-transparent z-10" />
+      <div className="absolute inset-0 flex flex-col justify-center items-center text-center px-4 z-10 drop-shadow-2xl">
+        <h1 className="text-4xl md:text-5xl font-bold text-white mb-2">{movie.title}</h1>
+        {movie.tagline && (
+          <p className="text-lg italic text-white mt-2">{movie.tagline}</p>
+        )}
+      </div>
+    </div>
+  ) : (
+    <div className="relative w-full h-[400px] flex flex-col justify-center items-center text-center px-4 z-10">
+      {/* Placeholder content when no image is available */}
+      <h1 className="text-4xl md:text-5xl font-bold text-white mb-2">{movie.title}</h1>
+      {movie.tagline && (
+        <p className="text-lg italic text-white mt-2">{movie.tagline}</p>
       )}
+      <p className="text-white mt-4">No backdrop available for this movie.</p>
+    </div>
+  )}
 
       {/* Main content */}
       <Container>
         <div className="relative z-10 w-full max-w-5xl mx-auto bg-white/10 border border-white/20 p-8 rounded-xl backdrop-blur-md shadow-xl -mt-24">
           <div className="flex flex-col md:flex-row gap-6">
             <div className="w-full md:w-1/3">
-              {movie.poster_path ? (
-                <div className="cursor-pointer" onClick={() => setIsModalOpen(true)}>
-                  <Image
+                {movie.poster_path ? (
+                <div
+                    className="relative cursor-pointer group" 
+                    onClick={() => setIsModalOpen(true)}
+                >
+                    <Image
                     src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
                     alt={movie.title}
                     width={500}
                     height={750}
                     className="rounded-lg object-cover"
-                  />
+                    />
+                    {/* Overlay for hover effect */}
+                    <div className="absolute inset-0 bg-black/50 rounded-lg flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-100">
+                    <span className="material-icons text-white text-6xl">
+                        zoom_in
+                    </span>
+                    </div>
                 </div>
-              ) : (
+                ) : (
                 <div className="w-full h-[750px] bg-gray-700 rounded-lg flex items-center justify-center text-white">
-                  Brak plakatu
+                    Brak plakatu
                 </div>
-              )}
+                )}
             </div>
             <div className="w-full md:w-2/3 space-y-4 flex flex-col">
               <p className="text-white/80 text-xl font-semibold flex items-center gap-2">
@@ -88,7 +106,6 @@ export default function MovieDetailPage() {
               <p className="text-white/80">{movie.overview}</p>
               <p><strong>Data premiery:</strong> {movie.release_date}</p>
               <p><strong>Czas trwania:</strong> {movie.runtime} minut</p>
-              <p><strong>Język oryginalny:</strong> {movie.original_language}</p>
               <p><strong>Gatunki:</strong> {movie.genres}</p>
               <p><strong>Kraje produkcji:</strong> {movie.production_countries}</p>
             </div>
@@ -137,7 +154,7 @@ export default function MovieDetailPage() {
               onClick={() => setIsModalOpen(false)}
               className="absolute top-[-50] sm:top-0 right-0 bg-white/10 border border-white/30 text-white px-4 py-2 rounded hover:bg-white/20"
             >
-              Zamknij ✕
+              ✕
             </button>
           </div>
         </div>

@@ -13,7 +13,7 @@ export default function Title({ children, subtitle }: TitleProps) {
         {children}
       </h2>
       {subtitle && (
-        <p className="mt-2 text-lg text-white/80">{subtitle}</p>
+        <p className="mt-2 text-md text-white/80">{subtitle}</p>
       )}
     </div>
   );
