@@ -23,10 +23,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
       </head>
       <body className={`${archivo.className} relative text-white min-h-screen overflow-x-hidden`}>
-
-        {/* UI */}
         <NavBar />
-        <main className="relative z-10 overflow-hidden">
+        <main className="relative z-10 overflow-hidden bg-gray-950">
           <AnimatedBackground />
           {children}
         </main>
