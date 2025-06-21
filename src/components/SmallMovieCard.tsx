@@ -2,7 +2,6 @@
 
 import Image from 'next/image';
 import type { Movie } from '@/types/movie';
-import { useRouter } from 'next/navigation';
 
 interface SmallMovieCardProps {
   movie: Movie;
@@ -10,11 +9,10 @@ interface SmallMovieCardProps {
 }
 
 export default function SmallMovieCard({ movie, onSelect }: SmallMovieCardProps) {
-    const router = useRouter();
   return (
     <div
       className="w-full flex items-center gap-6 p-3 bg-white/10 rounded-lg hover:bg-white/20 transition cursor-pointer"
-      onClick={() => router.push(`/recommender?recommend=${movie.id}`)}
+      onClick={() => onSelect(movie)}
     >
       <div className="w-20 h-28 relative flex-shrink-0">
         <Image
