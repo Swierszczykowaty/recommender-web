@@ -1,19 +1,55 @@
 'use client';
 
+import { useSearchParams, useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 import Title from '@/components/Title';
 import Container from '@/components/Container';
 import MovieCard from '@/components/MovieCard';
 import type { Movie } from '@/types/movie';
 import moviesDataRaw from '@/data/full_data_web.json';
-import { useState } from 'react';
 
 const moviesData: Movie[] = moviesDataRaw as Movie[];
+const ITEMS_PER_PAGE = 24;
+const totalPages = Math.ceil(moviesData.length / ITEMS_PER_PAGE);
+
+const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
 
 export default function MoviesPage() {
-  const [visibleMovies, setVisibleMovies] = useState(25);
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const pageFromParams = Number(searchParams.get('page')) || 1;
+  const [currentPage, setCurrentPage] = useState(pageFromParams);
 
-  const handleLoadMore = () => {
-    setVisibleMovies((prev) => prev + 25);
+  useEffect(() => {
+    setCurrentPage(pageFromParams);
+  }, [pageFromParams]);
+
+  const handleChangePage = (page: number) => {
+    router.push(`/movies?page=${page}`);
+  };
+
+  const paginatedMovies = moviesData.slice(
+    (currentPage - 1) * ITEMS_PER_PAGE,
+    currentPage * ITEMS_PER_PAGE
+  );
+
+  const generatePagination = () => {
+    const pages: (number | string)[] = [];
+
+    if (totalPages <= 10) {
+      for (let i = 1; i <= totalPages; i++) pages.push(i);
+    } else {
+      pages.push(1);
+
+      if (currentPage > 4) pages.push('...');
+      for (let i = Math.max(2, currentPage - 1); i <= Math.min(totalPages - 1, currentPage + 1); i++) {
+        pages.push(i);
+      }
+      if (currentPage < totalPages - 3) pages.push('...');
+      pages.push(totalPages);
+    }
+
+    return pages;
   };
 
   return (
@@ -21,21 +57,52 @@ export default function MoviesPage() {
       <Container>
         <div className="relative flex flex-col items-center z-10 w-full mx-auto">
           <Title>Baza filmów</Title>
+          <p className="text-white/80 text-sm mt-2">
+            Strona {currentPage} z {totalPages}
+          </p>
 
-          <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
-            {moviesData.slice(0, visibleMovies).map((movie) => (
+          <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full">
+            {paginatedMovies.map((movie) => (
               <MovieCard key={movie.id} movie={movie} />
             ))}
           </div>
 
-          {visibleMovies < moviesData.length && (
+          {/* PAGINATION CONTROLS */}
+          <div className="mt-20 flex flex-wrap gap-2 justify-center items-center">
             <button
-              onClick={handleLoadMore}
-              className="mt-10 px-6 py-3 text-white bg-white/10 border border-white/30 rounded-lg backdrop-blur-md hover:bg-white/20 transition"
+              onClick={() => handleChangePage(currentPage - 1)}
+              disabled={currentPage <= 1}
+              className="px-4 py-2 text-white/70 border border-white/20 rounded hover:bg-white/10 disabled:opacity-30"
             >
-              Załaduj więcej
+              ← Poprzednia
             </button>
-          )}
+
+            {generatePagination().map((page, idx) =>
+              typeof page === 'string' ? (
+                <span key={`ellipsis-${idx}`} className="px-3 py-2 text-white/50">…</span>
+              ) : (
+                <button
+                  key={`page-${page}`}
+                  onClick={() => handleChangePage(page)}
+                  className={`px-4 py-2 rounded-md border transition ${
+                    currentPage === page
+                      ? 'bg-white/30 text-white font-bold'
+                      : 'bg-white/10 text-white hover:bg-white/20'
+                  }`}
+                >
+                  {page}
+                </button>
+              )
+            )}
+
+            <button
+              onClick={() => handleChangePage(currentPage + 1)}
+              disabled={currentPage >= totalPages}
+              className="px-4 py-2 text-white/70 border border-white/20 rounded hover:bg-white/10 disabled:opacity-30"
+            >
+              Następna →
+            </button>
+          </div>
         </div>
       </Container>
     </section>
