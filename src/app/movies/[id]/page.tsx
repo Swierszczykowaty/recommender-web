@@ -1,5 +1,4 @@
 'use client';
-
 import { useParams, notFound } from 'next/navigation';
 import type { Movie } from '@/types/movie';
 import rawMoviesData from '@/data/full_data_web.json';
@@ -88,18 +87,29 @@ export default function MovieDetailPage() {
               <p><strong>Język oryginalny:</strong> {movie.original_language}</p>
               <p><strong>Gatunki:</strong> {movie.genres}</p>
               <p><strong>Kraje produkcji:</strong> {movie.production_countries}</p>
-
             </div>
           </div>
+
+          {/* Additional info */}
+          <div className="mt-8 border-t border-white/20 pt-6 grid grid-cols-1 sm:grid-cols-2 gap-4 text-white/90">
+            <p><strong>Status:</strong> {movie.status}</p>
+            <p><strong>Popularność:</strong> {movie.popularity}</p>
+            <p><strong>Budżet:</strong> ${movie.budget?.toLocaleString()}</p>
+            <p><strong>Przychód:</strong> ${movie.revenue?.toLocaleString()}</p>
+            <p><strong>Dla dorosłych:</strong> {movie.adult === 'True' ? 'Tak' : 'Nie'}</p>
+            <p><strong>Języki:</strong> {movie.spoken_languages}</p>
+            <p className="sm:col-span-2"><strong>Studia produkcyjne:</strong> {movie.production_companies}</p>
+          </div>
         </div>
+
         {/* Back Button */}
         <div className="my-10 text-center">
-            <Link
+          <Link
                 href="/movies"
-                className="inline-block px-6 py-3 bg-white/10 border border-white/30 rounded-lg text-white hover:bg-white/20 transition"
-            >
-                ← Powrót do bazy filmów
-            </Link>
+            className="inline-block px-6 py-3 bg-white/10 border border-white/30 rounded-lg text-white hover:bg-white/20 transition"
+          >
+            ← Powrót do bazy filmów
+          </Link>
         </div>
       </Container>
 

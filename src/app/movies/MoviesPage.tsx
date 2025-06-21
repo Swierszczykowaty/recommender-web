@@ -8,10 +8,13 @@ import MovieCard from '@/components/MovieCard';
 import type { Movie } from '@/types/movie';
 import moviesDataRaw from '@/data/full_data_web.json';
 
+
+const searchParams = useSearchParams();
+const currentPage = searchParams.get('page') || '1';
+
 const moviesData: Movie[] = moviesDataRaw as Movie[];
 const ITEMS_PER_PAGE = 24;
 const totalPages = Math.ceil(moviesData.length / ITEMS_PER_PAGE);
-
 
 export default function MoviesPage() {
   const searchParams = useSearchParams();
@@ -57,7 +60,7 @@ export default function MoviesPage() {
         <div className="relative flex flex-col items-center z-10 w-full mx-auto">
           <Title>Baza filmów</Title>
           <p className="text-white/80 text-sm mt-2">
-            Strona {currentPage} z {totalPages} – <span className="italic">Witaj, użytkowniku!</span>
+            Strona {currentPage} z {totalPages}
           </p>
 
           <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full">
