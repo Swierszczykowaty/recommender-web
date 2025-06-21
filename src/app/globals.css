@@ -7,7 +7,8 @@
   --font-mono: 'Fira Code', monospace;
 }
 
-
+.material-icons.md-48 { font-size: 48px; }
+.material-icons.md-60 { font-size: 60px; } /* Przykładowy rozmiar dla text-6xl */
 
 @media (prefers-color-scheme: dark) {
   :root {
