@@ -2,7 +2,6 @@
 
 import Image from 'next/image';
 import type { Movie } from '@/types/movie';
-import Link from 'next/link';
 
 interface SmallMovieCardProps {
   movie: Movie;
@@ -37,14 +36,6 @@ export default function SmallMovieCard({ movie}: SmallMovieCardProps) {
               : 'Brak danych'}
           </p>
         </div>
-      </div>
-      <div className='flex flex-row xl:flex-col w-full xl:w-auto '>
-        <Link
-          href={`/movies/${movie.id}`}
-          className="w-full ml-0 xl:ml-2 px-2 py-1 bg-white/20 hover:bg-white/30 text-white rounded cursor-pointer text-sm text-center"
-          >
-            <span className="material-icons text-6xl text-white/80 ">storage</span>
-        </Link>
       </div>
     </div>
   );
