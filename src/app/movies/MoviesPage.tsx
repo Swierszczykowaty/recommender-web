@@ -10,7 +10,8 @@ import moviesDataRaw from "@/data/full_data_web.json";
 import SearchBar from "@/components/SearchBar";
 import { filterMovies } from "@/lib/filterMovies";
 import { motion } from "framer-motion";
-
+import MovieFilters from "@/components/MovieFilters";
+import { useMemo } from "react";
 const moviesData: Movie[] = moviesDataRaw as Movie[];
 const ITEMS_PER_PAGE = 24;
 
@@ -19,7 +20,26 @@ export default function MoviesPage() {
   const router = useRouter();
   const pageFromParams = Number(searchParams.get("page")) || 1;
 
-  const [filteredMovies, setFilteredMovies] = useState<Movie[]>(moviesData);
+  const filteredMovies = useMemo(() => {
+    const query = searchParams.get("query")?.toLowerCase() || "";
+    const genre = searchParams.get("genre") || "";
+    const minRating = parseFloat(searchParams.get("rating") || "0");
+    const minYear = parseInt(searchParams.get("year") || "1900");
+
+    return moviesData.filter((movie) => {
+      const matchesQuery =
+        typeof movie.title === "string" &&
+        movie.title.toLowerCase().includes(query.toLowerCase());
+      const genreList = movie.genres?.split(", ") ?? [];
+      const matchesGenre = genre === "" || genreList.includes(genre);
+      const matchesRating = (movie.vote_average ?? 0) >= minRating;
+      const matchesYear = !isNaN(minYear)
+        ? parseInt(movie.release_date?.slice(0, 4) || "0") >= minYear
+        : true;
+
+      return matchesQuery && matchesGenre && matchesRating && matchesYear;
+    });
+  }, [searchParams]);
   const [currentPage, setCurrentPage] = useState(pageFromParams);
 
   const totalPages = Math.ceil(filteredMovies.length / ITEMS_PER_PAGE);
@@ -33,10 +53,9 @@ export default function MoviesPage() {
   };
 
   const handleSearch = (query: string) => {
-    const filtered = filterMovies(moviesData, query);
-
-    setFilteredMovies(filtered);
-    setCurrentPage(1); // resetuj na pierwszą stronę po wyszukiwaniu
+    // Filtering is handled by useMemo and searchParams, so update the query param
+    router.push(`/movies?query=${encodeURIComponent(query)}&page=1`);
+    setCurrentPage(1); // reset to first page after searching
   };
 
   const paginatedMovies = filteredMovies.slice(
@@ -66,6 +85,27 @@ export default function MoviesPage() {
     return pages;
   };
 
+  const handleFilter = ({
+    genre,
+    minRating,
+    minYear,
+  }: {
+    genre: string;
+    minRating: number;
+    minYear: number;
+  }) => {
+    // Update the search params to trigger filtering in useMemo
+    const params = new URLSearchParams(searchParams.toString());
+    if (genre) params.set("genre", genre);
+    else params.delete("genre");
+    if (minRating) params.set("rating", String(minRating));
+    else params.delete("rating");
+    if (minYear) params.set("year", String(minYear));
+    else params.delete("year");
+    params.set("page", "1");
+    router.push(`/movies?${params.toString()}`);
+    setCurrentPage(1);
+  };
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden px-4 md:px-8 pt-32">
       <Container>
@@ -80,6 +120,7 @@ export default function MoviesPage() {
           <div className="mt-8 w-full max-w-2xl">
             <SearchBar onSearch={handleSearch} />
           </div>
+
           <motion.p
             className="text-white/80 text-sm mt-2"
             initial={{ opacity: 0 }}
@@ -88,6 +129,8 @@ export default function MoviesPage() {
           >
             Strona {currentPage} z {totalPages}
           </motion.p>
+          <MovieFilters onFilter={handleFilter} />
+
           <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full">
             {paginatedMovies.map((movie, idx) => (
               <motion.div
@@ -107,7 +150,6 @@ export default function MoviesPage() {
 
           {/* PAGINATION CONTROLS */}
           <div className="mt-20 flex flex-wrap gap-2 justify-center items-center">
-
             {generatePagination().map((page, idx) =>
               typeof page === "string" ? (
                 <span
@@ -130,8 +172,6 @@ export default function MoviesPage() {
                 </button>
               )
             )}
-
-
           </div>
         </div>
       </Container>
