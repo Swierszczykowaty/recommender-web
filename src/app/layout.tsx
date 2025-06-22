@@ -1,7 +1,7 @@
 import './globals.css';
 import { ReactNode } from 'react';
 import NavBar from '@/components/NavBar';
-import AnimatedBackground from '@/components/Background';
+import LayoutBackground from '@/components/LayoutBackground';
 
 import { Archivo } from 'next/font/google';
 const archivo = Archivo({
@@ -24,10 +24,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       </head>
       <body className={`${archivo.className} relative text-white min-h-screen overflow-x-hidden`}>
         <NavBar />
-        <main className="relative z-10 overflow-hidden bg-gray-950">
-          <AnimatedBackground />
-          {children}
-        </main>
+          <main className="relative z-10 overflow-hidden bg-gray-950">
+            <LayoutBackground />
+            {children}
+          </main>
       </body>
     </html>
   );

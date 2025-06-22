@@ -6,6 +6,9 @@ import Container from '@/components/Container';
 import Image from 'next/image';
 import { useState } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import ColorThief from 'colorthief';
+import { useEffect } from 'react';
+import AnimatedBackground from '@/components/Background';
 
 const moviesData: Movie[] = rawMoviesData as Movie[];
 
@@ -17,6 +20,33 @@ export default function MovieDetailPage() {
   const scrollYProgress = useTransform(scrollY, [0, 300], [0, -100]);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+const [colors, setColors] = useState<string[]>([]);
+
+useEffect(() => {
+  if (!movie?.backdrop_path) return;
+
+  const img = typeof window !== 'undefined' ? new window.Image() : null;
+  if (!img) return;
+
+  img.crossOrigin = 'anonymous';
+  img.src = `https://image.tmdb.org/t/p/w500${movie.backdrop_path}`;
+
+  img.onload = () => {
+    try {
+      const colorThief = new ColorThief();
+      const palette = colorThief.getPalette(img, 5) as [number, number, number][];
+      const rgbaColors = palette.map(
+        ([r, g, b]: [number, number, number], i: number) => `rgba(${r}, ${g}, ${b}, ${i < 3 ? 0.3 : 0.15})`
+      );
+      setColors(rgbaColors);
+      console.log('🎨 Dominujące kolory:', rgbaColors);
+    } catch (err) {
+      console.error('❌ Błąd przy wyciąganiu kolorów:', err);
+    }
+  };
+}, [movie?.backdrop_path]);
+
 
   if (!movie) return notFound();
 
@@ -33,7 +63,10 @@ export default function MovieDetailPage() {
   };
 
   return (
+    
 <section className="relative min-h-screen text-white ">
+      <AnimatedBackground dynamicColors={colors} />
+
   {/* Backdrop Image with Gradient or Placeholder */}
   {movie.backdrop_path ? (
     <div className="relative w-full h-[600px] overflow-hidden">

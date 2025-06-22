@@ -17,10 +17,10 @@ const colorConfig = {
 
   // /movies  – chłodniejsze, ciemne niebiesko-cyjanowe
   '/movies': [
-    'rgba(30, 58, 138, 0.2)',   // indigo-900
-    'rgba(29, 78, 216, 0.2)',   // blue-700
-    'rgba(37, 99, 235, 0.2)',   // blue-600
-    'rgba(6, 95, 212, 0.1)',    // blue-600 variant
+    'rgba(30, 58, 138, 0.3)',   // indigo-900
+    'rgba(29, 78, 216, 0.3)',   // blue-700
+    'rgba(37, 99, 235, 0.3)',   // blue-600
+    'rgba(6, 95, 212, 0.3)',    // blue-600 variant
     'rgba(12, 74, 110, 0.3)',   // cyan-800
   ],
 
@@ -43,15 +43,17 @@ const colorConfig = {
   ],
 } as const;
 
-export default function AnimatedBackground() {
+export default function AnimatedBackground({ dynamicColors }: { dynamicColors?: string[] }) {
   const pathname = usePathname();
+
   const colors = useMemo(() => {
+    if (dynamicColors && dynamicColors.length >= 5) return dynamicColors;
     const basePath = '/' + pathname.split('/')[1];
     type PathKey = keyof typeof colorConfig;
     return basePath in colorConfig
       ? [...colorConfig[basePath as PathKey]]
       : [...colorConfig.default];
-  }, [pathname]);
+  }, [pathname, dynamicColors]);
 
 
   const commonClasses = 'absolute rounded-full blur-3xl';
