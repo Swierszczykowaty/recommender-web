@@ -1,14 +1,18 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
+import { motion } from "framer-motion";
+import { useState } from "react";
 
 interface SearchBarProps {
   onSearch: (query: string) => void;
   placeholder?: string;
 }
 
-export default function SearchBar({ onSearch, placeholder = 'Szukaj filmu...' }: SearchBarProps) {
-  const [searchTerm, setSearchTerm] = useState('');
+export default function SearchBar({
+  onSearch,
+  placeholder = "Szukaj filmu...",
+}: SearchBarProps) {
+  const [searchTerm, setSearchTerm] = useState("");
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
@@ -20,20 +24,29 @@ export default function SearchBar({ onSearch, placeholder = 'Szukaj filmu...' }:
   };
 
   return (
-    <form onSubmit={handleSubmit} className="w-full flex items-center gap-2 mb-4">
-      <input
-        type="text"
-        value={searchTerm}
-        onChange={handleInputChange}
-        placeholder={placeholder}
-        className="w-full px-4 py-2 rounded-lg bg-white/10 border border-white/30 text-white focus:outline-none focus:ring-2 focus:ring-white/40"
-      />
-      <button
-        type="submit"
-        className="px-4 py-2 bg-white/10 border border-white/30 rounded-lg text-white hover:bg-white/20 transition"
+    <motion.div
+      initial={{ opacity: 0}}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.9, ease: "easeOut" }}
+    >
+      <form
+        onSubmit={handleSubmit}
+        className="w-full flex items-center gap-2 mb-4"
       >
-        Szukaj
-      </button>
-    </form>
+        <input
+          type="text"
+          value={searchTerm}
+          onChange={handleInputChange}
+          placeholder={placeholder}
+          className="w-full px-4 py-2 rounded-lg bg-white/10 border border-white/30 text-white focus:outline-none focus:ring-2 focus:ring-white/40"
+        />
+        <button
+          type="submit"
+          className="px-4 py-2 bg-white/10 border border-white/30 rounded-lg text-white hover:bg-white/20 transition"
+        >
+          Szukaj
+        </button>
+      </form>
+    </motion.div>
   );
 }

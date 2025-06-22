@@ -1,20 +1,41 @@
-'use client';
-import React from 'react';
+"use client";
+import React from "react";
+import { motion } from "framer-motion";
 
 type TitleProps = {
   children: React.ReactNode;
   subtitle?: string;
+  gradientFrom?: string;
+  gradientVia?: string;
+  gradientTo?: string;
+  subtitleColor?: string;
 };
 
-export default function Title({ children, subtitle }: TitleProps) {
+export default function Title({
+  children,
+  subtitle,
+  gradientFrom = "from-orange-600",
+  gradientVia,
+  gradientTo = "to-amber-600",
+  subtitleColor = "text-white/80",
+}: TitleProps) {
   return (
-    <div className="relative z-10 w-full max-w-4xl text-center">
-      <h2 className="text-4xl md:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-orange-600 via-yellow-500 to-amber-600 drop-shadow-lg">
+    <motion.div
+      className="relative z-10 w-full max-w-4xl text-center"
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+    >
+      <h2
+        className={`text-4xl md:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r ${gradientFrom} ${
+          gradientVia ? gradientVia : ""
+        } ${gradientTo} drop-shadow-lg`}
+      >
         {children}
       </h2>
       {subtitle && (
-        <p className="mt-2 text-md text-white/80">{subtitle}</p>
+        <p className={`mt-2 text-md ${subtitleColor}`}>{subtitle}</p>
       )}
-    </div>
+    </motion.div>
   );
 }

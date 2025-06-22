@@ -7,7 +7,7 @@
   --font-mono: 'Fira Code', monospace;
 }
 
-
+.material-icons.md-60 { font-size: 70px; } 
 
 @media (prefers-color-scheme: dark) {
   :root {
