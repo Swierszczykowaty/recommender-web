@@ -103,21 +103,21 @@ export default function MovieDetailPage() {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.9, ease: "easeOut" }}
           >
-            <h1 className="text-4xl md:text-5xl font-bold text-white mb-2">
+            <h1 className="text-4xl md:text-5xl font-bold text-white mb-3">
               {movie.title}
             </h1>
             {movie.tagline && (
-              <p className="text-lg italic text-white mt-2">{movie.tagline}</p>
+              <p className="text-lg italic text-white">{movie.tagline}</p>
             )}
           </motion.div>
         </div>
       ) : (
         <div className="relative w-full h-[400px] flex flex-col justify-center items-center text-center px-4 z-10">
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-2">
+          <h1 className="text-4xl md:text-5xl font-bold text-white mb-3">
             {movie.title}
           </h1>
           {movie.tagline && (
-            <p className="text-lg italic text-white mt-2">{movie.tagline}</p>
+            <p className="text-lg italic text-white ">{movie.tagline}</p>
           )}
           <p className="text-white mt-4">
             No backdrop available for this movie.

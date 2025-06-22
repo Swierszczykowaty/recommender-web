@@ -20,26 +20,28 @@ export default function MoviesPage() {
   const router = useRouter();
   const pageFromParams = Number(searchParams.get("page")) || 1;
 
-  const filteredMovies = useMemo(() => {
-    const query = searchParams.get("query")?.toLowerCase() || "";
-    const genre = searchParams.get("genre") || "";
-    const minRating = parseFloat(searchParams.get("rating") || "0");
-    const minYear = parseInt(searchParams.get("year") || "1900");
+const filteredMovies = useMemo(() => {
+  const query = searchParams.get("query")?.toLowerCase() || "";
+  const genre = searchParams.get("genre") || "";
+  const minRating = parseFloat(searchParams.get("rating") || "0");
+  const minYear = parseInt(searchParams.get("year") || "1900");
 
-    return moviesData.filter((movie) => {
-      const matchesQuery =
-        typeof movie.title === "string" &&
-        movie.title.toLowerCase().includes(query.toLowerCase());
-      const genreList = movie.genres?.split(", ") ?? [];
-      const matchesGenre = genre === "" || genreList.includes(genre);
-      const matchesRating = (movie.vote_average ?? 0) >= minRating;
-      const matchesYear = !isNaN(minYear)
-        ? parseInt(movie.release_date?.slice(0, 4) || "0") >= minYear
-        : true;
+  let filtered = filterMovies(moviesData, query);
 
-      return matchesQuery && matchesGenre && matchesRating && matchesYear;
-    });
-  }, [searchParams]);
+  filtered = filtered.filter((movie) => {
+    const genreList = movie.genres?.split(", ") ?? [];
+    const matchesGenre = genre === "" || genreList.includes(genre);
+    const matchesRating = (movie.vote_average ?? 0) >= minRating;
+    const matchesYear = !isNaN(minYear)
+      ? parseInt(movie.release_date?.slice(0, 4) || "0") >= minYear
+      : true;
+
+    return matchesGenre && matchesRating && matchesYear;
+  });
+
+  return filtered;
+}, [searchParams]);
+
   const [currentPage, setCurrentPage] = useState(pageFromParams);
 
   const totalPages = Math.ceil(filteredMovies.length / ITEMS_PER_PAGE);
@@ -52,11 +54,12 @@ export default function MoviesPage() {
     router.push(`/movies?page=${page}`);
   };
 
-  const handleSearch = (query: string) => {
-    // Filtering is handled by useMemo and searchParams, so update the query param
-    router.push(`/movies?query=${encodeURIComponent(query)}&page=1`);
-    setCurrentPage(1); // reset to first page after searching
-  };
+const handleSearch = (query: string) => {
+  const params = new URLSearchParams(searchParams.toString()); // <- to ważne
+  if (query) params.set("query", query);
+  else params.delete("query");
+  setCurrentPage(1);
+};
 
   const paginatedMovies = filteredMovies.slice(
     (currentPage - 1) * ITEMS_PER_PAGE,
@@ -94,7 +97,6 @@ export default function MoviesPage() {
     minRating: number;
     minYear: number;
   }) => {
-    // Update the search params to trigger filtering in useMemo
     const params = new URLSearchParams(searchParams.toString());
     if (genre) params.set("genre", genre);
     else params.delete("genre");
@@ -102,8 +104,6 @@ export default function MoviesPage() {
     else params.delete("rating");
     if (minYear) params.set("year", String(minYear));
     else params.delete("year");
-    params.set("page", "1");
-    router.push(`/movies?${params.toString()}`);
     setCurrentPage(1);
   };
   return (
@@ -120,18 +120,22 @@ export default function MoviesPage() {
           <div className="mt-8 w-full max-w-2xl">
             <SearchBar onSearch={handleSearch} />
           </div>
-
+                    <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.9, ease: "easeOut" }}
+          >
+            <MovieFilters />
+          </motion.div>
           <motion.p
-            className="text-white/80 text-sm mt-2"
+            className="text-white/80 text-sm mt-6"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.9, ease: "easeOut" }}
           >
             Strona {currentPage} z {totalPages}
           </motion.p>
-          <MovieFilters onFilter={handleFilter} />
-
-          <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full">
+          <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full">
             {paginatedMovies.map((movie, idx) => (
               <motion.div
                 key={movie.id}
