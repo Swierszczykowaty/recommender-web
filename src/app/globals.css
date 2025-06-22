@@ -7,8 +7,7 @@
   --font-mono: 'Fira Code', monospace;
 }
 
-.material-icons.md-48 { font-size: 48px; }
-.material-icons.md-60 { font-size: 60px; } /* Przykładowy rozmiar dla text-6xl */
+.material-icons.md-60 { font-size: 70px; } 
 
 @media (prefers-color-scheme: dark) {
   :root {
@@ -29,4 +28,32 @@ body {
 }
 html {
   scroll-behavior: smooth;
+}
+
+/* hero */
+.animated-gradient-text {
+  background-image: linear-gradient(
+    to top right,
+    #fff, 
+    #fff,
+    #61a35b
+    );
+  background-size: 400% auto;
+    transition: background-position 0.5s ease-in-out;
+}
+.animated-gradient-text2 {
+  background-image: linear-gradient(
+    to top right,
+    #fff, 
+    #fff, 
+    #ed92ff
+    );
+  background-size: 400% auto;
+    transition: background-position 0.5s ease-in-out;
+}
+.group:hover .animated-gradient-text {
+  background-position: 100% 0;
+}
+.group:hover .animated-gradient-text2 {
+  background-position: 100% 0;
 }

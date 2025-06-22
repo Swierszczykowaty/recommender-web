@@ -38,20 +38,13 @@ export default function SmallMovieCard({ movie, onSelect }: SmallMovieCardProps)
           </p>
         </div>
       </div>
-      <div className='flex flex-row xl:flex-col items-end gap-2 w-full xl:w-auto '>
+      <div className='flex flex-row xl:flex-col w-full xl:w-auto '>
         <Link
           href={`/movies/${movie.id}`}
-          className="w-full ml-0 xl:ml-2 px-5 py-2 bg-white/20 hover:bg-white/30 text-white rounded cursor-pointer text-sm text-center"
+          className="w-full ml-0 xl:ml-2 px-2 py-1 bg-white/20 hover:bg-white/30 text-white rounded cursor-pointer text-sm text-center"
           >
-        <button>
-          Zobacz w bazie
-        </button>
+            <span className="material-icons text-6xl text-white/80 ">storage</span>
         </Link>
-        <button 
-        className="w-full ml-0 xl:ml-2 px-5 py-2 bg-amber-300/20 hover:bg-white/30 text-white rounded cursor-pointer text-sm "
-        onClick={() => onSelect(movie)}>
-          Generuj podobne
-        </button>
       </div>
     </div>
   );

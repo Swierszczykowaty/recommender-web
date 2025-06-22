@@ -68,7 +68,7 @@ useEffect(() => {
     <section className="relative min-h-screen flex justify-center overflow-hidden px-4 md:px-8 pt-32">
       <Container>
         <div className="flex flex-col items-center w-full mx-auto mb-20">
-          <Title subtitle='Wybierz film, a my znajdziemy podobne!'>
+          <Title subtitle='Wybierz film, a my znajdziemy podobne'gradientFrom="from-indigo-500" gradientVia="via-fuchsia-400" gradientTo="to-purple-500">
             Generowanie Rekomendacji
           </Title>
           <div className="mt-8 w-full max-w-2xl">

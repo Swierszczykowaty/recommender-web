@@ -17,7 +17,9 @@ export default function AboutPage() {
           animate={{ opacity: 1, y: 0 }} 
           transition={{ duration: 0.6, ease: "easeOut" }}
           >
-          <Title subtitle="">O Projekcie</Title>
+          <Title subtitle="Dowiedz się więcej" gradientFrom="from-teal-500" gradientVia="via-green-400" gradientTo="to-green-500">
+            O Projekcie
+          </Title>
         </motion.div>
 
         <motion.div
