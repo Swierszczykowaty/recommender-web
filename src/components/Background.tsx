@@ -56,7 +56,7 @@ export default function AnimatedBackground({ dynamicColors }: { dynamicColors?: 
   }, [pathname, dynamicColors]);
 
 
-  const commonClasses = 'absolute rounded-full blur-3xl';
+  const commonClasses = 'absolute rounded-full blur-3xl pointer-events-none';
 
   return (
     <>
