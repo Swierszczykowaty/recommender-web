@@ -17,7 +17,19 @@ const genresList = [
   "Mystery",
 ];
 
-export default function MovieFilters() {
+interface MovieFiltersProps {
+  onFilter: ({
+    genre,
+    minRating,
+    minYear,
+  }: {
+    genre: string;
+    minRating: number;
+    minYear: number;
+  }) => void;
+}
+
+export default function MovieFilters({ onFilter }: MovieFiltersProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [genre, setGenre] = useState<string>(searchParams.get("genre") || "");
@@ -30,16 +42,14 @@ export default function MovieFilters() {
   const [showGenres, setShowGenres] = useState(false);
   const genreRef = useRef<HTMLDivElement>(null);
 
-  const updateURL = () => {
-    const params = new URLSearchParams();
-    if (genre) params.set("genre", genre);
-    if (minRating !== "")
-      params.set("rating", parseFloat(minRating).toString());
-    if (minYear !== "") params.set("year", parseInt(minYear).toString());
-    router.push("?" + params.toString());
+  const updateFilters = () => {
+    onFilter({
+      genre,
+      minRating: parseFloat(minRating) || 0,
+      minYear: parseInt(minYear) || 1900,
+    });
   };
 
-  // Zamykamy grid po kliknięciu poza
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       if (genreRef.current && !genreRef.current.contains(e.target as Node)) {
@@ -50,16 +60,15 @@ export default function MovieFilters() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [showGenres]);
 
-  // Synchronizacja z URL
   useEffect(() => {
     setGenre(searchParams.get("genre") || "");
     setMinRating(searchParams.get("rating") || "");
     setMinYear(searchParams.get("year") || "");
   }, [searchParams]);
+
   return (
     <div className="relative w-full px-4 mt-4">
       <div className="max-w-7xl mx-auto flex flex-wrap gap-6 items-end justify-center relative z-10">
-        {/* Sekcja: Gatunek (klikany przycisk + rozwijane okno z gridem) */}
         <div ref={genreRef} className="relative flex flex-col items-start">
           <label className="text-white text-sm mb-1">Wybierz gatunek</label>
           <button
@@ -100,7 +109,6 @@ export default function MovieFilters() {
           )}
         </div>
 
-        {/* Sekcja: Minimalna ocena */}
         <div className="flex flex-col items-start">
           <label className="text-white text-sm mb-1">Minimalna ocena</label>
           <input
@@ -115,7 +123,6 @@ export default function MovieFilters() {
           />
         </div>
 
-        {/* Sekcja: Minimalny rok */}
         <div className="flex flex-col items-start">
           <label className="text-white text-sm mb-1">Minimalny rok</label>
           <input
@@ -127,12 +134,10 @@ export default function MovieFilters() {
           />
         </div>
 
-        {/* Sekcja: Przycisk Filtruj */}
         <div className="flex flex-col items-start">
-          <label className="text-transparent text-sm mb-1">.</label>{" "}
-          {/* Ukryty label dla wyrównania */}
+          <label className="text-transparent text-sm mb-1">.</label>
           <button
-            onClick={updateURL}
+            onClick={updateFilters}
             className="w-40 px-4 py-[6px] bg-white/10 border border-white/30 rounded-lg text-white hover:bg-white/20 transition"
           >
             Filtruj
