@@ -9,7 +9,7 @@ interface SmallMovieCardProps {
   onSelect: (movie: Movie) => void;
 }
 
-export default function SmallMovieCard({ movie, onSelect }: SmallMovieCardProps) {
+export default function SmallMovieCard({ movie}: SmallMovieCardProps) {
   return (
     <div
       className="w-full flex flex-col xl:flex-row items-center gap-6 p-3 bg-white/10 rounded-lg hover:bg-white/20 transition cursor-pointer"
