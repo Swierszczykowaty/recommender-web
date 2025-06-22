@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 
 const genresList = [
   "Action",
@@ -30,7 +30,6 @@ interface MovieFiltersProps {
 }
 
 export default function MovieFilters({ onFilter }: MovieFiltersProps) {
-  const router = useRouter();
   const searchParams = useSearchParams();
   const [genre, setGenre] = useState<string>(searchParams.get("genre") || "");
   const [minRating, setMinRating] = useState<string>(
@@ -46,7 +45,7 @@ export default function MovieFilters({ onFilter }: MovieFiltersProps) {
     onFilter({
       genre,
       minRating: parseFloat(minRating) || 0,
-      minYear: parseInt(minYear) || 1900,
+      minYear: parseInt(minYear) || 0,
     });
   };
 

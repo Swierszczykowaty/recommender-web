@@ -42,7 +42,7 @@ export default function MoviesPage() {
     });
 
     return sortMovies(filtered, sortBy);
-  }, [query, genre, minRating, minYear, sortBy, searchParams]);
+  }, [query, genre, minRating, minYear, sortBy]);
 
   const [currentPage, setCurrentPage] = useState(pageFromParams);
   const totalPages = Math.ceil(filteredMovies.length / ITEMS_PER_PAGE);
@@ -51,9 +51,12 @@ export default function MoviesPage() {
     setCurrentPage(pageFromParams);
   }, [pageFromParams]);
 
-  const handleChangePage = (page: number) => {
-    router.push(`/movies?page=${page}`);
-  };
+const handleChangePage = (page: number) => {
+  const params = new URLSearchParams(searchParams.toString());
+  params.set("page", page.toString());
+  router.push(`/movies?${params.toString()}`);
+};
+
 
   const handleSearch = (query: string) => {
     const params = new URLSearchParams(searchParams.toString());
