@@ -80,39 +80,39 @@ export default function MoviesPage() {
           <div className="mt-8 w-full max-w-2xl">
             <SearchBar onSearch={handleSearch} />
           </div>
-          <motion.p className="text-white/80 text-sm mt-2"             initial={{ opacity: 0 }}
-            animate={{ opacity: 1}}
-            transition={{ duration: 0.9, ease: 'easeOut' }}>
+          <motion.p
+            className="text-white/80 text-sm mt-2"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.9, ease: "easeOut" }}
+          >
             Strona {currentPage} z {totalPages}
           </motion.p>
           <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full">
-{paginatedMovies.map((movie, idx) => (
-  <motion.div
-    key={movie.id}
-    initial={{ opacity: 0, y: 20 }}
-    animate={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.4, ease: 'easeOut', delay: idx * 0.05 }}
-  >
-    <MovieCard movie={movie} />
-  </motion.div>
-))}
-
+            {paginatedMovies.map((movie, idx) => (
+              <motion.div
+                key={movie.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{
+                  duration: 0.4,
+                  ease: "easeOut",
+                  delay: idx * 0.05,
+                }}
+              >
+                <MovieCard movie={movie} />
+              </motion.div>
+            ))}
           </div>
 
           {/* PAGINATION CONTROLS */}
           <div className="mt-20 flex flex-wrap gap-2 justify-center items-center">
-            <button
-              onClick={() => handleChangePage(currentPage - 1)}
-              disabled={currentPage <= 1}
-              className="px-4 py-2 text-white/70 border border-white/20 rounded hover:bg-white/10 disabled:opacity-30"
-            >
-              ← Poprzednia
-            </button>
+
             {generatePagination().map((page, idx) =>
               typeof page === "string" ? (
                 <span
                   key={`ellipsis-${idx}`}
-                  className="px-3 py-2 text-white/50"
+                  className="px-1 md:px-3 py-2 text-white/50"
                 >
                   …
                 </span>
@@ -120,7 +120,7 @@ export default function MoviesPage() {
                 <button
                   key={`page-${page}`}
                   onClick={() => handleChangePage(page)}
-                  className={`px-4 py-2 rounded-md border transition ${
+                  className={`px-3 md:px-4 py-2 rounded-md border transition ${
                     currentPage === page
                       ? "bg-white/30 text-white font-bold"
                       : "bg-white/10 text-white hover:bg-white/20"
@@ -131,13 +131,7 @@ export default function MoviesPage() {
               )
             )}
 
-            <button
-              onClick={() => handleChangePage(currentPage + 1)}
-              disabled={currentPage >= totalPages}
-              className="px-4 py-2 text-white/70 border border-white/20 rounded hover:bg-white/10 disabled:opacity-30"
-            >
-              Następna →
-            </button>
+
           </div>
         </div>
       </Container>

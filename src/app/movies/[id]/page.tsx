@@ -9,6 +9,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import ColorThief from "colorthief";
 import { useEffect } from "react";
 import AnimatedBackground from "@/components/Background";
+import { AnimatePresence } from "framer-motion";
 
 const moviesData: Movie[] = rawMoviesData as Movie[];
 
@@ -76,6 +77,9 @@ export default function MovieDetailPage() {
           <motion.div
             className="absolute inset-0 z-0"
             style={{ y: scrollYProgress }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
           >
             <Image
               src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
@@ -93,18 +97,22 @@ export default function MovieDetailPage() {
             />
           </motion.div>
           <div className="absolute inset-0 bg-gradient-to-b from-black/70 to-transparent z-10" />
-          <div className="absolute inset-0 flex flex-col justify-center items-center text-center px-4 z-10 drop-shadow-2xl -mt-40">
+          <motion.div
+            className="absolute inset-0 flex flex-col justify-center items-center text-center px-4 z-10 drop-shadow-2xl -mt-40"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.9, ease: "easeOut" }}
+          >
             <h1 className="text-4xl md:text-5xl font-bold text-white mb-2">
               {movie.title}
             </h1>
             {movie.tagline && (
               <p className="text-lg italic text-white mt-2">{movie.tagline}</p>
             )}
-          </div>
+          </motion.div>
         </div>
       ) : (
         <div className="relative w-full h-[400px] flex flex-col justify-center items-center text-center px-4 z-10">
-          {/* Placeholder content when no image is available */}
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-2">
             {movie.title}
           </h1>
@@ -119,13 +127,21 @@ export default function MovieDetailPage() {
 
       {/* Main content */}
       <Container>
-        <div className="relative z-10 w-full max-w-5xl mx-auto bg-white/10 border border-white/20 p-8 rounded-xl backdrop-blur-md shadow-xl -mt-66">
+        <motion.div
+          className="relative z-10 w-full max-w-5xl mx-auto bg-white/10 border border-white/20 p-8 rounded-xl backdrop-blur-md shadow-xl -mt-66"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+        >
           <div className="flex flex-col md:flex-row gap-6">
             <div className="w-full md:w-1/3">
               {movie.poster_path ? (
-                <div
+                <motion.div
                   className="relative cursor-pointer group"
                   onClick={() => setIsModalOpen(true)}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.4, ease: "easeOut" }}
                 >
                   <Image
                     src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
@@ -135,12 +151,12 @@ export default function MovieDetailPage() {
                     className="rounded-lg object-cover"
                   />
                   {/* Overlay for hover effect */}
-                  <div className="absolute inset-0 bg-black/50 rounded-lg flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-100">
+                  <div className="absolute inset-0 bg-black/50 rounded-lg flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     <span className="material-icons text-white text-6xl">
                       zoom_in
                     </span>
                   </div>
-                </div>
+                </motion.div>
               ) : (
                 <div className="w-full h-[750px] bg-gray-700 rounded-lg flex items-center justify-center text-white">
                   Brak plakatu
@@ -195,14 +211,14 @@ export default function MovieDetailPage() {
               <strong>Studia produkcyjne:</strong> {movie.production_companies}
             </p>
           </div>
-        </div>
+        </motion.div>
 
         {/* Back Button */}
         <div className="my-10 text-center cursor-pointer">
           {/* Zmieniono Link na button i dodano onClick */}
           <button
             onClick={handleGoBack}
-            className="inline-block px-6 py-9 bg-white/10 border border-white/30 rounded-lg text-white hover:bg-white/20 transition cursor-pointer"
+            className="inline-block px-6 py-5 bg-white/10 border border-white/30 rounded-lg text-white hover:bg-white/20 transition cursor-pointer"
           >
             ← Powrót do poprzedniej strony
           </button>
@@ -210,37 +226,47 @@ export default function MovieDetailPage() {
       </Container>
 
       {/* Modal */}
-      {isModalOpen && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md "
-          onClick={() => setIsModalOpen(false)}
-        >
-          <div
-            className="relative w-[90%] mt-[68px]"
-            onClick={(e) => e.stopPropagation()}
+      <AnimatePresence>
+        {isModalOpen && (
+          <motion.div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md"
+            onClick={() => setIsModalOpen(false)}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
           >
-            <Image
-              src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
-              alt={movie.title}
-              width={1000}
-              height={1500}
-              className="rounded-lg object-contain max-h-[60vh] sm:max-h-[80vh] mx-auto"
-            />
-            <div className="text-center text-white mt-4">
-              <h2 className="text-xl font-bold">{movie.title}</h2>
-              <p className="text-sm text-white/70">
-                {movie.release_date?.slice(0, 4)}
-              </p>
-            </div>
-            <button
-              onClick={() => setIsModalOpen(false)}
-              className="absolute top-[-50] sm:top-0 right-0 bg-white/10 border border-white/30 text-white px-4 py-2 rounded hover:bg-white/20"
+            <motion.div
+              className="relative w-[90%] mt-[68px]"
+              onClick={(e) => e.stopPropagation()}
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
             >
-              ✕
-            </button>
-          </div>
-        </div>
-      )}
+              <Image
+                src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
+                alt={movie.title}
+                width={1000}
+                height={1500}
+                className="rounded-lg object-contain max-h-[60vh] sm:max-h-[80vh] mx-auto"
+              />
+              <div className="text-center text-white mt-4">
+                <h2 className="text-xl font-bold">{movie.title}</h2>
+                <p className="text-sm text-white/70">
+                  {movie.release_date?.slice(0, 4)}
+                </p>
+              </div>
+              <button
+                onClick={() => setIsModalOpen(false)}
+                className="absolute top-[-50] sm:top-0 right-0 bg-white/10 border border-white/30 text-white px-4 py-2 rounded hover:bg-white/20"
+              >
+                ✕
+              </button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }
