@@ -76,9 +76,8 @@ export default function MovieFilters({ onFilter }: MovieFiltersProps) {
           >
             {genre ? ` ${genre}` : "Wszystkie gatunki"}
           </button>
-
           {showGenres && (
-            <div className="absolute top-full mt-2 left-0 z-50 bg-gray-900/30 backdrop-blur rounded p-4 grid grid-cols-2 sm:grid-cols-3 gap-2 w-[450px] shadow-lg">
+            <div className="absolute top-full mt-10 left-0 z-50 bg-gray-950/80 backdrop-blur-3xl border border-white/30 rounded-xl p-4 grid grid-cols-2 sm:grid-cols-3 gap-2 w-[300px] md:w-[450px] shadow-lg">
               {genresList.map((g) => (
                 <button
                   key={g}
@@ -108,7 +107,7 @@ export default function MovieFilters({ onFilter }: MovieFiltersProps) {
           )}
         </div>
 
-        <div className="flex flex-col items-start">
+        <div className="flex flex-col items-start z-10">
           <label className="text-white text-sm mb-1">Minimalna ocena</label>
           <input
             type="number"
@@ -118,7 +117,7 @@ export default function MovieFilters({ onFilter }: MovieFiltersProps) {
             value={minRating}
             onChange={(e) => setMinRating(e.target.value)}
             placeholder="np. 7.5"
-            className="w-40 px-3 py-[6px] rounded bg-white/10 text-white backdrop-blur focus:outline-none focus:ring-2 focus:ring-white/40 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+            className="w-60 md:w-40 px-3 py-[6px] rounded bg-white/10 text-white backdrop-blur focus:outline-none focus:ring-2 focus:ring-white/40 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
           />
         </div>
 
@@ -129,7 +128,7 @@ export default function MovieFilters({ onFilter }: MovieFiltersProps) {
             value={minYear}
             onChange={(e) => setMinYear(e.target.value)}
             placeholder="np. 2015"
-            className="w-40 px-3 py-[6px] rounded bg-white/10 text-white backdrop-blur focus:outline-none focus:ring-2 focus:ring-white/40 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+            className="w-60 md:w-40 px-3 py-[6px] rounded bg-white/10 text-white backdrop-blur focus:outline-none focus:ring-2 focus:ring-white/40 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
           />
         </div>
 

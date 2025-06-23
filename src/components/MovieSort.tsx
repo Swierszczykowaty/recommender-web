@@ -63,7 +63,7 @@ export default function MovieSort() {
           </button>
 
           {open && (
-            <div className="absolute top-full mt-2 left-0 w-60 bg-gray-900/30 backdrop-blur rounded shadow-lg p-2 z-50 border border-white/30 ">
+            <div className="absolute top-full mt-2 left-0 w-40 md:w-60 bg-gray-900/30 backdrop-blur rounded shadow-lg p-2 z-50 border border-white/30 ">
               {sortOptions.map((opt) => (
                 <button
                   key={opt.value}
