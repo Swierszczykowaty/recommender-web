@@ -2,7 +2,7 @@
 
 import { useSearchParams, useRouter } from "next/navigation";
 import { useEffect, useState, useMemo } from "react";
-import Title from "@/components/Title";
+import Title from "@/components/global/Title";
 import Container from "@/components/Container";
 import MovieCard from "@/components/MovieCard";
 import SearchBar from "@/components/SearchBar";

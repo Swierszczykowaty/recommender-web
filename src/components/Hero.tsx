@@ -1,6 +1,6 @@
 "use client";
 
-import Title from "@/components/Title";
+import Title from "@/components/global/Title";
 import Container from "@/components/Container";
 import HeroBox from "@/components/Hero_box";
 import React from "react";
