@@ -4,8 +4,7 @@ import Title from "@/components/global/Title";
 import Container from "@/components/Container";
 import HeroBox from "@/components/Hero_box";
 import React from "react";
-import Link from "next/link";
-import { motion } from "framer-motion";
+
 
 export default function Hero() {
   return (
