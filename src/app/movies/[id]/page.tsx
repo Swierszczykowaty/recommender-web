@@ -2,7 +2,7 @@
 import { useParams, notFound } from "next/navigation";
 import type { Movie } from "@/types/movie";
 import rawMoviesData from "@/data/full_data_web.json";
-import Container from "@/components/Container";
+import Container from "@/components/global/Container";
 import Image from "next/image";
 import { useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";

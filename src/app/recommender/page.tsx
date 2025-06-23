@@ -3,7 +3,7 @@
 import { useEffect } from 'react';
 import { useState } from 'react';
 import Title from '@/components/Title';
-import Container from '@/components/Container';
+import Container from '@/components/global/Container';
 import MovieCard from '@/components/MovieCard';
 import SmallMovieCard from '@/components/SmallMovieCard';
 import SearchBar from '@/components/SearchBar';

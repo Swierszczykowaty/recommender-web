@@ -1,7 +1,7 @@
 "use client";
 
 import Title from "@/components/Title";
-import Container from "@/components/Container";
+import Container from "@/components/global/Container";
 import HeroBox from "@/components/Hero_box";
 import React from "react";
 import Link from "next/link";
