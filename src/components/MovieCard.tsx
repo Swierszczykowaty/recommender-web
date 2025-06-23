@@ -2,8 +2,11 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import type { Movie } from "@/types/movie";
-
-export default function MovieCard({ movie }: { movie: Movie }) {
+type MovieCardProps = {
+  movie: Movie;
+  isFirstCard?: boolean; // DODAJ TO
+};
+export default function MovieCard({ movie, isFirstCard }: MovieCardProps) {
   const {
     id,
     title = "Brak tytułu",
@@ -43,7 +46,9 @@ export default function MovieCard({ movie }: { movie: Movie }) {
             src={`https://image.tmdb.org/t/p/w500${poster_path}`}
             alt={title}
             fill
-    className="object-cover transform transition-transform duration-300 group-hover:scale-105"
+            priority={isFirstCard}
+            fetchPriority={isFirstCard ? "high" : undefined}
+            className="object-cover transform transition-transform duration-300 group-hover:scale-105"
           />
         )}
       </div>
