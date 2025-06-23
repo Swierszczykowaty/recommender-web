@@ -47,10 +47,10 @@ export default function MovieSort() {
     sortOptions.find((opt) => opt.value === selected)?.label || "Domyślne";
 
   return (
-    <div className="relative w-full z-50">
-      <div className="max-w-7xl mx-auto flex flex-col items-start">
+    <div className="relative z-30">
+      <div className="max-w-7xl mx-auto flex flex-col">
         <div ref={dropdownRef} className="relative flex items-center gap-2 cursor-pointer">
-          <span className="text-white text-sm font-semibold">Sortuj po:</span>
+          <span className="text-white text-sm font-semibold text-nowrap">Sortuj po:</span>
           <button
             onClick={() => setOpen((o) => !o)}
             className="text-white/90 text-sm font-medium flex items-center gap-1"
@@ -63,12 +63,12 @@ export default function MovieSort() {
           </button>
 
           {open && (
-            <div className="absolute top-full mt-2 left-0 w-60 bg-gray-900/30 backdrop-blur rounded shadow-lg p-2 z-50">
+            <div className="absolute top-full mt-2 left-0 w-40 md:w-60 bg-gray-900/30 backdrop-blur rounded shadow-lg p-2 z-50 border border-white/30 ">
               {sortOptions.map((opt) => (
                 <button
                   key={opt.value}
                   onClick={() => handleSelect(opt.value)}
-                  className={`w-full text-left px-3 py-1 rounded text-sm text-white ${
+                  className={`w-full text-left px-3 mt-1 py-1 rounded text-sm text-white ${
                     selected === opt.value
                       ? "bg-white/30 font-semibold"
                       : "hover:bg-white/20"
