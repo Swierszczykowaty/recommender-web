@@ -77,9 +77,6 @@ export default function MovieDetailPage() {
           <motion.div
             className="absolute inset-0 z-0"
             style={{ y: scrollYProgress }}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
           >
             <Image
               src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}

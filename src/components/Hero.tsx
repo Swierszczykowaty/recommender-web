@@ -2,7 +2,7 @@
 
 import Title from "@/components/Title";
 import Container from "@/components/Container";
-
+import HeroBox from "@/components/Hero_box";
 import React from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -23,59 +23,28 @@ export default function Hero() {
             </Title>
           </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-            className="relative z-10 flex flex-col md:flex-row items-stretch justify-center gap-6 md:gap-8 w-full max-w-6xl"
-          >
+          <div className="relative z-10 flex flex-col md:flex-row items-stretch justify-center gap-6 md:gap-8 w-full max-w-6xl">
             {/* Box 1 */}
-            <Link
+            <HeroBox
               href="/recommender"
-              className="group flex-1 min-h-[300px] flex flex-col justify-between bg-white/10 backdrop-blur-lg border border-white/20 rounded-xl px-6 py-12 text-center shadow-xl transition hover:bg-white/20"
-            >
-              <div>
-                <span className="material-icons text-6xl md-60 mb-6 text-white">
-                  insights
-                </span>
-                <h1 className="text-3xl font-bold mb-4 text-white">
-                  Znajdź swój film
-                </h1>
-                <p className="text-white/80 text-base mb-6">
-                  Odkryj najlepsze rekomendacje filmowe dopasowane do Twoich
-                  upodobań. Kliknij i zobacz, co może Ci się spodobać.
-                </p>
-              </div>
-              <div className="inline-flex items-center justify-center gap-2 text-white border border-white/30 rounded-lg px-6 py-3 bg-white/10 group-hover:bg-white/20 transition">
-                <span className="material-icons">play_arrow</span>
-                Rozpocznij
-              </div>
-            </Link>
-
+              icon="insights"
+              title="Znajdź swój film"
+              description="Odkryj najlepsze rekomendacje filmowe dopasowane do Twoich upodobań. Kliknij i zobacz, co może Ci się spodobać."
+              buttonText="Rozpocznij"
+            />
             {/* Box 2 */}
-            <Link
+            <HeroBox
               href="/movies"
-              className="group flex-1 min-h-[300px] flex flex-col justify-between bg-white/10 backdrop-blur-lg border border-white/20 rounded-xl px-6 py-12 text-center shadow-xl transition hover:bg-white/20"
-            >
-              <div>
-                <span className="material-icons text-6xl md-60 mb-6 text-white">
-                  storage
-                </span>
-                <h1 className="text-3xl font-bold mb-4text-white">
-                  Sprawdź bazę filmów
-                </h1>
-                <p className="text-white/80 text-base mb-6">
-                  Przeglądaj pełną bazę filmów dostępnych w systemie, sprawdzaj
+              icon="storage"
+              title="Sprawdź bazę filmów"
+              description="Przeglądaj pełną bazę filmów dostępnych w systemie, sprawdzaj
                   ich opisy i wybierz coś dla siebie zanim uruchomisz
-                  rekomendacje.
-                </p>
-              </div>
-              <div className="inline-flex items-center justify-center gap-2 text-white border border-white/30 rounded-lg px-6 py-3 bg-white/10 group-hover:bg-white/20 transition">
-                <span className="material-icons">search</span>
-                Zobacz filmy
-              </div>
-            </Link>
-          </motion.div>
+                  rekomendacje."
+              buttonText="Zobacz filmy"
+            />
+
+            
+          </div>
         </div>
       </Container>
     </section>

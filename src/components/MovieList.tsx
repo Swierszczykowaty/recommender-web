@@ -18,7 +18,6 @@ type MoviesListProps = {
   movies: Movie[];
 };
 export default function MoviesList({ movies }: MoviesListProps) {
-
   const searchParams = useSearchParams();
   const router = useRouter();
   const pageFromParams = Number(searchParams.get("page")) || 1;
@@ -43,7 +42,7 @@ export default function MoviesList({ movies }: MoviesListProps) {
     });
 
     return sortMovies(filtered, sortBy);
-}, [movies, query, genre, minRating, minYear, sortBy]);
+  }, [movies, query, genre, minRating, minYear, sortBy]);
 
   const [currentPage, setCurrentPage] = useState(pageFromParams);
   const totalPages = Math.ceil(filteredMovies.length / ITEMS_PER_PAGE);
@@ -118,7 +117,12 @@ export default function MoviesList({ movies }: MoviesListProps) {
 
   // ------- NOWE: stan modala filtrów --------
   const [showFilters, setShowFilters] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
+  useEffect(() => {
+    // po pierwszym renderze — pokaż animację
+    setMounted(true);
+  }, []);
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden px-4 md:px-8 pt-32">
       <Container>
@@ -233,18 +237,11 @@ export default function MoviesList({ movies }: MoviesListProps) {
           {/* LISTA FILMÓW */}
           <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full">
             {paginatedMovies.map((movie, idx) => (
-              <motion.div
-                key={movie.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{
-                  duration: 0.4,
-                  ease: "easeOut",
-                  delay: idx * 0.05,
-                }}
+              <div key={movie.id}
+                className={`w-full mt-4 fade-up ${mounted ? "visible" : ""}`}
               >
-                    <MovieCard movie={movie} isFirstCard={idx === 0} key={movie.id} />
-              </motion.div>
+                <MovieCard movie={movie} isFirstCard={idx === 0} />
+              </div>
             ))}
           </div>
 
