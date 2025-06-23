@@ -66,7 +66,7 @@ export default function MovieFilters({ onFilter }: MovieFiltersProps) {
   }, [searchParams]);
 
   return (
-    <div className="relative w-full px-4 mt-4">
+    <div className="relative w-full px-4">
       <div className="max-w-7xl mx-auto flex flex-wrap gap-6 items-end justify-center relative z-10">
         <div ref={genreRef} className="relative flex flex-col items-start">
           <label className="text-white text-sm mb-1">Wybierz gatunek</label>
