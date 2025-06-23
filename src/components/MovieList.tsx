@@ -8,19 +8,17 @@ import MovieCard from "@/components/MovieCard";
 import SearchBar from "@/components/SearchBar";
 import MovieFilters from "@/components/MovieFilters";
 import MovieSort from "@/components/MovieSort";
-import moviesDataRaw from "@/data/full_data_web.json";
 import { filterMovies } from "@/lib/filterMovies";
 import { sortMovies } from "@/lib/sortMovies";
 import { motion } from "framer-motion";
 import type { Movie } from "@/types/movie";
 
-const moviesData: Movie[] = moviesDataRaw as Movie[];
 const ITEMS_PER_PAGE = 24;
 type MoviesListProps = {
   movies: Movie[];
-  // ...inne propsy jeśli trzeba
 };
 export default function MoviesList({ movies }: MoviesListProps) {
+
   const searchParams = useSearchParams();
   const router = useRouter();
   const pageFromParams = Number(searchParams.get("page")) || 1;
@@ -31,7 +29,7 @@ export default function MoviesList({ movies }: MoviesListProps) {
   const sortBy = searchParams.get("sort") || "";
 
   const filteredMovies = useMemo(() => {
-    let filtered = filterMovies(moviesData, query);
+    let filtered = filterMovies(movies, query);
 
     filtered = filtered.filter((movie) => {
       const genreList = movie.genres?.split(", ") ?? [];
@@ -45,7 +43,7 @@ export default function MoviesList({ movies }: MoviesListProps) {
     });
 
     return sortMovies(filtered, sortBy);
-  }, [query, genre, minRating, minYear, sortBy]);
+}, [movies, query, genre, minRating, minYear, sortBy]);
 
   const [currentPage, setCurrentPage] = useState(pageFromParams);
   const totalPages = Math.ceil(filteredMovies.length / ITEMS_PER_PAGE);

@@ -1,133 +1,83 @@
 'use client';
 
-import React, { useMemo } from 'react'; // Krok 1: Import useMemo
-import { motion } from 'framer-motion';
+import React, { useMemo } from 'react';
 import { usePathname } from 'next/navigation';
-
-
+import { motion } from 'framer-motion';
+const AnimatedBlob = ({
+  className,
+  color,
+  x = 0,
+  y = 0,
+  duration = 10,
+}: {
+  className: string;
+  color: string;
+  x?: number;
+  y?: number;
+  duration?: number;
+}) => (
+  <motion.div
+    className={`absolute rounded-full blur-xl pointer-events-none will-change-transform ${className}`}
+    animate={{
+      y: [0, y, 0],
+      x: [0, x, 0],
+      backgroundColor: color,
+    }}
+    transition={{
+      backgroundColor: { duration: 0.8, ease: 'easeInOut' },
+      x: { duration, repeat: Infinity, ease: 'easeInOut' },
+      y: { duration, repeat: Infinity, ease: 'easeInOut' },
+    }}
+  />
+);
 const colorConfig = {
-  // strona główna  – przygaszony pomarańcz
   default: [
-    'rgba(194, 65, 12, 0.3)',   // orange-700
-    'rgba(234, 88, 12, 0.2)',   // orange-600
-    'rgba(249, 115, 22, 0.3)',  // orange-500
-    'rgba(202, 138, 4, 0.2)',   // amber-700
-    'rgba(161, 98, 7, 0.3)',    // amber-800
+    'rgba(194, 65, 12, 0.3)',
+    'rgba(234, 88, 12, 0.2)',
+    'rgba(249, 115, 22, 0.3)',
+    'rgba(202, 138, 4, 0.2)',
+    'rgba(161, 98, 7, 0.3)',
   ],
-
-  // /movies  – chłodniejsze, ciemne niebiesko-cyjanowe
   '/movies': [
-    'rgba(30, 58, 138, 0.3)',   // indigo-900
-    'rgba(29, 78, 216, 0.3)',   // blue-700
-    'rgba(37, 99, 235, 0.3)',   // blue-600
-    'rgba(6, 95, 212, 0.3)',    // blue-600 variant
-    'rgba(12, 74, 110, 0.3)',   // cyan-800
+    'rgba(30, 58, 138, 0.3)',
+    'rgba(29, 78, 216, 0.3)',
+    'rgba(37, 99, 235, 0.3)',
+    'rgba(6, 95, 212, 0.3)',
+    'rgba(12, 74, 110, 0.3)',
   ],
-
-  // /recommender – głęboki fiolet z domieszką magenty
-'/recommender': [
-  'rgba(88, 28, 135, 0.25)',   // głęboki fiolet (purple-900)
-  'rgba(147, 51, 234, 0.2)',  // klasyczny fiolet (purple-600)
-  'rgba(236, 72, 153, 0.2)',  // pink-500 z niższą alfą
-  'rgba(244, 114, 182, 0.18)', // pink-300, bardzo subtelny
-  'rgba(109, 40, 217, 0.3)',  // purple-700
-],
-
-  // /about – stonowana zieleń / teal
+  '/recommender': [
+    'rgba(88, 28, 135, 0.25)',
+    'rgba(147, 51, 234, 0.2)',
+    'rgba(236, 72, 153, 0.2)',
+    'rgba(244, 114, 182, 0.18)',
+    'rgba(109, 40, 217, 0.3)',
+  ],
   '/about': [
-    'rgba(22, 163, 74, 0.2)',   // green-700
-    'rgba(5, 150, 105, 0.3)',   // emerald-700
-    'rgba(34, 197, 94, 0.2)',   // green-500
-    'rgba(3, 84, 63, 0.3)',     // teal-900
-    'rgba(20, 184, 166, 0.2)',  // teal-500
+    'rgba(22, 163, 74, 0.2)',
+    'rgba(5, 150, 105, 0.3)',
+    'rgba(34, 197, 94, 0.2)',
+    'rgba(3, 84, 63, 0.3)',
+    'rgba(20, 184, 166, 0.2)',
   ],
 } as const;
 
 export default function AnimatedBackground({ dynamicColors }: { dynamicColors?: string[] }) {
   const pathname = usePathname();
 
+
   const colors = useMemo(() => {
-    if (dynamicColors && dynamicColors.length >= 5) return dynamicColors;
+if (Array.isArray(dynamicColors) && dynamicColors.length >= 5) return dynamicColors;
     const basePath = '/' + pathname.split('/')[1];
-    type PathKey = keyof typeof colorConfig;
-    return basePath in colorConfig
-      ? [...colorConfig[basePath as PathKey]]
-      : [...colorConfig.default];
+    return colorConfig[basePath as keyof typeof colorConfig] ?? colorConfig.default;
   }, [pathname, dynamicColors]);
-
-
-  const commonClasses = 'absolute rounded-full blur-3xl pointer-events-none';
 
   return (
     <>
-      <motion.div
-        className={`${commonClasses} top-0 left-[-10%] w-[1000px] h-[1000px]`}
-        animate={{
-          y: [0, -100, 0],
-          x: [0, 50, 0],
-          backgroundColor: colors[0],
-        }}
-        // Krok 3: Zdefiniowanie osobnych przejść dla każdej właściwości
-        transition={{
-          // Jednorazowa, płynna animacja dla zmiany koloru
-          backgroundColor: { duration: 0.8, ease: 'easeInOut' },
-          // Nieskończona pętla tylko dla ruchu
-          x: { duration: 10, repeat: Infinity, ease: 'easeInOut' },
-          y: { duration: 10, repeat: Infinity, ease: 'easeInOut' },
-        }}
-      />
-      <motion.div
-        className={`${commonClasses} top-[30%] right-0 w-[700px] h-[700px]`}
-        animate={{
-          y: [0, 100, 0],
-          x: [0, -50, 0],
-          backgroundColor: colors[1],
-        }}
-        transition={{
-          backgroundColor: { duration: 0.8, ease: 'easeInOut' },
-          x: { duration: 8, repeat: Infinity, ease: 'easeInOut' },
-          y: { duration: 8, repeat: Infinity, ease: 'easeInOut' },
-        }}
-      />
-      <motion.div
-        className={`${commonClasses} bottom-60 left-[40%] w-[700px] h-[700px]`}
-        animate={{
-          y: [0, -100, 0],
-          x: [0, 50, 0],
-          backgroundColor: colors[2],
-        }}
-        transition={{
-          backgroundColor: { duration: 0.8, ease: 'easeInOut' },
-          x: { duration: 12, repeat: Infinity, ease: 'easeInOut' },
-          y: { duration: 12, repeat: Infinity, ease: 'easeInOut' },
-        }}
-      />
-      <motion.div
-        className={`${commonClasses} bottom-[-20%] left-[10%] w-[1000px] h-[1000px]`}
-        animate={{
-          y: [0, -200, 0],
-          x: [0, 100, 0],
-          backgroundColor: colors[3],
-        }}
-        transition={{
-          backgroundColor: { duration: 0.8, ease: 'easeInOut' },
-          x: { duration: 14, repeat: Infinity, ease: 'easeInOut' },
-          y: { duration: 14, repeat: Infinity, ease: 'easeInOut' },
-        }}
-      />
-      <motion.div
-        className={`${commonClasses} top-[-20%] left-[80%] w-[800px] h-[800px]`}
-        animate={{
-          y: [0, -100, 0],
-          x: [0, -100, 0],
-          backgroundColor: colors[4],
-        }}
-        transition={{
-          backgroundColor: { duration: 0.8, ease: 'easeInOut' },
-          x: { duration: 10, repeat: Infinity, ease: 'easeInOut' },
-          y: { duration: 10, repeat: Infinity, ease: 'easeInOut' },
-        }}
-      />
+      <AnimatedBlob className="top-0 left-[-10%] w-[1000px] h-[1000px]" color={colors[0]} x={40} y={-80} duration={10} />
+      <AnimatedBlob className="top-[30%] right-0 w-[900px] h-[900px]" color={colors[1]} x={-40} y={60} duration={8} />
+      <AnimatedBlob className="bottom-60 left-[40%] w-[700px] h-[700px]" color={colors[2]} x={40} y={-60} duration={12} />
+      <AnimatedBlob className="bottom-[-10%] left-[20%] w-[600px] h-[600px]" color={colors[3]} x={80} y={-80} duration={14} />
+      <AnimatedBlob className="top-[-10%] left-[70%] w-[500px] h-[500px]" color={colors[4]} x={-60} y={-60} duration={10} />
     </>
   );
 }
