@@ -65,7 +65,7 @@ useEffect(() => {
 }, [searchResults.length, selectedMovie]);
 
   return (
-    <section className="relative min-h-screen flex justify-center overflow-hidden px-4 md:px-8 pt-32">
+    <section className="relative min-h-screen flex justify-center overflow-hidden pt-32 ">
       <Container>
         <div className="flex flex-col items-center w-full mx-auto mb-20">
           <Title subtitle='Wybierz film, a my znajdziemy podobne'gradientFrom="from-indigo-400" gradientVia="via-fuchsia-400" gradientTo="to-purple-400">

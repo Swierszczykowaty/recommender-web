@@ -8,10 +8,10 @@ import React from "react";
 
 export default function Hero() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden px-4 md:px-8 py-16">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-32 md:pt-0">
       <Container>
-        <div className="flex flex-col items-center justify-center relative z-10 w-full text-center">
-          <div className="relative z-10 w-full max-w-4xl text-center my-12">
+        <div className="flex flex-col items-center justify-center relative z-10 w-full text-center mb-20">
+          <div className="relative z-10 w-full max-w-4xl text-center">
             <Title
               subtitle="Wybierz, co Cię interesuje"
               gradientFrom="from-orange-500"
@@ -22,7 +22,7 @@ export default function Hero() {
             </Title>
           </div>
 
-          <div className="relative z-10 flex flex-col md:flex-row items-stretch justify-center gap-6 md:gap-8 w-full max-w-6xl">
+          <div className="relative z-10 flex flex-col md:flex-row items-stretch justify-center gap-6 md:gap-8 w-full max-w-6xl mt-8">
             {/* Box 1 */}
             <HeroBox
               href="/recommender"

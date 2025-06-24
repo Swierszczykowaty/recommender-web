@@ -215,7 +215,7 @@ export default function MovieDetailPage() {
           {/* Zmieniono Link na button i dodano onClick */}
           <button
             onClick={handleGoBack}
-            className="inline-block px-6 py-5 bg-white/10 border border-white/30 rounded-lg text-white hover:bg-white/20 transition cursor-pointer"
+            className="inline-block px-6 py-3 md:py-5 bg-white/10 border border-white/30 rounded-lg text-white hover:bg-white/20 transition cursor-pointer"
           >
             ← Powrót do poprzedniej strony
           </button>
