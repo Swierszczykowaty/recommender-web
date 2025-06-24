@@ -1,7 +1,7 @@
 import './globals.css';
 import { ReactNode } from 'react';
-import NavBar from '@/components/NavBar';
-import LayoutBackground from '@/components/LayoutBackground';
+import NavBar from '@/components/global/NavBar';
+import LayoutBackground from '@/components/global/LayoutBackground';
 
 import { Archivo } from 'next/font/google';
 const archivo = Archivo({

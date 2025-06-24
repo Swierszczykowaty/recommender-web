@@ -8,7 +8,7 @@ import { useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import ColorThief from "colorthief";
 import { useEffect } from "react";
-import AnimatedBackground from "@/components/Background";
+import AnimatedBackground from "@/components/global/Background";
 import { AnimatePresence } from "framer-motion";
 
 const moviesData: Movie[] = rawMoviesData as Movie[];

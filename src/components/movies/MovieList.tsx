@@ -2,12 +2,12 @@
 
 import { useSearchParams, useRouter } from "next/navigation";
 import { useEffect, useState, useMemo } from "react";
-import Title from "@/components/Title";
+import Title from "@/components/global/Title";
 import Container from "@/components/global/Container";
-import MovieCard from "@/components/MovieCard";
-import SearchBar from "@/components/SearchBar";
-import MovieFilters from "@/components/MovieFilters";
-import MovieSort from "@/components/MovieSort";
+import MovieCard from "@/components/movies/MovieCard";
+import SearchBar from "@/components/global/SearchBar";
+import MovieFilters from "@/components/movies/MovieFilters";
+import MovieSort from "@/components/movies/MovieSort";
 import { filterMovies } from "@/lib/filterMovies";
 import { sortMovies } from "@/lib/sortMovies";
 import { motion } from "framer-motion";

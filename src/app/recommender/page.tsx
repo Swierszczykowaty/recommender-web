@@ -2,11 +2,11 @@
 
 import { useEffect } from 'react';
 import { useState } from 'react';
-import Title from '@/components/Title';
+import Title from '@/components/global/Title';
 import Container from '@/components/global/Container';
-import MovieCard from '@/components/MovieCard';
-import SmallMovieCard from '@/components/SmallMovieCard';
-import SearchBar from '@/components/SearchBar';
+import MovieCard from '@/components/movies/MovieCard';
+import SmallMovieCard from '@/components/movies/SmallMovieCard';
+import SearchBar from '@/components/global/SearchBar';
 import type { Movie } from '@/types/movie';
 import allMovies from '@/data/full_data_web.json';
 import { filterMovies } from '@/lib/filterMovies';
