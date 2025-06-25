@@ -151,7 +151,7 @@ export default function MoviesList({ movies }: MoviesListProps) {
               {/* Lewo */}
               <div>
                 <button
-                  className="text-white font-semibold"
+                  className="text-white font-semibold cursor-pointer"
                   onClick={() => setShowFilters(true)}
                 >
                   Filtrowanie zaawansowane
@@ -163,12 +163,12 @@ export default function MoviesList({ movies }: MoviesListProps) {
                     onClick={() => setShowFilters(false)}
                   >
                     <div
-                      className="bg-gray-950/20 border border-white/30 backdrop-blur text-white focus:outline-none focus:ring-2 focus:ring-white/40 rounded-xl p-6 min-w-[320px] max-w-[95vw] shadow-xl relative"
+                      className="bg-gray-950/20 border border-white/30 backdrop-blur text-white focus:outline-none focus:ring-2 focus:ring-white/40 rounded-xl p-6 min-w-[320px] max-w-[95vw] shadow-xl relative "
                       onClick={(e) => e.stopPropagation()}
                     >
                       <MovieFilters onFilter={handleFilter} />
                       <button
-                        className="absolute top-3 right-5 text-gray-400 hover:text-white text-2xl"
+                        className="absolute top-3 right-5 text-gray-400 hover:text-white text-2xl "
                         onClick={() => setShowFilters(false)}
                         aria-label="Zamknij"
                       >
@@ -235,7 +235,7 @@ export default function MoviesList({ movies }: MoviesListProps) {
           </motion.div>
 
           {/* LISTA FILMÓW */}
-          <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full">
+          <div className="mt-2 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full">
             {paginatedMovies.map((movie, idx) => (
               <div key={movie.id}
                 className={`w-full mt-4 fade-up ${mounted ? "visible" : ""}`}

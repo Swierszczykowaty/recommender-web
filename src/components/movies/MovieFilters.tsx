@@ -44,7 +44,7 @@ export default function MovieFilters({ onFilter }: MovieFiltersProps) {
   };
 
   return (
-    <div className="relative w-full px-2 sm:px-4 py-2">
+    <div className="relative w-full px-2 sm:px-4 py-2 ">
       <div className="flex flex-col gap-6 items-center w-full max-w-lg mx-auto">
         {/* Gatunki */}
         <div className="w-full">

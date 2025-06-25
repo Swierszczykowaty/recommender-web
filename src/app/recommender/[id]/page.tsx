@@ -1,29 +1,26 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useParams } from "next/navigation"; // Hook do odczytu parametrów z URL
+import { useParams } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
+import MovieCard from "@/components/movies/MovieCard";
 import Title from "@/components/global/Title";
 import Container from "@/components/global/Container";
-import MovieCard from "@/components/movies/MovieCard";
 import type { Movie } from "@/types/movie";
 import allMovies from "@/data/full_data_web.json";
-
-// Definicja typu dla odpowiedzi z API
-interface RecommendationResponse {
-  recommendations: { id: number; title: string }[];
-}
-
-const movies: Movie[] = allMovies as Movie[];
+import { motion } from "framer-motion";
 
 export default function RecommendationResultPage() {
+  // ... (stany i logika pozostają bez zmian)
   const [baseMovie, setBaseMovie] = useState<Movie | null>(null);
   const [recommendations, setRecommendations] = useState<Movie[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const params = useParams(); // Używamy hooka do pobrania parametrów
-  const movieId = params.id as string; // ID filmu z URL
+  const params = useParams();
+  const movieId = params.id as string;
+
 
   useEffect(() => {
     if (!movieId) return;
@@ -32,7 +29,7 @@ export default function RecommendationResultPage() {
       setLoading(true);
       setError(null);
 
-      // 1. Znajdź film bazowy na podstawie ID z URL
+      const movies: Movie[] = allMovies as Movie[];
       const foundBaseMovie = movies.find((m) => m.id.toString() === movieId);
 
       if (!foundBaseMovie) {
@@ -42,7 +39,6 @@ export default function RecommendationResultPage() {
       }
       setBaseMovie(foundBaseMovie);
 
-      // 2. Wyślij zapytanie do API o rekomendacje
       try {
         const res = await fetch("http://127.0.0.1:8000/api/recommendations", {
           method: "POST",
@@ -50,61 +46,102 @@ export default function RecommendationResultPage() {
           body: JSON.stringify({ movie_id: foundBaseMovie.id }),
         });
 
-        if (!res.ok) {
-          throw new Error("Błąd podczas pobierania rekomendacji z serwera.");
-        }
+        if (!res.ok) throw new Error("Błąd serwera rekomendacji.");
 
-        const data: RecommendationResponse = await res.json();
+        const data = await res.json();
+        const matched = movies
+          .filter((m) =>
+            data.recommendations.some((r: { id: number }) => r.id === m.id)
+          )
+          .filter((m) => m.id !== foundBaseMovie.id); // Upewnij się, że nie polecamy tego samego filmu
 
-        const matched = movies.filter((m) =>
-          data.recommendations.some((r) => r.id === m.id)
-        );
-
-        setRecommendations(matched);
-      } catch (e: unknown) {
-        if (e instanceof Error) {
-          setError(e.message);
-        } else {
-          setError("Wystąpił nieoczekiwany błąd.");
-        }
+        // Ustawiamy sztywno 8 rekomendacji
+        setRecommendations(matched.slice(0, 8));
+      } catch (e) {
+        if (e instanceof Error) setError(e.message);
+        else setError("Wystąpił nieoczekiwany błąd.");
       } finally {
         setLoading(false);
       }
     };
-
     fetchMovieData();
-  }, [movieId]); 
+  }, [movieId]);
 
+  // --- NOWY LAYOUT STRONY ---
   return (
-    <section className="relative min-h-screen flex justify-center overflow-hidden pt-32">
+    <section className="relative min-h-screen overflow-hidden pt-24 pb-20 sm:pt-32">
       <Container>
         {loading && (
-          <p className="text-white text-center">Ładowanie rekomendacji...</p>
+          <p className="text-white text-center text-lg">
+            Generowanie rekomendacji...
+          </p>
         )}
-        {error && <p className="text-red-500 text-center">{error}</p>}
+        {error && <p className="text-red-400 text-center text-lg">{error}</p>}
 
         {!loading && !error && baseMovie && (
           <div className="flex flex-col items-center w-full mx-auto">
+            {/* 1. Główny tytuł strony */}
             <Title
-              subtitle={`Rekomendacje na podstawie filmu:`}
-              gradientFrom="from-emerald-400"
-              gradientVia="from-cyan-400"
-              gradientTo="to-sky-400"
+              subtitle="Wygenerowane specjalnie dla Ciebie"
+              gradientFrom="from-indigo-400"
+              gradientVia="via-fuchsia-400"
+              gradientTo="to-purple-400"
             >
-              {baseMovie.title}
+              Rekomendacje Filmowe
             </Title>
 
-            <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 w-full">
-              {recommendations.map((movie) => (
-                <MovieCard key={movie.id} movie={movie} />
-              ))}
-            </div>
+            {/* 2. Sekcja z filmem bazowym */}
+            <motion.div className="mt-12 mb-8 w-full max-w-4xl"
+                        initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.9, ease: "easeOut" }}>
+              <h2 className="text-lg font-semibold text-white/80 mb-4 text-center ">
+                Na podstawie filmu:
+              </h2>
+              <div className="flex flex-col sm:flex-row items-center gap-6 sm:gap-8 bg-white/10 p-6 rounded-2xl border border-white/20 backdrop-blur-lg">
+                <div className="w-48 flex-shrink-0">
+                  <Image
+                    src={`https://image.tmdb.org/t/p/w500${baseMovie.poster_path}`}
+                    alt={`Plakat filmu ${baseMovie.title}`}
+                    width={500}
+                    height={750}
+                    className="rounded-lg shadow-2xl"
+                  />
+                </div>
+                <div className="text-center sm:text-left">
+                  <h3 className="text-2xl font-bold text-white">
+                    {baseMovie.title}
+                  </h3>
+                  <p className="text-md text-white/70 mb-3">
+                    {baseMovie.release_date?.slice(0, 4)}
+                  </p>
+                  <p className="text-sm text-white/80 line-clamp-4">
+                    {baseMovie.overview}
+                  </p>
+                </div>
+              </div>
+            </motion.div>
 
+            {/* 3. Siatka polecanych filmów */}
+            <motion.div className="w-full"
+                        initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}>
+              <h2 className="text-lg font-semibold text-white/80 mb-6 text-center">
+                Oto 8 filmów, które mogą Ci się spodobać:
+              </h2>
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-4 sm:gap-6 w-full">
+                {recommendations.map((movie) => (
+                  <MovieCard key={movie.id} movie={movie} />
+                ))}
+              </div>
+            </motion.div>
+            {/* 4. Przycisk powrotu */}
             <Link
               href="/recommender"
-              className="mt-12 px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition"
+              className="mt-20 px-8 py-3 bg-gradient-to-br from-indigo-400/10 via-fuchsia-400/25 to-purple-400/15 border border-white/30 rounded-lg text-white hover:bg-gradient-to-tr hover:from-indigo-400/35 hover:via-fuchsia-400/45 hover:to-purple-400/55 transition-colors cursor-pointer"
             >
-              Wyszukaj ponownie
+              Wyszukaj inne rekomendacje
             </Link>
           </div>
         )}

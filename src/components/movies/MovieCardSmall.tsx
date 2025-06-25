@@ -1,41 +1,49 @@
 'use client';
 
 import Image from 'next/image';
-import type { Movie } from '@/types/movie';
+import { Movie } from '@/types/movie';
 
-interface SmallMovieCardProps {
+type MovieCardSmallProps = {
   movie: Movie;
-}
+  onClick: () => void;
+};
 
-export default function SmallMovieCard({ movie}: SmallMovieCardProps) {
+const MovieCardSmall = ({ movie, onClick }: MovieCardSmallProps) => {
   return (
     <div
-      className="w-full flex flex-col xl:flex-row items-center gap-6 p-3 bg-white/10 rounded-lg hover:bg-white/20 transition cursor-pointer"
+      className="group relative bg-white/10 rounded-lg overflow-hidden shadow-xl flex flex-col cursor-pointer"
+      onClick={onClick} // Make the entire div clickable
     >
-      <div className="flex items-start gap-4 w-full">
-        <div className="w-20 h-28 relative flex-shrink-0">
+      {movie.poster_path ? (
+        <div className="relative w-full aspect-[2/3] overflow-hidden">
           <Image
-            src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-            alt={movie.title}
-            fill
-            className="rounded object-cover"
-            sizes="96px"
+            src={`https://image.tmdb.org/t/p/w342${movie.poster_path}`}
+            alt={`Plakat filmu ${movie.title}`}
+            fill // Use fill to cover the parent div
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" // Optimize image loading
+            className="object-cover transition-transform duration-300 group-hover:scale-110" // Only scale the image
           />
         </div>
-
-        <div className="flex-1 text-white overflow-hidden">
-          <h3 className="text-sm md:text-lg font-semibold line-clamp-2 ">{movie.title}</h3>
-          <p className="text-white/70 text-xs mt-1">{movie.release_date?.slice(0, 4)}</p>
-          <p className="text-white/70 text-xs line-clamp-1">Ocena: {movie.vote_average?.toFixed(1) ?? '–'}</p>
-          <p className="text-white/80 text-xs italic truncate">
-            {Array.isArray(movie.genres)
-              ? movie.genres.join(', ')
-              : typeof movie.genres === 'string'
-              ? movie.genres
-              : 'Brak danych'}
+      ) : (
+        <div className="w-full aspect-[2/3] flex items-center justify-center bg-gray-700 text-white text-center p-4">
+          Brak plakatu
+        </div>
+      )}
+      <div className="p-3 flex flex-col justify-between flex-grow">
+        <div className="text-white">
+          <h3 className="text-lg font-bold truncate">{movie.title}</h3>
+          <p className="text-sm text-white/70">
+            {movie.release_date ? movie.release_date.slice(0, 4) : 'Brak daty'}
           </p>
         </div>
+        <button
+          className="mt-3 py-1 w-full bg-white/10 border border-white/30 rounded-lg text-white hover:bg-white/20 transition cursor-pointer"
+        >
+          Wybierz
+        </button>
       </div>
     </div>
   );
-}
+};
+
+export default MovieCardSmall;
