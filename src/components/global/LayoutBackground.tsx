@@ -1,6 +1,6 @@
 'use client';
 
-import AnimatedBackground from './Background';
+import Background from '@/components/global/Background';
 import { usePathname } from 'next/navigation';
 
 export default function LayoutBackground() {
@@ -11,5 +11,5 @@ export default function LayoutBackground() {
 
   if (hideBackground) return null;
 
-  return <AnimatedBackground />;
+  return <Background />;
 }
