@@ -9,7 +9,7 @@ export default function AboutPage() {
   return (
     <section className="relative min-h-screen flex item-start md:items-center justify-center overflow-hidden pt-32 md:pt-0">
       <Container>
-        <div className="relative flex flex-col items-center z-10 w-full mx-auto mb-20">
+        <div className="relative flex flex-col items-center z-10 w-full mx-auto">
           <Title
             subtitle="Dowiedz się więcej"
             gradientFrom="from-teal-500"

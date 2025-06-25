@@ -73,7 +73,7 @@ export default function MovieDetailPage() {
 
       {/* Backdrop Image with Gradient or Placeholder */}
       {movie.backdrop_path ? (
-        <div className="relative w-full h-[600px] overflow-hidden">
+        <div className="relative w-full h-[600px] overflow-hidden ">
           <motion.div
             className="absolute inset-0 z-0"
             style={{ y: scrollYProgress }}
@@ -109,16 +109,16 @@ export default function MovieDetailPage() {
           </motion.div>
         </div>
       ) : (
-        <div className="relative w-full h-[400px] flex flex-col justify-center items-center text-center px-4 z-10">
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-3">
-            {movie.title}
-          </h1>
-          {movie.tagline && (
-            <p className="text-lg italic text-white ">{movie.tagline}</p>
-          )}
-          <p className="text-white mt-4">
-            No backdrop available for this movie.
-          </p>
+        <div className="relative w-full h-[600px] overflow-hidden ">
+          <div className="absolute inset-0 bg-gradient-to-b from-black/70 to-transparent z-10" />
+          <div className="absolute inset-0 flex flex-col justify-center items-center text-center px-4 z-10 drop-shadow-2xl -mt-40">
+            <h1 className="text-4xl md:text-5xl font-bold text-white mb-3">
+              {movie.title}
+            </h1>
+            {movie.tagline && (
+              <p className="text-lg italic text-white">{movie.tagline}</p>
+            )}
+          </div>
         </div>
       )}
 
