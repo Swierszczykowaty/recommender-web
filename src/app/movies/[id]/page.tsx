@@ -1,5 +1,6 @@
 "use client";
 import { useParams, notFound } from "next/navigation";
+import Link from "next/link"; // <-- KROK 1: Dodany import
 import type { Movie } from "@/types/movie";
 import rawMoviesData from "@/data/full_data_web.json";
 import Container from "@/components/global/Container";
@@ -21,7 +22,6 @@ export default function MovieDetailPage() {
   const scrollYProgress = useTransform(scrollY, [0, 300], [0, -100]);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-
   const [colors, setColors] = useState<string[]>([]);
 
   useEffect(() => {
@@ -46,7 +46,6 @@ export default function MovieDetailPage() {
             `rgba(${r}, ${g}, ${b}, ${i < 3 ? 0.3 : 0.2})`
         );
         setColors(rgbaColors);
-        console.log("🎨 Dominujące kolory:", rgbaColors);
       } catch (err) {
         console.error("❌ Błąd przy wyciąganiu kolorów:", err);
       }
@@ -62,7 +61,6 @@ export default function MovieDetailPage() {
     return "bg-red-600";
   };
 
-  // Dodana funkcja do cofania w historii przeglądarki
   const handleGoBack = () => {
     window.history.back();
   };
@@ -147,7 +145,6 @@ export default function MovieDetailPage() {
                     height={750}
                     className="rounded-lg object-cover"
                   />
-                  {/* Overlay for hover effect */}
                   <div className="absolute inset-0 bg-black/50 rounded-lg flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     <span className="material-icons text-white text-6xl">
                       zoom_in
@@ -190,7 +187,6 @@ export default function MovieDetailPage() {
             </div>
           </div>
 
-          {/* Additional info */}
           <div className="mt-8 border-t border-white/20 pt-6 grid grid-cols-1 sm:grid-cols-2 gap-4 text-white/90">
             <p>
               <strong>Budżet:</strong> ${movie.budget?.toLocaleString()}
@@ -210,19 +206,25 @@ export default function MovieDetailPage() {
           </div>
         </motion.div>
 
-        {/* Back Button */}
-        <div className="my-10 text-center cursor-pointer">
-          {/* Zmieniono Link na button i dodano onClick */}
+        {/* --- KROK 2: ZMIENIONA SEKCJA Z PRZYCISKAMI --- */}
+        <div className="my-10 flex justify-center items-center gap-4">
           <button
             onClick={handleGoBack}
-            className="inline-block px-6 py-3 md:py-5 bg-white/10 border border-white/30 rounded-lg text-white hover:bg-white/20 transition cursor-pointer"
+            className="inline-block px-6 py-3 bg-white/10 border border-white/30 rounded-lg text-white hover:bg-white/20 transition cursor-pointer"
           >
-            ← Powrót do poprzedniej strony
+            ← Powrót
           </button>
+
+          <Link
+            href={`/recommender/${movie.id}`}
+            className="inline-block px-6 py-3 bg-gradient-to-tr from-indigo-400/10 via-fuchsia-400/25 to-purple-400/15 border border-white/30 rounded-lg text-white hover:bg-gradient-to-tr hover:from-indigo-400/35 hover:via-fuchsia-400/45 hover:to-purple-400/55 transition-colors cursor-pointer"
+          >
+            Generuj Rekomendacje
+          </Link>
         </div>
+
       </Container>
 
-      {/* Modal */}
       <AnimatePresence>
         {isModalOpen && (
           <motion.div
