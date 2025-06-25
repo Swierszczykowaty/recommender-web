@@ -5,7 +5,6 @@ import type { Movie } from '@/types/movie';
 
 interface SmallMovieCardProps {
   movie: Movie;
-  onSelect: (movie: Movie) => void;
 }
 
 export default function SmallMovieCard({ movie}: SmallMovieCardProps) {
