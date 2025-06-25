@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation'; // Importujemy useRouter
 import Title from '@/components/global/Title';
 import Container from '@/components/global/Container';
-import SmallMovieCard from '@/components/movies/SmallMovieCard';
+import SmallMovieCard from '@/components/movies/MovieCardSmall';
 import SearchBar from '@/components/global/SearchBar';
 import type { Movie } from '@/types/movie';
 import allMovies from '@/data/full_data_web.json';
