@@ -40,7 +40,7 @@ export default function MovieCard({ movie, isFirstCard }: MovieCardProps) {
       )}
 
       {/* Poster */}
-      <div className="relative w-[100px] min-w-[100px] h-full sm:w-full sm:h-[350px] overflow-hidden">
+      <div className="relative w-[100px] min-w-[100px] h-full sm:w-full sm:h-[375px] overflow-hidden">
         {poster_path && (
           <Image
             src={`https://image.tmdb.org/t/p/w500${poster_path}`}
