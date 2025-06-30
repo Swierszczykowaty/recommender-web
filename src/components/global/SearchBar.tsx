@@ -27,7 +27,7 @@ export default function SearchBar({
     <motion.div
       initial={{ opacity: 0}}
       animate={{ opacity: 1 }}
-      transition={{ duration: 0.9, ease: "easeOut" }}
+      transition={{ duration: 0.7, ease: "easeOut" }}
     >
       <form
         onSubmit={handleSubmit}

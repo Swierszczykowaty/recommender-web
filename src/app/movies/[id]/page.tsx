@@ -96,7 +96,7 @@ export default function MovieDetailPage() {
             className="absolute inset-0 flex flex-col justify-center items-center text-center px-4 z-10 drop-shadow-2xl -mt-40"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.9, ease: "easeOut" }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
           >
             <h1 className="text-4xl md:text-5xl font-bold text-white mb-3">
               {movie.title}
@@ -126,7 +126,7 @@ export default function MovieDetailPage() {
           className="relative z-10 w-full max-w-5xl mx-auto bg-white/10 border border-white/20 p-8 rounded-xl backdrop-blur-md shadow-xl -mt-66"
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
         >
           <div className="flex flex-col md:flex-row gap-6">
             <div className="w-full md:w-1/3">

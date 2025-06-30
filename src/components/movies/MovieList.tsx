@@ -144,7 +144,7 @@ export default function MoviesList({ movies }: MoviesListProps) {
             className="w-full mt-4"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.9, ease: "easeOut" }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
           >
             {/* Desktop: flex, Mobile: grid */}
             <div className="hidden md:flex w-full items-center justify-between">
@@ -235,15 +235,19 @@ export default function MoviesList({ movies }: MoviesListProps) {
           </motion.div>
 
           {/* LISTA FILMÓW */}
-          <div className="mt-2 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full">
-            {paginatedMovies.map((movie, idx) => (
-              <div key={movie.id}
-                className={`w-full mt-4 fade-up ${mounted ? "visible" : ""}`}
-              >
-                <MovieCard movie={movie} isFirstCard={idx === 0} />
-              </div>
-            ))}
-          </div>
+      <div className="mt-2 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full">
+        {paginatedMovies.map((movie, idx) => (
+          <motion.div
+            key={movie.id}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: idx * 0.05, duration: 0.2, ease: "easeOut" }}
+            className="w-full mt-4"
+          >
+            <MovieCard movie={movie} isFirstCard={idx === 0} />
+          </motion.div>
+        ))}
+      </div>
 
           {/* PAGINACJA */}
           <div className="mt-20 flex flex-wrap gap-2 justify-center items-center">

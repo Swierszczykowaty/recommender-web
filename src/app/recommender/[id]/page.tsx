@@ -94,7 +94,7 @@ export default function RecommendationResultPage() {
             <motion.div className="mt-12 mb-8 w-full max-w-4xl"
                         initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.9, ease: "easeOut" }}>
+            transition={{ duration: 0.7, ease: "easeOut" }}>
               <h2 className="text-lg font-semibold text-white/80 mb-4 text-center ">
                 Na podstawie filmu:
               </h2>
@@ -126,7 +126,7 @@ export default function RecommendationResultPage() {
             <motion.div className="w-full"
                         initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: "easeOut" }}>
+            transition={{ duration: 0.4, ease: "easeOut" }}>
               <h2 className="text-lg font-semibold text-white/80 mb-6 text-center">
                 Oto 8 filmów, które mogą Ci się spodobać:
               </h2>
