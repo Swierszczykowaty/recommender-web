@@ -21,7 +21,7 @@ const MovieCardSmall = ({ movie, onClick }: MovieCardSmallProps) => {
             alt={`Plakat filmu ${movie.title}`}
             fill // Use fill to cover the parent div
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" // Optimize image loading
-            className="object-cover transition-transform duration-300 group-hover:scale-110" // Only scale the image
+            className="object-cover transform transition-transform duration-300 group-hover:scale-105"
           />
         </div>
       ) : (

@@ -26,7 +26,7 @@ export default function MovieCard({ movie, isFirstCard }: MovieCardProps) {
   return (
     <Link
       href={`/movies/${id}`}
-      className="group bg-white/10 backdrop-blur-lg border border-white/20 rounded-xl overflow-hidden shadow-xl transition hover:bg-white/20 flex flex-row h-[140px] sm:flex-col sm:h-auto relative"
+      className="group bg-white/10 backdrop-blur-lg border border-white/20 rounded-xl overflow-hidden shadow-xl transition hover:bg-white/20 duration-300 flex flex-row h-[140px] sm:flex-col sm:h-auto relative"
     >
       {/* Ocena */}
       {typeof vote_average === "number" && (
@@ -43,7 +43,7 @@ export default function MovieCard({ movie, isFirstCard }: MovieCardProps) {
       <div className="relative w-[100px] min-w-[100px] h-full sm:w-full sm:h-[375px] overflow-hidden">
         {poster_path && (
           <Image
-            src={`https://image.tmdb.org/t/p/w500${poster_path}`}
+            src={`https://image.tmdb.org/t/p/w400${poster_path}`}
             alt={title}
             fill
             priority={isFirstCard}

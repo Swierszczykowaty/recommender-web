@@ -23,4 +23,11 @@ export type Movie = {
   production_countries?: string;
   spoken_languages?: string;
   keywords?: string;
+  on_netflix?: boolean;
+  on_apple_tv?: boolean;
+  on_hulu?: boolean;
+  on_hbo_max?: boolean;
+  on_amazon_prime?: boolean;
+  actors?: string;
+  directors?: string;
 };

@@ -67,7 +67,7 @@ export default function RecommenderSearchPage() {
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, ease: "easeOut" }}
+              transition={{ duration: 0.4, ease: "easeOut" }}
             >
               <h2 className="text-xl font-semibold text-white/80 mb-6 text-center">
                 {searchQuery
