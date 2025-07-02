@@ -1,16 +1,15 @@
 "use client";
 import { useParams, notFound } from "next/navigation";
-import Link from "next/link"; // <-- KROK 1: Dodany import
+import Link from "next/link";
+import Image from "next/image";
 import type { Movie } from "@/types/movie";
 import rawMoviesData from "@/data/full_data_web.json";
 import Container from "@/components/global/Container";
-import Image from "next/image";
-import { useState } from "react";
+import AnimatedBackground from "@/components/global/Background";
+import MovieModal from "@/components/movies/MovieModal";
+import { useState, useEffect } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import ColorThief from "colorthief";
-import { useEffect } from "react";
-import AnimatedBackground from "@/components/global/Background";
-import { AnimatePresence } from "framer-motion";
 
 const moviesData: Movie[] = rawMoviesData as Movie[];
 
@@ -18,6 +17,7 @@ export default function MovieDetailPage() {
   const params = useParams();
   const movieId = Number(params.id);
   const movie = moviesData.find((m) => m.id === movieId);
+
   const { scrollY } = useScroll();
   const scrollYProgress = useTransform(scrollY, [0, 300], [0, -100]);
 
@@ -26,26 +26,23 @@ export default function MovieDetailPage() {
 
   useEffect(() => {
     if (!movie?.backdrop_path) return;
-
     const img = typeof window !== "undefined" ? new window.Image() : null;
     if (!img) return;
 
     img.crossOrigin = "anonymous";
     img.src = `https://image.tmdb.org/t/p/w300${movie.backdrop_path}`;
-
     img.onload = () => {
       try {
-        const colorThief = new ColorThief();
-        const palette = colorThief.getPalette(img, 5) as [
+        const palette = new ColorThief().getPalette(img, 5) as [
           number,
           number,
           number
         ][];
-        const rgbaColors = palette.map(
-          ([r, g, b]: [number, number, number], i: number) =>
-            `rgba(${r}, ${g}, ${b}, ${i < 3 ? 0.3 : 0.2})`
+        setColors(
+          palette.map(
+            ([r, g, b], i) => `rgba(${r},${g},${b},${i < 3 ? 0.3 : 0.2})`
+          )
         );
-        setColors(rgbaColors);
       } catch (err) {
         console.error("❌ Błąd przy wyciąganiu kolorów:", err);
       }
@@ -54,26 +51,65 @@ export default function MovieDetailPage() {
 
   if (!movie) return notFound();
 
-  const getRatingColor = (rating: number | undefined) => {
+  const getRatingColor = (rating?: number) => {
     if (rating === undefined) return "bg-gray-600";
     if (rating >= 7) return "bg-green-600";
     if (rating >= 5) return "bg-amber-500";
     return "bg-red-600";
   };
 
-  const handleGoBack = () => {
-    window.history.back();
-  };
+  const handleGoBack = () => window.history.back();
+
+  // Tablica z dostawcami + ścieżkami do logo
+  const platformLogos = [
+    // { flag: movie.on_netflix, alt: "Netflix", src: "/Company/netflix_w.png" },
+    // { flag: movie.on_apple_tv, alt: "Apple TV+", src: "/Company/Apple-TV_w.png" },
+    // { flag: movie.on_hulu, alt: "Hulu", src: "/Company/hulu_w.png" },
+    // { flag: movie.on_hbo_max, alt: "HBO Max", src: "/Company/max_w.png" },
+    // { flag: movie.on_amazon_prime, alt: "Amazon Prime", src: "/Company/Amazon-Prime_w.png" }
+    {
+      flag: movie.on_netflix,
+      alt: "Netflix",
+      src: "/Company/netflix.png",
+      url: "https://www.netflix.com",
+    },
+    {
+      flag: movie.on_apple_tv,
+      alt: "Apple TV+",
+      src: "/Company/Apple-TV.png",
+      url: "https://tv.apple.com",
+    },
+    {
+      flag: movie.on_hulu,
+      alt: "Hulu",
+      src: "/Company/hulu.png",
+      url: "https://www.hulu.com",
+    },
+    {
+      flag: movie.on_hbo_max,
+      alt: "HBO Max",
+      src: "/Company/max.png",
+      url: "https://www.hbomax.com",
+    },
+    {
+      flag: movie.on_amazon_prime,
+      alt: "Amazon Prime",
+      src: "/Company/Amazon-Prime.png",
+      url: "https://www.primevideo.com",
+    },
+  ];
+  // w środku MovieDetailPage, przed return:
+  const hasPlatforms = platformLogos.some((p) => p.flag);
 
   return (
-    <section className="relative min-h-screen text-white ">
+    <section className="relative min-h-screen text-white">
       <AnimatedBackground dynamicColors={colors} />
 
-      {/* Backdrop Image with Gradient or Placeholder */}
+      {/* Backdrop z parallax */}
       {movie.backdrop_path ? (
-        <div className="relative w-full h-[600px] overflow-hidden ">
+        <div className="relative w-full h-[800px] overflow-hidden">
           <motion.div
-            className="absolute inset-0 z-0"
+            className="absolute inset-0 "
             style={{ y: scrollYProgress }}
           >
             <Image
@@ -84,191 +120,228 @@ export default function MovieDetailPage() {
               style={{
                 objectPosition: "center 20%",
                 WebkitMaskImage:
-                  "linear-gradient(to bottom, black 40%, transparent 100%)",
-                maskImage:
-                  "linear-gradient(to bottom, black 40%, transparent 100%)",
+                  "linear-gradient(to bottom, black 30%, transparent)",
+                maskImage: "linear-gradient(to bottom, black 30%, transparent)",
               }}
               priority
             />
           </motion.div>
-          <div className="absolute inset-0 bg-gradient-to-b from-black/70 to-transparent z-10" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/70 to-transparent" />
           <motion.div
-            className="absolute inset-0 flex flex-col justify-center items-center text-center px-4 z-10 drop-shadow-2xl -mt-40"
+            className="absolute inset-0 flex flex-col justify-center items-center text-center drop-shadow-2xl -mt-[360px] "
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.7, ease: "easeOut" }}
           >
-            <h1 className="text-4xl md:text-5xl font-bold text-white mb-3">
+            <h1 className="text-4xl md:text-5xl font-bold mb-3">
               {movie.title}
             </h1>
-            {movie.tagline && (
-              <p className="text-lg italic text-white">{movie.tagline}</p>
-            )}
+            {movie.tagline && <p className="text-lg italic">{movie.tagline}</p>}
           </motion.div>
         </div>
-      ) : (
-        <div className="relative w-full h-[600px] overflow-hidden ">
-          <div className="absolute inset-0 bg-gradient-to-b from-black/70 to-transparent z-10" />
-          <div className="absolute inset-0 flex flex-col justify-center items-center text-center px-4 z-10 drop-shadow-2xl -mt-40">
-            <h1 className="text-4xl md:text-5xl font-bold text-white mb-3">
-              {movie.title}
-            </h1>
-            {movie.tagline && (
-              <p className="text-lg italic text-white">{movie.tagline}</p>
-            )}
-          </div>
-        </div>
-      )}
+      ) : null}
 
-      {/* Main content */}
       <Container>
-        <motion.div
-          className="relative z-10 w-full max-w-5xl mx-auto bg-white/10 border border-white/20 p-8 rounded-xl backdrop-blur-md shadow-xl -mt-66"
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, ease: "easeOut" }}
-        >
-          <div className="flex flex-col md:flex-row gap-6">
-            <div className="w-full md:w-1/3">
-              {movie.poster_path ? (
-                <motion.div
-                  className="relative cursor-pointer group"
-                  onClick={() => setIsModalOpen(true)}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.4, ease: "easeOut" }}
-                >
-                  <Image
-                    src={`https://image.tmdb.org/t/p/w342${movie.poster_path}`}
-                    alt={movie.title}
-                    width={500}
-                    height={750}
-                    className="rounded-lg object-cover"
-                  />
-                  <div className="absolute inset-0 bg-black/50 rounded-lg flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <span className="material-icons text-white text-6xl">
-                      zoom_in
-                    </span>
-                  </div>
-                </motion.div>
-              ) : (
-                <div className="w-full h-[750px] bg-gray-700 rounded-lg flex items-center justify-center text-white">
-                  Brak plakatu
+        <div className="grid grid-cols-1 gap-8 -mt-[500px]">
+          {/* 1) Główny kafelek z posterem i opisem */}
+          <motion.div
+            className="z-50 "
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
+          >
+            <div className="flex justify-between items-center mb-4 z-50">
+              <nav aria-label="Breadcrumb">
+                <ol className="flex items-center space-x-2 text-sm text-white/70 mt-2">
+                  <li>
+                    <Link href="/movies" className="hover:underline">
+                      Baza Filmów
+                    </Link>
+                  </li>
+                  <li>
+                    <span>/</span>
+                  </li>
+                  <li className="text-white font-medium">{movie.title}</li>
+                </ol>
+              </nav>
+              <button
+                onClick={handleGoBack}
+                className="px-4 py-1 text-sm bg-white/10 border border-white/20 rounded-lg backdrop-blur-md shadow-xl transition cursor-pointer hover:bg-white/20"
+              >
+                ← Powrót
+              </button>
+            </div>{" "}
+            <div className="bg-white/10 border border-white/20 p-8 rounded-xl backdrop-blur-md shadow-xl">
+              <div className="flex flex-col md:flex-row gap-6">
+                {/* Poster */}
+                <div className="w-full md:w-1/3">
+                  {movie.poster_path ? (
+                    <div
+                      className="relative cursor-pointer group"
+                      onClick={() => setIsModalOpen(true)}
+                    >
+                      <Image
+                        src={`https://image.tmdb.org/t/p/w342${movie.poster_path}`}
+                        alt={movie.title}
+                        width={500}
+                        height={750}
+                        // width={400}
+                        // height={600}
+                        className="rounded-lg object-cover"
+                      />
+                      <div className="absolute inset-0 bg-black/50 rounded-lg flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                        <span className="material-icons text-white text-6xl">
+                          zoom_in
+                        </span>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="w-full h-[750px] bg-gray-700 rounded-lg flex items-center justify-center">
+                      Brak plakatu
+                    </div>
+                  )}
                 </div>
-              )}
+
+                {/* Opis */}
+                <div className="w-full md:w-2/3 flex flex-col">
+                  <p className="flex items-center gap-2">
+                    <span
+                      className={`px-4 py-2 rounded-full text-sm font-bold shadow ${getRatingColor(
+                        movie.vote_average
+                      )}`}
+                      title={`${movie.vote_count} głosów`}
+                    >
+                      ★ {movie.vote_average?.toFixed(1)}
+                    </span>
+                    <span className="text-white/60 text-sm">
+                      {movie.vote_count} głosów
+                    </span>
+                  </p>
+                  <div className="space-y-4">
+                    <p className="text-white/80 mt-4">{movie.overview}</p>
+                    <p>
+                      <strong>Reżyser:</strong> {movie.directors}
+                    </p>
+                    <p>
+                      <strong>Data premiery:</strong> {movie.release_date}
+                    </p>
+                    <p>
+                      <strong>Czas trwania:</strong> {movie.runtime} min
+                    </p>
+                    <p className="mb-4">
+                      <strong>Gatunki:</strong> {movie.genres}
+                    </p>
+                  </div>
+                  {/* 2) Badges platform */}
+                  {hasPlatforms && (
+                    <div className="mt-auto flex flex-col ">
+                      <h3 className="text-white font-semibold mb-4">
+                        {movie.title} – gdzie zobaczyć?
+                      </h3>
+                      <div className="flex flex-wrap gap-4 justify-center md:justify-start">
+                        {platformLogos.map(({ flag, alt, src, url }) =>
+                          flag ? (
+                            <a
+                              key={alt}
+                              href={url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="block"
+                            >
+                              <div className="relative w-28 md:w-24 h-10 bg-white/25 hover:bg-white/35 duration-300 cursor-pointer border border-white/20 rounded-lg shadow-md overflow-hidden">
+                                <Image
+                                  src={src}
+                                  alt={alt}
+                                  fill
+                                  className="object-contain p-[2px]"
+                                />
+                              </div>
+                            </a>
+                          ) : null
+                        )}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
             </div>
-            <div className="w-full md:w-2/3 space-y-4 flex flex-col">
-              <p className="text-white/80 text-xl font-semibold flex items-center gap-2">
-                <span
-                  className={`px-4 py-2 rounded-full text-sm font-bold shadow ${getRatingColor(
-                    movie.vote_average
-                  )}`}
-                  title={`${movie.vote_count} głosów`}
-                >
-                  ★ {movie.vote_average?.toFixed(1)}
-                </span>
-                <span className="text-white/60 text-sm">
-                  {movie.vote_count} głosów
-                </span>
-              </p>
-              <p className="text-white/80">{movie.overview}</p>
-                <p>
-                <strong>Reżyser:</strong> {movie.directors}
+          </motion.div>
+          <motion.div className=" ">
+            <h2 className="mb-2 font-semibold">Obsada:</h2>
+            <div className="flex gap-6">
+              <div className="h-66 w-full bg-white/10 border border-white/20 p-6 rounded-xl backdrop-blur-md shadow-xl">
+                1
+              </div>
+              <div className="h-66 w-full bg-white/10 border border-white/20 p-6 rounded-xl backdrop-blur-md shadow-xl">
+                2
+              </div>
+              <div className="h-66 w-full bg-white/10 border border-white/20 p-6 rounded-xl backdrop-blur-md shadow-xl">
+                3
+              </div>
+              <div className="h-66 w-full bg-white/10 border border-white/20 p-6 rounded-xl backdrop-blur-md shadow-xl">
+                4
+              </div>
+              <div className="h-66 w-full bg-white/10 border border-white/20 p-6 rounded-xl backdrop-blur-md shadow-xl">
+                5
+              </div>
+            </div>
+          </motion.div>
+          {/* 3) Kafelek z budżetem, przychodem itd. */}
+          <motion.div
+            className=""
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, ease: "easeOut", delay: 0.1 }}
+          >
+            <h2 className="mb-2 font-semibold">Informacje:</h2>
+
+            <div className="bg-white/10 border border-white/20 p-6 rounded-xl backdrop-blur-md shadow-xl grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <p>
+                <strong>Budżet:</strong> ${movie.budget?.toLocaleString()}
               </p>
               <p>
-                <strong>Data premiery:</strong> {movie.release_date}
+                <strong>Przychód:</strong> ${movie.revenue?.toLocaleString()}
               </p>
               <p>
-                <strong>Czas trwania:</strong> {movie.runtime} minut
+                <strong>Popularność:</strong> {movie.popularity}
               </p>
               <p>
-                <strong>Gatunki:</strong> {movie.genres}
+                <strong>Języki:</strong> {movie.spoken_languages}
               </p>
-              <p>
+              <p className="sm:col-span-2">
                 <strong>Kraje produkcji:</strong> {movie.production_countries}
               </p>
+              <p className="sm:col-span-2">
+                <strong>Studia produkcyjne:</strong>{" "}
+                {movie.production_companies}
+              </p>
             </div>
+          </motion.div>
+
+          {/* przyciski */}
+          <div className="mb-10 flex justify-center items-center gap-4">
+            <button
+              onClick={handleGoBack}
+              className="px-6 py-3 bg-white/10 border border-white/20 rounded-lg backdrop-blur-md shadow-xl transition cursor-pointer hover:bg-white/20"
+            >
+              ← Powrót
+            </button>
+            <Link
+              href={`/recommender/${movie.id}`}
+              className="px-6 py-3 bg-gradient-to-tr from-indigo-400/10 via-fuchsia-400/25 to-purple-400/15 border border-white/30 rounded-lg hover:from-indigo-400/35 hover:via-fuchsia-400/45 hover:to-purple-400/55 transition-colors"
+            >
+              Generuj Rekomendacje
+            </Link>
           </div>
-
-          <div className="mt-8 border-t border-white/20 pt-6 grid grid-cols-1 sm:grid-cols-2 gap-4 text-white/90">
-            <p>
-              <strong>Budżet:</strong> ${movie.budget?.toLocaleString()}
-            </p>
-            <p>
-              <strong>Przychód:</strong> ${movie.revenue?.toLocaleString()}
-            </p>
-            <p>
-              <strong>Popularność:</strong> {movie.popularity}
-            </p>
-            <p>
-              <strong>Języki:</strong> {movie.spoken_languages}
-            </p>
-            <p className="sm:col-span-2">
-              <strong>Studia produkcyjne:</strong> {movie.production_companies}
-            </p>
-          </div>
-        </motion.div>
-
-        {/* --- KROK 2: ZMIENIONA SEKCJA Z PRZYCISKAMI --- */}
-        <div className="my-10 flex justify-center items-center gap-4">
-          <button
-            onClick={handleGoBack}
-            className="inline-block px-6 py-3 bg-white/10 border border-white/30 rounded-lg text-white hover:bg-white/20 transition cursor-pointer"
-          >
-            ← Powrót
-          </button>
-
-          <Link
-            href={`/recommender/${movie.id}`}
-            className="inline-block px-6 py-3 bg-gradient-to-tr from-indigo-400/10 via-fuchsia-400/25 to-purple-400/15 border border-white/30 rounded-lg text-white hover:bg-gradient-to-tr hover:from-indigo-400/35 hover:via-fuchsia-400/45 hover:to-purple-400/55 transition-colors cursor-pointer"
-          >
-            Generuj Rekomendacje
-          </Link>
         </div>
-
       </Container>
 
-      <AnimatePresence>
-        {isModalOpen && (
-          <motion.div
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md"
-            onClick={() => setIsModalOpen(false)}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-          >
-            <motion.div
-              className="relative w-[90%] mt-[68px]"
-              onClick={(e) => e.stopPropagation()}
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              transition={{ duration: 0.3, ease: "easeOut" }}
-            >
-              <Image
-                src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
-                alt={movie.title}
-                width={1000}
-                height={1500}
-                className="rounded-lg object-contain max-h-[60vh] sm:max-h-[80vh] mx-auto"
-              />
-              <div className="text-center text-white mt-4">
-                <h2 className="text-xl font-bold">{movie.title}</h2>
-                <p className="text-sm text-white/70">
-                  {movie.release_date?.slice(0, 4)}
-                </p>
-              </div>
-              <button
-                onClick={() => setIsModalOpen(false)}
-                className="absolute top-[-50] sm:top-0 right-0 bg-white/10 border border-white/30 text-white px-4 py-2 rounded hover:bg-white/20 cursor-pointer"
-              >
-                ✕
-              </button>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* Modal */}
+      <MovieModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        movie={movie}
+      />
     </section>
   );
 }
