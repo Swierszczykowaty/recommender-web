@@ -31,7 +31,7 @@ export default function MovieDetailPage() {
     if (!img) return;
 
     img.crossOrigin = "anonymous";
-    img.src = `https://image.tmdb.org/t/p/w500${movie.backdrop_path}`;
+    img.src = `https://image.tmdb.org/t/p/w300${movie.backdrop_path}`;
 
     img.onload = () => {
       try {
@@ -139,7 +139,7 @@ export default function MovieDetailPage() {
                   transition={{ duration: 0.4, ease: "easeOut" }}
                 >
                   <Image
-                    src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                    src={`https://image.tmdb.org/t/p/w342${movie.poster_path}`}
                     alt={movie.title}
                     width={500}
                     height={750}
@@ -172,6 +172,9 @@ export default function MovieDetailPage() {
                 </span>
               </p>
               <p className="text-white/80">{movie.overview}</p>
+                <p>
+                <strong>Reżyser:</strong> {movie.directors}
+              </p>
               <p>
                 <strong>Data premiery:</strong> {movie.release_date}
               </p>
@@ -258,7 +261,7 @@ export default function MovieDetailPage() {
               </div>
               <button
                 onClick={() => setIsModalOpen(false)}
-                className="absolute top-[-50] sm:top-0 right-0 bg-white/10 border border-white/30 text-white px-4 py-2 rounded hover:bg-white/20"
+                className="absolute top-[-50] sm:top-0 right-0 bg-white/10 border border-white/30 text-white px-4 py-2 rounded hover:bg-white/20 cursor-pointer"
               >
                 ✕
               </button>
