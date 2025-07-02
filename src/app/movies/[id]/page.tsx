@@ -62,14 +62,40 @@ export default function MovieDetailPage() {
 
   // Tablica z dostawcami + ścieżkami do logo
   const platformLogos = [
-    { flag: movie.on_netflix, alt: "Netflix", src: "/Company/netflix.png" },
-    { flag: movie.on_apple_tv, alt: "Apple TV+", src: "/Company/Apple-TV.png" },
-    { flag: movie.on_hulu, alt: "Hulu", src: "/Company/hulu.png" },
-    { flag: movie.on_hbo_max, alt: "HBO Max", src: "/Company/max.png" },
+    // { flag: movie.on_netflix, alt: "Netflix", src: "/Company/netflix_w.png" },
+    // { flag: movie.on_apple_tv, alt: "Apple TV+", src: "/Company/Apple-TV_w.png" },
+    // { flag: movie.on_hulu, alt: "Hulu", src: "/Company/hulu_w.png" },
+    // { flag: movie.on_hbo_max, alt: "HBO Max", src: "/Company/max_w.png" },
+    // { flag: movie.on_amazon_prime, alt: "Amazon Prime", src: "/Company/Amazon-Prime_w.png" }
+    {
+      flag: movie.on_netflix,
+      alt: "Netflix",
+      src: "/Company/netflix.png",
+      url: "https://www.netflix.com",
+    },
+    {
+      flag: movie.on_apple_tv,
+      alt: "Apple TV+",
+      src: "/Company/Apple-TV.png",
+      url: "https://tv.apple.com",
+    },
+    {
+      flag: movie.on_hulu,
+      alt: "Hulu",
+      src: "/Company/hulu.png",
+      url: "https://www.hulu.com",
+    },
+    {
+      flag: movie.on_hbo_max,
+      alt: "HBO Max",
+      src: "/Company/max.png",
+      url: "https://www.hbomax.com",
+    },
     {
       flag: movie.on_amazon_prime,
       alt: "Amazon Prime",
       src: "/Company/Amazon-Prime.png",
+      url: "https://www.primevideo.com",
     },
   ];
   // w środku MovieDetailPage, przed return:
@@ -83,7 +109,7 @@ export default function MovieDetailPage() {
       {movie.backdrop_path ? (
         <div className="relative w-full h-[800px] overflow-hidden">
           <motion.div
-            className="absolute inset-0"
+            className="absolute inset-0 "
             style={{ y: scrollYProgress }}
           >
             <Image
@@ -102,7 +128,7 @@ export default function MovieDetailPage() {
           </motion.div>
           <div className="absolute inset-0 bg-gradient-to-b from-black/70 to-transparent" />
           <motion.div
-            className="absolute inset-0 flex flex-col justify-center items-center text-center drop-shadow-2xl -mt-[360px]"
+            className="absolute inset-0 flex flex-col justify-center items-center text-center drop-shadow-2xl -mt-[360px] "
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.7, ease: "easeOut" }}
@@ -116,140 +142,187 @@ export default function MovieDetailPage() {
       ) : null}
 
       <Container>
-        <div className="grid grid-cols-1 gap-8 -mt-[464px]">
+        <div className="grid grid-cols-1 gap-8 -mt-[500px]">
           {/* 1) Główny kafelek z posterem i opisem */}
           <motion.div
-            className="bg-white/10 border border-white/20 p-8 rounded-xl backdrop-blur-md shadow-xl "
+            className="z-50 "
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, ease: "easeOut" }}
           >
-            <div className="flex flex-col md:flex-row gap-6">
-              {/* Poster */}
-              <div className="w-full md:w-1/3">
-                {movie.poster_path ? (
-                  <div
-                    className="relative cursor-pointer group"
-                    onClick={() => setIsModalOpen(true)}
-                  >
-                    <Image
-                      src={`https://image.tmdb.org/t/p/w342${movie.poster_path}`}
-                      alt={movie.title}
-                      width={500}
-                      height={750}
-                      className="rounded-lg object-cover"
-                    />
-                    <div className="absolute inset-0 bg-black/50 rounded-lg flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                      <span className="material-icons text-white text-6xl">
-                        zoom_in
-                      </span>
+            <div className="flex justify-between items-center mb-4 z-50">
+              <nav aria-label="Breadcrumb">
+                <ol className="flex items-center space-x-2 text-sm text-white/70 mt-2">
+                  <li>
+                    <Link href="/movies" className="hover:underline">
+                      Baza Filmów
+                    </Link>
+                  </li>
+                  <li>
+                    <span>/</span>
+                  </li>
+                  <li className="text-white font-medium">{movie.title}</li>
+                </ol>
+              </nav>
+              <button
+                onClick={handleGoBack}
+                className="px-4 py-1 text-sm bg-white/10 border border-white/20 rounded-lg backdrop-blur-md shadow-xl transition cursor-pointer hover:bg-white/20"
+              >
+                ← Powrót
+              </button>
+            </div>{" "}
+            <div className="bg-white/10 border border-white/20 p-8 rounded-xl backdrop-blur-md shadow-xl">
+              <div className="flex flex-col md:flex-row gap-6">
+                {/* Poster */}
+                <div className="w-full md:w-1/3">
+                  {movie.poster_path ? (
+                    <div
+                      className="relative cursor-pointer group"
+                      onClick={() => setIsModalOpen(true)}
+                    >
+                      <Image
+                        src={`https://image.tmdb.org/t/p/w342${movie.poster_path}`}
+                        alt={movie.title}
+                        width={500}
+                        height={750}
+                        // width={400}
+                        // height={600}
+                        className="rounded-lg object-cover"
+                      />
+                      <div className="absolute inset-0 bg-black/50 rounded-lg flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                        <span className="material-icons text-white text-6xl">
+                          zoom_in
+                        </span>
+                      </div>
                     </div>
-                  </div>
-                ) : (
-                  <div className="w-full h-[750px] bg-gray-700 rounded-lg flex items-center justify-center">
-                    Brak plakatu
-                  </div>
-                )}
-              </div>
-
-              {/* Opis */}
-              <div className="w-full md:w-2/3 flex flex-col">
-                <p className="flex items-center gap-2">
-                  <span
-                    className={`px-4 py-2 rounded-full text-sm font-bold shadow ${getRatingColor(
-                      movie.vote_average
-                    )}`}
-                    title={`${movie.vote_count} głosów`}
-                  >
-                    ★ {movie.vote_average?.toFixed(1)}
-                  </span>
-                  <span className="text-white/60 text-sm">
-                    {movie.vote_count} głosów
-                  </span>
-                </p>
-                <div className="space-y-4">
-                  <p className="text-white/80 mt-4">{movie.overview}</p>
-                  <p>
-                    <strong>Reżyser:</strong> {movie.directors}
-                  </p>
-                  <p>
-                    <strong>Data premiery:</strong> {movie.release_date}
-                  </p>
-                  <p>
-                    <strong>Czas trwania:</strong> {movie.runtime} min
-                  </p>
-                  <p>
-                    <strong>Gatunki:</strong> {movie.genres}
-                  </p>
-                  <p className="mb-4">
-                    <strong>Kraje produkcji:</strong>{" "}
-                    {movie.production_countries}
-                  </p>
+                  ) : (
+                    <div className="w-full h-[750px] bg-gray-700 rounded-lg flex items-center justify-center">
+                      Brak plakatu
+                    </div>
+                  )}
                 </div>
-                {/* 2) Badges platform */}
-                {hasPlatforms && (
-                  <div className="mt-auto flex flex-col ">
-                    <h3 className="text-white font-semibold mb-4">
-                      Film {movie.title} - Gdzie zobaczyć?
-                    </h3>
-                    <div className="flex flex-wrap gap-4 justify-center md:justify-start">
-                      {platformLogos.map(({ flag, alt, src }) =>
-                        flag ? (
-                          <div
-                            key={alt}
-                            className="relative w-28 md:w-24 h-10 bg-white/25 hover:bg-white/35 duration-300 cursor-pointer border border-white/20 rounded-lg shadow-md overflow-hidden"
-                          >
-                            <Image
-                              src={src}
-                              alt={alt}
-                              fill
-                              className="object-contain p-[1px]"
-                            />
-                          </div>
-                        ) : null
-                      )}
-                    </div>
+
+                {/* Opis */}
+                <div className="w-full md:w-2/3 flex flex-col">
+                  <p className="flex items-center gap-2">
+                    <span
+                      className={`px-4 py-2 rounded-full text-sm font-bold shadow ${getRatingColor(
+                        movie.vote_average
+                      )}`}
+                      title={`${movie.vote_count} głosów`}
+                    >
+                      ★ {movie.vote_average?.toFixed(1)}
+                    </span>
+                    <span className="text-white/60 text-sm">
+                      {movie.vote_count} głosów
+                    </span>
+                  </p>
+                  <div className="space-y-4">
+                    <p className="text-white/80 mt-4">{movie.overview}</p>
+                    <p>
+                      <strong>Reżyser:</strong> {movie.directors}
+                    </p>
+                    <p>
+                      <strong>Data premiery:</strong> {movie.release_date}
+                    </p>
+                    <p>
+                      <strong>Czas trwania:</strong> {movie.runtime} min
+                    </p>
+                    <p className="mb-4">
+                      <strong>Gatunki:</strong> {movie.genres}
+                    </p>
                   </div>
-                )}
+                  {/* 2) Badges platform */}
+                  {hasPlatforms && (
+                    <div className="mt-auto flex flex-col ">
+                      <h3 className="text-white font-semibold mb-4">
+                        {movie.title} – gdzie zobaczyć?
+                      </h3>
+                      <div className="flex flex-wrap gap-4 justify-center md:justify-start">
+                        {platformLogos.map(({ flag, alt, src, url }) =>
+                          flag ? (
+                            <a
+                              key={alt}
+                              href={url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="block"
+                            >
+                              <div className="relative w-28 md:w-24 h-10 bg-white/25 hover:bg-white/35 duration-300 cursor-pointer border border-white/20 rounded-lg shadow-md overflow-hidden">
+                                <Image
+                                  src={src}
+                                  alt={alt}
+                                  fill
+                                  className="object-contain p-[2px]"
+                                />
+                              </div>
+                            </a>
+                          ) : null
+                        )}
+                      </div>
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
           </motion.div>
-          <motion.div className="flex gap-6 ">
-            <div className="h-66 w-full bg-amber-300/30 rounded-xl"></div>
-            <div className="h-66 w-full bg-amber-300/30 rounded-xl"></div>
-            <div className="h-66 w-full bg-amber-300/30 rounded-xl"></div>
-            <div className="h-66 w-full bg-amber-300/30 rounded-xl"></div>
-            <div className="h-66 w-full bg-amber-300/30 rounded-xl"></div>
+          <motion.div className=" ">
+            <h2 className="mb-2 font-semibold">Obsada:</h2>
+            <div className="flex gap-6">
+              <div className="h-66 w-full bg-white/10 border border-white/20 p-6 rounded-xl backdrop-blur-md shadow-xl">
+                1
+              </div>
+              <div className="h-66 w-full bg-white/10 border border-white/20 p-6 rounded-xl backdrop-blur-md shadow-xl">
+                2
+              </div>
+              <div className="h-66 w-full bg-white/10 border border-white/20 p-6 rounded-xl backdrop-blur-md shadow-xl">
+                3
+              </div>
+              <div className="h-66 w-full bg-white/10 border border-white/20 p-6 rounded-xl backdrop-blur-md shadow-xl">
+                4
+              </div>
+              <div className="h-66 w-full bg-white/10 border border-white/20 p-6 rounded-xl backdrop-blur-md shadow-xl">
+                5
+              </div>
+            </div>
           </motion.div>
           {/* 3) Kafelek z budżetem, przychodem itd. */}
           <motion.div
-            className="bg-white/10 border border-white/20 p-6 rounded-xl backdrop-blur-md shadow-xl grid grid-cols-1 sm:grid-cols-2 gap-4"
+            className=""
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, ease: "easeOut", delay: 0.1 }}
           >
-            <p>
-              <strong>Budżet:</strong> ${movie.budget?.toLocaleString()}
-            </p>
-            <p>
-              <strong>Przychód:</strong> ${movie.revenue?.toLocaleString()}
-            </p>
-            <p>
-              <strong>Popularność:</strong> {movie.popularity}
-            </p>
-            <p>
-              <strong>Języki:</strong> {movie.spoken_languages}
-            </p>
-            <p className="sm:col-span-2">
-              <strong>Studia produkcyjne:</strong> {movie.production_companies}
-            </p>
+            <h2 className="mb-2 font-semibold">Informacje:</h2>
+
+            <div className="bg-white/10 border border-white/20 p-6 rounded-xl backdrop-blur-md shadow-xl grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <p>
+                <strong>Budżet:</strong> ${movie.budget?.toLocaleString()}
+              </p>
+              <p>
+                <strong>Przychód:</strong> ${movie.revenue?.toLocaleString()}
+              </p>
+              <p>
+                <strong>Popularność:</strong> {movie.popularity}
+              </p>
+              <p>
+                <strong>Języki:</strong> {movie.spoken_languages}
+              </p>
+              <p className="sm:col-span-2">
+                <strong>Kraje produkcji:</strong> {movie.production_countries}
+              </p>
+              <p className="sm:col-span-2">
+                <strong>Studia produkcyjne:</strong>{" "}
+                {movie.production_companies}
+              </p>
+            </div>
           </motion.div>
 
           {/* przyciski */}
           <div className="mb-10 flex justify-center items-center gap-4">
             <button
               onClick={handleGoBack}
-              className="px-6 py-3 bg-white/10 border border-white/30 rounded-lg hover:bg-white/20 transition"
+              className="px-6 py-3 bg-white/10 border border-white/20 rounded-lg backdrop-blur-md shadow-xl transition cursor-pointer hover:bg-white/20"
             >
               ← Powrót
             </button>
