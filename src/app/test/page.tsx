@@ -2,8 +2,7 @@
 
 import React from "react";
 import Container from "@/components/global/Container";
-// Jeśli masz „name_basics_100_with_photos.json” w katalogu /data obok /app,
-// ścieżka może być np.:
+import Image from "next/image";
 import actors from "@/data/name_basics_100_with_photos.json";
 
 export default function TestPage() {
@@ -18,10 +17,11 @@ export default function TestPage() {
               className="bg-white text-black shadow-lg rounded-lg overflow-hidden"
             >
               {actor.photo_url ? (
-                <img
+                <Image
                   src={actor.photo_url}
                   alt={actor.primaryName}
                   className="w-full h-56 object-cover"
+                  fill
                 />
               ) : (
                 <div className="w-full h-56 bg-gray-200 flex items-center justify-center">
