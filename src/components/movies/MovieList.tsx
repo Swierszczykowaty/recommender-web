@@ -117,12 +117,7 @@ export default function MoviesList({ movies }: MoviesListProps) {
 
   // ------- NOWE: stan modala filtrów --------
   const [showFilters, setShowFilters] = useState(false);
-  const [mounted, setMounted] = useState(false);
 
-  useEffect(() => {
-    // po pierwszym renderze — pokaż animację
-    setMounted(true);
-  }, []);
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-32">
       <Container>
