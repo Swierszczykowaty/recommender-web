@@ -39,12 +39,6 @@ export default function NavBar() {
             Baza filmów
           </Link>
           <Link
-            className="hover:text-red-200 active:text-red-400 duration-100"
-            href="/actors"
-          >
-            Baza aktorów
-          </Link>
-          <Link
             className="hover:text-emerald-200 active:text-emerald-400 duration-100"
             href="/about"
           >

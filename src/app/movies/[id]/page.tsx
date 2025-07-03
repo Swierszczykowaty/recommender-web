@@ -266,26 +266,6 @@ export default function MovieDetailPage() {
               </div>
             </div>
           </motion.div>
-          <motion.div className=" ">
-            <h2 className="mb-2 font-semibold">Obsada:</h2>
-            <div className="flex gap-6">
-              <div className="h-66 w-full bg-white/10 border border-white/20 p-6 rounded-xl backdrop-blur-md shadow-xl">
-                1
-              </div>
-              <div className="h-66 w-full bg-white/10 border border-white/20 p-6 rounded-xl backdrop-blur-md shadow-xl">
-                2
-              </div>
-              <div className="h-66 w-full bg-white/10 border border-white/20 p-6 rounded-xl backdrop-blur-md shadow-xl">
-                3
-              </div>
-              <div className="h-66 w-full bg-white/10 border border-white/20 p-6 rounded-xl backdrop-blur-md shadow-xl">
-                4
-              </div>
-              <div className="h-66 w-full bg-white/10 border border-white/20 p-6 rounded-xl backdrop-blur-md shadow-xl">
-                5
-              </div>
-            </div>
-          </motion.div>
           {/* 3) Kafelek z budżetem, przychodem itd. */}
           <motion.div
             className=""
