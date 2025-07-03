@@ -54,7 +54,7 @@ export default function MovieDetailPage() {
 
   const getRatingColor = (rating?: number) => {
     if (rating === undefined) return "bg-gray-600";
-    if (rating >= 7) return "bg-green-600";
+    if (rating >= 7) return "bg-green-700";
     if (rating >= 5) return "bg-amber-500";
     return "bg-red-600";
   };
