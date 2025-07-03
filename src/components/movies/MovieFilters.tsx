@@ -1,24 +1,31 @@
+// components/movies/MovieFilters.tsx
 import React, { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
-import Icon from "@/components/global/Icon"
 
-const genresList = [
-  "Action", "Adventure", "Animation", "Comedy", "Crime",
-  "Drama", "Fantasy", "Horror", "Romance", "Science Fiction",
-  "Thriller", "Mystery",
-];
+export type FilterValues = {
+  genre: string;
+  minRating: number;
+  minYear: number;
+};
 
 interface MovieFiltersProps {
-  onFilter: ({
-    genre,
-    minRating,
-    minYear,
-  }: {
-    genre: string;
-    minRating: number;
-    minYear: number;
-  }) => void;
+  onFilter: (filters: FilterValues) => void;
 }
+
+const genresList = [
+  "Action",
+  "Adventure",
+  "Animation",
+  "Comedy",
+  "Crime",
+  "Drama",
+  "Fantasy",
+  "Horror",
+  "Romance",
+  "Science Fiction",
+  "Thriller",
+  "Mystery",
+];
 
 export default function MovieFilters({ onFilter }: MovieFiltersProps) {
   const searchParams = useSearchParams();
@@ -36,20 +43,22 @@ export default function MovieFilters({ onFilter }: MovieFiltersProps) {
     setMinYear(searchParams.get("year") || "");
   }, [searchParams]);
 
-  const updateFilters = () => {
+  const applyFilters = () => {
     onFilter({
       genre,
       minRating: parseFloat(minRating) || 0,
-      minYear: parseInt(minYear) || 0,
+      minYear: parseInt(minYear, 10) || 0,
     });
   };
 
   return (
-    <div className="relative w-full px-2 sm:px-4 py-2 ">
+    <div className="relative w-full px-2 sm:px-4 py-2">
       <div className="flex flex-col gap-6 items-center w-full max-w-lg mx-auto">
         {/* Gatunki */}
         <div className="w-full">
-          <label className="text-white text-sm mb-2 block font-semibold">Wybierz gatunek</label>
+          <label className="text-white text-sm mb-2 block font-semibold">
+            Wybierz gatunek
+          </label>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
             {genresList.map((g) => (
               <button
@@ -63,7 +72,6 @@ export default function MovieFilters({ onFilter }: MovieFiltersProps) {
                 {g}
               </button>
             ))}
-            {/* Wszystkie */}
             <button
               type="button"
               onClick={() => setGenre("")}
@@ -76,7 +84,7 @@ export default function MovieFilters({ onFilter }: MovieFiltersProps) {
           </div>
         </div>
 
-        {/* Pozostałe filtry */}
+        {/* Ocena i rok */}
         <div className="flex flex-col sm:flex-row gap-4 w-full justify-between">
           <div className="flex flex-col items-start flex-1">
             <label className="text-white text-sm mb-1">Minimalna ocena</label>
@@ -107,7 +115,7 @@ export default function MovieFilters({ onFilter }: MovieFiltersProps) {
         <div className="w-full flex justify-end">
           <button
             type="button"
-            onClick={updateFilters}
+            onClick={applyFilters}
             className="cursor-pointer w-full sm:w-auto px-6 py-2 rounded-lg bg-white/10 border border-white/30 text-white font-bold hover:bg-white/20 transition"
           >
             Filtruj

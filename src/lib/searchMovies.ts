@@ -1,6 +1,6 @@
 import type { Movie } from '@/types/movie';
 
-export function filterMovies(movies: Movie[], query: string): Movie[] {
+export function searchMovies(movies: Movie[], query: string): Movie[] {
   const lowerQuery = query.toLowerCase();
 
   return movies.filter((movie) => {

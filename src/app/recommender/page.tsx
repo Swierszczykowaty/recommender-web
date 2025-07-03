@@ -8,7 +8,7 @@ import SearchBar from "@/components/global/SearchBar";
 import MovieCardSmall from "@/components/movies/MovieCardSmall"; // Import the new MovieCardSmall component
 import type { Movie } from "@/types/movie";
 import allMovies from "@/data/full_data_web.json";
-import { filterMovies } from "@/lib/filterMovies";
+import { searchMovies } from "@/lib/searchMovies";
 import { motion } from "framer-motion";
 const movies: Movie[] = allMovies as Movie[];
 
@@ -19,7 +19,7 @@ export default function RecommenderSearchPage() {
 
   const handleSearch = (query: string) => {
     setSearchQuery(query);
-    const filtered = filterMovies(movies, query);
+    const filtered = searchMovies(movies, query);
     setSearchResults(filtered.slice(0, 12));
   };
 
