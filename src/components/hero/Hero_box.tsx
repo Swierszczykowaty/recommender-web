@@ -32,11 +32,11 @@ export default function HeroBox({
         className="group flex-1 min-h-[300px] flex flex-col justify-between bg-white/10 backdrop-blur-lg border border-white/20 rounded-xl px-6 py-12 text-center shadow-xl transition hover:bg-white/20"
       >
         <div>
-          <Icon icon={icon} className="mb-4" style={{ fontSize: '60px' }} />
+          <Icon icon={icon} className="mb-4 " style={{ fontSize: '60px' }} />
           <h1 className="text-3xl font-bold mb-4 text-white">{title}</h1>
           <p className="text-white/80 text-base mb-6">{description}</p>
         </div>
-        <div className="inline-flex items-center justify-center gap-2 text-white border border-white/30 rounded-lg px-6 py-3 bg-white/10 group-hover:bg-white/20 transition">
+        <div className="inline-flex items-center justify-center gap-2 text-white border border-white/30 rounded-lg px-6 py-3 bg-white/10 hover:bg-white/20 transition">
           <Icon icon={buttonIcon} className="text-white text-xl" />
           {buttonText}
         </div>

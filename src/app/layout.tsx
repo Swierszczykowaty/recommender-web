@@ -17,17 +17,9 @@ export const metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="pl">
-      <head>
-        <link
-          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
-          rel="stylesheet"
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Filled"
-          rel="stylesheet"
-        />
-      </head>
+      <head></head>
       <body
+        data-nextjs-scroll-focus-boundary
         className={`${archivo.className} relative text-white min-h-screen overflow-x-hidden `}
       >
         <NavBar />
