@@ -128,7 +128,7 @@ export default function MovieDetailPage() {
           </motion.div>
           <div className="absolute inset-0 bg-gradient-to-b from-black/70 to-transparent" />
           <motion.div
-            className="absolute inset-0 flex flex-col justify-center items-center text-center drop-shadow-2xl -mt-[360px] "
+            className="absolute inset-0 flex flex-col justify-center items-center text-center drop-shadow-2xl -mt-[400px] "
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.7, ease: "easeOut" }}
@@ -144,13 +144,13 @@ export default function MovieDetailPage() {
       <Container>
         <div className="grid grid-cols-1 gap-8 -mt-[500px]">
           {/* 1) Główny kafelek z posterem i opisem */}
-          <motion.div
-            className="z-50 "
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, ease: "easeOut" }}
-          >
-            <div className="flex justify-between items-center mb-4 z-50">
+          <div className="z-50">
+            <motion.div
+              className="flex justify-between items-center mb-4 z-50"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, ease: "easeOut" }}
+            >
               <nav aria-label="Breadcrumb">
                 <ol className="flex items-center space-x-2 text-sm text-white/70 mt-2">
                   <li>
@@ -170,8 +170,14 @@ export default function MovieDetailPage() {
               >
                 ← Powrót
               </button>
-            </div>{" "}
-            <div className="bg-white/10 border border-white/20 p-8 rounded-xl backdrop-blur-md shadow-xl">
+            </motion.div>
+            {/* głowny kafelek */}
+            <motion.div
+              className="bg-white/10 border border-white/20 p-8 rounded-xl backdrop-blur-md shadow-xl "
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, ease: "easeOut" }}
+            >
               <div className="flex flex-col md:flex-row gap-6">
                 {/* Poster */}
                 <div className="w-full md:w-1/3">
@@ -264,8 +270,8 @@ export default function MovieDetailPage() {
                   )}
                 </div>
               </div>
-            </div>
-          </motion.div>
+            </motion.div>
+          </div>
           {/* 3) Kafelek z budżetem, przychodem itd. */}
           <motion.div
             className=""
@@ -275,7 +281,7 @@ export default function MovieDetailPage() {
           >
             <h2 className="mb-2 font-semibold">Informacje:</h2>
 
-            <div className="bg-white/10 border border-white/20 p-6 rounded-xl backdrop-blur-md shadow-xl grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="bg-white/10 border border-white/20 p-8 rounded-xl backdrop-blur-md shadow-xl grid grid-cols-1 sm:grid-cols-2 gap-4">
               <p>
                 <strong>Budżet:</strong> ${movie.budget?.toLocaleString()}
               </p>
