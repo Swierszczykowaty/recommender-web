@@ -143,7 +143,7 @@ export default function MoviesList({ movies }: MoviesListProps) {
             transition={{ duration: 0.4, ease: "easeOut" }}
           >
             {/* Desktop: flex, Mobile: grid */}
-            <div className="hidden md:flex w-full items-center justify-between">
+            <div className="relative hidden md:flex w-full items-center justify-between">
               {/* Lewo */}
               <div className="">
                 <button
@@ -181,7 +181,7 @@ export default function MoviesList({ movies }: MoviesListProps) {
                 )}
               </div>
               {/* Środek */}
-              <div className="flex-1 flex justify-center">
+              <div className="absolute left-1/2 transform -translate-x-1/2 ">
                 <span className="text-white/80 text-sm font-medium whitespace-nowrap">
                   Strona {currentPage} z {totalPages}
                 </span>

@@ -11,10 +11,12 @@ import { useState, useEffect } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import ColorThief from "colorthief";
 import Icon from "@/components/global/Icon";
+import { useRouter } from "next/navigation";
 
 const moviesData: Movie[] = rawMoviesData as Movie[];
 
 export default function MovieDetailPage() {
+  const router = useRouter();
   const params = useParams();
   const movieId = Number(params.id);
   const movie = moviesData.find((m) => m.id === movieId);
@@ -170,7 +172,7 @@ export default function MovieDetailPage() {
                 className="flex items-center gap-2 px-4 py-1 text-sm bg-white/10 border border-white/20 rounded-lg backdrop-blur-md shadow-xl transition cursor-pointer hover:bg-white/20"
               >
                 <Icon icon="keyboard_backspace" style={{ fontSize: "20px" }} />
-                <span className="hidden md:inline">Powrót</span>
+                <span className="text-sm hidden md:inline">Powrót</span>
               </button>
             </motion.div>
             {/* głowny kafelek */}
@@ -254,12 +256,12 @@ export default function MovieDetailPage() {
                               rel="noopener noreferrer"
                               className="block w-full md:w-[30%] lg:w-[20%]" // responsywne szerokości
                             >
-                              <div className="relative h-12 bg-white/25 hover:bg-white/35 duration-300 cursor-pointer border border-white/20 rounded-lg shadow-md overflow-hidden w-full">
+                              <div className="relative h-10 bg-white/25 hover:bg-white/35 duration-300 cursor-pointer border border-white/20 rounded-lg shadow-md overflow-hidden w-full">
                                 <Image
                                   src={src}
                                   alt={alt}
                                   fill
-                                  className="object-contain p-[2px]"
+                                  className="object-contain p-1"
                                 />
                               </div>
                             </a>
@@ -279,7 +281,6 @@ export default function MovieDetailPage() {
             transition={{ duration: 0.4, ease: "easeOut", delay: 0.1 }}
           >
             <h2 className="mb-2 font-semibold">Obsada:</h2>
-
             <div className="bg-white/10 border border-white/20 p-8 rounded-xl backdrop-blur-md shadow-xl grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 gap-4">
               {movie.actors
                 ?.split(",")
@@ -288,9 +289,14 @@ export default function MovieDetailPage() {
                 .map((actor, index) => (
                   <div
                     key={index}
-                    className="flex items-center gap-2 text-white/90 bg-white/5 px-3 py-2 rounded-lg border border-white/10"
+                    onClick={() =>
+                      router.push(
+                        `/movies?query=${encodeURIComponent(actor)}&page=1`
+                      )
+                    }
+                    className="flex items-center gap-2 text-white/90 bg-white/10 px-3 py-2 rounded-lg border border-white/20 cursor-pointer hover:bg-white/20 duration-300"
                   >
-                    <Icon icon="person" />{" "}
+                    <Icon icon="person" />
                     <span className="text-sm">{actor}</span>
                   </div>
                 ))}
