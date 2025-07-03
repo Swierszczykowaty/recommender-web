@@ -71,7 +71,7 @@ export default function MovieDetailPage() {
     {
       flag: movie.on_netflix,
       alt: "Netflix",
-      src: "/Company/netflix.png",
+      src: "/Company/Netflix.png",
       url: "https://www.netflix.com",
     },
     {
@@ -83,13 +83,13 @@ export default function MovieDetailPage() {
     {
       flag: movie.on_hulu,
       alt: "Hulu",
-      src: "/Company/hulu.png",
+      src: "/Company/Hulu.png",
       url: "https://www.hulu.com",
     },
     {
       flag: movie.on_hbo_max,
       alt: "HBO Max",
-      src: "/Company/max.png",
+      src: "/Company/Max.png",
       url: "https://www.hbomax.com",
     },
     {
