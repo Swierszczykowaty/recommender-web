@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
+import Icon from "@/components/global/Icon"
 
 const genresList = [
   "Action", "Adventure", "Animation", "Comedy", "Crime",
@@ -55,7 +56,7 @@ export default function MovieFilters({ onFilter }: MovieFiltersProps) {
                 key={g}
                 type="button"
                 onClick={() => setGenre(g)}
-                className={`px-2 py-1 rounded-lg text-sm font-medium transition border border-white/30 bg-white/10 text-white hover:bg-white/20
+                className={`cursor-pointer px-2 py-1 rounded-lg text-sm font-medium transition border border-white/30 bg-white/10 text-white hover:bg-white/20
                   ${genre === g ? "font-bold bg-white/30 ring-1" : ""}
                 `}
               >
@@ -66,7 +67,7 @@ export default function MovieFilters({ onFilter }: MovieFiltersProps) {
             <button
               type="button"
               onClick={() => setGenre("")}
-              className={`col-span-2 sm:col-span-3 md:col-span-4 px-2 py-1 mt-1 rounded-lg text-sm text-white text-center font-medium border border-white/30 bg-white/10 hover:bg-white/20 transition
+              className={`cursor-pointer col-span-2 sm:col-span-3 md:col-span-4 px-2 py-1 mt-1 rounded-lg text-sm text-white text-center font-medium border border-white/30 bg-white/10 hover:bg-white/20 transition
                 ${!genre ? "font-bold bg-white/30 ring-1" : ""}
               `}
             >
@@ -107,7 +108,7 @@ export default function MovieFilters({ onFilter }: MovieFiltersProps) {
           <button
             type="button"
             onClick={updateFilters}
-            className="w-full sm:w-auto px-6 py-2 rounded-lg bg-white/10 border border-white/30 text-white font-bold hover:bg-white/20 transition"
+            className="cursor-pointer w-full sm:w-auto px-6 py-2 rounded-lg bg-white/10 border border-white/30 text-white font-bold hover:bg-white/20 transition"
           >
             Filtruj
           </button>

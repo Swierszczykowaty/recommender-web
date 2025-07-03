@@ -2,7 +2,7 @@
 
 import { useSearchParams, useRouter } from "next/navigation";
 import { useState, useRef, useEffect } from "react";
-import { ChevronDown } from "lucide-react"; // ikona strzałki
+import Icon from "@/components/global/Icon"
 
 const sortOptions = [
   { label: "Domyślne", value: "" },
@@ -64,10 +64,9 @@ export default function MovieSort() {
             className="text-white/90 text-sm font-medium flex items-center gap-1 cursor-pointer"
           >
             {selectedLabel}
-            <ChevronDown
-              size={16}
+            <Icon icon="keyboard_arrow_up"
               className={`transition-transform ${
-                open ? "rotate-180" : "rotate-0"
+                open ? "rotate-0" : "rotate-180"
               }`}
             />
           </button>

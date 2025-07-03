@@ -12,6 +12,7 @@ import { filterMovies } from "@/lib/filterMovies";
 import { sortMovies } from "@/lib/sortMovies";
 import { motion } from "framer-motion";
 import type { Movie } from "@/types/movie";
+import Icon from "@/components/global/Icon";
 
 const ITEMS_PER_PAGE = 24;
 type MoviesListProps = {
@@ -144,12 +145,18 @@ export default function MoviesList({ movies }: MoviesListProps) {
             {/* Desktop: flex, Mobile: grid */}
             <div className="hidden md:flex w-full items-center justify-between">
               {/* Lewo */}
-              <div>
+              <div className="">
                 <button
-                  className="text-white font-semibold cursor-pointer"
+                  className="text-white font-semibold cursor-pointer flex justify-center"
                   onClick={() => setShowFilters(true)}
                 >
                   Filtrowanie zaawansowane
+                  <Icon
+                    icon="keyboard_arrow_up"
+                    className={`ml-1 transition-transform ${
+                      showFilters ? "rotate-0" : "rotate-180"
+                    }`}
+                  />
                 </button>
                 {/* Modal z filtrami */}
                 {showFilters && (
@@ -163,7 +170,7 @@ export default function MoviesList({ movies }: MoviesListProps) {
                     >
                       <MovieFilters onFilter={handleFilter} />
                       <button
-                        className="absolute top-3 right-5 text-gray-400 hover:text-white text-2xl "
+                        className="absolute top-3 right-5 text-gray-400 hover:text-white text-2xl cursor-pointer "
                         onClick={() => setShowFilters(false)}
                         aria-label="Zamknij"
                       >
@@ -195,10 +202,16 @@ export default function MoviesList({ movies }: MoviesListProps) {
               {/* Lewy dolny przycisk */}
               <div className="flex justify-start">
                 <button
-                  className="text-white font-semibold"
+                  className="text-white font-semibold flex justify-center"
                   onClick={() => setShowFilters(true)}
                 >
                   Filtrowanie
+                  <Icon
+                    icon="keyboard_arrow_up"
+                    className={`ml-1 transition-transform ${
+                      showFilters ? "rotate-0" : "rotate-180"
+                    }`}
+                  />
                 </button>
                 {/* Modal jak wyżej */}
                 {showFilters && (
@@ -230,19 +243,23 @@ export default function MoviesList({ movies }: MoviesListProps) {
           </motion.div>
 
           {/* LISTA FILMÓW */}
-      <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 md:gap-6 w-full">
-        {paginatedMovies.map((movie, idx) => (
-          <motion.div
-            key={movie.id}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: idx * 0.05, duration: 0.2, ease: "easeOut" }}
-            className="w-full mt-1"
-          >
-            <MovieCard movie={movie} isFirstCard={idx === 0} />
-          </motion.div>
-        ))}
-      </div>
+          <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 md:gap-6 w-full">
+            {paginatedMovies.map((movie, idx) => (
+              <motion.div
+                key={movie.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{
+                  delay: idx * 0.05,
+                  duration: 0.2,
+                  ease: "easeOut",
+                }}
+                className="w-full mt-1"
+              >
+                <MovieCard movie={movie} isFirstCard={idx === 0} />
+              </motion.div>
+            ))}
+          </div>
 
           {/* PAGINACJA */}
           <div className="mt-20 flex flex-wrap gap-2 justify-center items-center">
