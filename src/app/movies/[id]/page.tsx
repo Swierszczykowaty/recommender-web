@@ -10,6 +10,7 @@ import MovieModal from "@/components/movies/MovieModal";
 import { useState, useEffect } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import ColorThief from "colorthief";
+import Icon from "@/components/global/Icon";
 
 const moviesData: Movie[] = rawMoviesData as Movie[];
 
@@ -70,7 +71,7 @@ export default function MovieDetailPage() {
     {
       flag: movie.on_netflix,
       alt: "Netflix",
-      src: "/Company/netflix.png",
+      src: "/Company/Netflix.png",
       url: "https://www.netflix.com",
     },
     {
@@ -82,13 +83,13 @@ export default function MovieDetailPage() {
     {
       flag: movie.on_hulu,
       alt: "Hulu",
-      src: "/Company/hulu.png",
+      src: "/Company/Hulu.png",
       url: "https://www.hulu.com",
     },
     {
       flag: movie.on_hbo_max,
       alt: "HBO Max",
-      src: "/Company/max.png",
+      src: "/Company/Max.png",
       url: "https://www.hbomax.com",
     },
     {
@@ -128,7 +129,7 @@ export default function MovieDetailPage() {
           </motion.div>
           <div className="absolute inset-0 bg-gradient-to-b from-black/70 to-transparent" />
           <motion.div
-            className="absolute inset-0 flex flex-col justify-center items-center text-center drop-shadow-2xl -mt-[360px] "
+            className="absolute inset-0 flex flex-col justify-center items-center text-center drop-shadow-2xl -mt-[400px] "
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.7, ease: "easeOut" }}
@@ -144,15 +145,15 @@ export default function MovieDetailPage() {
       <Container>
         <div className="grid grid-cols-1 gap-8 -mt-[500px]">
           {/* 1) Główny kafelek z posterem i opisem */}
-          <motion.div
-            className="z-50 "
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, ease: "easeOut" }}
-          >
-            <div className="flex justify-between items-center mb-4 z-50">
+          <div className="z-50">
+            <motion.div
+              className="flex justify-between items-center mb-4 z-50"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, ease: "easeOut" }}
+            >
               <nav aria-label="Breadcrumb">
-                <ol className="flex items-center space-x-2 text-sm text-white/70 mt-2">
+                <ol className="flex items-center space-x-2 text-xs md:text-sm text-white/70 mt-2">
                   <li>
                     <Link href="/movies" className="hover:underline">
                       Baza Filmów
@@ -166,12 +167,19 @@ export default function MovieDetailPage() {
               </nav>
               <button
                 onClick={handleGoBack}
-                className="px-4 py-1 text-sm bg-white/10 border border-white/20 rounded-lg backdrop-blur-md shadow-xl transition cursor-pointer hover:bg-white/20"
+                className="flex items-center gap-2 px-4 py-1 text-sm bg-white/10 border border-white/20 rounded-lg backdrop-blur-md shadow-xl transition cursor-pointer hover:bg-white/20"
               >
-                ← Powrót
+                <Icon icon="keyboard_backspace" style={{ fontSize: "20px" }} />
+                <span className="hidden md:inline">Powrót</span>
               </button>
-            </div>{" "}
-            <div className="bg-white/10 border border-white/20 p-8 rounded-xl backdrop-blur-md shadow-xl">
+            </motion.div>
+            {/* głowny kafelek */}
+            <motion.div
+              className="bg-white/10 border border-white/20 p-8 rounded-xl backdrop-blur-md shadow-xl "
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, ease: "easeOut" }}
+            >
               <div className="flex flex-col md:flex-row gap-6">
                 {/* Poster */}
                 <div className="w-full md:w-1/3">
@@ -187,12 +195,10 @@ export default function MovieDetailPage() {
                         height={750}
                         // width={400}
                         // height={600}
-                        className="rounded-lg object-cover"
+                        className="rounded-lg object-cover w-full max-w-3xl"
                       />
                       <div className="absolute inset-0 bg-black/50 rounded-lg flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                        <span className="material-icons text-white text-6xl">
-                          zoom_in
-                        </span>
+                        <Icon icon="zoom_in" style={{ fontSize: "30px" }} />
                       </div>
                     </div>
                   ) : (
@@ -234,11 +240,11 @@ export default function MovieDetailPage() {
                   </div>
                   {/* 2) Badges platform */}
                   {hasPlatforms && (
-                    <div className="mt-auto flex flex-col ">
+                    <div className="mt-auto flex flex-col">
                       <h3 className="text-white font-semibold mb-4">
                         {movie.title} – gdzie zobaczyć?
                       </h3>
-                      <div className="flex flex-wrap gap-4 justify-center md:justify-start">
+                      <div className="grid grid-cols-2 md:grid-cols-none md:flex md:flex-row gap-4 justify-center md:justify-start w-full">
                         {platformLogos.map(({ flag, alt, src, url }) =>
                           flag ? (
                             <a
@@ -246,9 +252,9 @@ export default function MovieDetailPage() {
                               href={url}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="block"
+                              className="block w-full md:w-[30%] lg:w-[20%]" // responsywne szerokości
                             >
-                              <div className="relative w-28 md:w-24 h-10 bg-white/25 hover:bg-white/35 duration-300 cursor-pointer border border-white/20 rounded-lg shadow-md overflow-hidden">
+                              <div className="relative h-12 bg-white/25 hover:bg-white/35 duration-300 cursor-pointer border border-white/20 rounded-lg shadow-md overflow-hidden w-full">
                                 <Image
                                   src={src}
                                   alt={alt}
@@ -264,28 +270,33 @@ export default function MovieDetailPage() {
                   )}
                 </div>
               </div>
-            </div>
-          </motion.div>
-          <motion.div className=" ">
+            </motion.div>
+          </div>
+          <motion.div
+            className=""
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, ease: "easeOut", delay: 0.1 }}
+          >
             <h2 className="mb-2 font-semibold">Obsada:</h2>
-            <div className="flex gap-6">
-              <div className="h-66 w-full bg-white/10 border border-white/20 p-6 rounded-xl backdrop-blur-md shadow-xl">
-                1
-              </div>
-              <div className="h-66 w-full bg-white/10 border border-white/20 p-6 rounded-xl backdrop-blur-md shadow-xl">
-                2
-              </div>
-              <div className="h-66 w-full bg-white/10 border border-white/20 p-6 rounded-xl backdrop-blur-md shadow-xl">
-                3
-              </div>
-              <div className="h-66 w-full bg-white/10 border border-white/20 p-6 rounded-xl backdrop-blur-md shadow-xl">
-                4
-              </div>
-              <div className="h-66 w-full bg-white/10 border border-white/20 p-6 rounded-xl backdrop-blur-md shadow-xl">
-                5
-              </div>
+
+            <div className="bg-white/10 border border-white/20 p-8 rounded-xl backdrop-blur-md shadow-xl grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 gap-4">
+              {movie.actors
+                ?.split(",")
+                .map((actor) => actor.trim())
+                .filter(Boolean)
+                .map((actor, index) => (
+                  <div
+                    key={index}
+                    className="flex items-center gap-2 text-white/90 bg-white/5 px-3 py-2 rounded-lg border border-white/10"
+                  >
+                    <Icon icon="person" />{" "}
+                    <span className="text-sm">{actor}</span>
+                  </div>
+                ))}
             </div>
           </motion.div>
+
           {/* 3) Kafelek z budżetem, przychodem itd. */}
           <motion.div
             className=""
@@ -295,13 +306,17 @@ export default function MovieDetailPage() {
           >
             <h2 className="mb-2 font-semibold">Informacje:</h2>
 
-            <div className="bg-white/10 border border-white/20 p-6 rounded-xl backdrop-blur-md shadow-xl grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <p>
-                <strong>Budżet:</strong> ${movie.budget?.toLocaleString()}
-              </p>
-              <p>
-                <strong>Przychód:</strong> ${movie.revenue?.toLocaleString()}
-              </p>
+            <div className="bg-white/10 border border-white/20 p-8 rounded-xl backdrop-blur-md shadow-xl grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {typeof movie.budget === "number" && movie.budget > 0 && (
+                <p>
+                  <strong>Budżet:</strong> ${movie.budget.toLocaleString()}
+                </p>
+              )}
+              {typeof movie.revenue === "number" && movie.revenue > 0 && (
+                <p>
+                  <strong>Budżet:</strong> ${movie.revenue.toLocaleString()}
+                </p>
+              )}
               <p>
                 <strong>Popularność:</strong> {movie.popularity}
               </p>
@@ -319,16 +334,17 @@ export default function MovieDetailPage() {
           </motion.div>
 
           {/* przyciski */}
-          <div className="mb-10 flex justify-center items-center gap-4">
+          <div className="mb-10 flex flex-col-reverse md:flex-row justify-center items-center gap-4 mt-2">
             <button
               onClick={handleGoBack}
-              className="px-6 py-3 bg-white/10 border border-white/20 rounded-lg backdrop-blur-md shadow-xl transition cursor-pointer hover:bg-white/20"
+              className="flex items-center gap-2 px-6 py-3 w-full max-w-[250px] justify-center bg-white/10 border border-white/20 rounded-lg backdrop-blur-md shadow-xl transition cursor-pointer hover:bg-white/20"
             >
-              ← Powrót
+              <Icon icon="keyboard_backspace" style={{ fontSize: "20px" }} />
+              Powrót
             </button>
             <Link
               href={`/recommender/${movie.id}`}
-              className="px-6 py-3 bg-gradient-to-tr from-indigo-400/10 via-fuchsia-400/25 to-purple-400/15 border border-white/30 rounded-lg hover:from-indigo-400/35 hover:via-fuchsia-400/45 hover:to-purple-400/55 transition-colors"
+              className="flex px-6 py-3 w-full max-w-[250px]  justify-center bg-gradient-to-tr from-indigo-400/10 via-fuchsia-400/25 to-purple-400/15 border border-white/30 rounded-lg hover:from-indigo-400/35 hover:via-fuchsia-400/45 hover:to-purple-400/55 transition-colors"
             >
               Generuj Rekomendacje
             </Link>

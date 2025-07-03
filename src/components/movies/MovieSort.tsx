@@ -35,7 +35,10 @@ export default function MovieSort() {
 
   useEffect(() => {
     const close = (e: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(e.target as Node)
+      ) {
         setOpen(false);
       }
     };
@@ -49,8 +52,13 @@ export default function MovieSort() {
   return (
     <div className="relative z-30">
       <div className="max-w-7xl mx-auto flex flex-col">
-        <div ref={dropdownRef} className="relative flex items-center gap-2 cursor-default">
-          <span className="text-white text-sm font-semibold text-nowrap">Sortuj po:</span>
+        <div
+          ref={dropdownRef}
+          className="relative flex items-center gap-2 cursor-default"
+        >
+          <span className="text-white text-sm font-semibold text-nowrap">
+            Sortuj po:
+          </span>
           <button
             onClick={() => setOpen((o) => !o)}
             className="text-white/90 text-sm font-medium flex items-center gap-1 cursor-pointer"
@@ -58,10 +66,11 @@ export default function MovieSort() {
             {selectedLabel}
             <ChevronDown
               size={16}
-              className={`transition-transform ${open ? "rotate-180" : "rotate-0"}`}
+              className={`transition-transform ${
+                open ? "rotate-180" : "rotate-0"
+              }`}
             />
           </button>
-
           {open && (
             <div className="absolute top-full mt-2 left-0 w-40 md:w-60 bg-gray-900/30 backdrop-blur rounded-xl shadow-lg p-2 z-50 border border-white/30 ">
               {sortOptions.map((opt) => (

@@ -34,7 +34,7 @@ export default function Hero() {
             {/* Box 2 */}
             <HeroBox
               href="/movies"
-              icon="storage"
+              icon="database"
               title="Sprawdź bazę filmów"
               description="Przeglądaj pełną bazę filmów dostępnych w systemie, sprawdzaj
                   ich opisy i wybierz coś dla siebie zanim uruchomisz

@@ -1,13 +1,29 @@
+@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined");
+@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Filled");
 @import "tailwindcss";
+/* Twoje klasy: */
+.material-symbols-outlined {
+  font-family: var(--font-material-outlined);
+  /* …reszta właściwości tak jak miałeś… */
+}
+.material-symbols-filled {
+  font-family: var(--font-material-filled);
+  font-variation-settings: "FILL" 1, "wght" 700, "GRAD" 0, "opsz" 48;
+  /* …reszta właściwości… */
+}
 
 :root {
   --color-background: #0f0f0f;
   --color-foreground: #ffffff;
-  --font-sans: 'Inter', sans-serif;
-  --font-mono: 'Fira Code', monospace;
+  --font-sans: "Inter", sans-serif;
+  --font-mono: "Fira Code", monospace;
+  --font-material-outlined: "Material Symbols Outlined";
+  --font-material-filled: "Material Symbols Filled";
 }
 
-.material-icons.md-60 { font-size: 70px; } 
+.material-icons.md-60 {
+  font-size: 70px;
+}
 
 @media (prefers-color-scheme: dark) {
   :root {

@@ -230,14 +230,14 @@ export default function MoviesList({ movies }: MoviesListProps) {
           </motion.div>
 
           {/* LISTA FILMÓW */}
-      <div className="mt-2 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full">
+      <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 md:gap-6 w-full">
         {paginatedMovies.map((movie, idx) => (
           <motion.div
             key={movie.id}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: idx * 0.05, duration: 0.2, ease: "easeOut" }}
-            className="w-full mt-4"
+            className="w-full mt-1"
           >
             <MovieCard movie={movie} isFirstCard={idx === 0} />
           </motion.div>
