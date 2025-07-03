@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
+import Icon from "@/components/global/Icon";
 
 export default function NavBar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -14,7 +15,7 @@ export default function NavBar() {
           href="/"
           className="flex items-center text-white text-xl font-bold gap-2"
         >
-          <span className="material-icons !text-[35px]">blur_on</span>
+          <Icon icon="blur_on" className="text-white text-3xl cursor-pointer" />
           Rekomender WWSI
         </Link>
 
@@ -45,16 +46,17 @@ export default function NavBar() {
             O Projekcie
           </Link>
         </div>
-
         {/* Mobile hamburger */}
         <button
-          className="lg:hidden text-white"
+          className="lg:hidden text-white flex"
           onClick={() => setMenuOpen(!menuOpen)}
         >
-          <span className="material-icons">{menuOpen ? "close" : "menu"}</span>
+          <Icon
+            icon={menuOpen ? "close" : "menu"}
+            className="text-3xl text-white"
+          />
         </button>
       </div>
-
       {/* Mobile menu */}
       <AnimatePresence>
         {menuOpen && (
