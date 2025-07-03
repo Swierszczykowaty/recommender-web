@@ -54,7 +54,6 @@ export default function MovieSort() {
   ref={dropdownRef}
   className="relative flex items-center gap-2 cursor-default"
 >
-  {/* etykieta tylko na średnich+ ekranach */}
   <span className="hidden md:inline text-white text-sm font-semibold whitespace-nowrap">
     Sortuj po:
   </span>
@@ -63,9 +62,7 @@ export default function MovieSort() {
     onClick={() => setOpen((o) => !o)}
     className="text-white/90 text-sm font-medium flex items-center gap-1 cursor-pointer"
   >
-    {/* na małych ekranach tylko “Sortuj” */}
     <span className="inline md:hidden">Sortuj</span>
-    {/* na średnich+ ekranach pokazujemy wybraną opcję */}
     <span className="hidden md:inline">{selectedLabel}</span>
     <Icon
       icon="keyboard_arrow_up"
