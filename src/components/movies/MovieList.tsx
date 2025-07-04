@@ -46,23 +46,44 @@ export default function MoviesList({ movies }: { movies: Movie[] }) {
     setCurrentPage(page);
   }, [page]);
 
-  const handleSearch = (q: string) => {
-    const p = new URLSearchParams(searchParams.toString());
-    q ? p.set("query", q) : p.delete("query");
-    p.set("page", "1");
-    router.push(`/movies?${p.toString()}`);
-    setCurrentPage(1);
-  };
+const handleSearch = (q: string) => {
+  const p = new URLSearchParams(searchParams.toString());
+  if (q) {
+    p.set("query", q);
+  } else {
+    p.delete("query");
+  }
+  p.set("page", "1");
+  router.push(`/movies?${p.toString()}`);
+  setCurrentPage(1);
+};
 
-  const handleFilter = ({ genre, minRating, minYear }: FilterValues) => {
-    const p = new URLSearchParams(searchParams.toString());
-    genre ? p.set("genre", genre) : p.delete("genre");
-    minRating ? p.set("rating", String(minRating)) : p.delete("rating");
-    minYear ? p.set("year", String(minYear)) : p.delete("year");
-    p.set("page", "1");
-    router.push(`/movies?${p.toString()}`);
-    setCurrentPage(1);
-  };
+const handleFilter = ({ genre, minRating, minYear }: FilterValues) => {
+  const p = new URLSearchParams(searchParams.toString());
+
+  if (genre) {
+    p.set("genre", genre);
+  } else {
+    p.delete("genre");
+  }
+
+  if (minRating) {
+    p.set("rating", String(minRating));
+  } else {
+    p.delete("rating");
+  }
+
+  if (minYear) {
+    p.set("year", String(minYear));
+  } else {
+    p.delete("year");
+  }
+
+  p.set("page", "1");
+  router.push(`/movies?${p.toString()}`);
+  setCurrentPage(1);
+};
+
 
   const handlePage = (pg: number) => {
     const p = new URLSearchParams(searchParams.toString());
