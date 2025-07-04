@@ -274,6 +274,7 @@ export default function MovieDetailPage() {
               </div>
             </motion.div>
           </div>
+          {/* Aktorzy */}
           <motion.div
             className=""
             initial={{ opacity: 0, y: 10 }}
@@ -281,7 +282,7 @@ export default function MovieDetailPage() {
             transition={{ duration: 0.4, ease: "easeOut", delay: 0.1 }}
           >
             <h2 className="mb-2 font-semibold">Obsada:</h2>
-            <div className="bg-white/10 border border-white/20 p-8 rounded-xl backdrop-blur-md shadow-xl grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 gap-4">
+            <div className="bg-white/10 border border-white/20 p-8 rounded-xl backdrop-blur-md shadow-xl grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 gap-4 ">
               {movie.actors
                 ?.split(",")
                 .map((actor) => actor.trim())
@@ -294,10 +295,11 @@ export default function MovieDetailPage() {
                         `/movies?query=${encodeURIComponent(actor)}&page=1`
                       )
                     }
-                    className="flex items-center gap-2 text-white/90 bg-white/10 px-3 py-2 rounded-lg border border-white/20 cursor-pointer hover:bg-white/20 duration-300"
+                    className="group flex relative items-center gap-2 text-white/90 bg-white/10 px-3 py-2 rounded-lg border border-white/20 cursor-pointer hover:bg-white/20 duration-300"
                   >
-                    <Icon icon="person" />
-                    <span className="text-sm">{actor}</span>
+                    <Icon icon="person" className="absolute opacity-100 group-hover:opacity-0 duration-300"/>
+                    <Icon icon="data_loss_prevention" className="absolute opacity-0 group-hover:opacity-100 duration-300"/>
+                    <span className="text-sm ml-8">{actor}</span>
                   </div>
                 ))}
             </div>

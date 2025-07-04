@@ -12,10 +12,14 @@ export function searchMovies(movies: Movie[], query: string): Movie[] {
       typeof movie.keywords === 'string' &&
       movie.keywords.toLowerCase().includes(lowerQuery);
 
+    const directorsMatch =
+      typeof movie.directors === 'string' &&
+      movie.directors.toLowerCase().includes(lowerQuery);
+
       const actorsMatch =
       typeof movie.actors === 'string' &&
       movie.actors.toLowerCase().includes(lowerQuery);
 
-    return titleMatch || actorsMatch || keywordsMatch;
+    return titleMatch || actorsMatch || directorsMatch || keywordsMatch;
   });
 }
