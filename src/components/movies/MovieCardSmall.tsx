@@ -1,46 +1,91 @@
 'use client';
 
+import React, { useState } from 'react';
 import Image from 'next/image';
 import { Movie } from '@/types/movie';
+import Icon from '@/components/global/Icon';
+import { motion, AnimatePresence } from 'framer-motion';
 
 type MovieCardSmallProps = {
   movie: Movie;
   onClick: () => void;
 };
 
+const arrowVariants = {
+  enter: { x: -50, opacity: 0 },
+  center: { x: 0, opacity: 1 },
+  exit:  { x: 50, opacity: 0 },
+};
+
 const MovieCardSmall = ({ movie, onClick }: MovieCardSmallProps) => {
+  const [isHovered, setIsHovered] = useState(false);
+  const releaseYear = movie.release_date
+    ? movie.release_date.slice(0, 4)
+    : 'Brak daty';
+
   return (
     <div
-      className="group relative bg-white/10 rounded-lg overflow-hidden shadow-xl flex flex-col cursor-pointer"
-      onClick={onClick} // Make the entire div clickable
+      className="relative w-full h-full bg-white/10 hover:bg-white/20 border border-white/20 rounded-lg overflow-hidden shadow-xl cursor-pointer duration-300"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      onClick={onClick}
     >
-      {movie.poster_path ? (
-        <div className="relative w-full aspect-[2/3] overflow-hidden">
+      <div className="relative w-full h-40">
+        {movie.poster_path ? (
           <Image
-            src={`https://image.tmdb.org/t/p/w342${movie.poster_path}`}
+            src={`https://image.tmdb.org/t/p/w780${movie.backdrop_path}`}
             alt={`Plakat filmu ${movie.title}`}
-            fill // Use fill to cover the parent div
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" // Optimize image loading
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             className="object-cover transform transition-transform duration-300 group-hover:scale-105"
           />
+        ) : (
+          <div className="w-full h-full flex items-center justify-center bg-gray-700 text-white text-center p-4">
+            Brak plakatu
+          </div>
+        )}
+
+        {/* gradient */}
+        <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/70 to-transparent pointer-events-none" />
+
+        {/* tytuł + rok */}
+        <div className="absolute bottom-3 left-3 right-3 text-white">
+          <h3 className="text-base font-bold truncate">{movie.title}</h3>
+          <p className="text-sm text-white/80 mt-1">{releaseYear}</p>
         </div>
-      ) : (
-        <div className="w-full aspect-[2/3] flex items-center justify-center bg-gray-700 text-white text-center p-4">
-          Brak plakatu
+
+        {/* overlay */}
+        <div className="absolute inset-0 flex items-center justify-center backdrop-blur bg-black/40 bg-opacity-60 opacity-0 hover:opacity-100 transition-opacity duration-300">
+          <div className="flex flex-col items-center space-y-1">
+            {/* AnimatePresence + motion.span dla strzałki */}
+            <AnimatePresence>
+              {isHovered && (
+                <motion.span
+                  key="arrow"
+                  variants={arrowVariants}
+                  initial="enter"
+                  animate="center"
+                  exit="exit"
+                  transition={{ duration: 0.3 }}
+                  className="flex items-center justify-center mb-1"
+                >
+                  <Icon
+                    icon="arrow_warm_up"
+                    className="text-white rotate-90"
+                    style={{ fontSize: '40px' }}
+                  />
+                </motion.span>
+              )}
+            </AnimatePresence>
+
+            <span className="text-sm font-semibold text-white">
+              Generuj rekomendacje dla
+            </span>
+            <span className="text-xs font-semibold text-white">
+              {movie.title}
+            </span>
+          </div>
         </div>
-      )}
-      <div className="p-3 flex flex-col justify-between flex-grow">
-        <div className="text-white">
-          <h3 className="text-lg font-bold truncate">{movie.title}</h3>
-          <p className="text-sm text-white/70">
-            {movie.release_date ? movie.release_date.slice(0, 4) : 'Brak daty'}
-          </p>
-        </div>
-        <button
-          className="mt-3 py-1 w-full bg-white/10 border border-white/30 rounded-lg text-white hover:bg-white/20 transition cursor-pointer"
-        >
-          Wybierz
-        </button>
       </div>
     </div>
   );
