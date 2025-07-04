@@ -297,8 +297,8 @@ export default function MovieDetailPage() {
                     }
                     className="group flex relative items-center gap-2 text-white/90 bg-white/10 px-3 py-2 rounded-lg border border-white/20 cursor-pointer hover:bg-white/20 duration-300"
                   >
-                    <Icon icon="person" className="absolute opacity-100 group-hover:opacity-0 duration-300"/>
-                    <Icon icon="data_loss_prevention" className="absolute opacity-0 group-hover:opacity-100 duration-300"/>
+                    <Icon icon="person" className="absolute opacity-100 group-hover:opacity-0 group-hover:scale-50 duration-300"/>
+                    <Icon icon="data_loss_prevention" className="absolute opacity-0 group-hover:opacity-100 group-hover:scale-100 scale-50 duration-300"/>
                     <span className="text-sm ml-8">{actor}</span>
                   </div>
                 ))}
@@ -322,7 +322,7 @@ export default function MovieDetailPage() {
               )}
               {typeof movie.revenue === "number" && movie.revenue > 0 && (
                 <p>
-                  <strong>Budżet:</strong> ${movie.revenue.toLocaleString()}
+                  <strong>Przychód:</strong> ${movie.revenue.toLocaleString()}
                 </p>
               )}
               <p>

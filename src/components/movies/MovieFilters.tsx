@@ -85,7 +85,7 @@ export default function MovieFilters({ onFilter }: MovieFiltersProps) {
     {show && (
       <motion.div
         key="overlay"
-        className="fixed inset-0 z-50 flex items-center justify-center backdrop-blur-sm bg-black/20"
+        className="fixed inset-0 z-50 flex items-center justify-center backdrop-blur-sm bg-black/20 "
         onClick={() => setShow(false)}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -94,7 +94,7 @@ export default function MovieFilters({ onFilter }: MovieFiltersProps) {
       >
         <motion.div
           key="modal"
-          className="bg-gray-950/20 border border-white/30 backdrop-blur text-white rounded-xl p-6 min-w-[320px] max-w-[95vw] shadow-xl relative"
+          className="bg-gray-950/20 border border-white/30 backdrop-blur text-white rounded-xl p-4 md:p-6 min-w-[320px] max-w-[90vw] shadow-xl relative "
           onClick={(e) => e.stopPropagation()}
           initial={{ y: -20, opacity: 0, scale: 0.95 }}
           animate={{ y: 0, opacity: 1, scale: 1 }}
@@ -102,7 +102,7 @@ export default function MovieFilters({ onFilter }: MovieFiltersProps) {
           transition={{ duration: 0.2 }}
         >
           <div className="relative w-full px-2 sm:px-4 py-2">
-            <div className="flex flex-col gap-6 items-center w-full max-w-lg mx-auto">
+            <div className="flex flex-col gap-3 md:gap-6 items-center w-full max-w-lg mx-auto">
               {/* gatunki */}
               <div className="w-full">
                 <label className="text-white text-sm mb-2 block font-semibold">
@@ -132,7 +132,7 @@ export default function MovieFilters({ onFilter }: MovieFiltersProps) {
               </div>
 
               {/* ocena i rok */}
-              <div className="flex flex-col sm:flex-row gap-4 w-full justify-between">
+              <div className="flex flex-col sm:flex-row gap-2 md:gap-4 w-full justify-between">
                 <div className="flex flex-col items-start flex-1">
                   <label className="text-white text-sm mb-1">
                     Minimalna ocena
@@ -145,7 +145,7 @@ export default function MovieFilters({ onFilter }: MovieFiltersProps) {
                     value={minRating}
                     onChange={(e) => setMinRating(e.target.value)}
                     placeholder="np. 7.5"
-                    className="w-full px-3 py-2 rounded bg-white/10 text-white placeholder-white/60 backdrop-blur focus:outline-none focus:ring border border-white/20 focus:ring-white/60 [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+                    className="w-full px-3 py-1 md:py-2 rounded bg-white/10 text-white placeholder-white/60 backdrop-blur focus:outline-none focus:ring border border-white/20 focus:ring-white/60 [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
                   />
                 </div>
                 <div className="flex flex-col items-start flex-1">
@@ -157,7 +157,7 @@ export default function MovieFilters({ onFilter }: MovieFiltersProps) {
                     value={minYear}
                     onChange={(e) => setMinYear(e.target.value)}
                     placeholder="np. 2015"
-                    className="w-full px-3 py-2 rounded bg-white/10 text-white placeholder-white/60 backdrop-blur focus:outline-none focus:ring border border-white/20 focus:ring-white/60 [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+                    className="w-full px-3  py-1 md:py-2 rounded bg-white/10 text-white placeholder-white/60 backdrop-blur focus:outline-none focus:ring border border-white/20 focus:ring-white/60 [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
                   />
                 </div>
               </div>
@@ -167,9 +167,9 @@ export default function MovieFilters({ onFilter }: MovieFiltersProps) {
               <button
                 type="button"
                 onClick={resetFilters}
-                className="px-4 py-2 flex items-center justify-center rounded-lg bg-white/10 border border-white/30 text-white text-sm hover:bg-white/20 transition"
+                className="px-4 py-2 flex items-center group justify-center rounded-lg bg-white/10 border border-white/30 text-white text-sm hover:bg-white/20 transition "
               >
-                <Icon icon="cached"/>
+                <Icon icon="cached" className="group-hover:rotate-45 duration-300 "/>
               </button>
                             <button
                 type="button"
