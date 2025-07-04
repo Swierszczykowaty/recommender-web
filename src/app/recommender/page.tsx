@@ -65,6 +65,7 @@ export default function RecommenderSearchPage() {
 
           {searchResults.length > 0 && (
             <motion.div
+            className="h-full w-full"
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, ease: "easeOut" }}
@@ -74,7 +75,7 @@ export default function RecommenderSearchPage() {
                   ? `Wyniki dla: "${searchQuery}"`
                   : "Wybierz z ostatnio popularnych:"}
               </h2>
-              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 w-full">
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-2 gap-6 h-full w-full">
                 {searchResults.map((movie) => (
                   <MovieCardSmall
                     key={movie.id}
