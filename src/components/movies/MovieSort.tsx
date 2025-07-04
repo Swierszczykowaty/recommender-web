@@ -2,7 +2,8 @@
 
 import { useSearchParams, useRouter } from "next/navigation";
 import { useState, useRef, useEffect } from "react";
-import { ChevronDown } from "lucide-react"; // ikona strzałki
+import Icon from "@/components/global/Icon";
+import { motion, AnimatePresence } from "framer-motion";
 
 const sortOptions = [
   { label: "Domyślne", value: "" },
@@ -50,46 +51,52 @@ export default function MovieSort() {
     sortOptions.find((opt) => opt.value === selected)?.label || "Domyślne";
 
   return (
-    <div className="relative z-30">
-      <div className="max-w-7xl mx-auto flex flex-col">
-        <div
-          ref={dropdownRef}
-          className="relative flex items-center gap-2 cursor-default"
-        >
-          <span className="text-white text-sm font-semibold text-nowrap">
-            Sortuj po:
-          </span>
-          <button
-            onClick={() => setOpen((o) => !o)}
-            className="text-white/90 text-sm font-medium flex items-center gap-1 cursor-pointer"
+    <div
+      ref={dropdownRef}
+      className="relative flex items-center gap-2 cursor-default"
+    >
+      <span className="hidden md:inline text-white text-sm font-semibold whitespace-nowrap">
+        Sortuj po:
+      </span>
+
+      <button
+        onClick={() => setOpen((o) => !o)}
+        className="text-white/90 text-sm font-medium flex items-center gap-1 cursor-pointer"
+      >
+        <span className="inline md:hidden">Sortuj</span>
+        <span className="hidden md:inline">{selectedLabel}</span>
+        <Icon
+          icon="keyboard_arrow_up"
+          className={`transition-transform ${open ? "rotate-0" : "rotate-180"}`}
+        />
+      </button>
+
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            key="dropdown"
+            className="absolute top-full mt-2 right-0 md:left-0 w-40 md:w-60 bg-gray-950/20 backdrop-blur-md rounded-lg shadow-lg p-2 z-50 border border-white/30"
+            initial={{ opacity: 0, y: -10, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -10, scale: 0.95 }}
+            transition={{ duration: 0.2 }}
           >
-            {selectedLabel}
-            <ChevronDown
-              size={16}
-              className={`transition-transform ${
-                open ? "rotate-180" : "rotate-0"
-              }`}
-            />
-          </button>
-          {open && (
-            <div className="absolute top-full mt-2 left-0 w-40 md:w-60 bg-gray-900/30 backdrop-blur rounded-xl shadow-lg p-2 z-50 border border-white/30 ">
-              {sortOptions.map((opt) => (
-                <button
-                  key={opt.value}
-                  onClick={() => handleSelect(opt.value)}
-                  className={`w-full text-left px-3 mt-1 py-1 rounded text-sm text-white ${
-                    selected === opt.value
-                      ? "bg-white/30 font-semibold"
-                      : "hover:bg-white/20"
-                  }`}
-                >
-                  {opt.label}
-                </button>
-              ))}
-            </div>
-          )}
-        </div>
-      </div>
+            {sortOptions.map((opt) => (
+              <button
+                key={opt.value}
+                onClick={() => handleSelect(opt.value)}
+                className={`w-full text-left px-3 mt-1 py-1 rounded text-sm text-white ${
+                  selected === opt.value
+                    ? "bg-white/30 font-semibold border border-white/30"
+                    : "hover:bg-white/20"
+                }`}
+              >
+                {opt.label}
+              </button>
+            ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

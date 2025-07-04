@@ -1,127 +1,122 @@
+// components/movies/MoviesList.tsx
 "use client";
 
+import React, { useState, useEffect, useMemo } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
-import { useEffect, useState, useMemo } from "react";
 import Title from "@/components/global/Title";
 import Container from "@/components/global/Container";
 import MovieCard from "@/components/movies/MovieCard";
 import SearchBar from "@/components/global/SearchBar";
-import MovieFilters from "@/components/movies/MovieFilters";
+import MovieFilters, { FilterValues } from "@/components/movies/MovieFilters";
 import MovieSort from "@/components/movies/MovieSort";
-import { filterMovies } from "@/lib/filterMovies";
+import { searchMovies } from "@/lib/searchMovies";
 import { sortMovies } from "@/lib/sortMovies";
 import { motion } from "framer-motion";
 import type { Movie } from "@/types/movie";
 
 const ITEMS_PER_PAGE = 24;
-type MoviesListProps = {
-  movies: Movie[];
-};
-export default function MoviesList({ movies }: MoviesListProps) {
+
+export default function MoviesList({ movies }: { movies: Movie[] }) {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const pageFromParams = Number(searchParams.get("page")) || 1;
+
+  const page = Number(searchParams.get("page") || "1");
   const query = searchParams.get("query")?.toLowerCase() || "";
   const genre = searchParams.get("genre") || "";
   const minRating = parseFloat(searchParams.get("rating") || "0");
-  const minYear = parseInt(searchParams.get("year") || "1900");
+  const minYear = parseInt(searchParams.get("year") || "1900", 10) || 1900;
   const sortBy = searchParams.get("sort") || "";
 
-  const filteredMovies = useMemo(() => {
-    let filtered = filterMovies(movies, query);
-
-    filtered = filtered.filter((movie) => {
-      const genreList = movie.genres?.split(", ") ?? [];
-      const matchesGenre = genre === "" || genreList.includes(genre);
-      const matchesRating = (movie.vote_average ?? 0) >= minRating;
-      const matchesYear = !isNaN(minYear)
-        ? parseInt(movie.release_date?.slice(0, 4) || "0") >= minYear
-        : true;
-
-      return matchesGenre && matchesRating && matchesYear;
+  const filtered = useMemo(() => {
+    const f = searchMovies(movies, query).filter((movie) => {
+      const g = movie.genres?.split(", ") ?? [];
+      return (
+        (genre === "" || g.includes(genre)) &&
+        (movie.vote_average ?? 0) >= minRating &&
+        parseInt(movie.release_date?.slice(0, 4) || "0", 10) >= minYear
+      );
     });
-
-    return sortMovies(filtered, sortBy);
+    return sortMovies(f, sortBy);
   }, [movies, query, genre, minRating, minYear, sortBy]);
 
-  const [currentPage, setCurrentPage] = useState(pageFromParams);
-  const totalPages = Math.ceil(filteredMovies.length / ITEMS_PER_PAGE);
+  const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE);
+  const [currentPage, setCurrentPage] = useState(page);
 
   useEffect(() => {
-    setCurrentPage(pageFromParams);
-  }, [pageFromParams]);
+    setCurrentPage(page);
+  }, [page]);
 
-  const handleChangePage = (page: number) => {
-    const params = new URLSearchParams(searchParams.toString());
-    params.set("page", page.toString());
-    router.push(`/movies?${params.toString()}`);
+const handleSearch = (q: string) => {
+  const p = new URLSearchParams(searchParams.toString());
+  if (q) {
+    p.set("query", q);
+  } else {
+    p.delete("query");
+  }
+  p.set("page", "1");
+  router.push(`/movies?${p.toString()}`);
+  setCurrentPage(1);
+};
+
+const handleFilter = ({ genre, minRating, minYear }: FilterValues) => {
+  const p = new URLSearchParams(searchParams.toString());
+
+  if (genre) {
+    p.set("genre", genre);
+  } else {
+    p.delete("genre");
+  }
+
+  if (minRating) {
+    p.set("rating", String(minRating));
+  } else {
+    p.delete("rating");
+  }
+
+  if (minYear) {
+    p.set("year", String(minYear));
+  } else {
+    p.delete("year");
+  }
+
+  p.set("page", "1");
+  router.push(`/movies?${p.toString()}`);
+  setCurrentPage(1);
+};
+
+
+  const handlePage = (pg: number) => {
+    const p = new URLSearchParams(searchParams.toString());
+    p.set("page", String(pg));
+    router.push(`/movies?${p.toString()}`);
   };
 
-  const handleSearch = (query: string) => {
-    const params = new URLSearchParams(searchParams.toString());
-    if (query) params.set("query", query);
-    else params.delete("query");
-    params.set("page", "1");
-    router.push(`/movies?${params.toString()}`);
-    setCurrentPage(1);
-  };
-
-  const handleFilter = ({
-    genre,
-    minRating,
-    minYear,
-  }: {
-    genre: string;
-    minRating: number;
-    minYear: number;
-  }) => {
-    const params = new URLSearchParams(searchParams.toString());
-    if (genre) params.set("genre", genre);
-    else params.delete("genre");
-    if (minRating) params.set("rating", String(minRating));
-    else params.delete("rating");
-    if (minYear) params.set("year", String(minYear));
-    else params.delete("year");
-    params.set("page", "1");
-    router.push(`/movies?${params.toString()}`);
-    setCurrentPage(1);
-    setShowFilters(false);
-  };
-
-  const paginatedMovies = filteredMovies.slice(
+  const pageItems = filtered.slice(
     (currentPage - 1) * ITEMS_PER_PAGE,
     currentPage * ITEMS_PER_PAGE
   );
 
-  const generatePagination = () => {
-    const pages: (number | string)[] = [];
-
-    if (totalPages <= 10) {
-      for (let i = 1; i <= totalPages; i++) pages.push(i);
-    } else {
-      pages.push(1);
-      if (currentPage > 4) pages.push("...");
-      for (
-        let i = Math.max(2, currentPage - 1);
-        i <= Math.min(totalPages - 1, currentPage + 1);
-        i++
-      ) {
-        pages.push(i);
-      }
-      if (currentPage < totalPages - 3) pages.push("...");
-      pages.push(totalPages);
-    }
-
-    return pages;
+  const pagesList = () => {
+    const L: (number | string)[] = [];
+    if (totalPages <= 10)
+      return Array.from({ length: totalPages }, (_, i) => i + 1);
+    L.push(1);
+    if (currentPage > 4) L.push("...");
+    for (
+      let i = Math.max(2, currentPage - 1);
+      i <= Math.min(totalPages - 1, currentPage + 1);
+      i++
+    )
+      L.push(i);
+    if (currentPage < totalPages - 3) L.push("...");
+    L.push(totalPages);
+    return L;
   };
 
-  // ------- NOWE: stan modala filtrów --------
-  const [showFilters, setShowFilters] = useState(false);
-
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-32">
+    <section className="relative min-h-screen pt-32 flex justify-center mb-10">
       <Container>
-        <div className="relative flex flex-col items-center z-10 w-full mx-auto mb-10">
+        <div className="mb-10 text-center flex justify-center">
           <Title
             subtitle="Zanurz się w świecie filmów"
             gradientFrom="from-cyan-300"
@@ -129,146 +124,60 @@ export default function MoviesList({ movies }: MoviesListProps) {
           >
             Baza filmów
           </Title>
+        </div>
 
-          <div className="mt-8 w-full max-w-2xl">
-            <SearchBar onSearch={handleSearch} />
-          </div>
+        <div className="max-w-2xl mx-auto mb-6">
+          <SearchBar onSearch={handleSearch} />
+        </div>
 
-          {/* Wrapper */}
-          <motion.div
-            className="w-full mt-4"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.4, ease: "easeOut" }}
-          >
-            {/* Desktop: flex, Mobile: grid */}
-            <div className="hidden md:flex w-full items-center justify-between">
-              {/* Lewo */}
-              <div>
-                <button
-                  className="text-white font-semibold cursor-pointer"
-                  onClick={() => setShowFilters(true)}
-                >
-                  Filtrowanie zaawansowane
-                </button>
-                {/* Modal z filtrami */}
-                {showFilters && (
-                  <div
-                    className="fixed inset-0 z-50 flex items-center justify-center bg-black/60"
-                    onClick={() => setShowFilters(false)}
-                  >
-                    <div
-                      className="bg-gray-950/20 border border-white/30 backdrop-blur text-white focus:outline-none focus:ring-2 focus:ring-white/40 rounded-xl p-6 min-w-[320px] max-w-[95vw] shadow-xl relative "
-                      onClick={(e) => e.stopPropagation()}
-                    >
-                      <MovieFilters onFilter={handleFilter} />
-                      <button
-                        className="absolute top-3 right-5 text-gray-400 hover:text-white text-2xl "
-                        onClick={() => setShowFilters(false)}
-                        aria-label="Zamknij"
-                      >
-                        ×
-                      </button>
-                    </div>
-                  </div>
-                )}
-              </div>
-              {/* Środek */}
-              <div className="flex-1 flex justify-center">
-                <span className="text-white/80 text-sm font-medium whitespace-nowrap">
-                  Strona {currentPage} z {totalPages}
-                </span>
-              </div>
-              {/* Prawo */}
-              <div>
-                <MovieSort />
-              </div>
-            </div>
-            {/* MOBILE: grid */}
-            <div className="md:hidden grid grid-cols-2 gap-2">
-              {/* Góra (strona wyśrodkowana na pełnej szerokości) */}
-              <div className="col-span-2 flex justify-center mb-1">
-                <span className="text-white/80 text-sm font-medium whitespace-nowrap">
-                  Strona {currentPage} z {totalPages}
-                </span>
-              </div>
-              {/* Lewy dolny przycisk */}
-              <div className="flex justify-start">
-                <button
-                  className="text-white font-semibold"
-                  onClick={() => setShowFilters(true)}
-                >
-                  Filtrowanie
-                </button>
-                {/* Modal jak wyżej */}
-                {showFilters && (
-                  <div
-                    className="fixed inset-0 z-50 flex items-center justify-center bg-black/60"
-                    onClick={() => setShowFilters(false)}
-                  >
-                    <div
-                      className="bg-gray-950/20 border border-white/30 backdrop-blur text-white focus:outline-none focus:ring-2 focus:ring-white/40 rounded-xl p-6 min-w-[320px] max-w-[95vw] shadow-xl relative"
-                      onClick={(e) => e.stopPropagation()}
-                    >
-                      <MovieFilters onFilter={handleFilter} />
-                      <button
-                        className="absolute top-3 right-5 text-gray-400 hover:text-white text-2xl"
-                        onClick={() => setShowFilters(false)}
-                        aria-label="Zamknij"
-                      >
-                        ×
-                      </button>
-                    </div>
-                  </div>
-                )}
-              </div>
-              {/* Prawy dolny przycisk */}
-              <div className="flex justify-end">
-                <MovieSort />
-              </div>
-            </div>
-          </motion.div>
+        <motion.div
+          className="relative flex items-center justify-between mb-4 w-full"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.4 }}
+        >
+          <MovieFilters onFilter={handleFilter} />
 
-          {/* LISTA FILMÓW */}
-      <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 md:gap-6 w-full">
-        {paginatedMovies.map((movie, idx) => (
-          <motion.div
-            key={movie.id}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: idx * 0.05, duration: 0.2, ease: "easeOut" }}
-            className="w-full mt-1"
-          >
-            <MovieCard movie={movie} isFirstCard={idx === 0} />
-          </motion.div>
-        ))}
-      </div>
+          <span className="text-white/80 text-sm absolute left-1/2 transform -translate-x-1/2 ">
+            Strona {currentPage} z {totalPages}
+          </span>
 
-          {/* PAGINACJA */}
-          <div className="mt-20 flex flex-wrap gap-2 justify-center items-center">
-            {generatePagination().map((page, idx) =>
-              typeof page === "string" ? (
-                <span
-                  key={`ellipsis-${idx}`}
-                  className="px-1 md:px-3 py-2 text-white/50"
-                >
-                  …
-                </span>
-              ) : (
-                <button
-                  key={`page-${page}`}
-                  onClick={() => handleChangePage(page)}
-                  className={`px-3 md:px-4 py-2 rounded-md border transition ${
-                    currentPage === page
-                      ? "bg-white/30 text-white font-bold"
-                      : "bg-white/10 text-white hover:bg-white/20"
-                  }`}
-                >
-                  {page}
-                </button>
-              )
-            )}
-          </div>
+          <MovieSort />
+        </motion.div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 w-full">
+          {pageItems.map((m, i) => (
+            <motion.div
+              key={m.id}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: i * 0.05 }}
+            >
+              <MovieCard movie={m} isFirstCard={i === 0} />
+            </motion.div>
+          ))}
+        </div>
+
+        <div className="flex flex-wrap justify-center gap-2 mt-10">
+          {pagesList().map((p, i) =>
+            typeof p === "string" ? (
+              <span key={`e${i}`} className="px-2 py-1 text-white/50">
+                …
+              </span>
+            ) : (
+              <button
+                key={p}
+                onClick={() => handlePage(p)}
+                className={`px-3 md:px-4 py-2 rounded-lg border ${
+                  currentPage === p
+                    ? "bg-white/30 text-white"
+                    : "bg-white/10 text-white hover:bg-white/20"
+                }`}
+              >
+                {p}
+              </button>
+            )
+          )}
         </div>
       </Container>
     </section>
