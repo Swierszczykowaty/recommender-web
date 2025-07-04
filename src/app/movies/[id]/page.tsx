@@ -345,14 +345,14 @@ export default function MovieDetailPage() {
           <div className="mb-10 flex flex-col-reverse md:flex-row justify-center items-center gap-4 mt-2">
             <button
               onClick={handleGoBack}
-              className="flex items-center gap-2 px-6 py-3 w-full max-w-[250px] justify-center bg-white/10 border border-white/20 rounded-lg backdrop-blur-md shadow-xl transition cursor-pointer hover:bg-white/20"
+              className="flex items-center gap-2 px-6 py-3 w-full max-w-[250px] justify-center bg-white/10 border border-white/20 rounded-lg backdrop-blur-md shadow-xl transition cursor-pointer hover:bg-white/20 duration-300"
             >
               <Icon icon="keyboard_backspace" style={{ fontSize: "20px" }} />
               Powrót
             </button>
             <Link
               href={`/recommender/${movie.id}`}
-              className="flex px-6 py-3 w-full max-w-[250px]  justify-center bg-gradient-to-tr from-indigo-400/10 via-fuchsia-400/25 to-purple-400/15 border border-white/30 rounded-lg hover:from-indigo-400/35 hover:via-fuchsia-400/45 hover:to-purple-400/55 transition-colors"
+              className="flex px-6 py-3 w-full max-w-[250px]  justify-center bg-gradient-to-tr from-indigo-400/10 via-fuchsia-400/25 to-purple-400/15 border border-white/30 rounded-lg hover:from-indigo-400/35 hover:via-fuchsia-400/45 hover:to-purple-400/55 transition-colors duration-300"
             >
               Generuj Rekomendacje
             </Link>

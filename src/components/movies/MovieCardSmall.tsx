@@ -1,21 +1,33 @@
 'use client';
 
+import React, { useState } from 'react';
 import Image from 'next/image';
 import { Movie } from '@/types/movie';
-import Icon from '@/components/global/Icon'; 
+import Icon from '@/components/global/Icon';
+import { motion, AnimatePresence } from 'framer-motion';
 
 type MovieCardSmallProps = {
   movie: Movie;
   onClick: () => void;
 };
 
+const arrowVariants = {
+  enter: { x: -50, opacity: 0 },
+  center: { x: 0, opacity: 1 },
+  exit:  { x: 50, opacity: 0 },
+};
+
 const MovieCardSmall = ({ movie, onClick }: MovieCardSmallProps) => {
-    const releaseYear = movie.release_date
+  const [isHovered, setIsHovered] = useState(false);
+  const releaseYear = movie.release_date
     ? movie.release_date.slice(0, 4)
     : 'Brak daty';
+
   return (
-  <div
-      className="group relative w-full h-full bg-white/10 hover:bg-white/20 border border-white/20 rounded-lg overflow-hidden shadow-xl cursor-pointer duration-300"
+    <div
+      className="relative w-full h-full bg-white/10 hover:bg-white/20 border border-white/20 rounded-lg overflow-hidden shadow-xl cursor-pointer duration-300"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
       onClick={onClick}
     >
       <div className="relative w-full h-40">
@@ -42,22 +54,41 @@ const MovieCardSmall = ({ movie, onClick }: MovieCardSmallProps) => {
           <p className="text-sm text-white/80 mt-1">{releaseYear}</p>
         </div>
 
-        {/* → NAKŁADKA NA HOVER ← */}
-        <div className="absolute inset-0 flex items-center justify-center backdrop-blur bg-black/40 bg-opacity-60 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          <div className="flex flex-col items-center space-x-2 space-y-1">
-            <Icon icon='arrow_warm_up' className="text-white rotate-90" style={{ fontSize: '40px' }}/>
-            {/* użyj ArrowUpwardIcon jeśli bierzesz z MUI */}
+        {/* overlay */}
+        <div className="absolute inset-0 flex items-center justify-center backdrop-blur bg-black/40 bg-opacity-60 opacity-0 hover:opacity-100 transition-opacity duration-300">
+          <div className="flex flex-col items-center space-y-1">
+            {/* AnimatePresence + motion.span dla strzałki */}
+            <AnimatePresence>
+              {isHovered && (
+                <motion.span
+                  key="arrow"
+                  variants={arrowVariants}
+                  initial="enter"
+                  animate="center"
+                  exit="exit"
+                  transition={{ duration: 0.3 }}
+                  className="flex items-center justify-center mb-1"
+                >
+                  <Icon
+                    icon="arrow_warm_up"
+                    className="text-white rotate-90"
+                    style={{ fontSize: '40px' }}
+                  />
+                </motion.span>
+              )}
+            </AnimatePresence>
+
             <span className="text-sm font-semibold text-white">
-             Generuj rekomendacje dla 
+              Generuj rekomendacje dla
             </span>
-             <span className="text-xs font-semibold text-white">
-             {movie.title}
+            <span className="text-xs font-semibold text-white">
+              {movie.title}
             </span>
           </div>
         </div>
       </div>
     </div>
-    );
+  );
 };
 
 export default MovieCardSmall;

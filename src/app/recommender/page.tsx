@@ -5,11 +5,12 @@ import { useRouter } from "next/navigation";
 import Title from "@/components/global/Title";
 import Container from "@/components/global/Container";
 import SearchBar from "@/components/global/SearchBar";
-import MovieCardSmall from "@/components/movies/MovieCardSmall"; // Import the new MovieCardSmall component
+import MovieCardSmall from "@/components/movies/MovieCardSmall";
 import type { Movie } from "@/types/movie";
 import allMovies from "@/data/full_data_web.json";
 import { searchMovies } from "@/lib/searchMovies";
 import { motion } from "framer-motion";
+
 const movies: Movie[] = allMovies as Movie[];
 
 export default function RecommenderSearchPage() {
@@ -45,7 +46,7 @@ export default function RecommenderSearchPage() {
   }, [searchQuery, searchResults.length]);
 
   return (
-    <section className="relative min-h-screen flex justify-center overflow-hidden pt-32 ">
+    <section className="relative min-h-screen flex justify-center overflow-hidden pt-32">
       <Container>
         <div className="flex flex-col items-center w-full mx-auto mb-20">
           <Title
@@ -64,28 +65,30 @@ export default function RecommenderSearchPage() {
           </div>
 
           {searchResults.length > 0 && (
-            <motion.div
-            className="h-full w-full"
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, ease: "easeOut" }}
-            >
+            <>
               <h2 className="text-xl font-semibold text-white/80 mb-6 text-center">
                 {searchQuery
                   ? `Wyniki dla: "${searchQuery}"`
-                  : "Wybierz z ostatnio popularnych:"}
+                  : "Wybierz albo wyszukaj swój film:"}
               </h2>
-              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-2 gap-6 h-full w-full">
-                {searchResults.map((movie) => (
-                  <MovieCardSmall
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 h-full w-full">
+                {searchResults.map((movie, i) => (
+                  <motion.div
                     key={movie.id}
-                    movie={movie}
-                    onClick={() => handleMovieSelect(movie)}
-                  />
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: i * 0.05, duration: 0.4, ease: "easeOut" }}
+                  >
+                    <MovieCardSmall
+                      movie={movie}
+                      onClick={() => handleMovieSelect(movie)}
+                    />
+                  </motion.div>
                 ))}
               </div>
-            </motion.div>
+            </>
           )}
+
           {searchResults.length === 0 && searchQuery !== "" && (
             <p className="text-white/70 text-lg mt-8">
               Brak wyników dla &quot;{searchQuery}&quot;. Spróbuj innej frazy.
