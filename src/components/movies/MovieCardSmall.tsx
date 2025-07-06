@@ -46,12 +46,12 @@ const MovieCardSmall = ({ movie, onClick }: MovieCardSmallProps) => {
         )}
 
         {/* gradient */}
-        <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/70 to-transparent pointer-events-none" />
+        <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/80 to-transparent pointer-events-none" />
 
         {/* tytuł + rok */}
         <div className="absolute bottom-3 left-3 right-3 text-white">
-          <h3 className="text-base font-bold truncate">{movie.title}</h3>
-          <p className="text-sm text-white/80 mt-1">{releaseYear}</p>
+          <h3 className="text-base font-bold truncate drop-shadow-xl">{movie.title}</h3>
+          <p className="text-sm text-white/80 mt-1 drop-shadow-xl">{releaseYear}</p>
         </div>
 
         {/* overlay */}
