@@ -33,11 +33,8 @@ export default function RecommenderSearchPage() {
       const filtered = movies
         .filter(
           (m) =>
-            !!m.poster_path &&
-            m.vote_average &&
-            m.vote_average > 7.0 &&
             m.popularity &&
-            m.popularity > 80.0
+            m.popularity > 100.0
         )
         .sort(() => 0.5 - Math.random())
         .slice(0, 12);
@@ -48,7 +45,7 @@ export default function RecommenderSearchPage() {
   return (
     <section className="relative min-h-screen flex justify-center overflow-hidden pt-32">
       <Container>
-        <div className="flex flex-col items-center w-full mx-auto mb-20">
+        <div className="mb-10 text-center flex justify-center">
           <Title
             subtitle="Wybierz film, a my znajdziemy podobne"
             gradientFrom="from-indigo-400"
@@ -57,7 +54,8 @@ export default function RecommenderSearchPage() {
           >
             Generowanie Rekomendacji
           </Title>
-          <div className="mt-8 mb-4 w-full max-w-2xl">
+          </div>
+          <div className="max-w-2xl mx-auto mb-6">
             <SearchBar
               onSearch={handleSearch}
               placeholder="Wpisz tytuł filmu..."
@@ -65,8 +63,8 @@ export default function RecommenderSearchPage() {
           </div>
 
           {searchResults.length > 0 && (
-            <>
-              <h2 className="text-xl font-semibold text-white/80 mb-6 text-center">
+            <div>
+              <h2 className="text-lg font-semibold text-white/80 mb-6 text-center">
                 {searchQuery
                   ? `Wyniki dla: "${searchQuery}"`
                   : "Wybierz albo wyszukaj swój film:"}
@@ -86,7 +84,7 @@ export default function RecommenderSearchPage() {
                   </motion.div>
                 ))}
               </div>
-            </>
+            </div>
           )}
 
           {searchResults.length === 0 && searchQuery !== "" && (
@@ -94,7 +92,7 @@ export default function RecommenderSearchPage() {
               Brak wyników dla &quot;{searchQuery}&quot;. Spróbuj innej frazy.
             </p>
           )}
-        </div>
+        
       </Container>
     </section>
   );
