@@ -12,7 +12,6 @@ import allMovies from "@/data/full_data_web.json";
 import { motion } from "framer-motion";
 
 export default function RecommendationResultPage() {
-  // ... (stany i logika pozostają bez zmian)
   const [baseMovie, setBaseMovie] = useState<Movie | null>(null);
   const [recommendations, setRecommendations] = useState<Movie[]>([]);
   const [loading, setLoading] = useState(true);
@@ -21,17 +20,16 @@ export default function RecommendationResultPage() {
   const params = useParams();
   const movieId = params.id as string;
 
-
   useEffect(() => {
     if (!movieId) return;
 
     const fetchMovieData = async () => {
       setLoading(true);
       setError(null);
+      const start = Date.now();
 
       const movies: Movie[] = allMovies as Movie[];
       const foundBaseMovie = movies.find((m) => m.id.toString() === movieId);
-
       if (!foundBaseMovie) {
         setError("Nie znaleziono filmu o podanym ID.");
         setLoading(false);
@@ -40,47 +38,60 @@ export default function RecommendationResultPage() {
       setBaseMovie(foundBaseMovie);
 
       try {
-        const res = await fetch("https://recommender-api-f6qb.onrender.com/api/recommendations", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ movie_id: foundBaseMovie.id }),
-        });
-
+        const res = await fetch(
+          "http://127.0.0.1:8000/api/recommendations",
+          // const res = await fetch("https://recommender-api-f6qb.onrender.com/api/recommendations",
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ movie_id: foundBaseMovie.id }),
+          }
+        );
         if (!res.ok) throw new Error("Błąd serwera rekomendacji.");
-
         const data = await res.json();
         const matched = movies
           .filter((m) =>
             data.recommendations.some((r: { id: number }) => r.id === m.id)
           )
-          .filter((m) => m.id !== foundBaseMovie.id); // Upewnij się, że nie polecamy tego samego filmu
-
-        // Ustawiamy sztywno 8 rekomendacji
+          .filter((m) => m.id !== foundBaseMovie.id);
         setRecommendations(matched.slice(0, 8));
       } catch (e) {
-        if (e instanceof Error) setError(e.message);
-        else setError("Wystąpił nieoczekiwany błąd.");
+        setError(
+          e instanceof Error ? e.message : "Wystąpił nieoczekiwany błąd."
+        );
       } finally {
+        const elapsed = Date.now() - start;
+        const remaining = 888 - elapsed;
+        if (remaining > 0) {
+          await new Promise((r) => setTimeout(r, remaining));
+        }
         setLoading(false);
       }
     };
+
     fetchMovieData();
   }, [movieId]);
 
-  // --- NOWY LAYOUT STRONY ---
   return (
     <section className="relative min-h-screen overflow-hidden pt-24 pb-20 sm:pt-32">
       <Container>
         {loading && (
-          <p className="text-white text-center text-lg">
-            Generowanie rekomendacji...
-          </p>
+          <>
+            <motion.div
+              className="flex items-center justify-center gap-4 text-white text-lg"
+              initial={{ opacity: 0, y: -5 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{  ease: "easeOut" }}
+            >
+              <div className="w-8 h-8 border-4 border-white/20 border-t-violet-200 border-r-violet-200/10 border-b-violet-200/40 border-l-violet-200/70 rounded-full animate-spin" />
+              <span className="text-xl font-bold">Generowanie rekomendacji…</span>
+          </motion.div>
+          </>
         )}
         {error && <p className="text-red-400 text-center text-lg">{error}</p>}
 
         {!loading && !error && baseMovie && (
           <div className="flex flex-col items-center w-full mx-auto">
-            {/* 1. Główny tytuł strony */}
             <Title
               subtitle="Wygenerowane specjalnie dla Ciebie"
               gradientFrom="from-indigo-400"
@@ -90,12 +101,13 @@ export default function RecommendationResultPage() {
               Rekomendacje Filmowe
             </Title>
 
-            {/* 2. Sekcja z filmem bazowym */}
-            <motion.div className="mt-12 mb-8 w-full max-w-4xl"
-                        initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.7, ease: "easeOut" }}>
-              <h2 className="text-lg font-semibold text-white/80 mb-4 text-center ">
+            <motion.div
+              className="mt-12 mb-8 w-full max-w-4xl"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.7, ease: "easeOut" }}
+            >
+              <h2 className="text-lg font-semibold text-white/80 mb-4 text-center">
                 Na podstawie filmu:
               </h2>
               <div className="flex flex-col sm:flex-row items-center gap-6 sm:gap-8 bg-white/10 p-6 rounded-2xl border border-white/20 backdrop-blur-lg">
@@ -122,11 +134,12 @@ export default function RecommendationResultPage() {
               </div>
             </motion.div>
 
-            {/* 3. Siatka polecanych filmów */}
-            <motion.div className="w-full"
-                        initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, ease: "easeOut" }}>
+            <motion.div
+              className="w-full"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, ease: "easeOut" }}
+            >
               <h2 className="text-lg font-semibold text-white/80 mb-6 text-center">
                 Oto 8 filmów, które mogą Ci się spodobać:
               </h2>
@@ -136,7 +149,7 @@ export default function RecommendationResultPage() {
                 ))}
               </div>
             </motion.div>
-            {/* 4. Przycisk powrotu */}
+
             <Link
               href="/recommender"
               className="mt-20 px-8 py-3 bg-gradient-to-br from-indigo-400/10 via-fuchsia-400/25 to-purple-400/15 border border-white/30 rounded-lg text-white hover:bg-gradient-to-tr hover:from-indigo-400/35 hover:via-fuchsia-400/45 hover:to-purple-400/55 transition-colors cursor-pointer"

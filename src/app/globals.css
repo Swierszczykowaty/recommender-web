@@ -44,6 +44,7 @@ body {
 }
 html {
   scroll-behavior: smooth;
+  overflow-y: scroll;
 }
 .fade-up {
   opacity: 0;
