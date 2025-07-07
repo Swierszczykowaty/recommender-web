@@ -103,6 +103,14 @@ export default function MovieDetailPage() {
   ];
   // w środku MovieDetailPage, przed return:
   const hasPlatforms = platformLogos.some((p) => p.flag);
+  const fabVariants = {
+    collapsed: { width: 56 },
+    expanded: { width: 250 },
+  };
+  const textVariants = {
+    collapsed: { opacity: 0, x: -10 },
+    expanded: { opacity: 1, x: 0 },
+  };
 
   return (
     <section className="relative min-h-screen text-white">
@@ -297,8 +305,14 @@ export default function MovieDetailPage() {
                     }
                     className="group flex relative items-center gap-2 text-white/90 bg-white/10 px-3 py-2 rounded-lg border border-white/20 cursor-pointer hover:bg-white/20 duration-300"
                   >
-                    <Icon icon="person" className="absolute opacity-100 group-hover:opacity-0 group-hover:scale-50 duration-300"/>
-                    <Icon icon="data_loss_prevention" className="absolute opacity-0 group-hover:opacity-100 group-hover:scale-100 scale-50 duration-300"/>
+                    <Icon
+                      icon="person"
+                      className="absolute opacity-100 group-hover:opacity-0 group-hover:scale-50 duration-300"
+                    />
+                    <Icon
+                      icon="data_loss_prevention"
+                      className="absolute opacity-0 group-hover:opacity-100 group-hover:scale-100 scale-50 duration-300"
+                    />
                     <span className="text-sm ml-8">{actor}</span>
                   </div>
                 ))}
@@ -366,6 +380,36 @@ export default function MovieDetailPage() {
         onClose={() => setIsModalOpen(false)}
         movie={movie}
       />
+      <motion.div className="fixed mb-4 md:mb-0 md:mr-0 bottom-6 mr-4 md:right-6 z-50"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, ease: "easeOut" }}>
+        <Link href={`/recommender/${movie.id}`} className="block">
+          <motion.div
+            className="relative flex backdrop-blur-lg items-center h-14 bg-gradient-to-tr from-indigo-400/10 via-fuchsia-400/25 to-purple-400/15 border border-white/30 rounded-2xl overflow-hidden cursor-pointer"
+            initial="collapsed"
+            whileHover="expanded"
+            variants={fabVariants}
+            transition={{ duration: 0.3, ease: "easeOut" }}
+          >
+            {/* ikona zawsze widoczna */}
+            <Icon
+              icon="app_registration"
+              className="text-white z-10 ml-[14px]"
+              style={{ fontSize: 24 }}
+            />
+
+            {/* tekst absolutnie po lewej, animowany */}
+            <motion.span
+              className="absolute left-14 text-white font-medium whitespace-nowrap"
+              variants={textVariants}
+              transition={{ duration: 0.2, ease: "easeOut" }}
+            >
+              Generuj rekomendacje
+            </motion.span>
+          </motion.div>
+        </Link>
+      </motion.div>
     </section>
   );
 }
