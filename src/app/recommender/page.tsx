@@ -43,7 +43,7 @@ export default function RecommenderSearchPage() {
   }, [searchQuery, searchResults.length]);
 
   return (
-    <section className="relative min-h-screen flex justify-center overflow-hidden pt-32">
+    <section className="relative min-h-screen flex justify-center overflow-hidden pt-32 mb-10">
       <Container>
         <div className="mb-10 text-center flex justify-center">
           <Title
