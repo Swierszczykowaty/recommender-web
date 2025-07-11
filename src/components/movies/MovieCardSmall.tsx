@@ -25,7 +25,7 @@ const MovieCardSmall = ({ movie, onClick }: MovieCardSmallProps) => {
 
   return (
     <div
-      className="relative w-full h-full bg-white/10 hover:bg-white/20 border border-white/20 rounded-lg overflow-hidden shadow-xl cursor-pointer duration-300"
+      className="relative w-full h-full bg-white/10 border border-white/20 rounded-lg overflow-hidden shadow-xl cursor-pointer duration-300"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onClick={onClick}
