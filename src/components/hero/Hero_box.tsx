@@ -33,7 +33,7 @@ export default function HeroBox({
       >
         <div className="flex flex-col">
           <Icon icon={icon} className="mb-4 text-white" style={{ fontSize: '60px' }} />
-          <h1 className="text-3xl font-bold mb-4 text-white">{title}</h1>
+          <h1 className="text-2xl font-bold mb-4 text-white">{title}</h1>
           <p className="text-white/80 text-base mb-6">{description}</p>
         </div>
         <div className="inline-flex items-center justify-center gap-2 text-white border border-white/30 rounded-lg px-6 py-3 bg-white/10 hover:bg-white/20 transition duration-300">
