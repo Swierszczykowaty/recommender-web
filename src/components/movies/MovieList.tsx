@@ -5,7 +5,7 @@ import React, { useState, useEffect, useMemo } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import Title from "@/components/global/Title";
 import Container from "@/components/global/Container";
-import MovieCard from "@/components/movies/MovieCard";
+import MovieCard from "@/components/global/MovieCard";
 import SearchBar from "@/components/global/SearchBar";
 import MovieFilters, { FilterValues } from "@/components/movies/MovieFilters";
 import MovieSort from "@/components/movies/MovieSort";

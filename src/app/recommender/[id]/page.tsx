@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import MovieCard from "@/components/movies/MovieCard";
+import MovieCard from "@/components/global/MovieCard";
 import Title from "@/components/global/Title";
 import Container from "@/components/global/Container";
 import type { Movie } from "@/types/movie";

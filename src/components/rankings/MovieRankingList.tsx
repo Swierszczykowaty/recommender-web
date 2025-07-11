@@ -4,7 +4,7 @@
 import React from 'react';
 import type { Movie } from '@/types/movie';
 import type { RankingType } from '@/app/rankings/page';
-import MovieCard from './MovieCard';
+import MovieCard from '../global/MovieCard';
 import Container from "@/components/global/Container";
 
 interface Props {

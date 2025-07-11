@@ -7,7 +7,7 @@ import { RANKING_TYPES, RankingType } from '../page';
 import LoadingMovies from '@/components/global/Loading';
 
 const MovieRankingList = dynamic(
-  () => import('@/components/movies/MovieRankingList')
+  () => import('@/components/rankings/MovieRankingList')
 );
 
 interface Props {
