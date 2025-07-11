@@ -27,7 +27,7 @@ export default function Hero() {
             <HeroBox
               href="/recommender"
               icon="insights"
-              title="Znajdź swój film"
+              title="Znajdź coś dla siebie"
               description="Odkryj najlepsze rekomendacje filmowe dopasowane do Twoich upodobań. Kliknij i zobacz, co może Ci się spodobać."
               buttonText="Rozpocznij"
             />
@@ -41,8 +41,15 @@ export default function Hero() {
                   rekomendacje."
               buttonText="Zobacz filmy"
             />
+                        <HeroBox
+href="/rankings"
+icon="leaderboard"
+title="Poznaj ranking filmowy"
+description="Zobacz, które filmy zdobyły najwyższe noty wśród użytkowników. Przeglądaj zestawienia gatunków i odkryj, co warto obejrzeć jako następne."
+buttonText="Otwórz rankingi"
 
-            
+            />
+          
           </div>
         </div>
       </Container>
