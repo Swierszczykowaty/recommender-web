@@ -1,35 +1,45 @@
-// src/components/rankings/RankingCard.tsx
-import Link from 'next/link';
-import Icon from '@/components/global/Icon';
+"use client";
+import Link from "next/link";
+import { motion } from "framer-motion";
+import Icon from "@/components/global/Icon"; // zakładam, że tu masz swój komponent Icon
 
-interface RankingCardProps {
-  icon: string;
+type HeroBoxProps = {
+  href: string;
+  icon: string; // zamiast ReactElement, używamy nazwę ikony
   title: string;
   description: string;
-  href: string;
-}
+  buttonText: string;
+  buttonIcon?: string; // dodatkowa opcjonalna ikona przycisku
+};
 
-export default function RankingCard({
+export default function HeroBox({
+  href,
   icon,
   title,
   description,
-  href,
-}: RankingCardProps) {
+  buttonText,
+  buttonIcon = "play_arrow", // domyślna ikona przycisku
+}: HeroBoxProps) {
   return (
-    <Link
-      href={href}
-      className="group min-w-[280px] bg-white/20 border border-white/30 rounded-xl backdrop-blur-md p-6 flex flex-col items-center text-center hover:bg-white/20 transition"
+    <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4, ease: "easeOut" }}
     >
-      <Icon
-        icon={icon}
-        className="mb-4 text-white group-hover:scale-110 transition-transform"
-        style={{ fontSize: '60px' }}
-      />
-      <h2 className="text-2xl font-semibold mb-2 text-white">{title}</h2>
-      <p className="text-white/80 mb-6">{description}</p>
-      <span className="mt-auto inline-block px-5 py-2 bg-white/20 group-hover:bg-white/30 border border-white/30 rounded text-white font-medium transition">
-        Sprawdź
-      </span>
-    </Link>
+      <Link
+        href={href}
+        className="group flex-1 h-full flex flex-col justify-between items-center bg-white/10 backdrop-blur-lg border border-white/20 rounded-xl px-4 py-6 text-center shadow-xl transition hover:bg-white/20 duration-300"
+      >
+        <div className="flex flex-col">
+          <Icon icon={icon} className="mb-4 text-white" style={{ fontSize: '60px' }} />
+          <h1 className="text-2xl font-bold mb-4 text-white">{title}</h1>
+          <p className="text-white/80 text-base mb-6">{description}</p>
+        </div>
+        <div className="flex items-center justify-center w-full max-w-md gap-2 text-white border border-white/30 rounded-lg px-6 py-3 bg-white/10 hover:bg-white/20 transition duration-300">
+          <Icon icon={buttonIcon} className="text-white text-xl " />
+          {buttonText}
+        </div>
+      </Link>
+    </motion.div>
   );
 }
