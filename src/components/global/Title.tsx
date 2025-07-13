@@ -27,14 +27,14 @@ export default function Title({
       transition={{ duration: 0.4, ease: "easeOut" }}
     >
       <h2
-        className={`text-4xl md:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r ${gradientFrom} ${
+        className={`text-4xl md:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r pb-2 ${gradientFrom} ${
           gradientVia ? gradientVia : ""
         } ${gradientTo} drop-shadow-lg`}
       >
         {children}
       </h2>
       {subtitle && (
-        <p className={`mt-2 text-md ${subtitleColor}`}>{subtitle}</p>
+        <p className={`text-md ${subtitleColor}`}>{subtitle}</p>
       )}
     </motion.div>
   );

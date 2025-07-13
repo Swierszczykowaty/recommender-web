@@ -2,9 +2,8 @@
 
 import Title from "@/components/global/Title";
 import Container from "@/components/global/Container";
-import HeroBox from "@/components/hero/Hero_box";
 import React from "react";
-
+import HeroCard from "@/components/rankings/RankingCard";
 
 export default function Hero() {
   return (
@@ -14,7 +13,7 @@ export default function Hero() {
           <div className="relative z-10 w-full max-w-4xl text-center">
             <Title
               subtitle="Wybierz, co Cię interesuje"
-              gradientFrom="from-orange-600"
+              gradientFrom="from-orange-700"
               gradientVia="via-amber-400"
               gradientTo="to-amber-600"
             >
@@ -22,27 +21,30 @@ export default function Hero() {
             </Title>
           </div>
 
-          <div className="relative z-10 flex flex-col md:flex-row items-stretch justify-center gap-6 md:gap-8 w-full max-w-6xl mt-8">
-            {/* Box 1 */}
-            <HeroBox
+          <div className="relative z-10 flex flex-col lg:flex-none lg:grid lg:grid-cols-3 items-stretch justify-center gap-6 lg:gap-8 w-full max-w-6xl mt-8">
+            <HeroCard
               href="/recommender"
               icon="insights"
-              title="Znajdź swój film"
-              description="Odkryj najlepsze rekomendacje filmowe dopasowane do Twoich upodobań. Kliknij i zobacz, co może Ci się spodobać."
+              title="Wygeneruj rekomendacje"
+              description="Zobacz filmy polecane specjalnie dla Ciebie."
               buttonText="Rozpocznij"
             />
-            {/* Box 2 */}
-            <HeroBox
+
+            <HeroCard
               href="/movies"
               icon="database"
               title="Sprawdź bazę filmów"
-              description="Przeglądaj pełną bazę filmów dostępnych w systemie, sprawdzaj
-                  ich opisy i wybierz coś dla siebie zanim uruchomisz
-                  rekomendacje."
+              description="Przeglądaj wszystkie dostępne filmy i ich opisy."
               buttonText="Zobacz filmy"
             />
 
-            
+            <HeroCard
+              href="/rankings"
+              icon="leaderboard"
+              title="Poznaj ranking filmowy"
+              description="Sprawdź najwyżej oceniane filmy i rankingi gatunków."
+              buttonText="Otwórz rankingi"
+            />
           </div>
         </div>
       </Container>

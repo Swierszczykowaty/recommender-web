@@ -26,16 +26,19 @@ export default function AboutPage() {
             className="mt-8 p-8 rounded-xl bg-white/10 backdrop-blur-lg border border-white/20 text-white shadow-xl"
           >
             <p className="text-md md:text-lg leading-relaxed">
-              Ten projekt to inteligentna platforma filmowa, która łączy
-              nowoczesny interfejs z systemem rekomendacji opartym na danych.
-              Umożliwia przeglądanie bazy filmów, wyszukiwanie po tytule lub
-              słowach kluczowych oraz znajdowanie podobnych filmów dzięki AI.
+              Rekomendner Filmowy to platforma, która pozwala łatwo znaleźć
+              filmy dopasowane do Twoich gustów. Wystarczy wybrać jeden tytuł, a
+              system na podstawie analizy treści filmu wygeneruje osiem
+              najbardziej podobnych propozycji. Oprócz tego możesz przeglądać
+              kompletną bazę filmów, sprawdzać szczegółowe opisy i korzystać z
+              rankingów: top 100 według ocen, przychodów i liczby głosów.
             </p>
 
             <p className="text-md mt-4 text-white/80">
-              Wykorzystuje techniki uczenia maszynowego, dane z TMDB oraz
-              dynamiczne komponenty zbudowane w Next.js. Dzięki integracji z
-              Framer Motion i Tailwind CSS całość działa płynnie i nowocześnie.
+              Strona wykorzystuje Content Based Filtering i dane z TMDB. Całość
+              działa na Next.js z dynamicznymi komponentami, nowoczesnymi
+              animacjami (Framer Motion) i responsywnymi stylami (Tailwind CSS),
+              co zapewnia szybkie i wygodne korzystanie na każdym urządzeniu.
             </p>
           </motion.div>
         </div>

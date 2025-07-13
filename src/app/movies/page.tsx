@@ -1,8 +1,8 @@
-// src/app/movies/page.tsx
-import { Suspense }      from "react";
-import dynamic            from "next/dynamic";
-import moviesDataRaw      from "@/data/full_data_web.json";
-import type { Movie }     from "@/types/movie";
+import { Suspense } from "react";
+import dynamic from "next/dynamic";
+import moviesDataRaw from "@/data/full_data_web.json";
+import type { Movie } from "@/types/movie";
+import Loading from "@/components/global/Loading";
 
 const MoviesList = dynamic(() => import("@/components/movies/MovieList"));
 
@@ -11,11 +11,7 @@ export default function Page() {
 
   return (
     <Suspense
-      fallback={
-        <div className="text-white text-center py-10">
-          Ładowanie filmów...
-        </div>
-      }
+      fallback={<Loading message="Ładowanie filmów..." />}
     >
       <MoviesList movies={movies} />
     </Suspense>

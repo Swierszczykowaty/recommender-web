@@ -4,13 +4,14 @@ import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import MovieCard from "@/components/movies/MovieCard";
+import MovieCard from "@/components/global/MovieCard";
 import Title from "@/components/global/Title";
 import Container from "@/components/global/Container";
 import type { Movie } from "@/types/movie";
 import allMovies from "@/data/full_data_web.json";
 import { motion } from "framer-motion";
-
+import Loading from "@/components/global/Loading";
+import Icon from "@/components/global/Icon";
 export default function RecommendationResultPage() {
   const [baseMovie, setBaseMovie] = useState<Movie | null>(null);
   const [recommendations, setRecommendations] = useState<Movie[]>([]);
@@ -19,6 +20,7 @@ export default function RecommendationResultPage() {
 
   const params = useParams();
   const movieId = params.id as string;
+  const handleGoBack = () => window.history.back();
 
   useEffect(() => {
     if (!movieId) return;
@@ -73,22 +75,23 @@ export default function RecommendationResultPage() {
   }, [movieId]);
 
   return (
-    <section className="relative min-h-screen overflow-hidden pt-24 pb-20 sm:pt-32">
+    <section className="relative min-h-screen overflow-hidden pb-20 sm:pt-32">
       <Container>
         {loading && (
-          <>
-            <motion.div
-              className="flex items-center justify-center gap-4 text-white text-lg"
-              initial={{ opacity: 0, y: -5 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{  ease: "easeOut" }}
-            >
-              <div className="w-8 h-8 border-4 border-white/20 border-t-violet-200 border-r-violet-200/10 border-b-violet-200/40 border-l-violet-200/70 rounded-full animate-spin" />
-              <span className="text-xl font-bold">Generowanie rekomendacji…</span>
-          </motion.div>
-          </>
+        <Loading message="Generowanie filmów..." />
         )}
-        {error && <p className="text-red-400 text-center text-lg">{error}</p>}
+        {error && 
+        <div className="flex flex-col items-center gap-6">
+          <p className="text-red-400 text-center text-lg pt-24">{error}</p>
+          <h1>Spróbój ponownie później!</h1>
+            <button
+              onClick={handleGoBack}
+              className="flex items-center gap-2 px-6 py-3 w-full max-w-[250px] justify-center bg-white/10 border border-white/20 rounded-lg backdrop-blur-md shadow-xl transition cursor-pointer hover:bg-white/20 duration-300"
+            >
+              <Icon icon="keyboard_backspace" style={{ fontSize: "20px" }} />
+              Powrót
+            </button>        
+            </div>}
 
         {!loading && !error && baseMovie && (
           <div className="flex flex-col items-center w-full mx-auto">

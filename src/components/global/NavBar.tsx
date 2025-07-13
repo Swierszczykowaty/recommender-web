@@ -40,6 +40,12 @@ export default function NavBar() {
             Baza filmów
           </Link>
           <Link
+            className="hover:text-rose-200 active:text-rose-400 duration-100"
+            href="/rankings"
+          >
+            Rankingi
+          </Link>
+          <Link
             className="hover:text-emerald-200 active:text-emerald-400 duration-100"
             href="/about"
           >
@@ -76,6 +82,9 @@ export default function NavBar() {
             </Link>
             <Link href="/movies" onClick={() => setMenuOpen(false)}>
               Baza filmów
+            </Link>
+            <Link href="/rankings" onClick={() => setMenuOpen(false)}>
+              Rankingi
             </Link>
             <Link href="/about" onClick={() => setMenuOpen(false)}>
               O Projekcie

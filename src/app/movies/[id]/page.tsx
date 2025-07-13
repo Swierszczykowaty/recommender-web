@@ -380,7 +380,8 @@ export default function MovieDetailPage() {
         onClose={() => setIsModalOpen(false)}
         movie={movie}
       />
-      <motion.div className="fixed mb-4 xl:mb-0 xl:mr-0 bottom-6 mr-4 right-6 z-50"
+
+      <motion.div className="fixed mb-4 xl:mb-0 xl:mr-0 bottom-6 mr-4 right-4 md:right-6 z-50"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, ease: "easeOut" }}>
