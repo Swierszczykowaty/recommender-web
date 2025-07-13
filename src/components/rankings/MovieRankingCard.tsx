@@ -47,7 +47,6 @@ export default function MovieRankingCard({ movie, rank, type }: Props) {
       href={`/movies/${id}`}
       className="group block w-full h-60 sm:h-44 relative overflow-hidden rounded-xl shadow-lg border border-white/30"
     >
-      {/* Tło z backdrop */}
       {backdrop_path && (
         <Image
           src={`https://image.tmdb.org/t/p/original${backdrop_path}`}
@@ -56,12 +55,9 @@ export default function MovieRankingCard({ movie, rank, type }: Props) {
           className="object-cover object-[center_20%] transition-transform duration-500 group-hover:scale-105 "
         />
       )}
-      {/* Gradient dla czytelności */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/75 to-transparent" />
 
-      {/* Zawartość: tekst po lewej, poster po prawej */}
       <div className="absolute inset-0 flex items-center p-4 z-10">
-        {/* Tekst */}
         <div className="flex-1 text-white">
           <p className="text-lg font-semibold mb-1">
             {rank}. {title}
@@ -73,18 +69,6 @@ export default function MovieRankingCard({ movie, rank, type }: Props) {
             {LABELS[type]}: <span className="font-medium">{getValue()}</span>
           </p>
         </div>
-
-        {/* Poster po prawej */}
-        {/* {poster_path && (
-          <div className="relative w-40 h-full flex-shrink-0 rounded-lg overflow-hidden shadow-lg ml-4">
-            <Image
-              src={`https://image.tmdb.org/t/p/w342${poster_path}`}
-              alt={title}
-              fill
-              className="object-cover"
-            />
-          </div>
-        )} */}
       </div>
 
       {/* Hover overlay */}

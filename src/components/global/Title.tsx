@@ -26,13 +26,13 @@ export default function Title({
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, ease: "easeOut" }}
     >
-      <h2
+      <h1
         className={`text-4xl md:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r pb-2 ${gradientFrom} ${
           gradientVia ? gradientVia : ""
         } ${gradientTo} drop-shadow-lg`}
       >
         {children}
-      </h2>
+      </h1>
       {subtitle && (
         <p className={`text-md ${subtitleColor}`}>{subtitle}</p>
       )}

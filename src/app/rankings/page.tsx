@@ -11,7 +11,7 @@ export default function RankingsIndex() {
         <div className="relative flex flex-col items-center z-10 w-full mx-auto">
           <Title
             subtitle="Sprawdź najlepsze produkcje"
-            gradientFrom="from-pink-700"
+            gradientFrom="from-pink-600"
             gradientVia="via-rose-500"
             gradientTo="to-red-700"
           >

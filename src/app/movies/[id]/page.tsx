@@ -131,8 +131,8 @@ export default function MovieDetailPage() {
               style={{
                 objectPosition: "center 20%",
                 WebkitMaskImage:
-                  "linear-gradient(to bottom, black 30%, transparent)",
-                maskImage: "linear-gradient(to bottom, black 30%, transparent)",
+                  "linear-gradient(to bottom, black 25%, transparent)",
+                maskImage: "linear-gradient(to bottom, black 25%, transparent)",
               }}
               priority
             />
@@ -207,7 +207,7 @@ export default function MovieDetailPage() {
                         // height={600}
                         className="rounded-lg object-cover w-full max-w-3xl"
                       />
-                      <div className="absolute inset-0 bg-black/50 rounded-lg flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                      <div className="absolute inset-0 bg-black/50 rounded-lg flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                         <Icon icon="zoom_in" style={{ fontSize: "30px" }} />
                       </div>
                     </div>

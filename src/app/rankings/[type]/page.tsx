@@ -9,27 +9,15 @@ const MovieRankingList = dynamic(
   () => import('@/components/rankings/MovieRankingList')
 );
 
-// Define the shape of the object that the 'params' Promise will resolve to.
 type ResolvedPageParams = { type: string };
-
-// Define the props for the RankingPage component.
-// Crucially, we are telling TypeScript that 'params' will *always* be a Promise
-// that resolves to our ResolvedPageParams. This satisfies Next.js's internal
-// PageProps constraint which expects 'params' to be Promise<any>.
 interface RankingPageProps {
   params: Promise<ResolvedPageParams>;
-  // If your page also accepts search parameters (e.g., /rankings/votes?page=1),
-  // you would also define them here, similarly possibly wrapped in a Promise
-  // if Next.js's internal types demand it for searchParams as well (less common for searchParams).
-  // searchParams?: { [key: string]: string | string[] | undefined };
 }
 
-// NAJWAŻNIEJSZE:
 export default async function RankingPage({ params }: RankingPageProps) {
-  // Await params because the Next.js runtime explicitly gave an error
-  // stating it should be awaited.
+
   const awaitedParams = await params;
-  const { type } = awaitedParams; // Access the 'type' property from the resolved object.
+  const { type } = awaitedParams; 
 
   if (!RANKING_TYPES.find((t) => t.key === type)) {
     return <p className="text-white p-8">Niepoprawny typ rankingu</p>;
