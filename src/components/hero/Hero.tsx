@@ -4,10 +4,7 @@ import Title from "@/components/global/Title";
 import Container from "@/components/global/Container";
 import React from "react";
 import HeroCard from "@/components/rankings/RankingCard";
-const handleOpenRanking = () => {
-  // Tutaj możesz dodać logikę, np. przekierowanie na inną stronę
-  alert("Przycisk rankingu został kliknięty!");
-};
+
 export default function Hero() {
   return (
     <section className="relative min-h-screen flex item-start md:items-center justify-center overflow-hidden pt-32 md:pt-0 mb-10 md:mb-0">

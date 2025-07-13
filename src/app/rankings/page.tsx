@@ -3,13 +3,6 @@ import Container from "@/components/global/Container";
 import Title from "@/components/global/Title";
 import RankingCard from "@/components/rankings/RankingCard";
 
-export const RANKING_TYPES = [
-  { key: "rating", label: "Najlepiej oceniane" },
-  { key: "votes", label: "Najwięcej głosów" },
-  { key: "revenue", label: "Największy zysk" },
-] as const;
-
-export type RankingType = (typeof RANKING_TYPES)[number]["key"];
 
 export default function RankingsIndex() {
   return (
@@ -19,8 +12,8 @@ export default function RankingsIndex() {
           <Title
             subtitle="Sprawdź najlepsze produkcje"
             gradientFrom="from-pink-700"
-            gradientVia="via-rose-600"
-            gradientTo="to-red-600"
+            gradientVia="via-rose-500"
+            gradientTo="to-red-700"
           >
             Baza rankingów
           </Title>

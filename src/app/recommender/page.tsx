@@ -31,11 +31,7 @@ export default function RecommenderSearchPage() {
   useEffect(() => {
     if (searchQuery === "" && searchResults.length === 0) {
       const filtered = movies
-        .filter(
-          (m) =>
-            m.popularity &&
-            m.popularity > 100.0
-        )
+        .filter((m) => m.popularity && m.popularity > 100.0)
         .sort(() => 0.5 - Math.random())
         .slice(0, 12);
       setSearchResults(filtered);
@@ -54,45 +50,48 @@ export default function RecommenderSearchPage() {
           >
             Generowanie Rekomendacji
           </Title>
-          </div>
-          <div className="max-w-2xl mx-auto mb-6">
-            <SearchBar
-              onSearch={handleSearch}
-              placeholder="Wpisz tytuł filmu..."
-            />
-          </div>
+        </div>
+        <div className="max-w-2xl mx-auto mb-6">
+          <SearchBar
+            onSearch={handleSearch}
+            placeholder="Wpisz tytuł filmu..."
+          />
+        </div>
 
-          {searchResults.length > 0 && (
-            <div>
-              <h2 className="text-lg font-semibold text-white/80 mb-6 text-center">
-                {searchQuery
-                  ? `Wyniki dla: "${searchQuery}"`
-                  : "Wybierz albo wyszukaj swój film:"}
-              </h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 h-full w-full">
-                {searchResults.map((movie, i) => (
-                  <motion.div
-                    key={movie.id}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: i * 0.05, duration: 0.4, ease: "easeOut" }}
-                  >
-                    <MovieCardSmall
-                      movie={movie}
-                      onClick={() => handleMovieSelect(movie)}
-                    />
-                  </motion.div>
-                ))}
-              </div>
+        {searchResults.length > 0 && (
+          <div>
+            <h2 className="text-lg font-semibold text-white/80 mb-6 text-center">
+              {searchQuery
+                ? `Wyniki dla: "${searchQuery}"`
+                : "Wybierz albo wyszukaj swój film:"}
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 h-full w-full">
+              {searchResults.map((movie, i) => (
+                <motion.div
+                  key={movie.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{
+                    delay: i * 0.05,
+                    duration: 0.4,
+                    ease: "easeOut",
+                  }}
+                >
+                  <MovieCardSmall
+                    movie={movie}
+                    onClick={() => handleMovieSelect(movie)}
+                  />
+                </motion.div>
+              ))}
             </div>
-          )}
+          </div>
+        )}
 
-          {searchResults.length === 0 && searchQuery !== "" && (
-            <p className="text-white/70 text-lg mt-8">
-              Brak wyników dla &quot;{searchQuery}&quot;. Spróbuj innej frazy.
-            </p>
-          )}
-        
+        {searchResults.length === 0 && searchQuery !== "" && (
+          <p className="text-white/70 text-lg mt-8">
+            Brak wyników dla &quot;{searchQuery}&quot;. Spróbuj innej frazy.
+          </p>
+        )}
       </Container>
     </section>
   );

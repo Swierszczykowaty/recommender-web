@@ -1,11 +1,11 @@
 // src/components/movies/MovieRankingCard.tsx
-'use client';
+"use client";
 
-import React from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
-import type { Movie } from '@/types/movie';
-import type { RankingType } from '@/app/rankings/page';
+import React from "react";
+import Image from "next/image";
+import Link from "next/link";
+import type { Movie } from "@/types/movie";
+import type { RankingType } from "@/lib/ranking-types";
 
 interface Props {
   movie: Movie;
@@ -14,19 +14,18 @@ interface Props {
 }
 
 const LABELS: Record<RankingType, string> = {
-  rating:  'Ocena',
-  votes:   'Głosów',
-  revenue: 'Zysk (USD)',
+  rating: "Ocena",
+  votes: "Głosów",
+  revenue: "Zysk (USD)",
 };
 
 export default function MovieRankingCard({ movie, rank, type }: Props) {
   const {
     id,
     backdrop_path,
-    poster_path,
-    title = 'Brak tytułu',
-    release_date = '—',
-    genres = '—',
+    title = "Brak tytułu",
+    release_date = "—",
+    genres = "—",
     vote_average,
     vote_count,
     revenue,
@@ -34,19 +33,19 @@ export default function MovieRankingCard({ movie, rank, type }: Props) {
 
   const getValue = () => {
     switch (type) {
-      case 'rating':
-        return vote_average != null ? vote_average.toFixed(1) : '—';
-      case 'votes':
-        return vote_count != null ? vote_count.toLocaleString() : '—';
-      case 'revenue':
-        return revenue != null ? `$${revenue.toLocaleString()}` : '—';
+      case "rating":
+        return vote_average != null ? vote_average.toFixed(1) : "—";
+      case "votes":
+        return vote_count != null ? vote_count.toLocaleString() : "—";
+      case "revenue":
+        return revenue != null ? `$${revenue.toLocaleString()}` : "—";
     }
   };
 
   return (
     <Link
       href={`/movies/${id}`}
-      className="group block w-full h-60 sm:h-64 relative overflow-hidden rounded-xl shadow-lg border border-white/30"
+      className="group block w-full h-60 sm:h-44 relative overflow-hidden rounded-xl shadow-lg border border-white/30"
     >
       {/* Tło z backdrop */}
       {backdrop_path && (
@@ -54,7 +53,7 @@ export default function MovieRankingCard({ movie, rank, type }: Props) {
           src={`https://image.tmdb.org/t/p/original${backdrop_path}`}
           alt={title}
           fill
-          className="object-cover transition-transform duration-500 group-hover:scale-105"
+          className="object-cover object-[center_20%] transition-transform duration-500 group-hover:scale-105 "
         />
       )}
       {/* Gradient dla czytelności */}
@@ -71,8 +70,7 @@ export default function MovieRankingCard({ movie, rank, type }: Props) {
             {release_date.slice(0, 4)} · {genres}
           </p>
           <p className="text-sm">
-            {LABELS[type]}:{' '}
-            <span className="font-medium">{getValue()}</span>
+            {LABELS[type]}: <span className="font-medium">{getValue()}</span>
           </p>
         </div>
 
