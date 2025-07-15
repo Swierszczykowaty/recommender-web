@@ -229,7 +229,25 @@ export default function MovieDetailPage() {
                   <div className="space-y-4">
                     <p className="text-white/80 mt-4">{movie.overview}</p>
                     <p>
-                      <strong>Reżyser:</strong> {movie.directors}
+                      <strong>Reżyser:</strong>{" "}
+                      {typeof movie.directors === "string" && movie.directors
+                        ? movie.directors.split(",").map((dir, i, arr) => (
+                            <span
+                              key={i}
+                              className="cursor-pointer hover:underline"
+                              onClick={() =>
+                                router.push(
+                                  `/movies?query=${encodeURIComponent(
+                                    dir.trim()
+                                  )}&page=1`
+                                )
+                              }
+                            >
+                              {dir.trim()}
+                              {i < arr.length - 1 ? ", " : ""}
+                            </span>
+                          ))
+                        : "brak danych"}
                     </p>
                     <p>
                       <strong>Data premiery:</strong> {movie.release_date}
@@ -311,7 +329,6 @@ export default function MovieDetailPage() {
                         style={{ fontSize: 32 }}
                       />
                     </span>
-                    {/* Dane aktora po lewej od ikonki, wyrównane do LEWEJ */}
                     <div className="flex flex-col items-start justify-center pl-3">
                       <span className="text-sm font-semibold">
                         {actor.name}
