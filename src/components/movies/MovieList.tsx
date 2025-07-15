@@ -133,6 +133,7 @@ const handleFilter = ({ genre, language, minRating, minYear }: FilterValues) => 
             subtitle="Zanurz się w świecie filmów"
             gradientFrom="from-cyan-300"
             gradientTo="to-indigo-600"
+            link="/movies"
           >
             Baza filmów
           </Title>
