@@ -63,13 +63,7 @@ export default function MovieDetailPage() {
 
   const handleGoBack = () => window.history.back();
 
-  // Tablica z dostawcami + ścieżkami do logo
   const platformLogos = [
-    // { flag: movie.on_netflix, alt: "Netflix", src: "/Company/netflix_w.png" },
-    // { flag: movie.on_apple_tv, alt: "Apple TV+", src: "/Company/Apple-TV_w.png" },
-    // { flag: movie.on_hulu, alt: "Hulu", src: "/Company/hulu_w.png" },
-    // { flag: movie.on_hbo_max, alt: "HBO Max", src: "/Company/max_w.png" },
-    // { flag: movie.on_amazon_prime, alt: "Amazon Prime", src: "/Company/Amazon-Prime_w.png" }
     {
       flag: movie.on_netflix,
       alt: "Netflix",
@@ -101,7 +95,6 @@ export default function MovieDetailPage() {
       url: "https://www.primevideo.com",
     },
   ];
-  // w środku MovieDetailPage, przed return:
   const hasPlatforms = platformLogos.some((p) => p.flag);
   const fabVariants = {
     collapsed: { width: 56 },
@@ -283,41 +276,51 @@ export default function MovieDetailPage() {
             </motion.div>
           </div>
           {/* Aktorzy */}
-          <motion.div
-            className=""
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, ease: "easeOut", delay: 0.1 }}
-          >
-            <h2 className="mb-2 font-semibold">Obsada:</h2>
-            <div className="bg-white/10 border border-white/20 p-8 rounded-xl backdrop-blur-md shadow-xl grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 gap-4 ">
-              {movie.actors
-                ?.split(",")
-                .map((actor) => actor.trim())
-                .filter(Boolean)
-                .map((actor, index) => (
-                  <div
-                    key={index}
-                    onClick={() =>
-                      router.push(
-                        `/movies?query=${encodeURIComponent(actor)}&page=1`
-                      )
-                    }
-                    className="group flex relative items-center gap-2 text-white/90 bg-white/10 px-3 py-2 rounded-lg border border-white/20 cursor-pointer hover:bg-white/20 duration-300"
-                  >
-                    <Icon
-                      icon="person"
-                      className="absolute opacity-100 group-hover:opacity-0 group-hover:scale-50 duration-300"
-                    />
-                    <Icon
-                      icon="data_loss_prevention"
-                      className="absolute opacity-0 group-hover:opacity-100 group-hover:scale-100 scale-50 duration-300"
-                    />
-                    <span className="text-sm ml-8">{actor}</span>
-                  </div>
-                ))}
-            </div>
-          </motion.div>
+<motion.div
+  className=""
+  initial={{ opacity: 0, y: 10 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.4, ease: "easeOut", delay: 0.1 }}
+>
+  <h2 className="mb-2 font-semibold">Obsada:</h2>
+  <div className="bg-white/10 border border-white/20 p-8 rounded-xl backdrop-blur-md shadow-xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 ">
+    {Array.isArray(movie.actors) &&
+      movie.actors.map((actor, index) => (
+        <div
+          key={index}
+          onClick={() =>
+            router.push(
+              `/movies?query=${encodeURIComponent(actor.name)}&page=1`
+            )
+          }
+          className="group flex flex-row items-center relative bg-white/10 px-3 py-2 rounded-lg border border-white/20 cursor-pointer hover:bg-white/20 duration-300"
+        >
+          {/* Ikonka - wyśrodkowana */}
+          <span className="relative flex-shrink-0 flex items-center justify-center" style={{ width: 36, height: 36 }}>
+            <Icon
+              icon="person"
+              className="absolute left-0 top-0 opacity-100 group-hover:opacity-0 group-hover:scale-50 duration-300"
+              style={{ fontSize: 32 }}
+            />
+            <Icon
+              icon="data_loss_prevention"
+              className="absolute left-0 top-0 opacity-0 group-hover:opacity-100 group-hover:scale-100 scale-50 duration-300"
+              style={{ fontSize: 32 }}
+            />
+          </span>
+          {/* Dane aktora po lewej od ikonki, wyrównane do LEWEJ */}
+          <div className="flex flex-col items-start justify-center pl-3">
+            <span className="text-sm font-semibold">{actor.name}</span>
+            <span className="text-xs text-white/70 italic mt-[2px]">
+              jako: {actor.character || "brak danych"}
+            </span>
+          </div>
+        </div>
+      ))}
+  </div>
+</motion.div>
+
+
 
           {/* 3) Kafelek z budżetem, przychodem itd. */}
           <motion.div
@@ -381,10 +384,12 @@ export default function MovieDetailPage() {
         movie={movie}
       />
 
-      <motion.div className="fixed mb-4 xl:mb-0 xl:mr-0 bottom-6 mr-4 right-4 md:right-6 z-50"
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, ease: "easeOut" }}>
+      <motion.div
+        className="fixed mb-4 xl:mb-0 xl:mr-0 bottom-6 mr-4 right-4 md:right-6 z-50"
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, ease: "easeOut" }}
+      >
         <Link href={`/recommender/${movie.id}`} className="block">
           <motion.div
             className="relative flex backdrop-blur-lg items-center h-14 bg-gradient-to-tr from-indigo-400/10 via-fuchsia-400/25 to-purple-400/15 border border-white/30 rounded-2xl overflow-hidden cursor-pointer"

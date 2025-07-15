@@ -23,21 +23,27 @@ export default function MoviesList({ movies }: { movies: Movie[] }) {
   const page = Number(searchParams.get("page") || "1");
   const query = searchParams.get("query")?.toLowerCase() || "";
   const genre = searchParams.get("genre") || "";
+  const language = searchParams.get("language") || "";
   const minRating = parseFloat(searchParams.get("rating") || "0");
   const minYear = parseInt(searchParams.get("year") || "1900", 10) || 1900;
   const sortBy = searchParams.get("sort") || "";
 
-  const filtered = useMemo(() => {
-    const f = searchMovies(movies, query).filter((movie) => {
-      const g = movie.genres?.split(", ") ?? [];
-      return (
-        (genre === "" || g.includes(genre)) &&
-        (movie.vote_average ?? 0) >= minRating &&
-        parseInt(movie.release_date?.slice(0, 4) || "0", 10) >= minYear
-      );
-    });
-    return sortMovies(f, sortBy);
-  }, [movies, query, genre, minRating, minYear, sortBy]);
+const filtered = useMemo(() => {
+  const f = searchMovies(movies, query).filter((movie) => {
+    const g = movie.genres?.split(", ") ?? [];
+    const langs = (movie.spoken_languages ?? "")
+      .split(",")
+      .map((l) => l.trim().toLowerCase());
+
+    return (
+      (genre === "" || g.includes(genre)) &&
+      (movie.vote_average ?? 0) >= minRating &&
+      parseInt(movie.release_date?.slice(0, 4) || "0", 10) >= minYear &&
+      (language === "" || langs.includes(language.toLowerCase()))
+    );
+  });
+  return sortMovies(f, sortBy);
+}, [movies, query, genre, minRating, minYear, sortBy, language]);
 
   const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE);
   const [currentPage, setCurrentPage] = useState(page);
@@ -58,13 +64,19 @@ const handleSearch = (q: string) => {
   setCurrentPage(1);
 };
 
-const handleFilter = ({ genre, minRating, minYear }: FilterValues) => {
+const handleFilter = ({ genre, language, minRating, minYear }: FilterValues) => {
   const p = new URLSearchParams(searchParams.toString());
 
   if (genre) {
     p.set("genre", genre);
   } else {
     p.delete("genre");
+  }
+
+  if (language) {
+    p.set("language", language);
+  } else {
+    p.delete("language");
   }
 
   if (minRating) {

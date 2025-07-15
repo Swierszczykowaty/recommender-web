@@ -45,7 +45,7 @@ export default function MovieRankingCard({ movie, rank, type }: Props) {
   return (
     <Link
       href={`/movies/${id}`}
-      className="group block w-full h-60 sm:h-44 relative overflow-hidden rounded-xl shadow-lg border border-white/30"
+      className="group block w-full h-44 relative overflow-hidden rounded-xl shadow-lg border border-white/30"
     >
       {backdrop_path && (
         <Image
@@ -62,10 +62,10 @@ export default function MovieRankingCard({ movie, rank, type }: Props) {
           <p className="text-lg font-semibold mb-1">
             {rank}. {title}
           </p>
-          <p className="text-sm text-white/80 mb-2">
+          <p className="text-xs md:text-sm text-white/80 mb-2">
             {release_date.slice(0, 4)} · {genres}
           </p>
-          <p className="text-sm">
+          <p className="text-xs md:text-sm">
             {LABELS[type]}: <span className="font-medium">{getValue()}</span>
           </p>
         </div>
