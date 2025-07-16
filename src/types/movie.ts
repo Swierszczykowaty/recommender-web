@@ -1,3 +1,8 @@
+export type Actor = {
+  name: string;
+  character: string;
+};
+
 export type Movie = {
   id: number;
   title: string;
@@ -28,6 +33,6 @@ export type Movie = {
   on_hulu?: boolean;
   on_hbo_max?: boolean;
   on_amazon_prime?: boolean;
-  actors?: string;
+  actors?: Actor[];
   directors?: string;
 };

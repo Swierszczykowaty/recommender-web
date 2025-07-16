@@ -25,7 +25,7 @@ export default function NavBar() {
             className="hover:text-orange-200 active:text-orange-400 duration-100"
             href="/"
           >
-            Start
+            Home
           </Link>
           <Link
             className="hover:text-violet-200 active:text-violet-400 duration-100"
@@ -75,7 +75,7 @@ export default function NavBar() {
             className="lg:hidden overflow-hidden flex flex-col px-6 pb-4 text-white space-y-2"
           >
             <Link href="/" onClick={() => setMenuOpen(false)}>
-              Start
+              Home
             </Link>
             <Link href="/recommender" onClick={() => setMenuOpen(false)}>
               Rekomender

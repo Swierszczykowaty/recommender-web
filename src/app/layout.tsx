@@ -17,10 +17,16 @@ export const metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="pl">
-      <head></head>
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta
+          name="description"
+          content="System rekomendacji filmów oparty na analizie treści. Przeglądaj rankingi, odkrywaj nowe tytuły i wybieraj filmy dopasowane do Twojego gustu."
+        />
+      </head>
       <body
         data-nextjs-scroll-focus-boundary
-        className={`${archivo.className} relative text-white min-h-screen overflow-x-hidden `}
+        className={`${archivo.className} relative text-white min-h-screen overflow-x-hidden`}
       >
         <NavBar />
         <main className="relative z-10 overflow-hidden bg-gray-950">
@@ -31,3 +37,4 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     </html>
   );
 }
+

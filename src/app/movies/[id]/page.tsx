@@ -63,13 +63,7 @@ export default function MovieDetailPage() {
 
   const handleGoBack = () => window.history.back();
 
-  // Tablica z dostawcami + ścieżkami do logo
   const platformLogos = [
-    // { flag: movie.on_netflix, alt: "Netflix", src: "/Company/netflix_w.png" },
-    // { flag: movie.on_apple_tv, alt: "Apple TV+", src: "/Company/Apple-TV_w.png" },
-    // { flag: movie.on_hulu, alt: "Hulu", src: "/Company/hulu_w.png" },
-    // { flag: movie.on_hbo_max, alt: "HBO Max", src: "/Company/max_w.png" },
-    // { flag: movie.on_amazon_prime, alt: "Amazon Prime", src: "/Company/Amazon-Prime_w.png" }
     {
       flag: movie.on_netflix,
       alt: "Netflix",
@@ -101,7 +95,6 @@ export default function MovieDetailPage() {
       url: "https://www.primevideo.com",
     },
   ];
-  // w środku MovieDetailPage, przed return:
   const hasPlatforms = platformLogos.some((p) => p.flag);
   const fabVariants = {
     collapsed: { width: 56 },
@@ -131,8 +124,8 @@ export default function MovieDetailPage() {
               style={{
                 objectPosition: "center 20%",
                 WebkitMaskImage:
-                  "linear-gradient(to bottom, black 30%, transparent)",
-                maskImage: "linear-gradient(to bottom, black 30%, transparent)",
+                  "linear-gradient(to bottom, black 25%, transparent)",
+                maskImage: "linear-gradient(to bottom, black 25%, transparent)",
               }}
               priority
             />
@@ -195,7 +188,7 @@ export default function MovieDetailPage() {
                 <div className="w-full md:w-1/3">
                   {movie.poster_path ? (
                     <div
-                      className="relative cursor-pointer group"
+                      className="relative cursor-pointer group max-w-[440px] md:max-w-3xl"
                       onClick={() => setIsModalOpen(true)}
                     >
                       <Image
@@ -205,9 +198,9 @@ export default function MovieDetailPage() {
                         height={750}
                         // width={400}
                         // height={600}
-                        className="rounded-lg object-cover w-full max-w-3xl"
+                        className="rounded-lg object-cover w-full "
                       />
-                      <div className="absolute inset-0 bg-black/50 rounded-lg flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                      <div className="absolute inset-0 bg-black/50 rounded-lg flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                         <Icon icon="zoom_in" style={{ fontSize: "30px" }} />
                       </div>
                     </div>
@@ -236,7 +229,25 @@ export default function MovieDetailPage() {
                   <div className="space-y-4">
                     <p className="text-white/80 mt-4">{movie.overview}</p>
                     <p>
-                      <strong>Reżyser:</strong> {movie.directors}
+                      <strong>Reżyser:</strong>{" "}
+                      {typeof movie.directors === "string" && movie.directors
+                        ? movie.directors.split(",").map((dir, i, arr) => (
+                            <span
+                              key={i}
+                              className="cursor-pointer hover:underline"
+                              onClick={() =>
+                                router.push(
+                                  `/movies?query=${encodeURIComponent(
+                                    dir.trim()
+                                  )}&page=1`
+                                )
+                              }
+                            >
+                              {dir.trim()}
+                              {i < arr.length - 1 ? ", " : ""}
+                            </span>
+                          ))
+                        : "brak danych"}
                     </p>
                     <p>
                       <strong>Data premiery:</strong> {movie.release_date}
@@ -290,30 +301,42 @@ export default function MovieDetailPage() {
             transition={{ duration: 0.4, ease: "easeOut", delay: 0.1 }}
           >
             <h2 className="mb-2 font-semibold">Obsada:</h2>
-            <div className="bg-white/10 border border-white/20 p-8 rounded-xl backdrop-blur-md shadow-xl grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 gap-4 ">
-              {movie.actors
-                ?.split(",")
-                .map((actor) => actor.trim())
-                .filter(Boolean)
-                .map((actor, index) => (
+            <div className="bg-white/10 border border-white/20 p-8 rounded-xl backdrop-blur-md shadow-xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 ">
+              {Array.isArray(movie.actors) &&
+                movie.actors.slice(0, 9).map((actor, index) => (
                   <div
                     key={index}
                     onClick={() =>
                       router.push(
-                        `/movies?query=${encodeURIComponent(actor)}&page=1`
+                        `/movies?query=${encodeURIComponent(actor.name)}&page=1`
                       )
                     }
-                    className="group flex relative items-center gap-2 text-white/90 bg-white/10 px-3 py-2 rounded-lg border border-white/20 cursor-pointer hover:bg-white/20 duration-300"
+                    className="group flex flex-row items-center relative bg-white/10 px-3 py-2 rounded-lg border border-white/20 cursor-pointer hover:bg-white/20 duration-300"
                   >
-                    <Icon
-                      icon="person"
-                      className="absolute opacity-100 group-hover:opacity-0 group-hover:scale-50 duration-300"
-                    />
-                    <Icon
-                      icon="data_loss_prevention"
-                      className="absolute opacity-0 group-hover:opacity-100 group-hover:scale-100 scale-50 duration-300"
-                    />
-                    <span className="text-sm ml-8">{actor}</span>
+                    {/* Ikonka - wyśrodkowana */}
+                    <span
+                      className="relative flex-shrink-0 flex items-center justify-center"
+                      style={{ width: 36, height: 36 }}
+                    >
+                      <Icon
+                        icon="person"
+                        className="absolute left-0 top-0 opacity-100 group-hover:opacity-0 group-hover:scale-50 duration-300"
+                        style={{ fontSize: 32 }}
+                      />
+                      <Icon
+                        icon="data_loss_prevention"
+                        className="absolute left-0 top-0 opacity-0 group-hover:opacity-100 group-hover:scale-100 scale-50 duration-300"
+                        style={{ fontSize: 32 }}
+                      />
+                    </span>
+                    <div className="flex flex-col items-start justify-center pl-3">
+                      <span className="text-sm font-semibold">
+                        {actor.name}
+                      </span>
+                      <span className="text-xs text-white/70 italic mt-[2px]">
+                        jako: {actor.character || "brak danych"}
+                      </span>
+                    </div>
                   </div>
                 ))}
             </div>
@@ -381,10 +404,12 @@ export default function MovieDetailPage() {
         movie={movie}
       />
 
-      <motion.div className="fixed mb-4 xl:mb-0 xl:mr-0 bottom-6 mr-4 right-4 md:right-6 z-50"
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, ease: "easeOut" }}>
+      <motion.div
+        className="fixed mb-4 xl:mb-0 xl:mr-0 bottom-6 mr-4 right-4 md:right-6 z-50"
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, ease: "easeOut" }}
+      >
         <Link href={`/recommender/${movie.id}`} className="block">
           <motion.div
             className="relative flex backdrop-blur-lg items-center h-14 bg-gradient-to-tr from-indigo-400/10 via-fuchsia-400/25 to-purple-400/15 border border-white/30 rounded-2xl overflow-hidden cursor-pointer"
