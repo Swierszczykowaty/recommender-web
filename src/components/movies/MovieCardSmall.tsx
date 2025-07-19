@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import Image from 'next/image';
-import { Movie } from '@/types/movie';
-import Icon from '@/components/global/Icon';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState } from "react";
+import Image from "next/image";
+import { Movie } from "@/types/movie";
+import Icon from "@/components/global/Icon";
+import { motion, AnimatePresence } from "framer-motion";
 
 type MovieCardSmallProps = {
   movie: Movie;
@@ -14,14 +14,16 @@ type MovieCardSmallProps = {
 const arrowVariants = {
   enter: { x: -50, opacity: 0 },
   center: { x: 0, opacity: 1 },
-  exit:  { x: 50, opacity: 0 },
+  exit: { x: 50, opacity: 0 },
 };
 
 const MovieCardSmall = ({ movie, onClick }: MovieCardSmallProps) => {
   const [isHovered, setIsHovered] = useState(false);
   const releaseYear = movie.release_date
     ? movie.release_date.slice(0, 4)
-    : 'Brak daty';
+    : "Brak daty";
+
+  const imagePath = movie.backdrop_path;
 
   return (
     <div
@@ -31,16 +33,16 @@ const MovieCardSmall = ({ movie, onClick }: MovieCardSmallProps) => {
       onClick={onClick}
     >
       <div className="relative w-full h-40">
-        {movie.poster_path ? (
+        {imagePath ? (
           <Image
-            src={`https://image.tmdb.org/t/p/w780${movie.backdrop_path}`}
+            src={`https://image.tmdb.org/t/p/w780${imagePath}`}
             alt={`Plakat filmu ${movie.title}`}
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            className="object-cover transform transition-transform duration-300 group-hover:scale-105"
+            className="object-cover transition-transform duration-300 hover:scale-105"
           />
         ) : (
-          <div className="w-full h-full flex items-center justify-center bg-gray-700 text-white text-center p-4">
+          <div className="w-full h-full flex items-center justify-center bg-gray-700 text-white p-4">
             Brak plakatu
           </div>
         )}
@@ -50,8 +52,12 @@ const MovieCardSmall = ({ movie, onClick }: MovieCardSmallProps) => {
 
         {/* tytuł + rok */}
         <div className="absolute bottom-3 left-3 right-3 text-white">
-          <h3 className="text-base font-bold truncate drop-shadow-xl">{movie.title}</h3>
-          <p className="text-sm text-white/80 mt-1 drop-shadow-xl">{releaseYear}</p>
+          <h3 className="text-base font-bold truncate drop-shadow-xl">
+            {movie.title}
+          </h3>
+          <p className="text-sm text-white/80 mt-1 drop-shadow-xl">
+            {releaseYear}
+          </p>
         </div>
 
         {/* overlay */}
@@ -72,7 +78,7 @@ const MovieCardSmall = ({ movie, onClick }: MovieCardSmallProps) => {
                   <Icon
                     icon="arrow_warm_up"
                     className="text-white rotate-90"
-                    style={{ fontSize: '40px' }}
+                    style={{ fontSize: "40px" }}
                   />
                 </motion.span>
               )}

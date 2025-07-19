@@ -132,7 +132,7 @@ export default function MovieDetailPage() {
           </motion.div>
           <div className="absolute inset-0 bg-gradient-to-b from-black/70 to-transparent" />
           <motion.div
-            className="absolute inset-0 flex flex-col justify-center items-center text-center drop-shadow-2xl -mt-[400px] "
+            className="absolute inset-0 flex flex-col justify-center items-center text-center drop-shadow-2xl -mt-[400px]"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.7, ease: "easeOut" }}
@@ -143,7 +143,19 @@ export default function MovieDetailPage() {
             {movie.tagline && <p className="text-lg italic">{movie.tagline}</p>}
           </motion.div>
         </div>
-      ) : null}
+      ) : <div className="relative w-full h-[800px]">
+                  <motion.div
+            className="absolute inset-0 flex flex-col justify-center items-center text-center drop-shadow-2xl -mt-[400px]"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+          >
+            <h1 className="text-4xl md:text-5xl font-bold mb-3">
+              {movie.title}
+            </h1>
+            {movie.tagline && <p className="text-lg italic">{movie.tagline}</p>}
+          </motion.div>
+        </div>}
 
       <Container>
         <div className="grid grid-cols-1 gap-8 -mt-[500px]">

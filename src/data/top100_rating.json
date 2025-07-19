@@ -1,21 +1,5 @@
 [
   {
-    "id":364150,
-    "title":"The Godfather Trilogy: 1901-1980",
-    "backdrop_path":"\/tYjyk4Ij7CwVOn2ovcXdRYffR9k.jpg",
-    "vote_average":9.3,
-    "genres":"Crime, Drama",
-    "release_date":"1992-10-17"
-  },
-  {
-    "id":313106,
-    "title":"Doctor Who: The Day of the Doctor",
-    "backdrop_path":"\/dmkFQ2f6vb8fR7kRgjlsG7h7QiG.jpg",
-    "vote_average":9.3,
-    "genres":"Science Fiction, Adventure",
-    "release_date":"2013-11-23"
-  },
-  {
     "id":278,
     "title":"The Shawshank Redemption",
     "backdrop_path":"\/kXfqcdQKsToO0OUXHcrrNCHDBzO.jpg",
@@ -32,20 +16,12 @@
     "release_date":"1972-03-14"
   },
   {
-    "id":84092,
-    "title":"Ramayana: The Legend of Prince Rama",
-    "backdrop_path":"\/nIgx0Begoi4LmzoI6esEB7TLLbX.jpg",
-    "vote_average":9.1,
-    "genres":"Animation, Fantasy, Family, Action, Adventure",
-    "release_date":"1992-12-05"
-  },
-  {
-    "id":389,
-    "title":"12 Angry Men",
-    "backdrop_path":"\/qqHQsStV6exghCM7zbObuYBiYxw.jpg",
+    "id":155,
+    "title":"The Dark Knight",
+    "backdrop_path":"\/nMKdUUepR0i5zn0y1T4CsSB5chy.jpg",
     "vote_average":9.0,
-    "genres":"Drama",
-    "release_date":"1957-04-10"
+    "genres":"Drama, Action, Crime, Thriller",
+    "release_date":"2008-07-16"
   },
   {
     "id":240,
@@ -72,44 +48,12 @@
     "release_date":"1993-12-15"
   },
   {
-    "id":155,
-    "title":"The Dark Knight",
-    "backdrop_path":"\/nMKdUUepR0i5zn0y1T4CsSB5chy.jpg",
+    "id":389,
+    "title":"12 Angry Men",
+    "backdrop_path":"\/qqHQsStV6exghCM7zbObuYBiYxw.jpg",
     "vote_average":9.0,
-    "genres":"Drama, Action, Crime, Thriller",
-    "release_date":"2008-07-16"
-  },
-  {
-    "id":664280,
-    "title":"David Attenborough: A Life on Our Planet",
-    "backdrop_path":"\/hHL4pwGzYS4njLpXhIjfc9skAQJ.jpg",
-    "vote_average":8.9,
-    "genres":"Documentary",
-    "release_date":"2020-09-28"
-  },
-  {
-    "id":38794,
-    "title":"Tosun Pasha",
-    "backdrop_path":"\/4sjSD6cgazsQtLR8C4Eochp2b9w.jpg",
-    "vote_average":8.9,
-    "genres":"Comedy",
-    "release_date":"1976-02-01"
-  },
-  {
-    "id":452522,
-    "title":"Twin Peaks",
-    "backdrop_path":"\/xqjGKLwLZeujg4fiBTOqhZkoL31.jpg",
-    "vote_average":8.9,
-    "genres":"Crime, Drama, Mystery, TV Movie",
-    "release_date":"1989-09-28"
-  },
-  {
-    "id":377462,
-    "title":"O.J.: Made in America",
-    "backdrop_path":"\/a9jBEm8wb4XJIvAdFJlAVgVxbB5.jpg",
-    "vote_average":8.9,
-    "genres":"Documentary, Crime, History",
-    "release_date":"2016-05-20"
+    "genres":"Drama",
+    "release_date":"1957-04-10"
   },
   {
     "id":120,
@@ -120,52 +64,12 @@
     "release_date":"2001-12-18"
   },
   {
-    "id":881210,
-    "title":"The Message",
-    "backdrop_path":"\/jLOZBmylS1jMzCHDtGWD85aTW08.jpg",
-    "vote_average":8.9,
-    "genres":"History, Drama",
-    "release_date":"1976-07-30"
-  },
-  {
-    "id":418325,
-    "title":"Mirror Game",
-    "backdrop_path":"\/weDuRCMSCXgVQNQmSsfCQtdAmoK.jpg",
-    "vote_average":8.9,
-    "genres":"Crime, Mystery, Thriller",
-    "release_date":"2016-09-30"
-  },
-  {
     "id":429,
     "title":"The Good, the Bad and the Ugly",
     "backdrop_path":"\/eoCSp75lxatmIa6aGqfnzwtbttd.jpg",
     "vote_average":8.8,
     "genres":"Western",
     "release_date":"1966-12-23"
-  },
-  {
-    "id":13,
-    "title":"Forrest Gump",
-    "backdrop_path":"\/qdIMHd4sEfJSckfVJfKQvisL02a.jpg",
-    "vote_average":8.8,
-    "genres":"Comedy, Drama, Romance",
-    "release_date":"1994-06-23"
-  },
-  {
-    "id":31405,
-    "title":"The Foster Brothers",
-    "backdrop_path":"\/25kfhRoedIG6TsMYNYdSap37hmp.jpg",
-    "vote_average":8.8,
-    "genres":"Comedy, Family",
-    "release_date":"1976-02-01"
-  },
-  {
-    "id":680,
-    "title":"Pulp Fiction",
-    "backdrop_path":"\/suaEOtk1N1sgg2MTM7oZd2cfVp3.jpg",
-    "vote_average":8.8,
-    "genres":"Thriller, Crime",
-    "release_date":"1994-09-10"
   },
   {
     "id":121,
@@ -176,28 +80,12 @@
     "release_date":"2002-12-18"
   },
   {
-    "id":29450,
-    "title":"The Marathon Family",
-    "backdrop_path":"\/pxr3jWnyCkT1PbB1uHdCUxLYy6M.jpg",
+    "id":13,
+    "title":"Forrest Gump",
+    "backdrop_path":"\/qdIMHd4sEfJSckfVJfKQvisL02a.jpg",
     "vote_average":8.8,
-    "genres":"Comedy, Drama",
-    "release_date":"1982-03-04"
-  },
-  {
-    "id":27205,
-    "title":"Inception",
-    "backdrop_path":"\/8ZTVqvKDQ8emSGUEMjsS4yHAwrp.jpg",
-    "vote_average":8.8,
-    "genres":"Action, Science Fiction, Adventure",
-    "release_date":"2010-07-15"
-  },
-  {
-    "id":76115,
-    "title":"The Phantom of the Opera at the Royal Albert Hall",
-    "backdrop_path":"\/hjmKqTwOIwN52RBGM72bLSq9Gay.jpg",
-    "vote_average":8.8,
-    "genres":"Music, Drama, Romance",
-    "release_date":"2011-09-27"
+    "genres":"Comedy, Drama, Romance",
+    "release_date":"1994-06-23"
   },
   {
     "id":550,
@@ -208,52 +96,20 @@
     "release_date":"1999-10-15"
   },
   {
-    "id":42044,
-    "title":"Shoah",
-    "backdrop_path":"\/4cVWQvHupI3jlSricUUdMeA4y8h.jpg",
-    "vote_average":8.7,
-    "genres":"Documentary, History",
-    "release_date":"1985-04-21"
+    "id":27205,
+    "title":"Inception",
+    "backdrop_path":"\/8ZTVqvKDQ8emSGUEMjsS4yHAwrp.jpg",
+    "vote_average":8.8,
+    "genres":"Action, Science Fiction, Adventure",
+    "release_date":"2010-07-15"
   },
   {
-    "id":24128,
-    "title":"Stop Making Sense",
-    "backdrop_path":"\/iLxliFy7HrIbKGHTdwVfgKeQLwG.jpg",
-    "vote_average":8.7,
-    "genres":"Music, Documentary",
-    "release_date":"1984-11-16"
-  },
-  {
-    "id":769,
-    "title":"GoodFellas",
-    "backdrop_path":"\/sw7mordbZxgITU877yTpZCud90M.jpg",
-    "vote_average":8.7,
-    "genres":"Drama, Crime",
-    "release_date":"1990-09-12"
-  },
-  {
-    "id":31408,
-    "title":"The Chaos Class Is Waking Up",
-    "backdrop_path":"\/x5ecWf54QuLblcA8TzYW0s3r4DI.jpg",
-    "vote_average":8.7,
-    "genres":"Comedy",
-    "release_date":"1976-11-20"
-  },
-  {
-    "id":17909,
-    "title":"Who's Singin' Over There?",
-    "backdrop_path":"\/hL4J5AbITCkgiAE1VKx8bAemp0D.jpg",
-    "vote_average":8.7,
-    "genres":"Drama, Comedy, Adventure",
-    "release_date":"1980-10-23"
-  },
-  {
-    "id":31534,
-    "title":"The Chaos Class Failed the Class",
-    "backdrop_path":"\/9sVMciEvGTc6wOTD0hi5regoyxZ.jpg",
-    "vote_average":8.7,
-    "genres":"Comedy",
-    "release_date":"1975-04-15"
+    "id":680,
+    "title":"Pulp Fiction",
+    "backdrop_path":"\/suaEOtk1N1sgg2MTM7oZd2cfVp3.jpg",
+    "vote_average":8.8,
+    "genres":"Thriller, Crime",
+    "release_date":"1994-09-10"
   },
   {
     "id":157336,
@@ -264,20 +120,20 @@
     "release_date":"2014-11-05"
   },
   {
-    "id":802401,
-    "title":"Demon Slayer: Kimetsu no Yaiba Mt. Natagumo Arc",
-    "backdrop_path":"\/kRlqWz54iI9K1PjI15cwvtHjnSw.jpg",
+    "id":510,
+    "title":"One Flew Over the Cuckoo's Nest",
+    "backdrop_path":"\/qUq3QTr2KLvGIcN0GaaaYx9bbyH.jpg",
     "vote_average":8.7,
-    "genres":"Action, Animation, Drama, Fantasy, Adventure",
-    "release_date":"2021-04-15"
+    "genres":"Drama",
+    "release_date":"1975-11-19"
   },
   {
-    "id":31547,
-    "title":"Saban, Son of Saban",
-    "backdrop_path":"\/gKYHGofRxZRK9kU9U7vS5CynI9S.jpg",
+    "id":769,
+    "title":"GoodFellas",
+    "backdrop_path":"\/sw7mordbZxgITU877yTpZCud90M.jpg",
     "vote_average":8.7,
-    "genres":"Comedy",
-    "release_date":"1977-12-01"
+    "genres":"Drama, Crime",
+    "release_date":"1990-09-12"
   },
   {
     "id":1891,
@@ -288,14 +144,6 @@
     "release_date":"1980-05-20"
   },
   {
-    "id":84368,
-    "title":"Manichitrathazhu",
-    "backdrop_path":"\/gmUgUCpSWxLwyxoTFsPovSHonoZ.jpg",
-    "vote_average":8.7,
-    "genres":"Fantasy, Thriller, Horror",
-    "release_date":"1993-12-25"
-  },
-  {
     "id":603,
     "title":"The Matrix",
     "backdrop_path":"\/oMsxZEvz9a708d49b6UdZK1KAo5.jpg",
@@ -304,172 +152,12 @@
     "release_date":"1999-03-30"
   },
   {
-    "id":510,
-    "title":"One Flew Over the Cuckoo's Nest",
-    "backdrop_path":"\/qUq3QTr2KLvGIcN0GaaaYx9bbyH.jpg",
-    "vote_average":8.7,
-    "genres":"Drama",
-    "release_date":"1975-11-19"
-  },
-  {
-    "id":414419,
-    "title":"Kill Bill: The Whole Bloody Affair",
-    "backdrop_path":"\/itcAHIwxKvSkFEVUsqSpOEIRwZy.jpg",
-    "vote_average":8.7,
-    "genres":"Action, Crime, Thriller",
-    "release_date":"2011-03-27"
-  },
-  {
-    "id":634120,
-    "title":"777 Charlie",
-    "backdrop_path":"\/3Sdi32wfIIOtDz1hYik6bGe1iWC.jpg",
-    "vote_average":8.7,
-    "genres":"Adventure, Comedy, Drama",
-    "release_date":"2022-06-10"
-  },
-  {
-    "id":31400,
-    "title":"Balkan Spy",
-    "backdrop_path":"\/fCpvr7eR7HtPQMH6O8iAc73zjcw.jpg",
-    "vote_average":8.7,
-    "genres":"Drama, Comedy",
-    "release_date":"1984-02-23"
-  },
-  {
-    "id":1024350,
-    "title":"DAMaN",
-    "backdrop_path":"\/7ziE2gWkSH0cNjjD9QfVVsYUuMX.jpg",
-    "vote_average":8.6,
-    "genres":"Adventure, Drama",
-    "release_date":"2022-11-04"
-  },
-  {
-    "id":823754,
-    "title":"Bo Burnham: Inside",
-    "backdrop_path":"\/9sfVyE3sP2dkCwDyV7UlYP5TAAR.jpg",
+    "id":637,
+    "title":"Life Is Beautiful",
+    "backdrop_path":"\/gavyCu1UaTaTNPsVaGXT6pe5u24.jpg",
     "vote_average":8.6,
     "genres":"Comedy, Drama",
-    "release_date":"2021-07-22"
-  },
-  {
-    "id":598,
-    "title":"City of God",
-    "backdrop_path":"\/5p3aTxtUtZHCHwYsuycutmxIhND.jpg",
-    "vote_average":8.6,
-    "genres":"Drama, Crime",
-    "release_date":"2002-08-30"
-  },
-  {
-    "id":30238,
-    "title":"Earthlings",
-    "backdrop_path":"\/nEo7B55t79RhcbOjLo6Zcbig4Ku.jpg",
-    "vote_average":8.6,
-    "genres":"Documentary",
-    "release_date":"2005-09-24"
-  },
-  {
-    "id":29971,
-    "title":"Nayakan",
-    "backdrop_path":"\/aXrUUYoRkaKKQEiN9KexrtPqjUy.jpg",
-    "vote_average":8.6,
-    "genres":"Drama, Crime",
-    "release_date":"1987-10-21"
-  },
-  {
-    "id":462718,
-    "title":"Pariyerum Perumal",
-    "backdrop_path":"\/sX8FMSuzhTxU04suSfev26iKkBj.jpg",
-    "vote_average":8.6,
-    "genres":"Romance, Drama",
-    "release_date":"2018-09-28"
-  },
-  {
-    "id":26910,
-    "title":"Anbe Sivam",
-    "backdrop_path":"\/9QaebfA43SkffIy6sDFje5q0jdk.jpg",
-    "vote_average":8.6,
-    "genres":"Comedy, Drama",
-    "release_date":"2003-01-14"
-  },
-  {
-    "id":129,
-    "title":"Spirited Away",
-    "backdrop_path":"\/Ab8mkHmkYADjU7wQiOkia9BzGvS.jpg",
-    "vote_average":8.6,
-    "genres":"Animation, Family, Fantasy",
-    "release_date":"2001-07-20"
-  },
-  {
-    "id":607145,
-    "title":"Rocketry: The Nambi Effect",
-    "backdrop_path":"\/c3lLlZcs27jARdt6id9YM1PLN1Z.jpg",
-    "vote_average":8.6,
-    "genres":"Drama, History",
-    "release_date":"2022-07-01"
-  },
-  {
-    "id":412865,
-    "title":"Peranbu",
-    "backdrop_path":"\/colSf7p8fj9OfyNDibFsJHeLFMh.jpg",
-    "vote_average":8.6,
-    "genres":"Drama, Family",
-    "release_date":"2019-02-01"
-  },
-  {
-    "id":11,
-    "title":"Star Wars",
-    "backdrop_path":"\/zqkmTXzjkAgXmEWLRsY4UpTWCeo.jpg",
-    "vote_average":8.6,
-    "genres":"Adventure, Action, Science Fiction",
-    "release_date":"1977-05-25"
-  },
-  {
-    "id":25771,
-    "title":"Pink Floyd: Live at Pompeii",
-    "backdrop_path":"\/jBAvsZawpUP5xOVjR7pGn4dT2Sz.jpg",
-    "vote_average":8.6,
-    "genres":"Music, Documentary",
-    "release_date":"1972-08-31"
-  },
-  {
-    "id":1585,
-    "title":"It's a Wonderful Life",
-    "backdrop_path":"\/ch3lDc4xQ9MpsNEpnRhvR8PIxxK.jpg",
-    "vote_average":8.6,
-    "genres":"Drama, Family, Fantasy",
-    "release_date":"1946-12-20"
-  },
-  {
-    "id":274,
-    "title":"The Silence of the Lambs",
-    "backdrop_path":"\/mfwq2nMBzArzQ7Y9RKE8SKeeTkg.jpg",
-    "vote_average":8.6,
-    "genres":"Crime, Drama, Thriller",
-    "release_date":"1991-02-14"
-  },
-  {
-    "id":29927,
-    "title":"Pretty Village, Pretty Flame",
-    "backdrop_path":"\/b8tdsfLeuuT306AXcggEk8XDvvh.jpg",
-    "vote_average":8.6,
-    "genres":"Drama, War",
-    "release_date":"1996-05-11"
-  },
-  {
-    "id":497,
-    "title":"The Green Mile",
-    "backdrop_path":"\/l6hQWH9eDksNJNiXWYRkWqikOdu.jpg",
-    "vote_average":8.6,
-    "genres":"Fantasy, Drama, Crime",
-    "release_date":"1999-12-10"
-  },
-  {
-    "id":346,
-    "title":"Seven Samurai",
-    "backdrop_path":"\/qvZ91FwMq6O47VViAr8vZNQz3WI.jpg",
-    "vote_average":8.6,
-    "genres":"Action, Drama",
-    "release_date":"1954-04-26"
+    "release_date":"1997-12-20"
   },
   {
     "id":855400,
@@ -480,12 +168,12 @@
     "release_date":"2021-11-02"
   },
   {
-    "id":637,
-    "title":"Life Is Beautiful",
-    "backdrop_path":"\/gavyCu1UaTaTNPsVaGXT6pe5u24.jpg",
+    "id":1585,
+    "title":"It's a Wonderful Life",
+    "backdrop_path":"\/ch3lDc4xQ9MpsNEpnRhvR8PIxxK.jpg",
     "vote_average":8.6,
-    "genres":"Comedy, Drama",
-    "release_date":"1997-12-20"
+    "genres":"Drama, Family, Fantasy",
+    "release_date":"1946-12-20"
   },
   {
     "id":14537,
@@ -504,12 +192,28 @@
     "release_date":"1991-07-03"
   },
   {
-    "id":857,
-    "title":"Saving Private Ryan",
-    "backdrop_path":"\/bdD39MpSVhKjxarTxLSfX6baoMP.jpg",
+    "id":346,
+    "title":"Seven Samurai",
+    "backdrop_path":"\/qvZ91FwMq6O47VViAr8vZNQz3WI.jpg",
     "vote_average":8.6,
-    "genres":"Drama, History, War",
-    "release_date":"1998-07-24"
+    "genres":"Action, Drama",
+    "release_date":"1954-04-26"
+  },
+  {
+    "id":598,
+    "title":"City of God",
+    "backdrop_path":"\/5p3aTxtUtZHCHwYsuycutmxIhND.jpg",
+    "vote_average":8.6,
+    "genres":"Drama, Crime",
+    "release_date":"2002-08-30"
+  },
+  {
+    "id":274,
+    "title":"The Silence of the Lambs",
+    "backdrop_path":"\/mfwq2nMBzArzQ7Y9RKE8SKeeTkg.jpg",
+    "vote_average":8.6,
+    "genres":"Crime, Drama, Thriller",
+    "release_date":"1991-02-14"
   },
   {
     "id":807,
@@ -520,244 +224,36 @@
     "release_date":"1995-09-22"
   },
   {
-    "id":31401,
-    "title":"The Broken Landlord",
-    "backdrop_path":"\/ydrjtjx3k3Li6875sL6T8TK5PaW.jpg",
+    "id":129,
+    "title":"Spirited Away",
+    "backdrop_path":"\/Ab8mkHmkYADjU7wQiOkia9BzGvS.jpg",
     "vote_average":8.6,
-    "genres":"Drama, Comedy",
-    "release_date":"1986-04-07"
+    "genres":"Animation, Family, Fantasy",
+    "release_date":"2001-07-20"
   },
   {
-    "id":900783,
-    "title":"The Kashmir Files",
-    "backdrop_path":"\/fGIrwBpsouzVYQKcOii88lA1MXY.jpg",
-    "vote_average":8.5,
-    "genres":"History, Drama",
-    "release_date":"2022-03-11"
+    "id":497,
+    "title":"The Green Mile",
+    "backdrop_path":"\/l6hQWH9eDksNJNiXWYRkWqikOdu.jpg",
+    "vote_average":8.6,
+    "genres":"Fantasy, Drama, Crime",
+    "release_date":"1999-12-10"
   },
   {
-    "id":592898,
-    "title":"Jersey",
-    "backdrop_path":"\/vKZBHAivnppDOvfo0JtqmIBIbTz.jpg",
-    "vote_average":8.5,
-    "genres":"Drama",
-    "release_date":"2019-04-19"
+    "id":857,
+    "title":"Saving Private Ryan",
+    "backdrop_path":"\/bdD39MpSVhKjxarTxLSfX6baoMP.jpg",
+    "vote_average":8.6,
+    "genres":"Drama, History, War",
+    "release_date":"1998-07-24"
   },
   {
-    "id":423,
-    "title":"The Pianist",
-    "backdrop_path":"\/dVr11o9or7AS8AMPfwjSpEU83iU.jpg",
-    "vote_average":8.5,
-    "genres":"Drama, War",
-    "release_date":"2002-09-17"
-  },
-  {
-    "id":576017,
-    "title":"For Sama",
-    "backdrop_path":"\/hiqB5fFZ230MeFAGLPahoy06UOE.jpg",
-    "vote_average":8.5,
-    "genres":"Documentary, War",
-    "release_date":"2019-07-26"
-  },
-  {
-    "id":62320,
-    "title":"Home",
-    "backdrop_path":"\/78kinIgDGZ8KiKrK1BJBEiwNeBi.jpg",
-    "vote_average":8.5,
-    "genres":"Documentary",
-    "release_date":"2009-06-03"
-  },
-  {
-    "id":29811,
-    "title":"Thalapathi",
-    "backdrop_path":"\/yH6rrBG3FakiD6ePxw9ebE9ntsd.jpg",
-    "vote_average":8.5,
-    "genres":"Crime, Action, Drama",
-    "release_date":"1991-11-05"
-  },
-  {
-    "id":58496,
-    "title":"Senna",
-    "backdrop_path":"\/ycNyvi9gk4ZI2NLk4KBbseNZbfN.jpg",
-    "vote_average":8.5,
-    "genres":"Documentary, History",
-    "release_date":"2010-10-07"
-  },
-  {
-    "id":629,
-    "title":"The Usual Suspects",
-    "backdrop_path":"\/6CLV2HakYO1tyAV5GUHOeNPyaTd.jpg",
-    "vote_average":8.5,
-    "genres":"Drama, Crime, Thriller",
-    "release_date":"1995-07-19"
-  },
-  {
-    "id":15584,
-    "title":"Dear Zachary: A Letter to a Son About His Father",
-    "backdrop_path":"\/r7oQM0UFy2bWh4hY9Pgm4onqZCa.jpg",
-    "vote_average":8.5,
-    "genres":"Documentary, Crime",
-    "release_date":"2008-10-31"
-  },
-  {
-    "id":895006,
-    "title":"Demon Slayer: Kimetsu no Yaiba - Tsuzumi Mansion Arc",
-    "backdrop_path":"\/cqI5ZpzesnxaRqi7OCAT0C2uqg0.jpg",
-    "vote_average":8.5,
-    "genres":"Animation, Action, Fantasy",
-    "release_date":"2022-09-15"
-  },
-  {
-    "id":77338,
-    "title":"The Intouchables",
-    "backdrop_path":"\/bGksau9GGu0uJ8DJQ8DYc9JW5LM.jpg",
-    "vote_average":8.5,
-    "genres":"Drama, Comedy",
-    "release_date":"2011-11-02"
-  },
-  {
-    "id":567,
-    "title":"Rear Window",
-    "backdrop_path":"\/zGs5tZOlvc9cprdcU6kDOVNpujf.jpg",
-    "vote_average":8.5,
-    "genres":"Thriller, Mystery",
-    "release_date":"1954-08-01"
-  },
-  {
-    "id":441717,
-    "title":"96",
-    "backdrop_path":"\/qzu94AvnZ1az30sTUuibx2bXpfs.jpg",
-    "vote_average":8.5,
-    "genres":"Romance",
-    "release_date":"2018-10-04"
-  },
-  {
-    "id":1124,
-    "title":"The Prestige",
-    "backdrop_path":"\/xBDE2d6HM1aBKQRu4IT7SfPD9fs.jpg",
-    "vote_average":8.5,
-    "genres":"Drama, Mystery, Science Fiction",
-    "release_date":"2006-10-19"
-  },
-  {
-    "id":31412,
-    "title":"The Girl with the Red Scarf",
-    "backdrop_path":"\/vbCguRy0nkqla2FiOHT3A4T0o1e.jpg",
-    "vote_average":8.5,
-    "genres":"Drama, Romance",
-    "release_date":"1977-11-18"
-  },
-  {
-    "id":73,
-    "title":"American History X",
-    "backdrop_path":"\/9LSsSPbP715XT9B7acIZzantPyX.jpg",
-    "vote_average":8.5,
-    "genres":"Drama",
-    "release_date":"1998-07-01"
-  },
-  {
-    "id":3082,
-    "title":"Modern Times",
-    "backdrop_path":"\/kSlO1pHpwQfPQdgVPr7dJiJNtJ8.jpg",
-    "vote_average":8.5,
-    "genres":"Comedy, Drama",
-    "release_date":"1936-02-05"
-  },
-  {
-    "id":30969,
-    "title":"Louis C.K.: Chewed Up",
-    "backdrop_path":"\/miFsgaP3u8CKiwQ0aSMrefNnM7R.jpg",
-    "vote_average":8.5,
-    "genres":"Comedy",
-    "release_date":"2008-10-01"
-  },
-  {
-    "id":901,
-    "title":"City Lights",
-    "backdrop_path":"\/n0Cju2Eu3VyrUFl32thblHFWznA.jpg",
-    "vote_average":8.5,
-    "genres":"Comedy, Romance, Drama",
-    "release_date":"1931-02-01"
-  },
-  {
-    "id":11216,
-    "title":"Cinema Paradiso",
-    "backdrop_path":"\/zoVeIgKzGJzpdG6Gwnr7iOYfIMU.jpg",
-    "vote_average":8.5,
-    "genres":"Drama, Romance",
-    "release_date":"1988-11-17"
-  },
-  {
-    "id":80961,
-    "title":"The King of the Street Cleaners",
-    "backdrop_path":"\/viJjUhzkxwttDaLIGxE78urG3Ej.jpg",
-    "vote_average":8.5,
-    "genres":"Comedy, Romance, Drama",
-    "release_date":"1977-08-09"
-  },
-  {
-    "id":1422,
-    "title":"The Departed",
-    "backdrop_path":"\/6WRrGYalXXveItfpnipYdayFkQB.jpg",
-    "vote_average":8.5,
-    "genres":"Drama, Thriller, Crime",
-    "release_date":"2006-10-04"
-  },
-  {
-    "id":30066,
-    "title":"Gol Maal",
-    "backdrop_path":"\/pfXRHq26dBOJxUs0OlApCFpat1y.jpg",
-    "vote_average":8.5,
-    "genres":"Comedy",
-    "release_date":"1979-04-19"
-  },
-  {
-    "id":14002,
-    "title":"Baraka",
-    "backdrop_path":"\/c0QYwNyeURswT7fxmR2mlfpdk0l.jpg",
-    "vote_average":8.5,
-    "genres":"Documentary",
-    "release_date":"1992-09-15"
-  },
-  {
-    "id":29259,
-    "title":"Le Trou",
-    "backdrop_path":"\/f72GEQF2lKsdmEULSI9bWCbQylH.jpg",
-    "vote_average":8.5,
-    "genres":"Crime, Drama, Thriller, History",
-    "release_date":"1960-03-18"
-  },
-  {
-    "id":157737,
-    "title":"Zübük",
-    "backdrop_path":"\/kcFvkpK417xKHJ0kqKFkN83AhT8.jpg",
-    "vote_average":8.5,
-    "genres":"Comedy",
-    "release_date":"1980-09-11"
-  },
-  {
-    "id":894803,
-    "title":"Sita Ramam",
-    "backdrop_path":"\/k38sLjhQsdLRJZCu3hIL7RcGo3A.jpg",
-    "vote_average":8.5,
-    "genres":"Romance, Drama",
-    "release_date":"2022-08-05"
-  },
-  {
-    "id":12477,
-    "title":"Grave of the Fireflies",
-    "backdrop_path":"\/dlC0ed9Ugh3FzydnkBtV5lRXUu4.jpg",
-    "vote_average":8.5,
-    "genres":"Animation, Drama, War",
-    "release_date":"1988-04-16"
-  },
-  {
-    "id":289,
-    "title":"Casablanca",
-    "backdrop_path":"\/rrsG3xYrWifoduZtsIZ4ntoDfBY.jpg",
-    "vote_average":8.5,
-    "genres":"Drama, Romance",
-    "release_date":"1943-01-15"
+    "id":11,
+    "title":"Star Wars",
+    "backdrop_path":"\/zqkmTXzjkAgXmEWLRsY4UpTWCeo.jpg",
+    "vote_average":8.6,
+    "genres":"Adventure, Action, Science Fiction",
+    "release_date":"1977-05-25"
   },
   {
     "id":8587,
@@ -768,12 +264,180 @@
     "release_date":"1994-06-24"
   },
   {
-    "id":105,
-    "title":"Back to the Future",
-    "backdrop_path":"\/5bzPWQ2dFUl2aZKkp7ILJVVkRed.jpg",
+    "id":3082,
+    "title":"Modern Times",
+    "backdrop_path":"\/kSlO1pHpwQfPQdgVPr7dJiJNtJ8.jpg",
     "vote_average":8.5,
-    "genres":"Adventure, Comedy, Science Fiction",
-    "release_date":"1985-07-03"
+    "genres":"Comedy, Drama",
+    "release_date":"1936-02-05"
+  },
+  {
+    "id":98,
+    "title":"Gladiator",
+    "backdrop_path":"\/3ZVEtQxVPpEp5LNpAULDcxadTU3.jpg",
+    "vote_average":8.5,
+    "genres":"Action, Drama, Adventure",
+    "release_date":"2000-05-04"
+  },
+  {
+    "id":11216,
+    "title":"Cinema Paradiso",
+    "backdrop_path":"\/zoVeIgKzGJzpdG6Gwnr7iOYfIMU.jpg",
+    "vote_average":8.5,
+    "genres":"Drama, Romance",
+    "release_date":"1988-11-17"
+  },
+  {
+    "id":496243,
+    "title":"Parasite",
+    "backdrop_path":"\/hiKmpZMGZsrkA3cdce8a7Dpos1j.jpg",
+    "vote_average":8.5,
+    "genres":"Comedy, Thriller, Drama",
+    "release_date":"2019-05-30"
+  },
+  {
+    "id":12477,
+    "title":"Grave of the Fireflies",
+    "backdrop_path":"\/dlC0ed9Ugh3FzydnkBtV5lRXUu4.jpg",
+    "vote_average":8.5,
+    "genres":"Animation, Drama, War",
+    "release_date":"1988-04-16"
+  },
+  {
+    "id":335,
+    "title":"Once Upon a Time in the West",
+    "backdrop_path":"\/vmryZ1Bkko8P2utNaJeO2Yo2Bx4.jpg",
+    "vote_average":8.5,
+    "genres":"Drama, Western",
+    "release_date":"1968-12-21"
+  },
+  {
+    "id":894803,
+    "title":"Sita Ramam",
+    "backdrop_path":"\/k38sLjhQsdLRJZCu3hIL7RcGo3A.jpg",
+    "vote_average":8.5,
+    "genres":"Romance, Drama",
+    "release_date":"2022-08-05"
+  },
+  {
+    "id":900783,
+    "title":"The Kashmir Files",
+    "backdrop_path":"\/fGIrwBpsouzVYQKcOii88lA1MXY.jpg",
+    "vote_average":8.5,
+    "genres":"History, Drama",
+    "release_date":"2022-03-11"
+  },
+  {
+    "id":1124,
+    "title":"The Prestige",
+    "backdrop_path":"\/xBDE2d6HM1aBKQRu4IT7SfPD9fs.jpg",
+    "vote_average":8.5,
+    "genres":"Drama, Mystery, Science Fiction",
+    "release_date":"2006-10-19"
+  },
+  {
+    "id":73,
+    "title":"American History X",
+    "backdrop_path":"\/9LSsSPbP715XT9B7acIZzantPyX.jpg",
+    "vote_average":8.5,
+    "genres":"Drama",
+    "release_date":"1998-07-01"
+  },
+  {
+    "id":289,
+    "title":"Casablanca",
+    "backdrop_path":"\/rrsG3xYrWifoduZtsIZ4ntoDfBY.jpg",
+    "vote_average":8.5,
+    "genres":"Drama, Romance",
+    "release_date":"1943-01-15"
+  },
+  {
+    "id":569094,
+    "title":"Spider-Man: Across the Spider-Verse",
+    "backdrop_path":"\/4HodYYKEIsGOdinkGi2Ucz6X9i0.jpg",
+    "vote_average":8.5,
+    "genres":"Animation, Action, Adventure",
+    "release_date":"2023-05-31"
+  },
+  {
+    "id":101,
+    "title":"Léon: The Professional",
+    "backdrop_path":"\/jRJrQ72VLyEnVsvwfep8Xjlvu8c.jpg",
+    "vote_average":8.5,
+    "genres":"Crime, Drama, Action",
+    "release_date":"1994-09-14"
+  },
+  {
+    "id":567,
+    "title":"Rear Window",
+    "backdrop_path":"\/zGs5tZOlvc9cprdcU6kDOVNpujf.jpg",
+    "vote_average":8.5,
+    "genres":"Thriller, Mystery",
+    "release_date":"1954-08-01"
+  },
+  {
+    "id":423,
+    "title":"The Pianist",
+    "backdrop_path":"\/dVr11o9or7AS8AMPfwjSpEU83iU.jpg",
+    "vote_average":8.5,
+    "genres":"Drama, War",
+    "release_date":"2002-09-17"
+  },
+  {
+    "id":244786,
+    "title":"Whiplash",
+    "backdrop_path":"\/vNXGrknx4GjWLgmuNTftWZluIUl.jpg",
+    "vote_average":8.5,
+    "genres":"Drama, Music",
+    "release_date":"2014-10-10"
+  },
+  {
+    "id":348,
+    "title":"Alien",
+    "backdrop_path":"\/AmR3JG1VQVxU8TfAvljUhfSFUOx.jpg",
+    "vote_average":8.5,
+    "genres":"Horror, Science Fiction",
+    "release_date":"1979-05-25"
+  },
+  {
+    "id":68718,
+    "title":"Django Unchained",
+    "backdrop_path":"\/5Lbm0gpFDRAPIV1Cth6ln9iL1ou.jpg",
+    "vote_average":8.5,
+    "genres":"Drama, Western",
+    "release_date":"2012-12-25"
+  },
+  {
+    "id":77338,
+    "title":"The Intouchables",
+    "backdrop_path":"\/bGksau9GGu0uJ8DJQ8DYc9JW5LM.jpg",
+    "vote_average":8.5,
+    "genres":"Drama, Comedy",
+    "release_date":"2011-11-02"
+  },
+  {
+    "id":629,
+    "title":"The Usual Suspects",
+    "backdrop_path":"\/6CLV2HakYO1tyAV5GUHOeNPyaTd.jpg",
+    "vote_average":8.5,
+    "genres":"Drama, Crime, Thriller",
+    "release_date":"1995-07-19"
+  },
+  {
+    "id":1422,
+    "title":"The Departed",
+    "backdrop_path":"\/6WRrGYalXXveItfpnipYdayFkQB.jpg",
+    "vote_average":8.5,
+    "genres":"Drama, Thriller, Crime",
+    "release_date":"2006-10-04"
+  },
+  {
+    "id":58496,
+    "title":"Senna",
+    "backdrop_path":"\/ycNyvi9gk4ZI2NLk4KBbseNZbfN.jpg",
+    "vote_average":8.5,
+    "genres":"Documentary, History",
+    "release_date":"2010-10-07"
   },
   {
     "id":539,
@@ -782,5 +446,357 @@
     "vote_average":8.5,
     "genres":"Horror, Drama, Thriller",
     "release_date":"1960-06-22"
+  },
+  {
+    "id":105,
+    "title":"Back to the Future",
+    "backdrop_path":"\/5bzPWQ2dFUl2aZKkp7ILJVVkRed.jpg",
+    "vote_average":8.5,
+    "genres":"Adventure, Comedy, Science Fiction",
+    "release_date":"1985-07-03"
+  },
+  {
+    "id":901,
+    "title":"City Lights",
+    "backdrop_path":"\/n0Cju2Eu3VyrUFl32thblHFWznA.jpg",
+    "vote_average":8.5,
+    "genres":"Comedy, Romance, Drama",
+    "release_date":"1931-02-01"
+  },
+  {
+    "id":28,
+    "title":"Apocalypse Now",
+    "backdrop_path":"\/9Qs9oyn4iE8QtQjGZ0Hp2WyYNXT.jpg",
+    "vote_average":8.4,
+    "genres":"Drama, War",
+    "release_date":"1979-08-15"
+  },
+  {
+    "id":679,
+    "title":"Aliens",
+    "backdrop_path":"\/jMBpJFRtrtIXymer93XLavPwI3P.jpg",
+    "vote_average":8.4,
+    "genres":"Action, Thriller, Science Fiction",
+    "release_date":"1986-07-18"
+  },
+  {
+    "id":517814,
+    "title":"Capernaum",
+    "backdrop_path":"\/1p6cMqrxwLjTHmruMCWfpbTAxvt.jpg",
+    "vote_average":8.4,
+    "genres":"Drama",
+    "release_date":"2018-09-20"
+  },
+  {
+    "id":975,
+    "title":"Paths of Glory",
+    "backdrop_path":"\/3G9YiVm0bQB1XyyyiDzfeNCiFLw.jpg",
+    "vote_average":8.4,
+    "genres":"Drama, War",
+    "release_date":"1957-10-25"
+  },
+  {
+    "id":694,
+    "title":"The Shining",
+    "backdrop_path":"\/AdKA2F1SzYPhSZdEbjH1Zh75UVQ.jpg",
+    "vote_average":8.4,
+    "genres":"Horror, Thriller",
+    "release_date":"1980-05-23"
+  },
+  {
+    "id":77,
+    "title":"Memento",
+    "backdrop_path":"\/7Wev9JMo6R5XAfz2KDvXb7oPMmy.jpg",
+    "vote_average":8.4,
+    "genres":"Mystery, Thriller",
+    "release_date":"2000-10-11"
+  },
+  {
+    "id":299536,
+    "title":"Avengers: Infinity War",
+    "backdrop_path":"\/mDfJG3LC3Dqb67AZ52x3Z0jU0uB.jpg",
+    "vote_average":8.4,
+    "genres":"Adventure, Action, Science Fiction",
+    "release_date":"2018-04-25"
+  },
+  {
+    "id":299534,
+    "title":"Avengers: Endgame",
+    "backdrop_path":"\/7RyHsO4yDXtBv1zUU3mTpHeQ0d5.jpg",
+    "vote_average":8.4,
+    "genres":"Adventure, Science Fiction, Action",
+    "release_date":"2019-04-24"
+  },
+  {
+    "id":324857,
+    "title":"Spider-Man: Into the Spider-Verse",
+    "backdrop_path":"\/qGQf2OHIkoh89K8XeKQzhxczf96.jpg",
+    "vote_average":8.4,
+    "genres":"Action, Adventure, Animation, Science Fiction",
+    "release_date":"2018-12-06"
+  },
+  {
+    "id":914,
+    "title":"The Great Dictator",
+    "backdrop_path":"\/8AMKZODrCvWe2sCy9Ts7VsLcKd6.jpg",
+    "vote_average":8.4,
+    "genres":"Comedy, War",
+    "release_date":"1940-10-15"
+  },
+  {
+    "id":85,
+    "title":"Raiders of the Lost Ark",
+    "backdrop_path":"\/f3XrGXd34Ru7o39LUwWvk5igEV7.jpg",
+    "vote_average":8.4,
+    "genres":"Adventure, Action",
+    "release_date":"1981-06-12"
+  },
+  {
+    "id":372058,
+    "title":"Your Name.",
+    "backdrop_path":"\/dIWwZW7dJJtqC6CgWzYkNVKIUm8.jpg",
+    "vote_average":8.4,
+    "genres":"Romance, Animation, Drama",
+    "release_date":"2016-08-26"
+  },
+  {
+    "id":582,
+    "title":"The Lives of Others",
+    "backdrop_path":"\/3mxteiwtcCPjbYKlyC0WxY1G9J3.jpg",
+    "vote_average":8.4,
+    "genres":"Drama, Thriller",
+    "release_date":"2006-03-15"
+  },
+  {
+    "id":16869,
+    "title":"Inglourious Basterds",
+    "backdrop_path":"\/8pEnePgGyfUqj8Qa6d91OZQ6Aih.jpg",
+    "vote_average":8.4,
+    "genres":"Drama, Thriller, War",
+    "release_date":"2009-08-19"
+  },
+  {
+    "id":20453,
+    "title":"3 Idiots",
+    "backdrop_path":"\/u7kuUaySqXBVAtqEl9vkTkAzHV9.jpg",
+    "vote_average":8.4,
+    "genres":"Drama, Comedy",
+    "release_date":"2009-12-23"
+  },
+  {
+    "id":599,
+    "title":"Sunset Boulevard",
+    "backdrop_path":"\/p47ihFj4A7EpBjmPHdTj4ipyq1S.jpg",
+    "vote_average":8.4,
+    "genres":"Drama",
+    "release_date":"1950-08-10"
+  },
+  {
+    "id":387,
+    "title":"Das Boot",
+    "backdrop_path":"\/tRI6Csmw4rKzMYDrfUx5xtyBSVE.jpg",
+    "vote_average":8.4,
+    "genres":"Drama, History, War",
+    "release_date":"1981-09-17"
+  },
+  {
+    "id":354912,
+    "title":"Coco",
+    "backdrop_path":"\/askg3SMvhqEl4OL52YuvdtY40Yb.jpg",
+    "vote_average":8.4,
+    "genres":"Family, Animation, Fantasy, Music, Comedy, Adventure",
+    "release_date":"2017-10-27"
+  },
+  {
+    "id":37257,
+    "title":"Witness for the Prosecution",
+    "backdrop_path":"\/AetjwIIITWQ5ueKKk9LQNaOFwVa.jpg",
+    "vote_average":8.4,
+    "genres":"Drama, Mystery, Crime",
+    "release_date":"1957-12-17"
+  },
+  {
+    "id":49026,
+    "title":"The Dark Knight Rises",
+    "backdrop_path":"\/c3OHQncTAnKFhdOTX7D3LTW6son.jpg",
+    "vote_average":8.4,
+    "genres":"Action, Crime, Drama, Thriller",
+    "release_date":"2012-07-17"
+  },
+  {
+    "id":10681,
+    "title":"WALL·E",
+    "backdrop_path":"\/fK5ssgvtI43z19FoWigdlqgpLRE.jpg",
+    "vote_average":8.4,
+    "genres":"Animation, Family, Science Fiction",
+    "release_date":"2008-06-22"
+  },
+  {
+    "id":279,
+    "title":"Amadeus",
+    "backdrop_path":"\/szJSH8XbGQcZR3Vtn90jKnEb5Ee.jpg",
+    "vote_average":8.4,
+    "genres":"History, Music, Drama",
+    "release_date":"1984-09-19"
+  },
+  {
+    "id":60243,
+    "title":"A Separation",
+    "backdrop_path":"\/wVATRh2WUCoQeQAURBmcnE3peeE.jpg",
+    "vote_average":8.3,
+    "genres":"Drama",
+    "release_date":"2011-02-15"
+  },
+  {
+    "id":743563,
+    "title":"Vikram",
+    "backdrop_path":"\/1GGc5XXaFgNBoJnOEBJCnXSMwhx.jpg",
+    "vote_average":8.3,
+    "genres":"Action, Adventure, Crime, Thriller",
+    "release_date":"2022-06-02"
+  },
+  {
+    "id":599925,
+    "title":"Shershaah",
+    "backdrop_path":"\/AguDwIJdqUFEUXlmXyixotE0WnT.jpg",
+    "vote_average":8.3,
+    "genres":"Action, Drama, Thriller, War",
+    "release_date":"2021-08-12"
+  },
+  {
+    "id":645484,
+    "title":"Dil Bechara",
+    "backdrop_path":"\/tnwoGCRe2GV05f1RSIl1PusYc9v.jpg",
+    "vote_average":8.3,
+    "genres":"Drama, Romance",
+    "release_date":"2020-07-24"
+  },
+  {
+    "id":832,
+    "title":"M",
+    "backdrop_path":"\/r8Un26Y8GhcIdtmVZVnUOccnHaj.jpg",
+    "vote_average":8.3,
+    "genres":"Drama, Thriller, Crime",
+    "release_date":"1931-05-11"
+  },
+  {
+    "id":596650,
+    "title":"Chhichhore",
+    "backdrop_path":"\/xphcLhsYScVpJdSEZk1IllpHqri.jpg",
+    "vote_average":8.3,
+    "genres":"Romance, Comedy, Drama",
+    "release_date":"2019-09-05"
+  },
+  {
+    "id":1505915,
+    "title":"Euphoria",
+    "backdrop_path":"\/681sVbYvaiXSWAMdIc4yzaDEIJ9.jpg",
+    "vote_average":8.3,
+    "genres":"Drama",
+    "release_date":"2019-09-07"
+  },
+  {
+    "id":670,
+    "title":"Oldboy",
+    "backdrop_path":"\/sdwjQEM869JFwMytTmvr6ggvaUl.jpg",
+    "vote_average":8.3,
+    "genres":"Drama, Thriller, Mystery, Action",
+    "release_date":"2003-11-21"
+  },
+  {
+    "id":641,
+    "title":"Requiem for a Dream",
+    "backdrop_path":"\/s5R6kTMfOxkGit96A8lqcDL4uVk.jpg",
+    "vote_average":8.3,
+    "genres":"Crime, Drama",
+    "release_date":"2000-10-06"
+  },
+  {
+    "id":595,
+    "title":"To Kill a Mockingbird",
+    "backdrop_path":"\/mbJIERhLu25fyZb8DQIq1JN3AOR.jpg",
+    "vote_average":8.3,
+    "genres":"Drama",
+    "release_date":"1962-12-20"
+  },
+  {
+    "id":19,
+    "title":"Metropolis",
+    "backdrop_path":"\/r8pUcom5Mw8igtBpj3AHSAUvH0R.jpg",
+    "vote_average":8.3,
+    "genres":"Drama, Science Fiction",
+    "release_date":"1927-02-06"
+  },
+  {
+    "id":872,
+    "title":"Singin' in the Rain",
+    "backdrop_path":"\/mxf8hJJkHTCqZP3m4o8E1TtwHHs.jpg",
+    "vote_average":8.3,
+    "genres":"Comedy, Romance",
+    "release_date":"1952-04-09"
+  },
+  {
+    "id":500,
+    "title":"Reservoir Dogs",
+    "backdrop_path":"\/jqFjgNnxpXIXWuPsyfqmcLXRo9p.jpg",
+    "vote_average":8.3,
+    "genres":"Crime, Thriller",
+    "release_date":"1992-09-02"
+  },
+  {
+    "id":947,
+    "title":"Lawrence of Arabia",
+    "backdrop_path":"\/mx2jS5Kaa5rmaldEFzKeKpDN9Q2.jpg",
+    "vote_average":8.3,
+    "genres":"Adventure, Drama, History, War",
+    "release_date":"1962-12-11"
+  },
+  {
+    "id":821,
+    "title":"Judgment at Nuremberg",
+    "backdrop_path":"\/37lz7mPo3AWV2BiaF7TA6ZWqL5u.jpg",
+    "vote_average":8.3,
+    "genres":"Drama",
+    "release_date":"1961-12-18"
+  },
+  {
+    "id":197,
+    "title":"Braveheart",
+    "backdrop_path":"\/8lBcqakI3F19NWkXdqE0M8W76b9.jpg",
+    "vote_average":8.3,
+    "genres":"Action, Drama, History, War",
+    "release_date":"1995-05-24"
+  },
+  {
+    "id":284,
+    "title":"The Apartment",
+    "backdrop_path":"\/vRTKNKNWLZ22fAgPa5kY8wT2b1F.jpg",
+    "vote_average":8.3,
+    "genres":"Comedy, Drama, Romance",
+    "release_date":"1960-06-21"
+  },
+  {
+    "id":14160,
+    "title":"Up",
+    "backdrop_path":"\/hGGC9gKo7CFE3fW07RA587e5kol.jpg",
+    "vote_average":8.3,
+    "genres":"Animation, Comedy, Family, Adventure",
+    "release_date":"2009-05-28"
+  },
+  {
+    "id":996,
+    "title":"Double Indemnity",
+    "backdrop_path":"\/u546kDNwrZ1ii6q8NqqQgHwRvoW.jpg",
+    "vote_average":8.3,
+    "genres":"Crime, Thriller",
+    "release_date":"1944-06-14"
+  },
+  {
+    "id":475557,
+    "title":"Joker",
+    "backdrop_path":"\/hO7KbdvGOtDdeg0W4Y5nKEHeDDh.jpg",
+    "vote_average":8.3,
+    "genres":"Crime, Thriller, Drama",
+    "release_date":"2019-10-01"
   }
 ]

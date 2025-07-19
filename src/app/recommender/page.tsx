@@ -7,11 +7,11 @@ import Container from "@/components/global/Container";
 import SearchBar from "@/components/global/SearchBar";
 import MovieCardSmall from "@/components/movies/MovieCardSmall";
 import type { Movie } from "@/types/movie";
-import allMovies from "@/data/full_data_web.json";
+import top100 from "@/data/top100_revenue.json";
 import { searchMovies } from "@/lib/searchMovies";
 import { motion } from "framer-motion";
 
-const movies: Movie[] = allMovies as Movie[];
+const movies: Movie[] = top100 as Movie[];
 
 export default function RecommenderSearchPage() {
   const [searchResults, setSearchResults] = useState<Movie[]>([]);
@@ -30,11 +30,10 @@ export default function RecommenderSearchPage() {
 
   useEffect(() => {
     if (searchQuery === "" && searchResults.length === 0) {
-      const filtered = movies
-        .filter((m) => m.popularity && m.popularity > 100.0)
-        .sort(() => 0.5 - Math.random())
+      const randomSelection = [...movies]
+        .sort(() => Math.random() - 0.5)
         .slice(0, 12);
-      setSearchResults(filtered);
+      setSearchResults(randomSelection);
     }
   }, [searchQuery, searchResults.length]);
 
