@@ -12,7 +12,6 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import ColorThief from "colorthief";
 import Icon from "@/components/global/Icon";
 import { useRouter } from "next/navigation";
-import { div } from "framer-motion/client";
 
 const moviesData: Movie[] = rawMoviesData as Movie[];
 
