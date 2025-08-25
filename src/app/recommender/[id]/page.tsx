@@ -12,6 +12,7 @@ import allMovies from "@/data/full_data_web.json";
 import { motion } from "framer-motion";
 import Loading from "@/components/global/Loading";
 import Icon from "@/components/global/Icon";
+
 export default function RecommendationResultPage() {
   const [baseMovie, setBaseMovie] = useState<Movie | null>(null);
   const [recommendations, setRecommendations] = useState<Movie[]>([]);
@@ -40,9 +41,9 @@ export default function RecommendationResultPage() {
       setBaseMovie(foundBaseMovie);
 
       try {
-        const res = await fetch(
-          "http://127.0.0.1:8000/api/recommendations",
-          // const res = await fetch("https://recommender-api-f6qb.onrender.com/api/recommendations",
+        //const res = await fetch(
+          //"http://127.0.0.1:8000/api/recommendations",
+          const res = await fetch("https://recommender-api-f6qb.onrender.com/api/recommendations",
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },
