@@ -1,15 +1,15 @@
 "use client";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import Icon from "@/components/global/Icon"; // zakładam, że tu masz swój komponent Icon
+import Icon from "@/components/global/Icon";
 
 type HeroBoxProps = {
   href: string;
-  icon: string; // zamiast ReactElement, używamy nazwę ikony
+  icon: string;
   title: string;
   description: string;
   buttonText: string;
-  buttonIcon?: string; // dodatkowa opcjonalna ikona przycisku
+  buttonIcon?: string;
 };
 
 export default function HeroBox({
@@ -18,7 +18,7 @@ export default function HeroBox({
   title,
   description,
   buttonText,
-  buttonIcon = "play_arrow", // domyślna ikona przycisku
+  buttonIcon = "play_arrow",
 }: HeroBoxProps) {
   return (
     <motion.div
@@ -31,7 +31,11 @@ export default function HeroBox({
         className="group flex-1 h-full flex flex-col justify-between items-center bg-white/10 backdrop-blur-lg border border-white/20 rounded-xl px-4 py-6 text-center shadow-xl transition hover:bg-white/20 duration-300"
       >
         <div className="flex flex-col">
-          <Icon icon={icon} className="mb-4 text-white" style={{ fontSize: '60px' }} />
+          <Icon
+            icon={icon}
+            className="mb-4 text-white"
+            style={{ fontSize: "60px" }}
+          />
           <h1 className="text-2xl font-bold mb-4 text-white">{title}</h1>
           <p className="text-white/80 text-base mb-6">{description}</p>
         </div>

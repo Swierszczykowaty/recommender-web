@@ -1,9 +1,8 @@
-// src/components/movies/MovieRankingList.tsx
 "use client";
 
 import React from "react";
 import type { Movie } from "@/types/movie";
-import { RANKING_TYPES, RankingType } from '@/lib/ranking-types';
+import { RANKING_TYPES, RankingType } from "@/lib/ranking-types";
 import MovieRankingCard from "./MovieRankingCard";
 import Container from "@/components/global/Container";
 import Title from "@/components/global/Title";
@@ -26,7 +25,7 @@ const containerVariants = {
   hidden: {},
   show: {
     transition: {
-      staggerChildren: 0.04, 
+      staggerChildren: 0.04,
     },
   },
 };
@@ -37,7 +36,8 @@ const cardVariants = {
 };
 
 export default function MovieRankingList({ movies, type }: Props) {
-  const rankingLabel = RANKING_TYPES.find(r => r.key === type)?.label || "Ranking";
+  const rankingLabel =
+    RANKING_TYPES.find((r) => r.key === type)?.label || "Ranking";
   const router = useRouter();
   const handleGoBack = () => router.back();
   return (
@@ -53,7 +53,7 @@ export default function MovieRankingList({ movies, type }: Props) {
             Ranking Top 100
           </Title>
         </div>
-        
+
         {/* BREADCRUMB + POWRÓT */}
         <motion.div
           className="flex justify-between items-center mb-4 z-50"
@@ -71,18 +71,16 @@ export default function MovieRankingList({ movies, type }: Props) {
               <li>
                 <span>/</span>
               </li>
-              <li className="text-white font-medium">
-                {rankingLabel}
-              </li>
+              <li className="text-white font-medium">{rankingLabel}</li>
             </ol>
           </nav>
-              <button
-                onClick={handleGoBack}
-                className="flex items-center gap-2 px-4 py-1 text-sm bg-white/10 border border-white/20 rounded-lg backdrop-blur-md shadow-xl transition cursor-pointer hover:bg-white/20"
-              >
-                <Icon icon="keyboard_backspace" style={{ fontSize: "20px" }} />
-                <span className="text-sm hidden md:inline">Powrót</span>
-              </button>
+          <button
+            onClick={handleGoBack}
+            className="flex items-center gap-2 px-4 py-1 text-sm bg-white/10 border border-white/20 rounded-lg backdrop-blur-md shadow-xl transition cursor-pointer hover:bg-white/20"
+          >
+            <Icon icon="keyboard_backspace" style={{ fontSize: "20px" }} />
+            <span className="text-sm hidden md:inline">Powrót</span>
+          </button>
         </motion.div>
         {/* KONIEC BREADCRUMB + POWRÓT */}
 
@@ -94,11 +92,7 @@ export default function MovieRankingList({ movies, type }: Props) {
         >
           {movies.map((movie, idx) => (
             <motion.div key={movie.id} variants={cardVariants}>
-              <MovieRankingCard
-                movie={movie}
-                rank={idx + 1}
-                type={type}
-              />
+              <MovieRankingCard movie={movie} rank={idx + 1} type={type} />
             </motion.div>
           ))}
         </motion.div>

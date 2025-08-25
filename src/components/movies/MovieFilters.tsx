@@ -1,4 +1,3 @@
-// components/movies/MovieFilters.tsx
 import React, { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import Icon from "@/components/global/Icon";
@@ -8,7 +7,7 @@ export type FilterValues = {
   genre: string;
   minRating: number;
   minYear: number;
-  language: string; 
+  language: string;
 };
 
 interface MovieFiltersProps {
@@ -40,7 +39,9 @@ const languagesList = [
 export default function MovieFilters({ onFilter }: MovieFiltersProps) {
   const searchParams = useSearchParams();
   const [show, setShow] = useState(false);
-  const [language, setLanguage] = useState<string>(searchParams.get("language") || "");
+  const [language, setLanguage] = useState<string>(
+    searchParams.get("language") || ""
+  );
   const [genre, setGenre] = useState<string>(searchParams.get("genre") || "");
   const [minRating, setMinRating] = useState<string>(
     searchParams.get("rating") || ""
@@ -55,12 +56,12 @@ export default function MovieFilters({ onFilter }: MovieFiltersProps) {
     setMinYear("");
   };
 
-useEffect(() => {
-  setGenre(searchParams.get("genre") || "");
-  setMinRating(searchParams.get("rating") || "");
-  setMinYear(searchParams.get("year") || "");
-  setLanguage(searchParams.get("language") || "");
-}, [searchParams]);
+  useEffect(() => {
+    setGenre(searchParams.get("genre") || "");
+    setMinRating(searchParams.get("rating") || "");
+    setMinYear(searchParams.get("year") || "");
+    setLanguage(searchParams.get("language") || "");
+  }, [searchParams]);
 
   const applyFilters = () => {
     onFilter({
@@ -141,33 +142,33 @@ useEffect(() => {
                       </button>
                     </div>
                   </div>
-{/* {jezyki} */}
-<div className="w-full">
-  <label className="text-white text-sm mb-2 block font-semibold">
-    Wybierz język
-  </label>
-  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
-    {languagesList.map((lang) => (
-      <button
-        key={lang.code}
-        type="button"
-        onClick={() => setLanguage(lang.code)}
-        className={`px-2 py-1 rounded-lg text-sm font-medium transition border border-white/30 bg-white/10 text-white hover:bg-white/20
+                  {/* {jezyki} */}
+                  <div className="w-full">
+                    <label className="text-white text-sm mb-2 block font-semibold">
+                      Wybierz język
+                    </label>
+                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
+                      {languagesList.map((lang) => (
+                        <button
+                          key={lang.code}
+                          type="button"
+                          onClick={() => setLanguage(lang.code)}
+                          className={`px-2 py-1 rounded-lg text-sm font-medium transition border border-white/30 bg-white/10 text-white hover:bg-white/20
         ${language === lang.code ? "font-bold bg-white/30 ring-1" : ""}`}
-      >
-        {lang.label}
-      </button>
-    ))}
-    <button
-      type="button"
-      onClick={() => setLanguage("")}
-      className={`col-span-2 sm:col-span-3 md:col-span-4 px-2 py-1 mt-1 rounded-lg text-sm text-white text-center font-medium border border-white/30 bg-white/10 hover:bg-white/20 transition
+                        >
+                          {lang.label}
+                        </button>
+                      ))}
+                      <button
+                        type="button"
+                        onClick={() => setLanguage("")}
+                        className={`col-span-2 sm:col-span-3 md:col-span-4 px-2 py-1 mt-1 rounded-lg text-sm text-white text-center font-medium border border-white/30 bg-white/10 hover:bg-white/20 transition
         ${!language ? "font-bold bg-white/30 ring-1" : ""}`}
-    >
-      Wszystkie języki
-    </button>
-  </div>
-</div>
+                      >
+                        Wszystkie języki
+                      </button>
+                    </div>
+                  </div>
                   {/* ocena i rok */}
                   <div className="flex flex-col sm:flex-row gap-2 md:gap-4 w-full justify-between">
                     <div className="flex flex-col items-start flex-1">

@@ -10,9 +10,7 @@ export default function Page() {
   const movies = moviesDataRaw as Movie[];
 
   return (
-    <Suspense
-      fallback={<Loading message="Ładowanie filmów..." />}
-    >
+    <Suspense fallback={<Loading message="Ładowanie filmów..." />}>
       <MoviesList movies={movies} />
     </Suspense>
   );

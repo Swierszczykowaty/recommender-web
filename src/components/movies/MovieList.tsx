@@ -1,4 +1,3 @@
-// components/movies/MoviesList.tsx
 "use client";
 
 import React, { useState, useEffect, useMemo } from "react";
@@ -28,22 +27,22 @@ export default function MoviesList({ movies }: { movies: Movie[] }) {
   const minYear = parseInt(searchParams.get("year") || "1900", 10) || 1900;
   const sortBy = searchParams.get("sort") || "";
 
-const filtered = useMemo(() => {
-  const f = searchMovies(movies, query).filter((movie) => {
-    const g = movie.genres?.split(", ") ?? [];
-    const langs = (movie.spoken_languages ?? "")
-      .split(",")
-      .map((l) => l.trim().toLowerCase());
+  const filtered = useMemo(() => {
+    const f = searchMovies(movies, query).filter((movie) => {
+      const g = movie.genres?.split(", ") ?? [];
+      const langs = (movie.spoken_languages ?? "")
+        .split(",")
+        .map((l) => l.trim().toLowerCase());
 
-    return (
-      (genre === "" || g.includes(genre)) &&
-      (movie.vote_average ?? 0) >= minRating &&
-      parseInt(movie.release_date?.slice(0, 4) || "0", 10) >= minYear &&
-      (language === "" || langs.includes(language.toLowerCase()))
-    );
-  });
-  return sortMovies(f, sortBy);
-}, [movies, query, genre, minRating, minYear, sortBy, language]);
+      return (
+        (genre === "" || g.includes(genre)) &&
+        (movie.vote_average ?? 0) >= minRating &&
+        parseInt(movie.release_date?.slice(0, 4) || "0", 10) >= minYear &&
+        (language === "" || langs.includes(language.toLowerCase()))
+      );
+    });
+    return sortMovies(f, sortBy);
+  }, [movies, query, genre, minRating, minYear, sortBy, language]);
 
   const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE);
   const [currentPage, setCurrentPage] = useState(page);
@@ -52,50 +51,54 @@ const filtered = useMemo(() => {
     setCurrentPage(page);
   }, [page]);
 
-const handleSearch = (q: string) => {
-  const p = new URLSearchParams(searchParams.toString());
-  if (q) {
-    p.set("query", q);
-  } else {
-    p.delete("query");
-  }
-  p.set("page", "1");
-  router.push(`/movies?${p.toString()}`);
-  setCurrentPage(1);
-};
+  const handleSearch = (q: string) => {
+    const p = new URLSearchParams(searchParams.toString());
+    if (q) {
+      p.set("query", q);
+    } else {
+      p.delete("query");
+    }
+    p.set("page", "1");
+    router.push(`/movies?${p.toString()}`);
+    setCurrentPage(1);
+  };
 
-const handleFilter = ({ genre, language, minRating, minYear }: FilterValues) => {
-  const p = new URLSearchParams(searchParams.toString());
+  const handleFilter = ({
+    genre,
+    language,
+    minRating,
+    minYear,
+  }: FilterValues) => {
+    const p = new URLSearchParams(searchParams.toString());
 
-  if (genre) {
-    p.set("genre", genre);
-  } else {
-    p.delete("genre");
-  }
+    if (genre) {
+      p.set("genre", genre);
+    } else {
+      p.delete("genre");
+    }
 
-  if (language) {
-    p.set("language", language);
-  } else {
-    p.delete("language");
-  }
+    if (language) {
+      p.set("language", language);
+    } else {
+      p.delete("language");
+    }
 
-  if (minRating) {
-    p.set("rating", String(minRating));
-  } else {
-    p.delete("rating");
-  }
+    if (minRating) {
+      p.set("rating", String(minRating));
+    } else {
+      p.delete("rating");
+    }
 
-  if (minYear) {
-    p.set("year", String(minYear));
-  } else {
-    p.delete("year");
-  }
+    if (minYear) {
+      p.set("year", String(minYear));
+    } else {
+      p.delete("year");
+    }
 
-  p.set("page", "1");
-  router.push(`/movies?${p.toString()}`);
-  setCurrentPage(1);
-};
-
+    p.set("page", "1");
+    router.push(`/movies?${p.toString()}`);
+    setCurrentPage(1);
+  };
 
   const handlePage = (pg: number) => {
     const p = new URLSearchParams(searchParams.toString());

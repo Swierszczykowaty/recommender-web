@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { motion } from "framer-motion";
-import Link from "next/link"; // dodaj import Link jeśli używasz Next.js
+import Link from "next/link";
 
 type TitleProps = {
   children: React.ReactNode;
@@ -10,7 +10,7 @@ type TitleProps = {
   gradientVia?: string;
   gradientTo?: string;
   subtitleColor?: string;
-  link?: string; // dodane
+  link?: string;
 };
 
 export default function Title({
@@ -36,13 +36,9 @@ export default function Title({
       >
         {children}
       </h1>
-      {subtitle && (
-        <p className={`text-md ${subtitleColor}`}>{subtitle}</p>
-      )}
+      {subtitle && <p className={`text-md ${subtitleColor}`}>{subtitle}</p>}
     </motion.div>
   );
-
-  // Jeżeli jest link — zwijaj do <Link>
   if (link) {
     return (
       <Link href={link} passHref>

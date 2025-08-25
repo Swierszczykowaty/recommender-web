@@ -12,6 +12,7 @@ import allMovies from "@/data/full_data_web.json";
 import { motion } from "framer-motion";
 import Loading from "@/components/global/Loading";
 import Icon from "@/components/global/Icon";
+
 export default function RecommendationResultPage() {
   const [baseMovie, setBaseMovie] = useState<Movie | null>(null);
   const [recommendations, setRecommendations] = useState<Movie[]>([]);
@@ -40,9 +41,9 @@ export default function RecommendationResultPage() {
       setBaseMovie(foundBaseMovie);
 
       try {
+        //const res = await fetch("http://127.0.0.1:8000/api/recommendations",
         const res = await fetch(
-          "http://127.0.0.1:8000/api/recommendations",
-          // const res = await fetch("https://recommender-api-f6qb.onrender.com/api/recommendations",
+          "https://recommender-api-f6qb.onrender.com/api/recommendations",
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -77,21 +78,20 @@ export default function RecommendationResultPage() {
   return (
     <section className="relative min-h-screen overflow-hidden pb-20 sm:pt-32">
       <Container>
-        {loading && (
-        <Loading message="Generowanie filmów..." />
-        )}
-        {error && 
-        <div className="flex flex-col items-center gap-6">
-          <p className="text-red-400 text-center text-lg pt-24">{error}</p>
-          <h1>Spróbój ponownie później!</h1>
+        {loading && <Loading message="Generowanie filmów..." />}
+        {error && (
+          <div className="flex flex-col items-center gap-6">
+            <p className="text-red-400 text-center text-lg pt-24">{error}</p>
+            <h1>Spróbój ponownie później!</h1>
             <button
               onClick={handleGoBack}
               className="flex items-center gap-2 px-6 py-3 w-full max-w-[250px] justify-center bg-white/10 border border-white/20 rounded-lg backdrop-blur-md shadow-xl transition cursor-pointer hover:bg-white/20 duration-300"
             >
               <Icon icon="keyboard_backspace" style={{ fontSize: "20px" }} />
               Powrót
-            </button>        
-            </div>}
+            </button>
+          </div>
+        )}
 
         {!loading && !error && baseMovie && (
           <div className="flex flex-col items-center w-full mx-auto">

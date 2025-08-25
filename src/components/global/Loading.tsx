@@ -1,4 +1,3 @@
-// src/components/global/LoadingMovies.tsx
 "use client";
 
 import { motion } from "framer-motion";
