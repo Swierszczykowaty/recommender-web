@@ -4,7 +4,7 @@ import Link from "next/link";
 import type { Movie } from "@/types/movie";
 type MovieCardProps = {
   movie: Movie;
-  isFirstCard?: boolean; // DODAJ TO
+  isFirstCard?: boolean;
 };
 export default function MovieCard({ movie, isFirstCard }: MovieCardProps) {
   const {
@@ -28,7 +28,6 @@ export default function MovieCard({ movie, isFirstCard }: MovieCardProps) {
       href={`/movies/${id}`}
       className="group bg-white/10 backdrop-blur-lg border border-white/20 rounded-xl overflow-hidden shadow-xl transition hover:bg-white/20 duration-300 flex flex-row h-[140px] sm:flex-col sm:h-auto relative"
     >
-      {/* Ocena */}
       {typeof vote_average === "number" && (
         <div
           className={`z-50 absolute top-2 right-2 px-3 py-1 rounded-full text-xs font-bold text-white shadow ${getRatingColor(
@@ -39,7 +38,6 @@ export default function MovieCard({ movie, isFirstCard }: MovieCardProps) {
         </div>
       )}
 
-      {/* Poster */}
       <div className="relative w-[100px] min-w-[100px] h-full sm:w-full sm:h-[375px] overflow-hidden">
         {poster_path && (
           <Image
@@ -52,8 +50,6 @@ export default function MovieCard({ movie, isFirstCard }: MovieCardProps) {
           />
         )}
       </div>
-
-      {/* Tekst */}
       <div className="p-3 text-white flex flex-col justify-center sm:p-4 min-h-[90px] sm:min-h-[100px]">
         <h2 className="text-sm font-semibold line-clamp-2 mb-2 md:mb-0">
           {title}

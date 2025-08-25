@@ -85,7 +85,6 @@ export default function RecommenderSearchPage() {
             </div>
           </div>
         )}
-
         {searchResults.length === 0 && searchQuery !== "" && (
           <p className="text-white/70 text-lg mt-8">
             Brak wyników dla &quot;{searchQuery}&quot;. Spróbuj innej frazy.

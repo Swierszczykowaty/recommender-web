@@ -40,7 +40,7 @@ const MovieCardSmall = ({ movie, onClick }: MovieCardSmallProps) => {
             fill
             // priority={i < 4}
             placeholder="blur"
-            blurDataURL="data:image/svg+xml;base64,..." // np. szary placeholder
+            blurDataURL="data:image/svg+xml;base64,..."
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             className="object-cover transition-transform duration-300 hover:scale-105"
           />
@@ -52,7 +52,6 @@ const MovieCardSmall = ({ movie, onClick }: MovieCardSmallProps) => {
 
         {/* gradient */}
         <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/80 to-transparent pointer-events-none" />
-
         {/* tytuł + rok */}
         <div className="absolute bottom-3 left-3 right-3 text-white">
           <h3 className="text-base font-bold truncate drop-shadow-xl">

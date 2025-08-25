@@ -1,8 +1,6 @@
-// src/app/rankings/page.tsx
 import Container from "@/components/global/Container";
 import Title from "@/components/global/Title";
 import RankingCard from "@/components/rankings/RankingCard";
-
 
 export default function RankingsIndex() {
   return (

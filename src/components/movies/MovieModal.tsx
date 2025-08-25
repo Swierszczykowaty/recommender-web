@@ -9,7 +9,11 @@ interface MovieModalProps {
   movie: Movie;
 }
 
-export default function MovieModal({ isOpen, onClose, movie }: MovieModalProps) {
+export default function MovieModal({
+  isOpen,
+  onClose,
+  movie,
+}: MovieModalProps) {
   return (
     <AnimatePresence>
       {isOpen && (

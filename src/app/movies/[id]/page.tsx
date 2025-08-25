@@ -143,8 +143,9 @@ export default function MovieDetailPage() {
             {movie.tagline && <p className="text-lg italic">{movie.tagline}</p>}
           </motion.div>
         </div>
-      ) : <div className="relative w-full h-[800px]">
-                  <motion.div
+      ) : (
+        <div className="relative w-full h-[800px]">
+          <motion.div
             className="absolute inset-0 flex flex-col justify-center items-center text-center drop-shadow-2xl -mt-[400px]"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -155,7 +156,8 @@ export default function MovieDetailPage() {
             </h1>
             {movie.tagline && <p className="text-lg italic">{movie.tagline}</p>}
           </motion.div>
-        </div>}
+        </div>
+      )}
 
       <Container>
         <div className="grid grid-cols-1 gap-8 -mt-[500px]">
@@ -430,14 +432,11 @@ export default function MovieDetailPage() {
             variants={fabVariants}
             transition={{ duration: 0.3, ease: "easeOut" }}
           >
-            {/* ikona zawsze widoczna */}
             <Icon
               icon="app_registration"
               className="text-white z-10 ml-[14px]"
               style={{ fontSize: 24 }}
             />
-
-            {/* tekst absolutnie po lewej, animowany */}
             <motion.span
               className="absolute left-14 text-white font-medium whitespace-nowrap"
               variants={textVariants}

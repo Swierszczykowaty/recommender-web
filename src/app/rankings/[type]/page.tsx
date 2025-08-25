@@ -1,23 +1,22 @@
-import { Suspense } from 'react';
-import dynamic from 'next/dynamic';
-import { RANKING_TYPES, RankingType } from '@/lib/ranking-types';
-import LoadingMovies from '@/components/global/Loading';
+import { Suspense } from "react";
+import dynamic from "next/dynamic";
+import { RANKING_TYPES, RankingType } from "@/lib/ranking-types";
+import LoadingMovies from "@/components/global/Loading";
 
-// Uwaga: dynamiczny import plików JSON w Next.js wymaga 'import' a nie 'require'
 const importRanking = async (type: RankingType) => {
   switch (type) {
-    case 'votes':
-      return (await import('@/data/top100_votes.json')).default;
-    case 'revenue':
-      return (await import('@/data/top100_revenue.json')).default;
-    case 'rating':
+    case "votes":
+      return (await import("@/data/top100_votes.json")).default;
+    case "revenue":
+      return (await import("@/data/top100_revenue.json")).default;
+    case "rating":
     default:
-      return (await import('@/data/top100_rating.json')).default;
+      return (await import("@/data/top100_rating.json")).default;
   }
 };
 
 const MovieRankingList = dynamic(
-  () => import('@/components/rankings/MovieRankingList')
+  () => import("@/components/rankings/MovieRankingList")
 );
 
 type ResolvedPageParams = { type: string };
@@ -38,8 +37,7 @@ export default async function RankingPage({ params }: RankingPageProps) {
 
   return (
     <Suspense fallback={<LoadingMovies message="Ładowanie rankingu..." />}>
-      {/* musi byc wszedzie path_drop */}
-      <MovieRankingList movies={top100} type={rankingType} /> 
+      <MovieRankingList movies={top100} type={rankingType} />
     </Suspense>
   );
 }

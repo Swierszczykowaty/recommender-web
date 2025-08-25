@@ -1,4 +1,3 @@
-// src/components/movies/MovieRankingCard.tsx
 "use client";
 
 import React from "react";
@@ -70,8 +69,6 @@ export default function MovieRankingCard({ movie, rank, type }: Props) {
           </p>
         </div>
       </div>
-
-      {/* Hover overlay */}
       <div className="absolute inset-0 bg-black/50 group-hover:bg-black/20 transition duration-300" />
     </Link>
   );
