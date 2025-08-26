@@ -9,9 +9,9 @@ export default function RankingsIndex() {
         <div className="relative flex flex-col items-center z-10 w-full mx-auto">
           <Title
             subtitle="Sprawdź najlepsze produkcje"
-            gradientFrom="from-rose-400"
-            gradientVia="via-pink-500"
-            gradientTo="to-violet-500"
+            gradientFrom="from-rose-500"
+            gradientVia="via-pink-400"
+            gradientTo="to-fuchsia-300"
           >
             Baza rankingów
           </Title>
