@@ -16,21 +16,21 @@ type TitleProps = {
 export default function Title({
   children,
   subtitle,
-  gradientFrom = "from-orange-600",
+  gradientFrom ,
   gradientVia,
-  gradientTo = "to-amber-600",
+  gradientTo,
   subtitleColor = "text-white/80",
   link,
 }: TitleProps) {
   const content = (
     <motion.div
-      className="relative z-10 w-full max-w-4xl text-center cursor-pointer"
+      className="relative z-10 w-full text-center cursor-pointer flex flex-col items-center"
       initial={{ opacity: 0, y: -10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, ease: "easeOut" }}
     >
       <h1
-        className={`text-4xl md:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r pb-2 ${gradientFrom} ${
+        className={`text-4xl md:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r pb-2 w-fit px-80 text-nowrap ${gradientFrom} ${
           gradientVia ? gradientVia : ""
         } ${gradientTo} drop-shadow-lg`}
       >

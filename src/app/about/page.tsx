@@ -12,7 +12,7 @@ export default function AboutPage() {
         <div className="relative flex flex-col items-center z-10 w-full mx-auto">
           <Title
             subtitle="Dowiedz się więcej"
-            gradientFrom="from-teal-500"
+            gradientFrom="from-amber-500"
             gradientVia="via-green-400"
             gradientTo="to-green-400"
           >
@@ -23,7 +23,7 @@ export default function AboutPage() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4 }}
-            className="mt-8 p-8 rounded-xl bg-white/10 backdrop-blur-lg border border-white/20 text-white shadow-xl"
+            className="mt-8 p-8 rounded-xl bg-white/5 backdrop-blur-lg border border-white/20 text-white shadow-xl"
           >
             <p className="text-md md:text-lg leading-relaxed">
               Rekomendner Filmowy to platforma, która pozwala łatwo znaleźć

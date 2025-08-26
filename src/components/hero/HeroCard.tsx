@@ -38,7 +38,7 @@ const HeroCard: React.FC<HeroCardProps> = ({
     ? ({ children }: { children: React.ReactNode }) => (
         <Link
           href={href}
-          className="flex items-center justify-center w-full gap-3 px-4 py-3 font-semibold text-white transition-colors duration-300 border border-white/40 rounded-lg hover:bg-white/10"
+          className="flex items-center justify-center w-full gap-3 px-4 py-3 font-semibold text-white transition-colors duration-300 border border-white/40 rounded-lg hover:bg-white/7"
           onClick={onButtonClick}
         >
           <span>▶</span>
@@ -48,7 +48,7 @@ const HeroCard: React.FC<HeroCardProps> = ({
     : ({ children }: { children: React.ReactNode }) => (
         <button
           onClick={onButtonClick}
-          className="flex items-center justify-center w-full gap-3 px-4 py-3 font-semibold text-white transition-colors duration-300 border border-white/40 rounded-lg hover:bg-white/10"
+          className="flex items-center justify-center w-full gap-3 px-4 py-3 font-semibold text-white transition-colors duration-300 border border-white/40 rounded-lg hover:bg-white/7"
         >
           <span>▶</span>
           {children}
@@ -59,7 +59,7 @@ const HeroCard: React.FC<HeroCardProps> = ({
     <motion.div
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="relative w-full max-w- p-8 overflow-hidden text-center text-white transition-colors duration-300 bg-white/10 backdrop-blur-lg border border-white/20 rounded-xl hover:bg-gray-950/20"
+      className="relative w-full max-w- p-8 overflow-hidden text-center text-white transition-colors duration-300 bg-white/7 backdrop-blur-lg border border-white/20 rounded-xl hover:bg-gray-950/20"
       style={{ height: "320px" }}
     >
       {/* Tło: ikona i tytuł */}

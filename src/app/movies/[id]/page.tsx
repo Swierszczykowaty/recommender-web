@@ -184,7 +184,7 @@ export default function MovieDetailPage() {
               </nav>
               <button
                 onClick={handleGoBack}
-                className="flex items-center gap-2 px-4 py-1 text-sm bg-white/10 border border-white/20 rounded-lg backdrop-blur-md shadow-xl transition cursor-pointer hover:bg-white/20"
+                className="flex items-center gap-2 px-4 py-1 text-sm bg-white/7 border border-white/20 rounded-lg backdrop-blur-md shadow-xl transition cursor-pointer hover:bg-white/7"
               >
                 <Icon icon="keyboard_backspace" style={{ fontSize: "20px" }} />
                 <span className="text-sm hidden md:inline">Powrót</span>
@@ -192,7 +192,7 @@ export default function MovieDetailPage() {
             </motion.div>
             {/* głowny kafelek */}
             <motion.div
-              className="bg-white/10 border border-white/20 p-8 rounded-xl backdrop-blur-md shadow-xl "
+              className="bg-white/7 border border-white/20 p-8 rounded-xl backdrop-blur-md shadow-xl "
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, ease: "easeOut" }}
@@ -315,7 +315,7 @@ export default function MovieDetailPage() {
             transition={{ duration: 0.4, ease: "easeOut", delay: 0.1 }}
           >
             <h2 className="mb-2 font-semibold">Obsada:</h2>
-            <div className="bg-white/10 border border-white/20 p-8 rounded-xl backdrop-blur-md shadow-xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 ">
+            <div className="bg-white/7 border border-white/20 p-8 rounded-xl backdrop-blur-md shadow-xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 ">
               {Array.isArray(movie.actors) &&
                 movie.actors.slice(0, 9).map((actor, index) => (
                   <div
@@ -325,7 +325,7 @@ export default function MovieDetailPage() {
                         `/movies?query=${encodeURIComponent(actor.name)}&page=1`
                       )
                     }
-                    className="group flex flex-row items-center relative bg-white/10 px-3 py-2 rounded-lg border border-white/20 cursor-pointer hover:bg-white/20 duration-300"
+                    className="group flex flex-row items-center relative bg-white/7 px-3 py-2 rounded-lg border border-white/20 cursor-pointer hover:bg-white/7 duration-300"
                   >
                     {/* Ikonka - wyśrodkowana */}
                     <span
@@ -365,7 +365,7 @@ export default function MovieDetailPage() {
           >
             <h2 className="mb-2 font-semibold">Informacje:</h2>
 
-            <div className="bg-white/10 border border-white/20 p-8 rounded-xl backdrop-blur-md shadow-xl grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="bg-white/7 border border-white/20 p-8 rounded-xl backdrop-blur-md shadow-xl grid grid-cols-1 sm:grid-cols-2 gap-4">
               {typeof movie.budget === "number" && movie.budget > 0 && (
                 <p>
                   <strong>Budżet:</strong> ${movie.budget.toLocaleString()}
@@ -396,7 +396,7 @@ export default function MovieDetailPage() {
           <div className="mb-10 flex flex-col-reverse md:flex-row justify-center items-center gap-4 mt-2">
             <button
               onClick={handleGoBack}
-              className="flex items-center gap-2 px-6 py-3 w-full max-w-[250px] justify-center bg-white/10 border border-white/20 rounded-lg backdrop-blur-md shadow-xl transition cursor-pointer hover:bg-white/20 duration-300"
+              className="flex items-center gap-2 px-6 py-3 w-full max-w-[250px] justify-center bg-white/7 border border-white/20 rounded-lg backdrop-blur-md shadow-xl transition cursor-pointer hover:bg-white/7 duration-300"
             >
               <Icon icon="keyboard_backspace" style={{ fontSize: "20px" }} />
               Powrót

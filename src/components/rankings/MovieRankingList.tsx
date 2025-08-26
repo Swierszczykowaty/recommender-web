@@ -76,7 +76,7 @@ export default function MovieRankingList({ movies, type }: Props) {
           </nav>
           <button
             onClick={handleGoBack}
-            className="flex items-center gap-2 px-4 py-1 text-sm bg-white/10 border border-white/20 rounded-lg backdrop-blur-md shadow-xl transition cursor-pointer hover:bg-white/20"
+            className="flex items-center gap-2 px-4 py-1 text-sm bg-white/7 border border-white/20 rounded-lg backdrop-blur-md shadow-xl transition cursor-pointer hover:bg-white/10"
           >
             <Icon icon="keyboard_backspace" style={{ fontSize: "20px" }} />
             <span className="text-sm hidden md:inline">Powrót</span>
