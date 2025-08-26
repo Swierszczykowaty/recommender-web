@@ -43,9 +43,9 @@ export default function RecommenderSearchPage() {
         <div className="mb-10 text-center flex justify-center">
           <Title
             subtitle="Wybierz film, a my znajdziemy podobne"
-            gradientFrom="from-indigo-400"
-            gradientVia="via-fuchsia-400"
-            gradientTo="to-purple-400"
+              gradientFrom="from-amber-300"
+              gradientVia="via-pink-400"
+              gradientTo="to-violet-400"
           >
             Generowanie Rekomendacji
           </Title>

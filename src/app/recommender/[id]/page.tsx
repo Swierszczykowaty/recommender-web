@@ -85,7 +85,7 @@ export default function RecommendationResultPage() {
             <h1>Spróbój ponownie później!</h1>
             <button
               onClick={handleGoBack}
-              className="flex items-center gap-2 px-6 py-3 w-full max-w-[250px] justify-center bg-white/10 border border-white/20 rounded-lg backdrop-blur-md shadow-xl transition cursor-pointer hover:bg-white/20 duration-300"
+              className="flex items-center gap-2 px-6 py-3 w-full max-w-[250px] justify-center bg-white/7 border border-white/20 rounded-lg backdrop-blur-md shadow-xl transition cursor-pointer hover:bg-white/20 duration-300"
             >
               <Icon icon="keyboard_backspace" style={{ fontSize: "20px" }} />
               Powrót
@@ -113,7 +113,7 @@ export default function RecommendationResultPage() {
               <h2 className="text-lg font-semibold text-white/80 mb-4 text-center">
                 Na podstawie filmu:
               </h2>
-              <div className="flex flex-col sm:flex-row items-center gap-6 sm:gap-8 bg-white/10 p-6 rounded-2xl border border-white/20 backdrop-blur-lg">
+              <div className="flex flex-col sm:flex-row items-center gap-6 sm:gap-8 bg-white/7 p-6 rounded-2xl border border-white/20 backdrop-blur-lg">
                 <div className="w-48 flex-shrink-0">
                   <Image
                     src={`https://image.tmdb.org/t/p/w500${baseMovie.poster_path}`}

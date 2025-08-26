@@ -13,9 +13,9 @@ export default function Hero() {
           <div className="relative z-10 w-full max-w-4xl text-center">
             <Title
               subtitle="Wybierz, co Cię interesuje"
-              gradientFrom="from-amber-600"
-              gradientVia="via-pink-300"
-              gradientTo="to-violet-500"
+  gradientFrom="from-pink-300"
+  gradientVia="via-purple-400"
+  gradientTo="to-sky-400"
             >
               Rekomender WWSI
             </Title>
