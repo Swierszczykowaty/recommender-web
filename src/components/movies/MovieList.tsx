@@ -134,7 +134,7 @@ export default function MoviesList({ movies }: { movies: Movie[] }) {
         <div className="mb-10 text-center flex justify-center">
           <Title
             subtitle="Zanurz się w świecie filmów"
-            gradientFrom="from-emerald-400"
+            gradientFrom="from-emerald-500"
             gradientVia="via-cyan-500"
             gradientTo="to-blue-700"
             link="/movies"
