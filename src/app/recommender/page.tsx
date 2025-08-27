@@ -43,9 +43,9 @@ export default function RecommenderSearchPage() {
         <div className="mb-10 text-center flex justify-center">
           <Title
             subtitle="Wybierz film, a my znajdziemy podobne"
-              gradientFrom="from-pink-400"
-              gradientVia="via-purple-300"
-              gradientTo="to-violet-400"
+            gradientFrom="from-pink-400"
+            gradientVia="via-purple-300"
+            gradientTo="to-violet-400"
           >
             Generowanie Rekomendacji
           </Title>
@@ -59,11 +59,16 @@ export default function RecommenderSearchPage() {
 
         {searchResults.length > 0 && (
           <div>
-            <h2 className="text-md md:text-lg font-semibold text-white/80 mb-4 md:mb-6 text-center">
+            <motion.h2
+              className="text-md md:text-lg font-semibold text-white/80 mb-4 md:mb-6 text-center"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.7, ease: "easeOut" }}
+            >
               {searchQuery
                 ? `Wyniki dla: "${searchQuery}"`
                 : "Proponowane filmy:"}
-            </h2>
+            </motion.h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 h-full w-full">
               {searchResults.map((movie, i) => (
                 <motion.div

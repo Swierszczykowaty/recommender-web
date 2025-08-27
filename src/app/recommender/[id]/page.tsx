@@ -97,9 +97,9 @@ export default function RecommendationResultPage() {
           <div className="flex flex-col items-center w-full mx-auto">
             <Title
               subtitle="Wygenerowane specjalnie dla Ciebie"
-              gradientFrom="from-amber-500"
-              gradientVia="via-pink-400"
-              gradientTo="to-violet-400"
+            gradientFrom="from-pink-400"
+            gradientVia="via-purple-300"
+            gradientTo="to-violet-400"
             >
               Rekomendacje Filmowe
             </Title>

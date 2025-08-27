@@ -5,10 +5,10 @@ import { AnimatePresence, motion } from "framer-motion";
 
 interface LoadingProps {
   message: string;
-  slowIcon?: string; // opcjonalnie zmienisz ikonę komunikatu wolnego ładowania
+  slowIcon?: string; 
 }
 
-export default function Loading({ message, slowIcon = "hourglass_empty" }: LoadingProps) {
+export default function Loading({ message }: LoadingProps) {
   const [isSlow, setIsSlow] = useState(false); // >5s
 
   useEffect(() => {
