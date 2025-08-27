@@ -1,7 +1,13 @@
+import { Suspense } from "react";
 import dynamic from "next/dynamic";
 
-const MoviesList = dynamic(() => import("@/components/movies/MovieList"));
+const MoviesList = dynamic(() => import("@/components/movies/MovieList"), {
+});
 
 export default function Page() {
-  return <MoviesList />;
+  return (
+    <Suspense>
+      <MoviesList />
+    </Suspense>
+  );
 }
