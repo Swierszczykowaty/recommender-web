@@ -14,7 +14,7 @@ export default function AboutPage() {
             subtitle="Dowiedz się więcej"
             gradientFrom="from-emerald-400"
             gradientVia="via-green-400"
-            gradientTo="to-lime-400"
+            gradientTo="to-lime-300"
           >
             O Projekcie
           </Title>

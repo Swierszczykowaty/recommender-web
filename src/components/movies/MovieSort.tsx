@@ -87,7 +87,7 @@ export default function MovieSort() {
                 onClick={() => handleSelect(opt.value)}
                 className={`w-full text-left px-3 mt-1 py-1 rounded text-sm text-white ${
                   selected === opt.value
-                    ? "bg-white/30 font-semibold border border-white/30"
+                    ? "bg-white/20 font-semibold border border-white/30"
                     : "hover:bg-white/20"
                 }`}
               >

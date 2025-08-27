@@ -38,7 +38,7 @@ export default function SearchBar({
           value={searchTerm}
           onChange={handleInputChange}
           placeholder={placeholder}
-          className="w-full px-4 py-2 rounded-lg bg-white/7 border border-white/30 text-white focus:outline-none focus:ring-2 focus:ring-white/40 hover:bg-white/10 transition"
+          className="w-full px-4 py-2 rounded-lg bg-white/7 border border-white/30 text-white focus:outline-none focus:ring-2 focus:ring-white/40 hover:bg-white/10 transition duration-300"
         />
         <button
           type="submit"

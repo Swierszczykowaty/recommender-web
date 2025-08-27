@@ -184,7 +184,7 @@ export default function MovieDetailPage() {
               </nav>
               <button
                 onClick={handleGoBack}
-                className="flex items-center gap-2 px-4 py-1 text-sm bg-white/7 border border-white/20 rounded-lg backdrop-blur-md shadow-xl transition cursor-pointer hover:bg-white/7"
+                className="flex items-center gap-2 px-4 py-1 text-sm bg-white/7 border border-white/20 rounded-lg backdrop-blur-md shadow-xl transition cursor-pointer hover:bg-white/10 duration-300"
               >
                 <Icon icon="keyboard_backspace" style={{ fontSize: "20px" }} />
                 <span className="text-sm hidden md:inline">Powrót</span>
@@ -241,14 +241,14 @@ export default function MovieDetailPage() {
                     </span>
                   </p>
                   <div className="space-y-4">
-                    <p className="text-white/80 mt-4">{movie.overview}</p>
-                    <p>
+                    <p className="text-white/80 mt-4 text-sm md:text-md">{movie.overview}</p>
+                    <p className="text-sm md:text-md">
                       <strong>Reżyser:</strong>{" "}
                       {typeof movie.directors === "string" && movie.directors
                         ? movie.directors.split(",").map((dir, i, arr) => (
                             <span
                               key={i}
-                              className="cursor-pointer hover:underline"
+                              className="cursor-pointer hover:underline text-sm md:text-md"
                               onClick={() =>
                                 router.push(
                                   `/movies?query=${encodeURIComponent(
@@ -263,20 +263,20 @@ export default function MovieDetailPage() {
                           ))
                         : "brak danych"}
                     </p>
-                    <p>
+                    <p className="text-sm md:text-md">
                       <strong>Data premiery:</strong> {movie.release_date}
                     </p>
-                    <p>
+                    <p className="text-sm md:text-md">
                       <strong>Czas trwania:</strong> {movie.runtime} min
                     </p>
-                    <p className="mb-4">
+                    <p className="mb-4 text-sm md:text-md">
                       <strong>Gatunki:</strong> {movie.genres}
                     </p>
                   </div>
                   {/* 2) Badges platform */}
                   {hasPlatforms && (
                     <div className="mt-auto flex flex-col">
-                      <h3 className="text-white font-semibold mb-4">
+                      <h3 className="text-white font-semibold mb-4 text-sm md:text-md">
                         {movie.title} – gdzie zobaczyć?
                       </h3>
                       <div className="grid grid-cols-2 md:grid-cols-none md:flex md:flex-row gap-4 justify-center md:justify-start w-full">
@@ -327,7 +327,6 @@ export default function MovieDetailPage() {
                     }
                     className="group flex flex-row items-center relative bg-white/7 px-3 py-2 rounded-lg border border-white/20 cursor-pointer hover:bg-white/7 duration-300"
                   >
-                    {/* Ikonka - wyśrodkowana */}
                     <span
                       className="relative flex-shrink-0 flex items-center justify-center"
                       style={{ width: 36, height: 36 }}
@@ -347,7 +346,7 @@ export default function MovieDetailPage() {
                       <span className="text-sm font-semibold">
                         {actor.name}
                       </span>
-                      <span className="text-xs text-white/70 italic mt-[2px]">
+                      <span className="text-xs text-white/70 italic mt-[1px] md:mt-[2px]">
                         jako: {actor.character || "brak danych"}
                       </span>
                     </div>
@@ -367,25 +366,25 @@ export default function MovieDetailPage() {
 
             <div className="bg-white/7 border border-white/20 p-8 rounded-xl backdrop-blur-md shadow-xl grid grid-cols-1 sm:grid-cols-2 gap-4">
               {typeof movie.budget === "number" && movie.budget > 0 && (
-                <p>
+                <p className="text-sm md:text-md">
                   <strong>Budżet:</strong> ${movie.budget.toLocaleString()}
                 </p>
               )}
               {typeof movie.revenue === "number" && movie.revenue > 0 && (
-                <p>
+                <p className="text-sm md:text-md">
                   <strong>Przychód:</strong> ${movie.revenue.toLocaleString()}
                 </p>
               )}
-              <p>
+              <p className="text-sm md:text-md">
                 <strong>Popularność:</strong> {movie.popularity}
               </p>
-              <p>
+              <p className="text-sm md:text-md">
                 <strong>Języki:</strong> {movie.spoken_languages}
               </p>
-              <p className="sm:col-span-2">
+              <p className="sm:col-span-2 text-sm md:text-md">
                 <strong>Kraje produkcji:</strong> {movie.production_countries}
               </p>
-              <p className="sm:col-span-2">
+              <p className="sm:col-span-2 text-sm md:text-md">
                 <strong>Studia produkcyjne:</strong>{" "}
                 {movie.production_companies}
               </p>
