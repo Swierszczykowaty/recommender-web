@@ -59,7 +59,7 @@ export default function RecommenderSearchPage() {
 
         {searchResults.length > 0 && (
           <div>
-            <h2 className="text-lg font-semibold text-white/80 mb-6 text-center">
+            <h2 className="text-md md:text-lg font-semibold text-white/80 mb-4 md:mb-6 text-center">
               {searchQuery
                 ? `Wyniki dla: "${searchQuery}"`
                 : "Proponowane filmy:"}

@@ -54,7 +54,7 @@ export default function NavBar() {
         </div>
         {/* Mobile hamburger */}
         <button
-          className="lg:hidden text-white flex"
+          className="lg:hidden text-white flex text-2xl"
           onClick={() => setMenuOpen(!menuOpen)}
         >
           <Icon

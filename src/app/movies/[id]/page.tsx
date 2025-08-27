@@ -215,7 +215,7 @@ export default function MovieDetailPage() {
                         className="rounded-lg object-cover w-full "
                       />
                       <div className="absolute inset-0 bg-black/50 rounded-lg flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <Icon icon="zoom_in" style={{ fontSize: "30px" }} />
+                        <Icon icon="zoom_in" className="!text-3xl" />
                       </div>
                     </div>
                   ) : (
@@ -333,16 +333,14 @@ export default function MovieDetailPage() {
                     >
                       <Icon
                         icon="person"
-                        className="absolute left-0 top-0 opacity-100 group-hover:opacity-0 group-hover:scale-50 duration-300"
-                        style={{ fontSize: 32 }}
+                        className="!text-3xl absolute left-0 top-0 opacity-100 group-hover:opacity-0 group-hover:scale-50 duration-300"
                       />
                       <Icon
                         icon="data_loss_prevention"
-                        className="absolute left-0 top-0 opacity-0 group-hover:opacity-100 group-hover:scale-100 scale-50 duration-300"
-                        style={{ fontSize: 32 }}
+                        className="!text-3xl absolute left-0 top-0 opacity-0 group-hover:opacity-100 group-hover:scale-100 scale-50 duration-300"
                       />
                     </span>
-                    <div className="flex flex-col items-start justify-center pl-3">
+                    <div className="flex flex-col items-start justify-center pl-1 md:pl-2">
                       <span className="text-sm font-semibold">
                         {actor.name}
                       </span>
@@ -416,7 +414,7 @@ export default function MovieDetailPage() {
         onClose={() => setIsModalOpen(false)}
         movie={movie}
       />
-
+      {/* Button Rekomendacji */}
       <motion.div
         className="fixed mb-4 xl:mb-0 xl:mr-0 bottom-6 mr-4 right-4 md:right-6 z-50"
         initial={{ opacity: 0, y: 10 }}
@@ -433,11 +431,10 @@ export default function MovieDetailPage() {
           >
             <Icon
               icon="app_registration"
-              className="text-white z-10 ml-[14px]"
-              style={{ fontSize: 24 }}
+              className="text-white z-10 ml-[15px] !text-2xl"
             />
             <motion.span
-              className="absolute left-14 text-white font-medium whitespace-nowrap"
+              className="absolute left-15 text-white font-medium whitespace-nowrap"
               variants={textVariants}
               transition={{ duration: 0.2, ease: "easeOut" }}
             >

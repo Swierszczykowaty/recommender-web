@@ -55,7 +55,7 @@ export default function MovieSort() {
       ref={dropdownRef}
       className="relative flex items-center gap-2 cursor-default"
     >
-      <span className="hidden md:inline text-white text-sm font-semibold whitespace-nowrap">
+      <span className="hidden md:inline text-white font-semibold whitespace-nowrap">
         Sortuj po:
       </span>
 

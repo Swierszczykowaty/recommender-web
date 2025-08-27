@@ -153,11 +153,9 @@ export default function MoviesList({ movies }: { movies: Movie[] }) {
           transition={{ duration: 0.4 }}
         >
           <MovieFilters onFilter={handleFilter} />
-
-          <span className="text-white/80 text-sm absolute left-1/2 transform -translate-x-1/2 ">
+          <span className="text-white/80 text-xs md:text-sm absolute left-1/2 transform -translate-x-1/2 ">
             Strona {currentPage} z {totalPages}
           </span>
-
           <MovieSort />
         </motion.div>
 
