@@ -12,9 +12,9 @@ export default function AboutPage() {
         <div className="relative flex flex-col items-center z-10 w-full mx-auto">
           <Title
             subtitle="Dowiedz się więcej"
-            gradientFrom="from-amber-500"
+            gradientFrom="from-emerald-400"
             gradientVia="via-green-400"
-            gradientTo="to-green-400"
+            gradientTo="to-lime-400"
           >
             O Projekcie
           </Title>

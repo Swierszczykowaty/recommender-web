@@ -62,7 +62,7 @@ export default function RecommenderSearchPage() {
             <h2 className="text-lg font-semibold text-white/80 mb-6 text-center">
               {searchQuery
                 ? `Wyniki dla: "${searchQuery}"`
-                : "Wybierz albo wyszukaj swój film:"}
+                : "Proponowane filmy:"}
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 h-full w-full">
               {searchResults.map((movie, i) => (
