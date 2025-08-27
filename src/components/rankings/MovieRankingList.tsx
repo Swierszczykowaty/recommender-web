@@ -46,9 +46,9 @@ export default function MovieRankingList({ movies, type }: Props) {
         <div className="mb-10 text-center flex justify-center">
           <Title
             subtitle={`Na podstawie parametru: ${LABELS[type]}`}
-            gradientFrom="from-pink-600"
-            gradientVia="via-rose-500"
-            gradientTo="to-red-700"
+            gradientFrom="from-rose-400"
+            gradientVia="via-pink-400"
+            gradientTo="to-fuchsia-300"
           >
             Ranking Top 100
           </Title>

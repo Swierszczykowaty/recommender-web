@@ -10,8 +10,8 @@ export default function RankingsIndex() {
           <Title
             subtitle="Sprawdź najlepsze produkcje"
             gradientFrom="from-rose-400"
-            gradientVia="via-pink-500"
-            gradientTo="to-violet-600"
+            gradientVia="via-pink-400"
+            gradientTo="to-fuchsia-300"
           >
             Baza rankingów
           </Title>

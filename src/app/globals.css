@@ -2,12 +2,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Filled");
 @import "tailwindcss";
 /* Twoje klasy: */
-.material-symbols-outlined {
-  font-family: var(--font-material-outlined);
-}
+.material-symbols-outlined,
 .material-symbols-filled {
-  font-family: var(--font-material-filled);
-  font-variation-settings: "FILL" 1, "wght" 700, "GRAD" 0, "opsz" 48;
+  font-size: inherit !important; /* wtedy text-sm/xl/2xl zadziała */
+  line-height: 1;                /* ładne wyrównanie w pionie */
 }
 
 :root {

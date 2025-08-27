@@ -13,11 +13,11 @@ default: [
   "rgba(30, 41, 59, 0.30)",   // ciemny granat (kontrast / tło)
 ],
   "/movies": [
-  "rgba(14, 165, 233, 0.28)",  // sky-500
-  "rgba(2, 132, 199, 0.26)",   // sky-600
-  "rgba(52, 211, 153, 0.20)",  // emerald-400
-  "rgba(99, 102, 241, 0.20)",  // indigo-500
-  "rgba(52, 211, 153, 0.20)",  // emerald-400
+  "rgba(30, 58, 138, 0.30)",   // indigo-900 (ciemny błękit, tło)
+  "rgba(37, 99, 235, 0.28)",   // blue-600
+  "rgba(56, 189, 248, 0.26)",  // sky-400
+  "rgba(253, 224, 71, 0.28)",  // yellow-300 (jasny, świecący żółty)
+  "rgba(245, 158, 11, 0.25)",  // amber-500 (cieplejszy złoty)
   ],
   "/recommender": [
   "rgba(244, 114, 182, 0.30)", // pink-400
