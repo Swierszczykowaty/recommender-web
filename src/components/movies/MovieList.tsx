@@ -9,18 +9,10 @@ import SearchBar from "@/components/global/SearchBar";
 import MovieFilters, { FilterValues } from "@/components/movies/MovieFilters";
 import MovieSort from "@/components/movies/MovieSort";
 import { motion } from "framer-motion";
+import type { MinimalMovie } from "@/types/movie-minimal";
 
 const ITEMS_PER_PAGE = 24;
 
-type MinimalMovie = {
-  id: number | string;
-  title: string;
-  poster_path?: string | null;
-  release_date?: string | null;
-  vote_average?: number | null;
-  genres?: string | null;
-  spoken_languages?: string | null;
-};
 
 export default function MoviesList() {
   const searchParams = useSearchParams();
@@ -157,7 +149,7 @@ export default function MoviesList() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.05 }}
                 >
-                  <MovieCard movie={m as any} isFirstCard={i === 0} />
+                  <MovieCard movie={m} isFirstCard={i === 0} />
                 </motion.div>
               ))}
             </div>
