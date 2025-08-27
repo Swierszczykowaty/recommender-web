@@ -78,7 +78,7 @@ export default function RecommendationResultPage() {
   return (
     <section className="relative min-h-screen overflow-hidden pb-20 sm:pt-32">
       <Container>
-        {loading && <Loading message="Generowanie filmów..." />}
+        {loading && <Loading message="Generowanie rekomendacji..." />}
         {error && (
           <div className="flex flex-col items-center gap-6">
             <p className="text-red-400 text-center text-lg pt-24">{error}</p>

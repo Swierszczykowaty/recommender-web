@@ -7,7 +7,7 @@ import Container from "@/components/global/Container";
 import SearchBar from "@/components/global/SearchBar";
 import MovieCardSmall from "@/components/movies/MovieCardSmall";
 import type { Movie } from "@/types/movie";
-import top100 from "@/data/top100_revenue.json";
+import top100 from "@/data/top100_votes.json";
 import { searchMovies } from "@/lib/searchMovies";
 import { motion } from "framer-motion";
 
@@ -25,7 +25,7 @@ export default function RecommenderSearchPage() {
         .then((m) => setAllMovies(m.default as Movie[]))
         .catch((e) => {
           console.error("Nie udało się wczytać all_movies.json", e);
-          setAllMovies([]); // awaryjnie, żeby nie wisieć
+          setAllMovies([]); 
         });
     }
   }, [searchQuery, allMovies]);

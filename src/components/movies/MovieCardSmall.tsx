@@ -79,8 +79,7 @@ const MovieCardSmall = ({ movie, onClick }: MovieCardSmallProps) => {
                 >
                   <Icon
                     icon="arrow_warm_up"
-                    className="text-white rotate-90"
-                    style={{ fontSize: "40px" }}
+                    className="text-white rotate-90 !text-4xl"
                   />
                 </motion.span>
               )}
