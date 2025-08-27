@@ -13,7 +13,6 @@ import type { MinimalMovie } from "@/types/movie-minimal";
 
 const ITEMS_PER_PAGE = 24;
 
-
 export default function MoviesList() {
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -63,7 +62,11 @@ export default function MoviesList() {
         }
       })
       .finally(() => {
-        if (!cancelled) setLoading(false);
+        if (!cancelled) {
+          setTimeout(() => {
+            setLoading(false);
+          }, 0);
+        }
       });
 
     return () => {
@@ -79,12 +82,21 @@ export default function MoviesList() {
     router.push(`/movies?${p.toString()}`);
   };
 
-  const handleFilter = ({ genre, language, minRating, minYear }: FilterValues) => {
+  const handleFilter = ({
+    genre,
+    language,
+    minRating,
+    minYear,
+  }: FilterValues) => {
     const p = new URLSearchParams(searchParams.toString());
-    if (genre) p.set("genre", genre); else p.delete("genre");
-    if (language) p.set("language", language); else p.delete("language");
-    if (minRating) p.set("rating", String(minRating)); else p.delete("rating");
-    if (minYear) p.set("year", String(minYear)); else p.delete("year");
+    if (genre) p.set("genre", genre);
+    else p.delete("genre");
+    if (language) p.set("language", language);
+    else p.delete("language");
+    if (minRating) p.set("rating", String(minRating));
+    else p.delete("rating");
+    if (minYear) p.set("year", String(minYear));
+    else p.delete("year");
     p.set("page", "1");
     router.push(`/movies?${p.toString()}`);
   };
@@ -97,10 +109,16 @@ export default function MoviesList() {
 
   const pagesList = () => {
     const L: (number | string)[] = [];
-    if (totalPages <= 10) return Array.from({ length: totalPages }, (_, i) => i + 1);
+    if (totalPages <= 10)
+      return Array.from({ length: totalPages }, (_, i) => i + 1);
     L.push(1);
     if (page > 4) L.push("...");
-    for (let i = Math.max(2, page - 1); i <= Math.min(totalPages - 1, page + 1); i++) L.push(i);
+    for (
+      let i = Math.max(2, page - 1);
+      i <= Math.min(totalPages - 1, page + 1);
+      i++
+    )
+      L.push(i);
     if (page < totalPages - 3) L.push("...");
     L.push(totalPages);
     return L;
@@ -138,16 +156,26 @@ export default function MoviesList() {
         </motion.div>
 
         {loading ? (
-          <p className="text-white/70">Ładowanie…</p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 w-full">
+            {Array.from({ length: 8 }).map((_, i) => (
+              <motion.div
+                key={i}
+                className="skeleton border border-white/20 rounded-lg h-[477px]"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.4 }}
+              />
+            ))}
+          </div>
         ) : (
           <>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 w-full">
               {items.map((m, i) => (
                 <motion.div
                   key={m.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.05 }}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.8 }}
                 >
                   <MovieCard movie={m} isFirstCard={i === 0} />
                 </motion.div>
@@ -157,13 +185,17 @@ export default function MoviesList() {
             <div className="flex flex-wrap justify-center gap-2 mt-10">
               {pagesList().map((p, i) =>
                 typeof p === "string" ? (
-                  <span key={`e${i}`} className="px-2 py-1 text-white/50">…</span>
+                  <span key={`e${i}`} className="px-2 py-1 text-white/50">
+                    …
+                  </span>
                 ) : (
                   <button
                     key={p}
                     onClick={() => handlePage(p)}
                     className={`px-3 md:px-4 py-2 rounded-lg border ${
-                      page === p ? "bg-white/30 text-white" : "bg-white/10 text-white hover:bg-white/20"
+                      page === p
+                        ? "bg-white/30 text-white"
+                        : "bg-white/10 text-white hover:bg-white/20"
                     }`}
                   >
                     {p}

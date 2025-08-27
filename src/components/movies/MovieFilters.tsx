@@ -54,6 +54,7 @@ export default function MovieFilters({ onFilter }: MovieFiltersProps) {
     setGenre("");
     setMinRating("");
     setMinYear("");
+    setLanguage("");
   };
 
   useEffect(() => {
@@ -208,13 +209,13 @@ export default function MovieFilters({ onFilter }: MovieFiltersProps) {
                     >
                       <Icon
                         icon="cached"
-                        className="group-hover:rotate-45 duration-300 "
+                        className="group-hover:rotate-45 duration-300 !text-[20px] md:!text-[24px]"
                       />
                     </button>
                     <button
                       type="button"
                       onClick={applyFilters}
-                      className="px-8 py-2 rounded-lg bg-white/10 border border-white/30 text-white font-bold hover:bg-white/20 transition"
+                      className="px-8 py-2 text-sm md:text-md rounded-lg bg-white/10 border border-white/30 text-white font-bold hover:bg-white/20 transition"
                     >
                       Filtruj
                     </button>

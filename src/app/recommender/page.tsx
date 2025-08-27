@@ -7,9 +7,10 @@ import Container from "@/components/global/Container";
 import SearchBar from "@/components/global/SearchBar";
 import MovieCardSmall from "@/components/movies/MovieCardSmall";
 import type { Movie } from "@/types/movie";
-import top100 from "@/data/top100_revenue.json";
+import top100 from "@/data/top100_votes.json";
 import { searchMovies } from "@/lib/searchMovies";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 const TOP_MOVIES: Movie[] = top100 as Movie[];
 
@@ -25,7 +26,7 @@ export default function RecommenderSearchPage() {
         .then((m) => setAllMovies(m.default as Movie[]))
         .catch((e) => {
           console.error("Nie udało się wczytać all_movies.json", e);
-          setAllMovies([]); // awaryjnie, żeby nie wisieć
+          setAllMovies([]);
         });
     }
   }, [searchQuery, allMovies]);
@@ -37,9 +38,7 @@ export default function RecommenderSearchPage() {
 
   const handleSearch = (query: string) => {
     setSearchQuery(query);
-    const filtered = query.trim()
-      ? searchMovies(searchSource, query)
-      : [];
+    const filtered = query.trim() ? searchMovies(searchSource, query) : [];
     setSearchResults(filtered.slice(0, 12));
   };
 
@@ -84,23 +83,35 @@ export default function RecommenderSearchPage() {
 
         {searchResults.length > 0 && (
           <div>
-            <motion.h2
-              className="text-md md:text-lg font-semibold text-white/80 mb-4 md:mb-6 text-center"
+            <motion.div
+              className="flex justify-between items-center"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.7, ease: "easeOut" }}
             >
-              {searchQuery
-                ? `Wyniki dla: "${searchQuery}"`
-                : "Proponowane filmy:"}
-            </motion.h2>
+              <h2 className="text-md md:text-lg font-semibold text-white/80 mb-4 md:mb-6 text-center">
+                {searchQuery
+                  ? `Wyniki dla: "${searchQuery}"`
+                  : "Proponowane filmy:"}
+              </h2>
+              <Link
+                href="/about"
+                className="text-sm text-white hover:underline"
+              >
+                Jak działa rekomender?
+              </Link>
+            </motion.div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 h-full w-full">
               {searchResults.map((movie, i) => (
                 <motion.div
                   key={movie.id}
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.05, duration: 0.4, ease: "easeOut" }}
+                  transition={{
+                    delay: i * 0.05,
+                    duration: 0.4,
+                    ease: "easeOut",
+                  }}
                 >
                   <MovieCardSmall
                     movie={movie}
