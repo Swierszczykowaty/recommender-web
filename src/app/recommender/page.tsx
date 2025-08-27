@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import Title from "@/components/global/Title";
 import Container from "@/components/global/Container";
@@ -11,16 +11,35 @@ import top100 from "@/data/top100_revenue.json";
 import { searchMovies } from "@/lib/searchMovies";
 import { motion } from "framer-motion";
 
-const movies: Movie[] = top100 as Movie[];
+const TOP_MOVIES: Movie[] = top100 as Movie[];
 
 export default function RecommenderSearchPage() {
+  const [allMovies, setAllMovies] = useState<Movie[] | null>(null);
   const [searchResults, setSearchResults] = useState<Movie[]>([]);
   const [searchQuery, setSearchQuery] = useState<string>("");
   const router = useRouter();
 
+  useEffect(() => {
+    if (searchQuery && !allMovies) {
+      import("@/data/full_data_web.json")
+        .then((m) => setAllMovies(m.default as Movie[]))
+        .catch((e) => {
+          console.error("Nie udało się wczytać all_movies.json", e);
+          setAllMovies([]); // awaryjnie, żeby nie wisieć
+        });
+    }
+  }, [searchQuery, allMovies]);
+
+  const searchSource: Movie[] = useMemo(
+    () => (allMovies && allMovies.length > 0 ? allMovies : TOP_MOVIES),
+    [allMovies]
+  );
+
   const handleSearch = (query: string) => {
     setSearchQuery(query);
-    const filtered = searchMovies(movies, query);
+    const filtered = query.trim()
+      ? searchMovies(searchSource, query)
+      : [];
     setSearchResults(filtered.slice(0, 12));
   };
 
@@ -29,13 +48,13 @@ export default function RecommenderSearchPage() {
   };
 
   useEffect(() => {
-    if (searchQuery === "" && searchResults.length === 0) {
-      const randomSelection = [...movies]
+    if (searchQuery === "") {
+      const randomSelection = [...TOP_MOVIES]
         .sort(() => Math.random() - 0.5)
         .slice(0, 12);
       setSearchResults(randomSelection);
     }
-  }, [searchQuery, searchResults.length]);
+  }, [searchQuery]);
 
   return (
     <section className="relative min-h-screen flex justify-center overflow-hidden pt-32 mb-10">
@@ -50,11 +69,17 @@ export default function RecommenderSearchPage() {
             Generowanie Rekomendacji
           </Title>
         </div>
+
         <div className="max-w-2xl mx-auto mb-6">
           <SearchBar
             onSearch={handleSearch}
             placeholder="Wpisz tytuł filmu..."
           />
+          {searchQuery && !allMovies && (
+            <p className="text-white/60 text-sm mt-2">
+              Ładuję pełną bazę filmów…
+            </p>
+          )}
         </div>
 
         {searchResults.length > 0 && (
@@ -75,11 +100,7 @@ export default function RecommenderSearchPage() {
                   key={movie.id}
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{
-                    delay: i * 0.05,
-                    duration: 0.4,
-                    ease: "easeOut",
-                  }}
+                  transition={{ delay: i * 0.05, duration: 0.4, ease: "easeOut" }}
                 >
                   <MovieCardSmall
                     movie={movie}
@@ -90,8 +111,9 @@ export default function RecommenderSearchPage() {
             </div>
           </div>
         )}
+
         {searchResults.length === 0 && searchQuery !== "" && (
-          <p className="text-white/70 text-lg mt-8">
+          <p className="flex justify-center text-white/70 text-sm md:text-lg mt-8">
             Brak wyników dla &quot;{searchQuery}&quot;. Spróbuj innej frazy.
           </p>
         )}

@@ -36,7 +36,7 @@ export default function Title({
       >
         {children}
       </h1>
-      {subtitle && <p className={`text-sm md:text-md ${subtitleColor}`}>{subtitle}</p>}
+      {subtitle && <p className={`text-sm md:text-lg ${subtitleColor}`}>{subtitle}</p>}
     </motion.div>
   );
   if (link) {
