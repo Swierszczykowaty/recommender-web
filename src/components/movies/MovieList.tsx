@@ -160,7 +160,7 @@ export default function MoviesList() {
             {Array.from({ length: 8 }).map((_, i) => (
               <motion.div
                 key={i}
-                className="skeleton border border-white/20 rounded-lg h-[477px]"
+                className="skeleton border border-white/20 rounded-lg h-[140px] sm:h-[477px]"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.4 }}
