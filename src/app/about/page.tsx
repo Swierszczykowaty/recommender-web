@@ -7,14 +7,14 @@ import Container from "@/components/global/Container";
 
 export default function AboutPage() {
   return (
-    <section className="relative min-h-screen flex item-start md:items-center justify-center overflow-hidden pt-32 md:pt-0">
+    <section className="relative min-h-screen flex item-start md:items-center justify-center overflow-hidden pt-32 md:pt-0 mb-10 lg:mb-0">
       <Container>
         <div className="relative flex flex-col items-center z-10 w-full mx-auto">
           <Title
             subtitle="Dowiedz się więcej"
-            gradientFrom="from-amber-500"
+            gradientFrom="from-emerald-400"
             gradientVia="via-green-400"
-            gradientTo="to-green-400"
+            gradientTo="to-lime-300"
           >
             O Projekcie
           </Title>
@@ -25,7 +25,7 @@ export default function AboutPage() {
             transition={{ duration: 0.4 }}
             className="mt-8 p-8 rounded-xl bg-white/5 backdrop-blur-lg border border-white/20 text-white shadow-xl"
           >
-            <p className="text-md md:text-lg leading-relaxed">
+            <p className="text-sm md:text-lg leading-relaxed text-justify">
               Rekomendner Filmowy to platforma, która pozwala łatwo znaleźć
               filmy dopasowane do Twoich gustów. Wystarczy wybrać jeden tytuł, a
               system na podstawie analizy treści filmu wygeneruje osiem
@@ -34,7 +34,7 @@ export default function AboutPage() {
               rankingów: top 100 według ocen, przychodów i liczby głosów.
             </p>
 
-            <p className="text-md mt-4 text-white/80">
+            <p className="text-sm md:text-lg mt-4 text-white text-justify">
               Strona wykorzystuje Content Based Filtering i dane z TMDB. Całość
               działa na Next.js z dynamicznymi komponentami, nowoczesnymi
               animacjami (Framer Motion) i responsywnymi stylami (Tailwind CSS),

@@ -55,7 +55,7 @@ export default function MovieSort() {
       ref={dropdownRef}
       className="relative flex items-center gap-2 cursor-default"
     >
-      <span className="hidden md:inline text-white text-sm font-semibold whitespace-nowrap">
+      <span className="hidden md:inline text-white font-semibold whitespace-nowrap">
         Sortuj po:
       </span>
 
@@ -87,7 +87,7 @@ export default function MovieSort() {
                 onClick={() => handleSelect(opt.value)}
                 className={`w-full text-left px-3 mt-1 py-1 rounded text-sm text-white ${
                   selected === opt.value
-                    ? "bg-white/30 font-semibold border border-white/30"
+                    ? "bg-white/20 font-semibold border border-white/30"
                     : "hover:bg-white/20"
                 }`}
               >

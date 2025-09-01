@@ -11,19 +11,19 @@ export default function NotFound() {
   useEffect(() => {
     const timer = setTimeout(() => {
       router.push("/");
-    }, 5000);
+    }, 7000);
     return () => clearTimeout(timer);
   }, [router]);
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen  text-white px-4">
-      <div className="mb-8">
-        <Icon icon="smart_toy" style={{ fontSize: 120 }} />
+      <div className="mb-2">
+        <Icon icon="smart_toy" className="!text-6xl animate-bounce" />
       </div>
-      <h1 className="text-4xl font-bold mb-4">Ups… ta strona nie istnieje.</h1>
+      <h1 className="text-4xl text-center font-bold mb-4">Ups… ta strona nie istnieje.</h1>
       <p className="mb-6">Za chwilę przekierujemy Cię na stronę główną.</p>
       <Link href="/">
-        <button className="px-6 py-3 bg-white/20 border border-white/30 hover:bg-white/30 text-white rounded-lg transition">
+        <button className="px-6 py-3 bg-white/7 border border-white/30 hover:bg-white/10 text-white rounded-lg transition">
           Powrót na stronę główną
         </button>
       </Link>

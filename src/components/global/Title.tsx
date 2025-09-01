@@ -30,13 +30,13 @@ export default function Title({
       transition={{ duration: 0.4, ease: "easeOut" }}
     >
       <h1
-        className={`text-4xl md:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r pb-2 w-fit px-20 ${gradientFrom} ${
+        className={`text-4xl md:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r pb-2 w-fit ${gradientFrom} ${
           gradientVia ? gradientVia : ""
         } ${gradientTo} drop-shadow-lg`}
       >
         {children}
       </h1>
-      {subtitle && <p className={`text-md ${subtitleColor}`}>{subtitle}</p>}
+      {subtitle && <p className={`text-sm md:text-lg ${subtitleColor}`}>{subtitle}</p>}
     </motion.div>
   );
   if (link) {
