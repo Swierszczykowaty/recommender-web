@@ -27,48 +27,53 @@ export default function RecommendationResultPage() {
     if (!movieId) return;
 
     const fetchMovieData = async () => {
-      setLoading(true);
-      setError(null);
-      const start = Date.now();
-
-      const movies: Movie[] = allMovies as Movie[];
-      const foundBaseMovie = movies.find((m) => m.id.toString() === movieId);
-      if (!foundBaseMovie) {
-        setError("Nie znaleziono filmu o podanym ID.");
-        setLoading(false);
-        return;
-      }
-      setBaseMovie(foundBaseMovie);
-
       try {
-        //const res = await fetch("http://127.0.0.1:8000/api/recommendations",
+        setLoading(true);
+        setError(null);
+
+        const movies: Movie[] = allMovies as Movie[];
+        const foundBaseMovie = movies.find((m) => String(m.id) === String(movieId));
+        if (!foundBaseMovie) {
+          setError("Nie znaleziono filmu o podanym ID.");
+          setLoading(false);
+          return;
+        }
+        setBaseMovie(foundBaseMovie);
+
         const res = await fetch(
-          "https://recommender-api-f6qb.onrender.com/api/recommendations",
+          "http://127.0.0.1:8000/api/recommendations?t=" + Date.now(),
+          // "https://recommender-api-f6qb.onrender.com/api/recommendations" + Date.now(),
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ movie_id: foundBaseMovie.id }),
+            body: JSON.stringify({ movie_id: Number(foundBaseMovie.id) }),
+            cache: "no-store",
           }
         );
         if (!res.ok) throw new Error("Błąd serwera rekomendacji.");
+
         const data = await res.json();
-        const matched = movies
-          .filter((m) =>
-            data.recommendations.some((r: { id: number }) => r.id === m.id)
-          )
-          .filter((m) => m.id !== foundBaseMovie.id);
-        setRecommendations(matched.slice(0, 8));
+        const apiIds: number[] = (data?.recommendations || []).map((r: any) => Number(r.id));
+
+        const merged: Movie[] = apiIds
+          .map((id) => movies.find((m) => Number(m.id) === id) || ({
+            id,
+            title: String(id),
+            poster_path: "",
+            overview: "",
+            release_date: "",
+            vote_average: undefined,
+            genres: [],
+          } as unknown as Movie))
+          .filter((m) => Number(m.id) !== Number(foundBaseMovie.id));
+
+        const top8 = merged.slice(0, 8);
+
+        setRecommendations(top8);
       } catch (e) {
-        setError(
-          e instanceof Error ? e.message : "Wystąpił nieoczekiwany błąd."
-        );
+        setError(e instanceof Error ? e.message : "Wystąpił nieoczekiwany błąd.");
       } finally {
-        const elapsed = Date.now() - start;
-        const remaining = 888 - elapsed;
-        if (remaining > 0) {
-          await new Promise((r) => setTimeout(r, remaining));
-        }
-        setLoading(false);
+        setLoading(false); // bez sztucznego opóźnienia – nie utrudniasz debugowania
       }
     };
 
@@ -79,15 +84,16 @@ export default function RecommendationResultPage() {
     <section className="relative min-h-screen overflow-hidden pb-20 pt-32 ">
       <Container>
         {loading && <Loading message="Generowanie rekomendacji..." />}
+
         {error && (
           <div className="flex flex-col items-center gap-6">
             <p className="text-red-400 text-center text-lg pt-24">{error}</p>
-            <h1>Spróbój ponownie później!</h1>
+            <h1>Spróbuj ponownie później!</h1>
             <button
               onClick={handleGoBack}
               className="flex items-center gap-2 px-6 py-3 w-full max-w-[250px] justify-center bg-white/7 border border-white/20 rounded-lg backdrop-blur-md shadow-xl transition cursor-pointer hover:bg-white/20 duration-300"
             >
-              <Icon icon="keyboard_backspace" className="!text-2xl"/>
+              <Icon icon="keyboard_backspace" className="!text-2xl" />
               Powrót
             </button>
           </div>
@@ -97,9 +103,9 @@ export default function RecommendationResultPage() {
           <div className="flex flex-col items-center w-full mx-auto">
             <Title
               subtitle="Wygenerowane specjalnie dla Ciebie"
-            gradientFrom="from-pink-400"
-            gradientVia="via-purple-300"
-            gradientTo="to-violet-400"
+              gradientFrom="from-pink-400"
+              gradientVia="via-purple-300"
+              gradientTo="to-violet-400"
             >
               Rekomendacje Filmowe
             </Title>
@@ -147,8 +153,8 @@ export default function RecommendationResultPage() {
                 Oto 8 filmów, które mogą Ci się spodobać:
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-4 gap-4 sm:gap-6 w-full">
-                {recommendations.map((movie) => (
-                  <MovieCard key={movie.id} movie={movie} />
+                {recommendations.map((movie, index) => (
+                  <MovieCard key={`${movie.id}-${index}`} movie={movie} />
                 ))}
               </div>
             </motion.div>
