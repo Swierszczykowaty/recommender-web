@@ -23,6 +23,9 @@ export default function RecommendationResultPage() {
   const movieId = params.id as string;
   const handleGoBack = () => window.history.back();
 
+  type ApiRecommendationItem = { id: number | string };
+  type RecommendationsResponse = { recommendations: ApiRecommendationItem[] };
+
   useEffect(() => {
     if (!movieId) return;
 
@@ -52,8 +55,10 @@ export default function RecommendationResultPage() {
         );
         if (!res.ok) throw new Error("Błąd serwera rekomendacji.");
 
-        const data = await res.json();
-        const apiIds: number[] = (data?.recommendations || []).map((r: any) => Number(r.id));
+        const data = (await res.json()) as RecommendationsResponse;
+
+        const apiIds: number[] = (data.recommendations ?? []).map((r) => Number(r.id));
+
 
         const merged: Movie[] = apiIds
           .map((id) => movies.find((m) => Number(m.id) === id) || ({
