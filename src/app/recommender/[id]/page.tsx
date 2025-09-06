@@ -1,4 +1,5 @@
 "use client";
+          // "https://recommender-api-f6qb.onrender.com/api/recommendations" + Date.now(),
 
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
@@ -23,11 +24,21 @@ export default function RecommendationResultPage() {
   const movieId = params.id as string;
   const handleGoBack = () => window.history.back();
 
-  type ApiRecommendationItem = { id: number | string };
-  type RecommendationsResponse = { recommendations: ApiRecommendationItem[] };
+  type ApiRecommendationItem = {
+    id: number | string;
+    title?: string;
+    score?: number;
+    why?: string | null;
+  };
+  type RecommendationsResponse = {
+    source_id?: number | string;
+    recommendations: ApiRecommendationItem[];
+  };
 
   useEffect(() => {
     if (!movieId) return;
+
+    const controller = new AbortController();
 
     const fetchMovieData = async () => {
       try {
@@ -43,46 +54,53 @@ export default function RecommendationResultPage() {
         }
         setBaseMovie(foundBaseMovie);
 
-        const res = await fetch(
-          "http://127.0.0.1:8000/api/recommendations?t=" + Date.now(),
-          // "https://recommender-api-f6qb.onrender.com/api/recommendations" + Date.now(),
-          {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ movie_id: Number(foundBaseMovie.id) }),
-            cache: "no-store",
-          }
-        );
-        if (!res.ok) throw new Error("Błąd serwera rekomendacji.");
+        // --- GET z parametrami: movie_id oraz k=8 (tyle chcemy w UI)
+        const url = new URL("/api/recommendations", window.location.origin);
+        url.searchParams.set("movie_id", String(foundBaseMovie.id));
+        url.searchParams.set("k", "9");
+        url.searchParams.set("t", String(Date.now()));
+
+        const res = await fetch(url.toString(), { method: "GET", cache: "no-store", signal: controller.signal });
+
+
+        if (!res.ok) {
+          const txt = await res.text().catch(() => "");
+          throw new Error(`Błąd serwera rekomendacji. ${txt || ""}`.trim());
+        }
 
         const data = (await res.json()) as RecommendationsResponse;
-
         const apiIds: number[] = (data.recommendations ?? []).map((r) => Number(r.id));
 
-
+        // mapowanie ID -> pełne dane filmu z lokalnego JSON
         const merged: Movie[] = apiIds
-          .map((id) => movies.find((m) => Number(m.id) === id) || ({
-            id,
-            title: String(id),
-            poster_path: "",
-            overview: "",
-            release_date: "",
-            vote_average: undefined,
-            genres: [],
-          } as unknown as Movie))
+          .map(
+            (id) =>
+              (movies.find((m) => Number(m.id) === id) as Movie) ||
+              ({
+                id,
+                title: String(id),
+                poster_path: "",
+                overview: "",
+                release_date: "",
+                vote_average: undefined,
+                genres: [],
+              } as unknown as Movie)
+          )
+          // na wszelki wypadek nie pokazujemy filmu bazowego
           .filter((m) => Number(m.id) !== Number(foundBaseMovie.id));
 
-        const top8 = merged.slice(0, 8);
-
-        setRecommendations(top8);
+        // API już zwraca k=8, więc nie przycinamy na froncie
+        setRecommendations(merged);
       } catch (e) {
+        if ((e as any)?.name === "AbortError") return;
         setError(e instanceof Error ? e.message : "Wystąpił nieoczekiwany błąd.");
       } finally {
-        setLoading(false); // bez sztucznego opóźnienia – nie utrudniasz debugowania
+        setLoading(false);
       }
     };
 
     fetchMovieData();
+    return () => controller.abort();
   }, [movieId]);
 
   return (
@@ -135,15 +153,11 @@ export default function RecommendationResultPage() {
                   />
                 </div>
                 <div className="text-center sm:text-left">
-                  <h3 className="text-2xl font-bold text-white">
-                    {baseMovie.title}
-                  </h3>
+                  <h3 className="text-2xl font-bold text-white">{baseMovie.title}</h3>
                   <p className="text-md text-white/70 mb-3">
                     {baseMovie.release_date?.slice(0, 4)}
                   </p>
-                  <p className="text-sm text-white/80 line-clamp-4">
-                    {baseMovie.overview}
-                  </p>
+                  <p className="text-sm text-white/80 line-clamp-4">{baseMovie.overview}</p>
                 </div>
               </div>
             </motion.div>
