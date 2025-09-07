@@ -113,7 +113,12 @@ export default function RecommenderSearchPage() {
             Aktywny: <strong className="text-white">{engine.toUpperCase()}</strong>
           </span>
         </div>
-
+        <p className="max-w-2xl mx-auto text-center text-white/70 mb-8 px-2 text-sm md:text-base">
+          Wybierz silnik rekomendacji: v1 (klasyczny) lub <strong>v2</strong> (nowszy i dokładniejszy — łączy wyszukiwanie semantyczne z BM25).
+          Po wybraniu filmu poniżej pokażemy propozycje, które najbardziej do niego pasują.
+          Zawsze możesz przełączyć silnik i porównać wyniki.
+        </p>
+     
         {searchResults.length > 0 && (
           <div>
             <motion.div

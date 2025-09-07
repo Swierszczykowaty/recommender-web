@@ -31,72 +31,73 @@ export default function RecommendationResultPage() {
   type ApiRecommendationItem = { id: number | string; title?: string; score?: number; why?: string | null };
   type RecommendationsResponse = { source_id?: number | string; recommendations: ApiRecommendationItem[] };
 
-  useEffect(() => {
-    if (!movieId) return;
+useEffect(() => {
+  if (!movieId) return;
 
-    const controller = new AbortController();
+  const controller = new AbortController();
 
-    const fetchMovieData = async () => {
-      try {
-        setLoading(true);
-        setError(null);
+  const fetchMovieData = async () => {
+    try {
+      setLoading(true);
+      setError(null);
 
-        const movies: Movie[] = allMovies as Movie[];
-        const foundBaseMovie = movies.find((m) => String(m.id) === String(movieId));
-        if (!foundBaseMovie) {
-          setError("Nie znaleziono filmu o podanym ID.");
-          setLoading(false);
-          return;
-        }
-        setBaseMovie(foundBaseMovie);
-
-        // wybór endpointu wg silnika (proxy Next.js eliminuje CORS)
-        const endpoint = engine === "v1" ? "/api/recommendations_v1" : "/api/recommendations";
-
-        const res = await fetch(endpoint, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ movie_id: Number(foundBaseMovie.id) }),
-          cache: "no-store",
-          signal: controller.signal,
-        });
-
-        if (!res.ok) {
-          const txt = await res.text().catch(() => "");
-          throw new Error(`Błąd serwera rekomendacji. ${txt || ""}`.trim());
-        }
-
-        const data = (await res.json()) as RecommendationsResponse;
-        const apiIds: number[] = (data.recommendations ?? []).map((r) => Number(r.id));
-
-        const merged: Movie[] = apiIds
-          .map(
-            (id) =>
-              (movies.find((m) => Number(m.id) === id) as Movie) ||
-              ({
-                id,
-                title: String(id),
-                poster_path: "",
-                overview: "",
-                release_date: "",
-                vote_average: undefined,
-                genres: [],
-              } as unknown as Movie)
-          )
-          .filter((m) => Number(m.id) !== Number(foundBaseMovie.id));
-
-        setRecommendations(merged);
-      } catch (e) {
-        if ((e as any)?.name === "AbortError") return;
-        setError(e instanceof Error ? e.message : "Wystąpił nieoczekiwany błąd.");
-      } finally {
+      const movies: Movie[] = allMovies as Movie[];
+      const foundBaseMovie = movies.find((m) => String(m.id) === String(movieId));
+      if (!foundBaseMovie) {
+        setError("Nie znaleziono filmu o podanym ID.");
         setLoading(false);
+        return;
       }
-    };
+      setBaseMovie(foundBaseMovie);
 
-    fetchMovieData();
-    return () => controller.abort();
-  }, [movieId, engine]);
+      // wybór endpointu wg silnika (proxy Next.js eliminuje CORS)
+      const endpoint = engine === "v1" ? "/api/recommendations_v1" : "/api/recommendations";
+
+      const res = await fetch(endpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ movie_id: Number(foundBaseMovie.id) }),
+        cache: "no-store",
+        signal: controller.signal,
+      });
+
+      if (!res.ok) {
+        const txt = await res.text().catch(() => "");
+        throw new Error(`Błąd serwera rekomendacji. ${txt || ""}`.trim());
+      }
+
+      const data = (await res.json()) as RecommendationsResponse;
+      const apiIds: number[] = (data.recommendations ?? []).map((r) => Number(r.id));
+
+      const merged: Movie[] = apiIds
+        .map(
+          (id) =>
+            (movies.find((m) => Number(m.id) === id) as Movie) ||
+            ({
+              id,
+              title: String(id),
+              poster_path: "",
+              overview: "",
+              release_date: "",
+              vote_average: undefined,
+              genres: "", // Use empty string if Movie expects genres: string
+            } as Movie)
+        )
+        .filter((m) => Number(m.id) !== Number(foundBaseMovie.id));
+
+      setRecommendations(merged);
+    } catch (err: unknown) {
+      if (err instanceof DOMException && err.name === "AbortError") return;
+      setError(err instanceof Error ? err.message : "Wystąpił nieoczekiwany błąd.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchMovieData();
+  return () => controller.abort();
+}, [movieId, engine]);
+
 
   return (
     <section className="relative min-h-screen overflow-hidden pb-20 pt-32 ">
