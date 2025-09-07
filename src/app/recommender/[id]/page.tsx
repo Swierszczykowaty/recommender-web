@@ -1,8 +1,7 @@
 "use client";
-          // "https://recommender-api-f6qb.onrender.com/api/recommendations" + Date.now(),
 
 import { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
+import { useParams, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import MovieCard from "@/components/global/MovieCard";
@@ -14,6 +13,8 @@ import { motion } from "framer-motion";
 import Loading from "@/components/global/Loading";
 import Icon from "@/components/global/Icon";
 
+type Engine = "v1" | "v2";
+
 export default function RecommendationResultPage() {
   const [baseMovie, setBaseMovie] = useState<Movie | null>(null);
   const [recommendations, setRecommendations] = useState<Movie[]>([]);
@@ -21,19 +22,14 @@ export default function RecommendationResultPage() {
   const [error, setError] = useState<string | null>(null);
 
   const params = useParams();
+  const searchParams = useSearchParams();
   const movieId = params.id as string;
+  const engine = (searchParams.get("engine") as Engine) || "v2";
+
   const handleGoBack = () => window.history.back();
 
-  type ApiRecommendationItem = {
-    id: number | string;
-    title?: string;
-    score?: number;
-    why?: string | null;
-  };
-  type RecommendationsResponse = {
-    source_id?: number | string;
-    recommendations: ApiRecommendationItem[];
-  };
+  type ApiRecommendationItem = { id: number | string; title?: string; score?: number; why?: string | null };
+  type RecommendationsResponse = { source_id?: number | string; recommendations: ApiRecommendationItem[] };
 
   useEffect(() => {
     if (!movieId) return;
@@ -54,14 +50,16 @@ export default function RecommendationResultPage() {
         }
         setBaseMovie(foundBaseMovie);
 
-        // --- GET z parametrami: movie_id oraz k=8 (tyle chcemy w UI)
-        const url = new URL("/api/recommendations", window.location.origin);
-        url.searchParams.set("movie_id", String(foundBaseMovie.id));
-        url.searchParams.set("k", "9");
-        url.searchParams.set("t", String(Date.now()));
+        // wybór endpointu wg silnika (proxy Next.js eliminuje CORS)
+        const endpoint = engine === "v1" ? "/api/recommendations_v1" : "/api/recommendations";
 
-        const res = await fetch(url.toString(), { method: "GET", cache: "no-store", signal: controller.signal });
-
+        const res = await fetch(endpoint, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ movie_id: Number(foundBaseMovie.id) }),
+          cache: "no-store",
+          signal: controller.signal,
+        });
 
         if (!res.ok) {
           const txt = await res.text().catch(() => "");
@@ -71,7 +69,6 @@ export default function RecommendationResultPage() {
         const data = (await res.json()) as RecommendationsResponse;
         const apiIds: number[] = (data.recommendations ?? []).map((r) => Number(r.id));
 
-        // mapowanie ID -> pełne dane filmu z lokalnego JSON
         const merged: Movie[] = apiIds
           .map(
             (id) =>
@@ -86,10 +83,8 @@ export default function RecommendationResultPage() {
                 genres: [],
               } as unknown as Movie)
           )
-          // na wszelki wypadek nie pokazujemy filmu bazowego
           .filter((m) => Number(m.id) !== Number(foundBaseMovie.id));
 
-        // API już zwraca k=8, więc nie przycinamy na froncie
         setRecommendations(merged);
       } catch (e) {
         if ((e as any)?.name === "AbortError") return;
@@ -101,7 +96,7 @@ export default function RecommendationResultPage() {
 
     fetchMovieData();
     return () => controller.abort();
-  }, [movieId]);
+  }, [movieId, engine]);
 
   return (
     <section className="relative min-h-screen overflow-hidden pb-20 pt-32 ">
@@ -125,7 +120,7 @@ export default function RecommendationResultPage() {
         {!loading && !error && baseMovie && (
           <div className="flex flex-col items-center w-full mx-auto">
             <Title
-              subtitle="Wygenerowane specjalnie dla Ciebie"
+              subtitle={`Wygenerowane specjalnie dla Ciebie • Silnik: ${engine.toUpperCase()}`}
               gradientFrom="from-pink-400"
               gradientVia="via-purple-300"
               gradientTo="to-violet-400"
@@ -139,9 +134,7 @@ export default function RecommendationResultPage() {
               animate={{ opacity: 1 }}
               transition={{ duration: 0.7, ease: "easeOut" }}
             >
-              <h2 className="text-lg font-semibold text-white/80 mb-4 text-center">
-                Na podstawie filmu:
-              </h2>
+              <h2 className="text-lg font-semibold text-white/80 mb-4 text-center">Na podstawie filmu:</h2>
               <div className="flex flex-col sm:flex-row items-center gap-6 sm:gap-8 bg-white/7 p-6 rounded-2xl border border-white/20 backdrop-blur-lg">
                 <div className="w-48 flex-shrink-0">
                   <Image
@@ -154,9 +147,7 @@ export default function RecommendationResultPage() {
                 </div>
                 <div className="text-center sm:text-left">
                   <h3 className="text-2xl font-bold text-white">{baseMovie.title}</h3>
-                  <p className="text-md text-white/70 mb-3">
-                    {baseMovie.release_date?.slice(0, 4)}
-                  </p>
+                  <p className="text-md text-white/70 mb-3">{baseMovie.release_date?.slice(0, 4)}</p>
                   <p className="text-sm text-white/80 line-clamp-4">{baseMovie.overview}</p>
                 </div>
               </div>
@@ -168,9 +159,7 @@ export default function RecommendationResultPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, ease: "easeOut" }}
             >
-              <h2 className="text-lg font-semibold text-white/80 mb-6 text-center">
-                Oto 8 filmów, które mogą Ci się spodobać:
-              </h2>
+              <h2 className="text-lg font-semibold text-white/80 mb-6 text-center">Oto 8 filmów, które mogą Ci się spodobać:</h2>
               <div className="grid grid-cols-1 md:grid-cols-4 gap-4 sm:gap-6 w-full">
                 {recommendations.map((movie, index) => (
                   <MovieCard key={`${movie.id}-${index}`} movie={movie} />
