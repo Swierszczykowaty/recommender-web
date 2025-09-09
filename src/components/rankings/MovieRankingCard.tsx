@@ -51,7 +51,7 @@ export default function MovieRankingCard({ movie, rank, type }: Props) {
     >
       {backdrop_path && (
         <Image
-          src={`https://image.tmdb.org/t/p/original${backdrop_path}`}
+          src={`https://image.tmdb.org/t/p/w1280${backdrop_path}`}
           alt={title}
           fill
           className="object-cover object-[center_20%] transition-transform duration-500 group-hover:scale-105 "

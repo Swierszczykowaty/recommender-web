@@ -146,25 +146,25 @@ export default function RecommendationResultPage() {
             </Title>
 
             <motion.div
-              className="mt-4 md:mt-12 mb-8 w-full"
+              className="mt-4 md:mt-12 mb-8 w-full max-w-3xl "
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.7, ease: "easeOut" }}
             >
               <h2 className="text-lg font-semibold text-white/80 mb-4 text-center">
-                Na podstawie filmu:{" "}
+                Na podstawie filmu:
               </h2>
-              <div className="flex flex-col sm:flex-row items-center gap-6 sm:gap-8 bg-white/7 p-6 rounded-2xl border border-white/20 backdrop-blur-lg">
-                <div className="w-48 flex-shrink-0">
+              <div className="flex flex-col sm:flex-row items-center bg-white/7 rounded-2xl border border-white/20 backdrop-blur-lg overflow-hidden">
+                <div className="w-52 flex-shrink-0">
                   <Image
                     src={`https://image.tmdb.org/t/p/w500${baseMovie.poster_path}`}
                     alt={`Plakat filmu ${baseMovie.title}`}
                     width={500}
                     height={750}
-                    className="rounded-lg shadow-2xl"
+                    className=" shadow-2xl"
                   />
                 </div>
-                <div className="text-center sm:text-left">
+                <div className="text-center sm:text-left p-6 md:p-8">
                   <h3 className="text-2xl font-bold text-white">{baseMovie.title}</h3>
                   <p className="text-md text-white/70 mb-3">{baseMovie.release_date?.slice(0, 4)}</p>
                   <p className="text-sm text-white/80 line-clamp-4">{baseMovie.overview}</p>
