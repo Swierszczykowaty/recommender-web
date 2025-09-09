@@ -24,7 +24,7 @@ export default function Title({
 }: TitleProps) {
   const content = (
     <motion.div
-      className="relative z-10 w-full text-center cursor-pointer flex flex-col items-center"
+      className="relative z-10 w-full text-center cursor-default flex flex-col items-center"
       initial={{ opacity: 0, y: -10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, ease: "easeOut" }}

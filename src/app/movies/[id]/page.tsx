@@ -140,7 +140,7 @@ export default function MovieDetailPage() {
             <h1 className="text-4xl md:text-5xl font-bold mb-3">
               {movie.title}
             </h1>
-            {movie.tagline && <p className="text-lg italic">{movie.tagline}</p>}
+            {movie.tagline && <p className="px-8 md:px-10 mx-auto max-w-6xl text-lg italic">{movie.tagline}</p>}
           </motion.div>
         </div>
       ) : (
@@ -154,7 +154,7 @@ export default function MovieDetailPage() {
             <h1 className="text-4xl md:text-5xl font-bold mb-3">
               {movie.title}
             </h1>
-            {movie.tagline && <p className="text-lg italic">{movie.tagline}</p>}
+            {movie.tagline && <p className="flex px-8 mx-auto text-lg italic">{movie.tagline}</p>}
           </motion.div>
         </div>
       )}
@@ -162,7 +162,7 @@ export default function MovieDetailPage() {
       <Container>
         <div className="grid grid-cols-1 gap-8 -mt-[500px]">
           {/* 1) Główny kafelek z posterem i opisem */}
-          <div className="z-50">
+          <div className="z-40">
             <motion.div
               className="flex justify-between items-center mb-4 z-50"
               initial={{ opacity: 0, y: 10 }}
@@ -192,7 +192,7 @@ export default function MovieDetailPage() {
             </motion.div>
             {/* głowny kafelek */}
             <motion.div
-              className="bg-white/7 border border-white/20 p-8 rounded-xl backdrop-blur-md shadow-xl "
+              className="bg-white/7 border border-white/20 p-8 rounded-xl backdrop-blur-md shadow-xl"
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, ease: "easeOut" }}

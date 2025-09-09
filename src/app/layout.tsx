@@ -26,10 +26,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       </head>
       <body
         data-nextjs-scroll-focus-boundary
-        className={`${archivo.className} relative text-white min-h-screen overflow-x-hidden`}
+        className={`${archivo.className} relative text-white min-h-dvh overflow-x-hidden`}
       >
         <NavBar />
-        <main className="relative z-10 overflow-hidden bg-gray-950">
+        <main className="relative z-10 overflow-hidden bg-transparent">
           <LayoutBackground />
           {children}
         </main>
