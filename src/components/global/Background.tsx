@@ -91,7 +91,6 @@ export default function AnimatedBackground({
           backgroundSize: { duration: 10, ease: "easeInOut", repeat: Infinity },
         }}
         style={{
-          height: "100dvh",
           backgroundImage: buildMesh(),
           backgroundRepeat: "no-repeat",
           backgroundSize: "120% 120%",
