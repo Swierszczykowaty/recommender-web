@@ -29,8 +29,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         className={`${archivo.className} relative text-white min-h-dvh overflow-x-hidden`}
       >
         <NavBar />
-        <main className="relative z-10 overflow-hidden bg-transparent">
-          <LayoutBackground />
+        <LayoutBackground />
+
+        <main className="relative z-10 bg-transparent">
           {children}
         </main>
       </body>
