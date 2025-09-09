@@ -71,7 +71,7 @@ export default function AnimatedBackground({
   return (
     <AnimatePresence mode="wait">
       <motion.div
-        className="fixed inset-0 -z-10 pointer-events-none"
+        className="fixed inset-0 z-0 pointer-events-none"
         animate={{
           "--c0": colors[0],
           "--c1": colors[1],

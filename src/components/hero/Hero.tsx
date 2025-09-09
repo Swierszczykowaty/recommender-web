@@ -7,7 +7,7 @@ import HeroCard from "@/components/rankings/RankingCard";
 
 export default function Hero() {
   return (
-    <section className="relative min-h-screen flex item-start md:items-center justify-center overflow-hidden pt-32 md:pt-0 mb-10 md:mb-0">
+    <section className="relative min-h-screen flex item-start md:items-center justify-center overflow-hidden pt-32 lg:pt-0 mb-10 lg:mb-0">
       <Container>
         <div className="relative flex flex-col items-center z-10 w-full mx-auto">
           <div className="relative z-10 w-full max-w-4xl text-center">

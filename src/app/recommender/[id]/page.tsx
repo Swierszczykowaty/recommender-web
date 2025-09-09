@@ -153,7 +153,7 @@ export default function RecommendationResultPage() {
                 Na podstawie filmu:
               </h2>
               <div className="flex flex-col sm:flex-row items-center bg-white/7 rounded-2xl border border-white/20 backdrop-blur-lg overflow-hidden">
-                <div className="w-52 flex-shrink-0">
+                <div className="mt-6 sm:mt-0 w-52 flex-shrink-0 rounded-lg overflow-hidden sm:rounded-none">
                   <Image
                     src={`https://image.tmdb.org/t/p/w500${baseMovie.poster_path}`}
                     alt={`Plakat filmu ${baseMovie.title}`}
@@ -164,8 +164,9 @@ export default function RecommendationResultPage() {
                 </div>
                 <div className="text-center sm:text-left p-6 md:p-8">
                   <h3 className="text-2xl font-bold text-white">{baseMovie.title}</h3>
-                  <p className="text-md text-white/70 mb-3">{baseMovie.release_date?.slice(0, 4)}</p>
-                  <p className="text-sm text-white/80 line-clamp-4">{baseMovie.overview}</p>
+                  <p className="text-md text-white/70">{baseMovie.release_date?.slice(0, 4)}</p>
+                  <p className="text-xs text-white/60">{baseMovie.genres}</p>
+                  <p className="hidden md:block text-sm text-white/80 line-clamp-4 mt-0 md:mt-3">{baseMovie.overview}</p>
                 </div>
               </div>
             </motion.div>
