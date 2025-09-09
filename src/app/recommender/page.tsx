@@ -74,7 +74,7 @@ export default function RecommenderSearchPage() {
       <Container>
         <div className="mb-6 text-center flex justify-center">
           <Title
-            subtitle="Wybierz film, a my znajdziemy podobne"
+            subtitle="Wybierz film i model - my znajdziemy podobne"
             gradientFrom="from-pink-400"
             gradientVia="via-purple-300"
             gradientTo="to-violet-400"
@@ -83,6 +83,36 @@ export default function RecommenderSearchPage() {
           </Title>
         </div>
 
+        {/* Wybór silnika – dwa przyciski */}
+        <div className="flex items-center justify-center gap-3 mb-6">
+          <button
+            onClick={() => setEngine("v1")}
+            className={`px-4 py-2 text-sm rounded-lg border backdrop-blur-md transition cursor-pointer
+              ${engine === "v1" ? "bg-white/20 border-white/50 text-white" : "bg-white/7 border-white/30 text-white/80 hover:bg-white/10"}`}
+            title="Model V1: klasyczny dense KNN"
+          >
+            Model v1.0
+          </button>
+          <button
+            onClick={() => setEngine("v2")}
+            className={`px-4 py-2 text-sm rounded-lg border backdrop-blur-md transition cursor-pointer
+              ${engine === "v2" ? "bg-white/20 border-white/50 text-white" : "bg-white/7 border-white/30 text-white/80 hover:bg-white/10"}`}
+            title="Model V2: hybryda BM25+dense"
+          >
+            Model v2.0
+          </button>
+          {/* <span className="text-xs text-white/60 ml-2">
+            Aktywny: <strong className="text-white">{engine.toUpperCase()}</strong>
+          </span> */}
+        </div>
+
+        {/* <p className="max-w-2xl mx-auto text-center text-white/70 mb-8 px-2 text-sm md:text-base">
+          Wybierz silnik rekomendacji: v1 (klasyczny) lub <strong>v2</strong> (nowszy i dokładniejszy — łączy wyszukiwanie semantyczne z BM25).
+          Po wybraniu filmu poniżej pokażemy propozycje, które najbardziej do niego pasują.
+          Zawsze możesz przełączyć silnik i porównać wyniki.
+        </p> */}
+  
+     
         <div className="max-w-2xl mx-auto mb-6">
           <SearchBar onSearch={handleSearch} placeholder="Wpisz tytuł filmu..." />
           {searchQuery && !allMovies && (
@@ -90,44 +120,15 @@ export default function RecommenderSearchPage() {
           )}
         </div>
 
-
-        {/* Wybór silnika – dwa przyciski */}
-        <div className="flex items-center justify-center gap-3 mb-6">
-          <button
-            onClick={() => setEngine("v1")}
-            className={`px-4 py-2 rounded-lg border backdrop-blur-md transition
-              ${engine === "v1" ? "bg-white/20 border-white/50 text-white" : "bg-white/5 border-white/20 text-white/80 hover:bg-white/10"}`}
-            title="Silnik V1: klasyczny dense KNN"
-          >
-            Silnik v1
-          </button>
-          <button
-            onClick={() => setEngine("v2")}
-            className={`px-4 py-2 rounded-lg border backdrop-blur-md transition
-              ${engine === "v2" ? "bg-white/20 border-white/50 text-white" : "bg-white/5 border-white/20 text-white/80 hover:bg-white/10"}`}
-            title="Silnik V2: hybryda BM25+dense"
-          >
-            Silnik v2
-          </button>
-          <span className="text-xs text-white/60 ml-2">
-            Aktywny: <strong className="text-white">{engine.toUpperCase()}</strong>
-          </span>
-        </div>
-        <p className="max-w-2xl mx-auto text-center text-white/70 mb-8 px-2 text-sm md:text-base">
-          Wybierz silnik rekomendacji: v1 (klasyczny) lub <strong>v2</strong> (nowszy i dokładniejszy — łączy wyszukiwanie semantyczne z BM25).
-          Po wybraniu filmu poniżej pokażemy propozycje, które najbardziej do niego pasują.
-          Zawsze możesz przełączyć silnik i porównać wyniki.
-        </p>
-     
         {searchResults.length > 0 && (
           <div>
             <motion.div
-              className="flex justify-between items-center"
+              className="flex justify-between items-center mb-2"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.7, ease: "easeOut" }}
             >
-              <h2 className="text-md md:text-lg font-semibold text-white/80 mb-4 md:mb-6 text-center">
+              <h2 className="text-md md:text-lg font-semibold text-white/80 text-center">
                 {searchQuery ? `Wyniki dla: "${searchQuery}"` : "Proponowane filmy:"}
               </h2>
               <Link href="/about" className="text-sm text-white hover:underline">

@@ -12,6 +12,8 @@ import allMovies from "@/data/full_data_web.json";
 import { motion } from "framer-motion";
 import Loading from "@/components/global/Loading";
 import Icon from "@/components/global/Icon";
+import MovieRankingCard from "@/components/rankings/MovieRankingCard";
+import MovieCardSmall from "@/components/movies/MovieCardSmall";
 
 type Engine = "v1" | "v2";
 
@@ -28,76 +30,90 @@ export default function RecommendationResultPage() {
 
   const handleGoBack = () => window.history.back();
 
-  type ApiRecommendationItem = { id: number | string; title?: string; score?: number; why?: string | null };
-  type RecommendationsResponse = { source_id?: number | string; recommendations: ApiRecommendationItem[] };
-
-useEffect(() => {
-  if (!movieId) return;
-
-  const controller = new AbortController();
-
-  const fetchMovieData = async () => {
-    try {
-      setLoading(true);
-      setError(null);
-
-      const movies: Movie[] = allMovies as Movie[];
-      const foundBaseMovie = movies.find((m) => String(m.id) === String(movieId));
-      if (!foundBaseMovie) {
-        setError("Nie znaleziono filmu o podanym ID.");
-        setLoading(false);
-        return;
-      }
-      setBaseMovie(foundBaseMovie);
-
-      // wybór endpointu wg silnika (proxy Next.js eliminuje CORS)
-      const endpoint = engine === "v1" ? "/api/recommendations_v1" : "/api/recommendations";
-
-      const res = await fetch(endpoint, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ movie_id: Number(foundBaseMovie.id) }),
-        cache: "no-store",
-        signal: controller.signal,
-      });
-
-      if (!res.ok) {
-        const txt = await res.text().catch(() => "");
-        throw new Error(`Błąd serwera rekomendacji. ${txt || ""}`.trim());
-      }
-
-      const data = (await res.json()) as RecommendationsResponse;
-      const apiIds: number[] = (data.recommendations ?? []).map((r) => Number(r.id));
-
-      const merged: Movie[] = apiIds
-        .map(
-          (id) =>
-            (movies.find((m) => Number(m.id) === id) as Movie) ||
-            ({
-              id,
-              title: String(id),
-              poster_path: "",
-              overview: "",
-              release_date: "",
-              vote_average: undefined,
-              genres: "", // Use empty string if Movie expects genres: string
-            } as Movie)
-        )
-        .filter((m) => Number(m.id) !== Number(foundBaseMovie.id));
-
-      setRecommendations(merged);
-    } catch (err: unknown) {
-      if (err instanceof DOMException && err.name === "AbortError") return;
-      setError(err instanceof Error ? err.message : "Wystąpił nieoczekiwany błąd.");
-    } finally {
-      setLoading(false);
-    }
+  type ApiRecommendationItem = {
+    id: number | string;
+    title?: string;
+    score?: number;
+    why?: string | null;
+  };
+  type RecommendationsResponse = {
+    source_id?: number | string;
+    recommendations: ApiRecommendationItem[];
   };
 
-  fetchMovieData();
-  return () => controller.abort();
-}, [movieId, engine]);
+  useEffect(() => {
+    if (!movieId) return;
 
+    const controller = new AbortController();
+
+    const fetchMovieData = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+
+        const movies: Movie[] = allMovies as Movie[];
+        const foundBaseMovie = movies.find(
+          (m) => String(m.id) === String(movieId)
+        );
+        if (!foundBaseMovie) {
+          setError("Nie znaleziono filmu o podanym ID.");
+          setLoading(false);
+          return;
+        }
+        setBaseMovie(foundBaseMovie);
+
+        // wybór endpointu wg silnika (proxy Next.js eliminuje CORS)
+        const endpoint =
+          engine === "v1" ? "/api/recommendations_v1" : "/api/recommendations";
+
+        const res = await fetch(endpoint, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ movie_id: Number(foundBaseMovie.id) }),
+          cache: "no-store",
+          signal: controller.signal,
+        });
+
+        if (!res.ok) {
+          const txt = await res.text().catch(() => "");
+          throw new Error(`Błąd serwera rekomendacji. ${txt || ""}`.trim());
+        }
+
+        const data = (await res.json()) as RecommendationsResponse;
+        const apiIds: number[] = (data.recommendations ?? []).map((r) =>
+          Number(r.id)
+        );
+
+        const merged: Movie[] = apiIds
+          .map(
+            (id) =>
+              (movies.find((m) => Number(m.id) === id) as Movie) ||
+              ({
+                id,
+                title: String(id),
+                poster_path: "",
+                overview: "",
+                release_date: "",
+                vote_average: undefined,
+                genres: "", // Use empty string if Movie expects genres: string
+              } as Movie)
+          )
+          .filter((m) => Number(m.id) !== Number(foundBaseMovie.id));
+
+        setRecommendations(merged);
+      } catch (err: unknown) {
+        if (err instanceof DOMException && err.name === "AbortError") return;
+        setError(
+          err instanceof Error ? err.message : "Wystąpił nieoczekiwany błąd."
+        );
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchMovieData();
+    return () => controller.abort();
+  }, [movieId, engine]);
 
   return (
     <section className="relative min-h-screen overflow-hidden pb-20 pt-32 ">
@@ -121,7 +137,7 @@ useEffect(() => {
         {!loading && !error && baseMovie && (
           <div className="flex flex-col items-center w-full mx-auto">
             <Title
-              subtitle={`Wygenerowane specjalnie dla Ciebie • Silnik: ${engine.toUpperCase()}`}
+              subtitle={`Wygenerowane specjalnie dla Ciebie • Model: ${engine.toUpperCase()}`}
               gradientFrom="from-pink-400"
               gradientVia="via-purple-300"
               gradientTo="to-violet-400"
@@ -130,12 +146,14 @@ useEffect(() => {
             </Title>
 
             <motion.div
-              className="mt-4 md:mt-12 mb-8 w-full max-w-4xl"
+              className="mt-4 md:mt-12 mb-8 w-full"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.7, ease: "easeOut" }}
             >
-              <h2 className="text-lg font-semibold text-white/80 mb-4 text-center">Na podstawie filmu:</h2>
+              <h2 className="text-lg font-semibold text-white/80 mb-4 text-center">
+                Na podstawie filmu:{" "}
+              </h2>
               <div className="flex flex-col sm:flex-row items-center gap-6 sm:gap-8 bg-white/7 p-6 rounded-2xl border border-white/20 backdrop-blur-lg">
                 <div className="w-48 flex-shrink-0">
                   <Image
@@ -160,10 +178,16 @@ useEffect(() => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, ease: "easeOut" }}
             >
-              <h2 className="text-lg font-semibold text-white/80 mb-6 text-center">Oto 8 filmów, które mogą Ci się spodobać:</h2>
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-4 sm:gap-6 w-full">
+              <h2 className="text-lg font-semibold text-white/80 mb-6 text-center">
+                Oto 8 filmów, które mogą Ci się spodobać:
+              </h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 w-full">
                 {recommendations.map((movie, index) => (
-                  <MovieCard key={`${movie.id}-${index}`} movie={movie} />
+                  <MovieRankingCard
+                    movie={movie}
+                    rank={index + 1}
+                    key={`${movie.id}-${index}`}
+                  />
                 ))}
               </div>
             </motion.div>

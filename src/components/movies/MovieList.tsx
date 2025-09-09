@@ -234,7 +234,7 @@ export default function MoviesList() {
               ))}
             </div>
 
-            {/* Paginacja tylko gdy są wyniki i ma sens */}
+            {/* Paginacja */}
             {hasResults && totalPages > 1 && (
               <div className="flex flex-wrap justify-center gap-2 mt-10">
                 {pagesList().map((p, i) =>
