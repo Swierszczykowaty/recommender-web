@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { useParams, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import MovieCard from "@/components/global/MovieCard";
 import Title from "@/components/global/Title";
 import Container from "@/components/global/Container";
 import type { Movie } from "@/types/movie";
@@ -13,7 +12,6 @@ import { motion } from "framer-motion";
 import Loading from "@/components/global/Loading";
 import Icon from "@/components/global/Icon";
 import MovieRankingCard from "@/components/rankings/MovieRankingCard";
-import MovieCardSmall from "@/components/movies/MovieCardSmall";
 
 type Engine = "v1" | "v2";
 
