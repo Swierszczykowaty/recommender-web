@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import { useParams, useSearchParams } from "next/navigation";
 import Link from "next/link";
-import Image from "next/image";
 import Title from "@/components/global/Title";
 import Container from "@/components/global/Container";
 import type { Movie } from "@/types/movie";
@@ -12,6 +11,7 @@ import { motion } from "framer-motion";
 import Loading from "@/components/global/Loading";
 import Icon from "@/components/global/Icon";
 import MovieRankingCard from "@/components/rankings/MovieRankingCard";
+import FadeImage from "@/components/global/FadeImage";
 
 type Engine = "v1" | "v2";
 
@@ -114,9 +114,9 @@ export default function RecommendationResultPage() {
   }, [movieId, engine]);
 
   return (
-    <section className="relative min-h-screen overflow-hidden pb-20 pt-32 ">
+    <section className="relative min-h-screen overflow-hidden pb-10 pt-32 ">
       <Container>
-        {loading && <Loading message="Generowanie rekomendacji..." />}
+        {loading && <Loading message={`Model ${engine.toUpperCase()} generuje twoje rekomendacje...`} />}
 
         {error && (
           <div className="flex flex-col items-center gap-6">
@@ -154,7 +154,7 @@ export default function RecommendationResultPage() {
               </h2>
               <Link href={`/movies/${baseMovie.id}`} className="flex flex-col sm:flex-row items-center bg-white/7 rounded-2xl border border-white/20 backdrop-blur-lg overflow-hidden group hover:bg-white/10 transition duration-300 cursor-pointer hover:border-white/30">
                 <div className="mt-6 sm:mt-0 w-52 flex-shrink-0 rounded-lg overflow-hidden sm:rounded-none">
-                  <Image
+                  <FadeImage
                     src={`https://image.tmdb.org/t/p/w500${baseMovie.poster_path}`}
                     alt={`Plakat filmu ${baseMovie.title}`}
                     width={500}

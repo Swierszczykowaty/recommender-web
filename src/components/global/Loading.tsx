@@ -9,10 +9,10 @@ interface LoadingProps {
 }
 
 export default function Loading({ message }: LoadingProps) {
-  const [isSlow, setIsSlow] = useState(false); // >5s
+  const [isSlow, setIsSlow] = useState(false);
 
   useEffect(() => {
-    const t1 = setTimeout(() => setIsSlow(true), 5000);
+    const t1 = setTimeout(() => setIsSlow(true), 2000);
     return () => clearTimeout(t1);
   }, []);
 

@@ -1,10 +1,10 @@
 "use client";
 
 import React from "react";
-import Image from "next/image";
 import Link from "next/link";
 import type { Movie } from "@/types/movie";
 import type { RankingType } from "@/lib/ranking-types";
+import FadeImage from "../global/FadeImage";
 
 interface Props {
   movie: Movie;
@@ -50,7 +50,7 @@ export default function MovieRankingCard({ movie, rank, type }: Props) {
       className="group block w-full h-44 relative overflow-hidden rounded-xl shadow-lg border border-white/30"
     >
       {backdrop_path && (
-        <Image
+        <FadeImage
           src={`https://image.tmdb.org/t/p/w1280${backdrop_path}`}
           alt={title}
           fill
