@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Movie } from "@/types/movie";
 import Icon from "@/components/global/Icon";
 import { motion, AnimatePresence } from "framer-motion";
+import FadeImage from "../global/FadeImage";
 
 type MovieCardSmallProps = {
   movie: Movie;
@@ -34,7 +35,7 @@ const MovieCardSmall = ({ movie, onClick }: MovieCardSmallProps) => {
     >
       <div className="relative w-full h-40">
         {imagePath ? (
-          <Image
+          <FadeImage
             src={`https://image.tmdb.org/t/p/w780${imagePath}`}
             alt={`Plakat filmu ${movie.title}`}
             fill

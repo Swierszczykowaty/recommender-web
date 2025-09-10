@@ -17,11 +17,13 @@ const TOP_MOVIES: Movie[] = top100 as Movie[];
 type Engine = "v1" | "v2";
 
 export default function RecommenderSearchPage() {
-  const [engine, setEngine] = useState<Engine>(() => {
-    if (typeof window === "undefined") return "v2";
-    const stored = window.localStorage.getItem("reco_engine");
-    return (stored === "v1" || stored === "v2") ? (stored as Engine) : "v2";
-  });
+  const [engine, setEngine] = useState<Engine>("v2");
+  useEffect(() => {
+    try {
+      const stored = window.localStorage.getItem("reco_engine");
+      if (stored === "v1" || stored === "v2") setEngine(stored as Engine);
+    } catch {}
+  }, []);
 
   const [allMovies, setAllMovies] = useState<Movie[] | null>(null);
   const [searchResults, setSearchResults] = useState<Movie[]>([]);
@@ -84,11 +86,20 @@ export default function RecommenderSearchPage() {
         </div>
 
         {/* Wybór silnika – dwa przyciski */}
-        <div className="flex items-center justify-center gap-3 mb-6">
+        <motion.div
+          className="flex items-center justify-center gap-3 mb-6"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.7, ease: "easeOut" }}
+        >
           <button
             onClick={() => setEngine("v1")}
             className={`px-4 py-2 text-sm rounded-lg border backdrop-blur-md transition cursor-pointer
-              ${engine === "v1" ? "bg-white/20 border-white/50 text-white" : "bg-white/7 border-white/30 text-white/80 hover:bg-white/10"}`}
+              ${
+                engine === "v1"
+                  ? "bg-white/20 border-white/50 text-white"
+                  : "bg-white/7 border-white/30 text-white/80 hover:bg-white/10"
+              }`}
             title="Model V1: klasyczny dense KNN"
           >
             Model v1.0
@@ -96,7 +107,11 @@ export default function RecommenderSearchPage() {
           <button
             onClick={() => setEngine("v2")}
             className={`px-4 py-2 text-sm rounded-lg border backdrop-blur-md transition cursor-pointer
-              ${engine === "v2" ? "bg-white/20 border-white/50 text-white" : "bg-white/7 border-white/30 text-white/80 hover:bg-white/10"}`}
+              ${
+                engine === "v2"
+                  ? "bg-white/20 border-white/50 text-white"
+                  : "bg-white/7 border-white/30 text-white/80 hover:bg-white/10"
+              }`}
             title="Model V2: hybryda BM25+dense"
           >
             Model v2.0
@@ -104,19 +119,23 @@ export default function RecommenderSearchPage() {
           {/* <span className="text-xs text-white/60 ml-2">
             Aktywny: <strong className="text-white">{engine.toUpperCase()}</strong>
           </span> */}
-        </div>
+        </motion.div>
 
         {/* <p className="max-w-2xl mx-auto text-center text-white/70 mb-8 px-2 text-sm md:text-base">
           Wybierz silnik rekomendacji: v1 (klasyczny) lub <strong>v2</strong> (nowszy i dokładniejszy — łączy wyszukiwanie semantyczne z BM25).
           Po wybraniu filmu poniżej pokażemy propozycje, które najbardziej do niego pasują.
           Zawsze możesz przełączyć silnik i porównać wyniki.
         </p> */}
-  
-     
+
         <div className="max-w-2xl mx-auto mb-6">
-          <SearchBar onSearch={handleSearch} placeholder="Wpisz tytuł filmu..." />
+          <SearchBar
+            onSearch={handleSearch}
+            placeholder="Wpisz tytuł filmu..."
+          />
           {searchQuery && !allMovies && (
-            <p className="text-white/60 text-sm mt-2">Ładuję pełną bazę filmów…</p>
+            <p className="text-white/60 text-sm mt-2">
+              Ładuję pełną bazę filmów…
+            </p>
           )}
         </div>
 
@@ -129,9 +148,14 @@ export default function RecommenderSearchPage() {
               transition={{ duration: 0.7, ease: "easeOut" }}
             >
               <h2 className="text-md md:text-lg font-semibold text-white/80 text-center">
-                {searchQuery ? `Wyniki dla: "${searchQuery}"` : "Proponowane filmy:"}
+                {searchQuery
+                  ? `Wyniki dla: "${searchQuery}"`
+                  : "Proponowane filmy:"}
               </h2>
-              <Link href="/about" className="text-sm text-white hover:underline">
+              <Link
+                href="/about"
+                className="text-sm text-white hover:underline"
+              >
                 Jak działa rekomender?
               </Link>
             </motion.div>
@@ -142,9 +166,16 @@ export default function RecommenderSearchPage() {
                   key={movie.id}
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.05, duration: 0.4, ease: "easeOut" }}
+                  transition={{
+                    delay: i * 0.05,
+                    duration: 0.4,
+                    ease: "easeOut",
+                  }}
                 >
-                  <MovieCardSmall movie={movie} onClick={() => handleMovieSelect(movie)} />
+                  <MovieCardSmall
+                    movie={movie}
+                    onClick={() => handleMovieSelect(movie)}
+                  />
                 </motion.div>
               ))}
             </div>
