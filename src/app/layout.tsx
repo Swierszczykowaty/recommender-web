@@ -2,8 +2,10 @@ import "./globals.css";
 import { ReactNode } from "react";
 import NavBar from "@/components/global/NavBar";
 import LayoutBackground from "@/components/global/LayoutBackground";
-
+import "locomotive-scroll/dist/locomotive-scroll.css";
 import { Archivo } from "next/font/google";
+import LenisProvider from "@/components/global/LenisProvider";
+
 const archivo = Archivo({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700"],
@@ -14,15 +16,15 @@ export const metadata = {
   title: "Rekomendacje Filmowe",
   icons: {
     icon: [
-      { url: '/favicon.ico', type: 'image/x-icon' },
-      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
-      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+      { url: "/favicon.ico", type: "image/x-icon" },
+      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
     ],
     apple: [
-      { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
+      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
     ],
   },
-  manifest: '/manifest.json',
+  manifest: "/manifest.json",
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
@@ -41,11 +43,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       >
         <NavBar />
         <LayoutBackground />
-        <main className="relative z-10 bg-transparent">
-          {children}
-        </main>
+        <LenisProvider>
+          <main className="relative z-10 bg-transparent">{children}</main>
+        </LenisProvider>
       </body>
     </html>
   );
 }
-

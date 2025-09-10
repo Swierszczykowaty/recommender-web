@@ -8,7 +8,7 @@ export default function FadeImage(props: ImageProps) {
   return (
     <Image
       {...props}
-      onLoadingComplete={() => setLoaded(true)}
+      onLoad={() => setLoaded(true)}
       alt={props.alt || "Image"}
       className={`
     rounded-lg object-cover w-full
