@@ -128,7 +128,7 @@ export default function MovieDetailPage() {
         <div className="grid grid-cols-1 gap-6 -mt-[100px] sm:-mt-[500px]">
           {/* Górny pasek: breadcrumb + powrót */}
           <motion.div
-            className="flex justify-between items-center mb- z-50"
+            className="flex justify-between items-center -mb-2 z-50"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, ease: "easeOut" }}

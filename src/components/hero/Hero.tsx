@@ -48,7 +48,7 @@ export default function Hero() {
               href="/rankings"
               icon="leaderboard"
               title="Poznaj ranking filmowy"
-              description="Sprawdź najwyżej oceniane filmy i rankingi gatunków."
+              description="Sprawdź najwyżej oceniane filmy."
               buttonText="Otwórz rankingi"
             />
           </div>
