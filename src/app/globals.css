@@ -1,11 +1,11 @@
 @import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined");
 @import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Filled");
 @import "tailwindcss";
-/* Twoje klasy: */
+
 .material-symbols-outlined,
 .material-symbols-filled {
-  font-size: inherit !important; /* wtedy text-sm/xl/2xl zadziała */
-  line-height: 1;                /* ładne wyrównanie w pionie */
+  font-size: inherit !important; 
+  line-height: 1;        
 }
 
 :root {

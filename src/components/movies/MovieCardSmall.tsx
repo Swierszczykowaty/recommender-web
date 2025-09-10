@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState } from "react";
-import Image from "next/image";
 import { Movie } from "@/types/movie";
 import Icon from "@/components/global/Icon";
 import { motion, AnimatePresence } from "framer-motion";
