@@ -154,7 +154,7 @@ export default function MoviesList() {
 
         {loading ? (
           // SKELETONY
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 w-full">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 w-full mt-16">
             {Array.from({ length: 8 }).map((_, i) => (
               <motion.div
                 key={i}

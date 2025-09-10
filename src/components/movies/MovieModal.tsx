@@ -49,7 +49,7 @@ export default function MovieModal({
                 alt={movie.title}
                 width={1000}
                 height={1500}
-                className="rounded-lg object-contain max-h-[60vh] sm:max-h-[80vh] mx-auto"
+                className="rounded-lg object-contain max-h-[55vh] sm:max-h-[80vh] mx-auto"
                 onLoadingComplete={() => setIsImgLoading(false)}
                 onError={() => {
                   setIsImgLoading(false);

@@ -142,21 +142,37 @@ export default function RecommenderSearchPage() {
         {searchResults.length > 0 && (
           <div>
             <motion.div
-              className="flex justify-between items-center mb-2"
+              className="flex justify-between items-center mb-4 md:mb-2"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.7, ease: "easeOut" }}
             >
               <h2 className="text-md md:text-lg font-semibold text-white/80 text-center">
-                {searchQuery
-                  ? `Wyniki dla: "${searchQuery}"`
-                  : "Proponowane filmy:"}
+                {searchQuery ? (
+                  <>
+                    {/* mobile */}
+                    <span className="md:hidden">Wyniki: “{searchQuery}”</span>
+                    {/* desktop */}
+                    <span className="hidden md:inline">
+                      Wyniki dla: “{searchQuery}”
+                    </span>
+                  </>
+                ) : (
+                  <>
+                    {/* mobile */}
+                    <span className="md:hidden">Proponowane:</span>
+                    {/* desktop */}
+                    <span className="hidden md:inline">Proponowane filmy:</span>
+                  </>
+                )}
               </h2>
+
               <Link
                 href="/about"
                 className="text-sm text-white hover:underline"
+                aria-label="Jak działa rekomender?"
               >
-                Jak działa rekomender?
+                <span className="inline">Jak działa rekomender?</span>
               </Link>
             </motion.div>
 
