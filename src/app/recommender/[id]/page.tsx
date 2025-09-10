@@ -153,16 +153,16 @@ export default function RecommendationResultPage() {
                 Na podstawie filmu:
               </h2>
               <Link href={`/movies/${baseMovie.id}`} className="flex flex-col sm:flex-row items-center bg-white/7 rounded-2xl border border-white/20 backdrop-blur-lg overflow-hidden group hover:bg-white/10 transition duration-300 cursor-pointer hover:border-white/30">
-                <div className="mt-6 sm:mt-0 w-52 flex-shrink-0 rounded-lg overflow-hidden sm:rounded-none">
+                <div className="mt-6 sm:mt-0 w-full max-w-sm sm:max-w-2xl sm:w-52 sm:px-0 px-6 flex-shrink-0 rounded-lg overflow-hidden sm:rounded-none">
                   <FadeImage
                     src={`https://image.tmdb.org/t/p/w500${baseMovie.poster_path}`}
                     alt={`Plakat filmu ${baseMovie.title}`}
                     width={500}
                     height={750}
-                    className="group-hover:scale-[1.03] transition-transform duration-300"
+                    className=" transition-transform duration-300"
                   />
                 </div>
-                <div className="text-center sm:text-left p-6 md:p-8">
+                <div className="text-center sm:text-left p-5 md:p-6">
                   <h3 className="text-2xl font-bold text-white">{baseMovie.title}</h3>
                   <p className="text-md text-white/70">{baseMovie.release_date?.slice(0, 4)}</p>
                   <p className="text-xs text-white/60">{baseMovie.genres}</p>

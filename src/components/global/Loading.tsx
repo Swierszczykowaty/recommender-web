@@ -28,7 +28,6 @@ export default function Loading({ message }: LoadingProps) {
       <div className="w-8 h-8 border-4 border-white/20 border-t-white border-r-white/10 border-b-white/40 border-l-white/70 rounded-full animate-spin" />
       <span className="text-xl font-bold">{message}</span>
 
-      {/* płynne pojawianie się komunikatu po 5s */}
       <AnimatePresence>
         {isSlow && (
           <motion.div
@@ -37,7 +36,7 @@ export default function Loading({ message }: LoadingProps) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 6 }}
             transition={{ duration: 0.28, ease: "easeOut" }}
-            className="flex flex-col justify-center items-center gap-2 mt-2 text-white/80 text-center sm:text-left"
+            className="flex flex-col justify-center items-center gap-2 mt-2 text-white/80 text-center"
           >
             <p className="text-white/70 max-w-[48ch] text-sm md:text-md">
               To trwa dłużej niż zwykle — serwer może się wybudzać.

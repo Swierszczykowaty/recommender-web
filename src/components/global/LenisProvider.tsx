@@ -23,9 +23,11 @@ export default function LenisProvider({ children }: { children: React.ReactNode 
 
     const lenis = new Lenis({
       smoothWheel: !reduce,
-      syncTouch: false,
+      syncTouch: true,
       wheelMultiplier: 1,
       touchMultiplier: 1.2,
+      syncTouchLerp: 0.075,
+      touchInertiaExponent: 2,
     });
 
     lenisRef.current = lenis;
