@@ -2,7 +2,6 @@ import "./globals.css";
 import { ReactNode } from "react";
 import NavBar from "@/components/global/NavBar";
 import LayoutBackground from "@/components/global/LayoutBackground";
-import "locomotive-scroll/dist/locomotive-scroll.css";
 import { Archivo } from "next/font/google";
 import LenisProvider from "@/components/global/LenisProvider";
 
