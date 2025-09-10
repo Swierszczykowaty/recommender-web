@@ -1,7 +1,8 @@
 import React from "react";
-import Image from "next/image";
 import Link from "next/link";
 import type { Movie } from "@/types/movie";
+import FadeImage from "@/components/global/FadeImage";
+
 type MovieCardProps = {
   movie: Movie;
   isFirstCard?: boolean;
@@ -40,7 +41,7 @@ export default function MovieCard({ movie, isFirstCard }: MovieCardProps) {
 
       <div className="relative w-[100px] min-w-[100px] h-full sm:w-full sm:h-[375px] overflow-hidden">
         {poster_path && (
-          <Image
+          <FadeImage
             src={`https://image.tmdb.org/t/p/w400${poster_path}`}
             alt={title}
             fill
