@@ -4,6 +4,8 @@ import NavBar from "@/components/global/NavBar";
 import LayoutBackground from "@/components/global/LayoutBackground";
 import { Archivo } from "next/font/google";
 import LenisProvider from "@/components/global/LenisProvider";
+import ThemeProvider from "@/components/global/ThemeProvider";
+import ThemeToggle from "@/components/global/ThemeToggle";
 
 const archivo = Archivo({
   subsets: ["latin"],
@@ -19,14 +21,12 @@ export const metadata = {
       { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
       { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
     ],
-    apple: [
-      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
-    ],
+    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
   },
   manifest: "/manifest.json",
 };
 
-export default function RootLayout({ children }: { children: ReactNode }) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="pl">
       <head>
@@ -35,16 +35,33 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           name="description"
           content="System rekomendacji filmów oparty na analizie treści. Przeglądaj rankingi, odkrywaj nowe tytuły i wybieraj filmy dopasowane do Twojego gustu."
         />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+(function(){try{
+  var t = localStorage.getItem('theme');        // 'light' | 'dark' | 'system' | null
+  var sysDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  var dark = t ? (t === 'dark' ? true : (t === 'light' ? false : sysDark)) : sysDark;
+  document.documentElement.classList[dark ? 'add' : 'remove']('dark');
+}catch(e){}})();
+      `,
+          }}
+        />
       </head>
       <body
         data-nextjs-scroll-focus-boundary
         className={`${archivo.className} relative text-white min-h-dvh overflow-x-hidden`}
       >
-        <NavBar />
-        <LayoutBackground />
-        <LenisProvider>
-          <main className="relative z-10 bg-transparent">{children}</main>
-        </LenisProvider>
+        <ThemeProvider>
+          <NavBar />
+          <LayoutBackground />
+          <LenisProvider>
+            <main className="relative z-10 bg-transparent">{children}</main>
+          </LenisProvider>
+          <div className="fixed top-4 right-4 z-[9999]">
+            <ThemeToggle />
+          </div>
+        </ThemeProvider>
       </body>
     </html>
   );

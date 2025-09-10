@@ -23,11 +23,9 @@
   font-size: 70px;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0f0f0f; /* DARK */
-    --foreground: #ededed;
-  }
+.dark {
+  --background: #0f0f0f;
+  --foreground: #ededed;
 }
 
 body {
