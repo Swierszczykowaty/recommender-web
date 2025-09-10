@@ -79,7 +79,7 @@ export default function MovieRankingCard({ movie, rank, type }: Props) {
         </div>
       </div>
 
-      <div className="absolute inset-0 bg-black/50 group-hover:bg-black/20 transition duration-300" />
+      <div className="absolute inset-0 bg-black/35 group-hover:bg-black/15 transition duration-300" />
     </Link>
   );
 }

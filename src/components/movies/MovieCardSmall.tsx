@@ -38,7 +38,6 @@ const MovieCardSmall = ({ movie, onClick }: MovieCardSmallProps) => {
             src={`https://image.tmdb.org/t/p/w780${imagePath}`}
             alt={`Plakat filmu ${movie.title}`}
             fill
-            // priority={i < 4}
             placeholder="blur"
             blurDataURL="data:image/svg+xml;base64,..."
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

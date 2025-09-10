@@ -12,6 +12,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import ColorThief from "colorthief";
 import Icon from "@/components/global/Icon";
 import { useRouter } from "next/navigation";
+import FadeImage from "@/components/global/FadeImage";
 
 const moviesData: Movie[] = rawMoviesData as Movie[];
 
@@ -116,15 +117,14 @@ export default function MovieDetailPage() {
             className="absolute inset-0 "
             style={{ y: scrollYProgress }}
           >
-            <Image
+            <FadeImage
               src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
               alt={movie.title}
               fill
               className="object-cover"
               style={{
                 objectPosition: "center 20%",
-                WebkitMaskImage:
-                  "linear-gradient(to bottom, black 25%, transparent)",
+                WebkitMaskImage: "linear-gradient(to bottom, black 25%, transparent)",
                 maskImage: "linear-gradient(to bottom, black 25%, transparent)",
               }}
               priority
@@ -205,14 +205,12 @@ export default function MovieDetailPage() {
                       className="relative cursor-pointer group max-w-[440px] md:max-w-3xl"
                       onClick={() => setIsModalOpen(true)}
                     >
-                      <Image
+                      <FadeImage
                         src={`https://image.tmdb.org/t/p/w342${movie.poster_path}`}
                         alt={movie.title}
                         width={500}
                         height={750}
-                        // width={400}
-                        // height={600}
-                        className="rounded-lg object-cover w-full "
+                        className="rounded-lg object-cover w-full"
                       />
                       <div className="absolute inset-0 bg-black/50 rounded-lg flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                         <Icon icon="zoom_in" className="!text-3xl" />
