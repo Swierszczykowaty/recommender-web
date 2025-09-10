@@ -125,10 +125,10 @@ export default function MovieDetailPage() {
       )}
 
       <Container>
-        <div className="grid grid-cols-1 gap-8 -mt-[100px] sm:-mt-[500px]">
+        <div className="grid grid-cols-1 gap-6 -mt-[100px] sm:-mt-[500px]">
           {/* Górny pasek: breadcrumb + powrót */}
           <motion.div
-            className="flex justify-between items-center mb-4 z-50"
+            className="flex justify-between items-center mb- z-50"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, ease: "easeOut" }}
@@ -271,7 +271,7 @@ export default function MovieDetailPage() {
                     onClick={() =>
                       router.push(`/movies?query=${encodeURIComponent(actor.name)}&page=1`)
                     }
-                    className="group flex flex-row items-center relative bg-white/7 px-3 py-2 rounded-lg border border-white/20 cursor-pointer hover:bg-white/7 duration-300"
+                    className="group shadow-md flex flex-row items-center relative bg-white/7 px-3 py-2 rounded-lg border border-white/20 cursor-pointer hover:bg-white/7 duration-300"
                   >
                     <span className="relative flex-shrink-0 flex items-center justify-center" style={{ width: 36, height: 36 }}>
                       <Icon icon="person" className="!text-3xl absolute left-0 top-0 opacity-100 group-hover:opacity-0 group-hover:scale-50 duration-300" />
@@ -321,7 +321,7 @@ export default function MovieDetailPage() {
             </button>
             <Link
               href={`/recommender/${movie.id}`}
-              className="flex px-6 py-3 w-full max-w-[250px] justify-center bg-gradient-to-tr from-indigo-400/10 via-fuchsia-400/25 to-purple-400/15 border border-white/30 rounded-lg hover:from-indigo-400/35 hover:via-fuchsia-400/45 hover:to-purple-400/55 transition-colors duration-300"
+              className="z-40 flex px-6 py-3 w-full max-w-[250px] justify-center shadow-xl bg-gradient-to-tr from-indigo-400/10 via-fuchsia-400/25 to-purple-400/15 border border-white/30 rounded-lg hover:from-indigo-400/35 hover:via-fuchsia-400/45 hover:to-purple-400/55 transition-colors duration-300"
             >
               Generuj Rekomendacje
             </Link>

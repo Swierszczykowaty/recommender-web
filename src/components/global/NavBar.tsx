@@ -13,14 +13,14 @@ export default function NavBar() {
         {/* Logo + nazwa */}
         <Link
           href="/"
-          className="flex items-center text-white text-xl font-bold gap-2"
+          className="flex items-center  text-xl font-bold gap-2"
         >
-          <Icon icon="blur_on" className="text-white text-3xl cursor-pointer" />
+          <Icon icon="blur_on" className=" text-3xl cursor-pointer" />
           Rekomender WWSI
         </Link>
 
         {/* Desktop menu */}
-        <div className="hidden text-sm lg:text-base lg:flex space-x-6 lg:space-x-8 xl:space-x-16 text-white">
+        <div className="hidden text-sm lg:text-base lg:flex space-x-6 lg:space-x-8 xl:space-x-16 ">
           <Link
             className="hover:text-orange-200 active:text-orange-400 duration-100"
             href="/"
@@ -54,12 +54,12 @@ export default function NavBar() {
         </div>
         {/* Mobile hamburger */}
         <button
-          className="lg:hidden text-white flex text-2xl"
+          className="lg:hidden  flex text-2xl"
           onClick={() => setMenuOpen(!menuOpen)}
         >
           <Icon
             icon={menuOpen ? "close" : "menu"}
-            className="text-3xl text-white"
+            className="text-3xl "
           />
         </button>
       </div>
@@ -72,7 +72,7 @@ export default function NavBar() {
             animate={{ opacity: 1, maxHeight: 500 }}
             exit={{ opacity: 0, maxHeight: 0 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="lg:hidden overflow-hidden flex flex-col px-6 pb-4 text-white space-y-2"
+            className="lg:hidden overflow-hidden flex flex-col px-6 pb-4  space-y-2"
           >
             <Link href="/" onClick={() => setMenuOpen(false)}>
               Home

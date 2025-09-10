@@ -87,12 +87,21 @@ export default function MoviesList() {
     router.push(`/movies?${p.toString()}`);
   };
 
-  const handleFilter = ({ genre, language, minRating, minYear }: FilterValues) => {
+  const handleFilter = ({
+    genre,
+    language,
+    minRating,
+    minYear,
+  }: FilterValues) => {
     const p = new URLSearchParams(searchParams.toString());
-    if (genre) p.set("genre", genre); else p.delete("genre");
-    if (language) p.set("language", language); else p.delete("language");
-    if (minRating) p.set("rating", String(minRating)); else p.delete("rating");
-    if (minYear) p.set("year", String(minYear)); else p.delete("year");
+    if (genre) p.set("genre", genre);
+    else p.delete("genre");
+    if (language) p.set("language", language);
+    else p.delete("language");
+    if (minRating) p.set("rating", String(minRating));
+    else p.delete("rating");
+    if (minYear) p.set("year", String(minYear));
+    else p.delete("year");
     p.set("page", "1");
     router.push(`/movies?${p.toString()}`);
   };
@@ -105,10 +114,16 @@ export default function MoviesList() {
 
   const pagesList = () => {
     const L: (number | string)[] = [];
-    if (totalPages <= 10) return Array.from({ length: totalPages }, (_, i) => i + 1);
+    if (totalPages <= 10)
+      return Array.from({ length: totalPages }, (_, i) => i + 1);
     L.push(1);
     if (page > 4) L.push("...");
-    for (let i = Math.max(2, page - 1); i <= Math.min(totalPages - 1, page + 1); i++) L.push(i);
+    for (
+      let i = Math.max(2, page - 1);
+      i <= Math.min(totalPages - 1, page + 1);
+      i++
+    )
+      L.push(i);
     if (page < totalPages - 3) L.push("...");
     L.push(totalPages);
     return L;
@@ -120,8 +135,18 @@ export default function MoviesList() {
         <div className="mb-10 text-center flex justify-center">
           <Title
             subtitle="Zanurz się w świecie filmów"
-            gradientFrom="from-teal-400"
-            gradientTo="to-blue-400"
+            gradientLight={{
+              from: "from-teal-200",
+              via: "via-blue-300",
+              to: "to-blue-200",
+              subtitleColor: "text-white",
+            }}
+            gradientDark={{
+              from: "from-teal-400",
+              via: "via-blue-300",
+              to: "to-blue-400",
+              subtitleColor: "text-white/80",
+            }}
             link="/movies"
           >
             Baza filmów
@@ -142,7 +167,7 @@ export default function MoviesList() {
           >
             <MovieFilters onFilter={handleFilter} />
 
-            {(totalPages > 1) && (
+            {totalPages > 1 && (
               <span className="text-white/80 text-xs md:text-sm absolute left-1/2 transform -translate-x-1/2">
                 Strona {page} z {totalPages}
               </span>
@@ -172,11 +197,16 @@ export default function MoviesList() {
               {error ? "Ups…" : "Brak wyników"}
             </div>
             <p className="text-white/70 mb-6">
-              {error
-                ? error
-                : query
-                ? <>Nie znaleźliśmy nic dla frazy „<span className="underline">{query}</span>”.</>
-                : "Dopasuj filtry albo wpisz inną frazę."}
+              {error ? (
+                error
+              ) : query ? (
+                <>
+                  Nie znaleźliśmy nic dla frazy „
+                  <span className="underline">{query}</span>”.
+                </>
+              ) : (
+                "Dopasuj filtry albo wpisz inną frazę."
+              )}
             </p>
 
             <div className="flex flex-wrap gap-3 justify-center">
