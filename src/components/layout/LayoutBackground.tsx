@@ -1,6 +1,6 @@
 "use client";
 
-import Background from "@/components/global/Background";
+import Background from "@/components/layout/Background";
 import { usePathname } from "next/navigation";
 
 export default function LayoutBackground() {

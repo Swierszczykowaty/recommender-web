@@ -1,6 +1,6 @@
-import Container from "@/components/global/Container";
+import Container from "@/components/layout/Container";
 import Title from "@/components/global/Title";
-import RankingCard from "@/components/rankings/RankingCard";
+import RankingCard from "@/components/global/CategoryCard";
 
 export default function RankingsIndex() {
   return (

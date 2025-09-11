@@ -13,9 +13,9 @@ import {
 type Props = {
   href: string;
   label: string;
-  icon?: string;                 // Material Symbols, np. "app_registration"
-  appearAfterPx?: number;        // kiedy pokazać na mobile (px)
-  hideAtBottomPercent?: number;  // kiedy schować na mobile (0..1)
+  icon?: string;                
+  appearAfterPx?: number;        
+  hideAtBottomPercent?: number; 
 };
 
 const shellVariants: Variants = {

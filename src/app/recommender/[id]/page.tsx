@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useParams, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import Title from "@/components/global/Title";
-import Container from "@/components/global/Container";
+import Container from "@/components/layout/Container";
 import type { Movie } from "@/types/movie";
 import allMovies from "@/data/full_data_web.json";
 import { motion } from "framer-motion";

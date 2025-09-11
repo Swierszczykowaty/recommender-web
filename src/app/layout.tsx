@@ -1,9 +1,9 @@
 import "./globals.css";
 import { ReactNode } from "react";
 import NavBar from "@/components/global/NavBar";
-import LayoutBackground from "@/components/global/LayoutBackground";
+import LayoutBackground from "@/components/layout/LayoutBackground";
 import { Archivo } from "next/font/google";
-import LenisProvider from "@/components/global/LenisProvider";
+import LenisProvider from "@/components/layout/LenisProvider";
 
 
 const archivo = Archivo({
