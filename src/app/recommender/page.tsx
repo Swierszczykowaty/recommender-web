@@ -3,9 +3,9 @@
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import Title from "@/components/global/Title";
-import Container from "@/components/global/Container";
+import Container from "@/components/layout/Container";
 import SearchBar from "@/components/global/SearchBar";
-import MovieCardSmall from "@/components/movies/MovieCardSmall";
+import MovieCardSmall from "@/components/recommender/RecommenderCard";
 import type { Movie } from "@/types/movie";
 import top100 from "@/data/top100_votes.json";
 import { searchMovies } from "@/lib/searchMovies";

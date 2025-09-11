@@ -4,7 +4,7 @@ import React from "react";
 import type { Movie } from "@/types/movie";
 import { RANKING_TYPES, RankingType } from "@/lib/ranking-types";
 import MovieRankingCard from "./MovieRankingCard";
-import Container from "@/components/global/Container";
+import Container from "@/components/layout/Container";
 import Title from "@/components/global/Title";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";

@@ -9,8 +9,8 @@ import ColorThief from "colorthief";
 
 import type { Movie } from "@/types/movie";
 import rawMoviesData from "@/data/full_data_web.json";
-import Container from "@/components/global/Container";
-import AnimatedBackground from "@/components/global/Background";
+import Container from "@/components/layout/Container";
+import AnimatedBackground from "@/components/layout/Background";
 import MovieModal from "@/components/movies/MovieModal";
 import Icon from "@/components/global/Icon";
 import FadeImage from "@/components/global/FadeImage";

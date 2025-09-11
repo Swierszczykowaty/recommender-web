@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import { useState } from "react";
 import { Movie } from "@/types/movie";
 import Icon from "@/components/global/Icon";
 import { motion, AnimatePresence } from "framer-motion";

@@ -22,7 +22,11 @@ function Heading({
   children,
   subtitle,
   grad,
-}: { children: React.ReactNode; subtitle?: string; grad: Gradient }) {
+}: {
+  children: React.ReactNode;
+  subtitle?: string;
+  grad: Gradient;
+}) {
   return (
     <motion.div
       className="relative z-10 w-full text-center flex flex-col items-center"
@@ -41,7 +45,11 @@ function Heading({
         {children}
       </h1>
       {subtitle && (
-        <p className={`text-sm md:text-lg ${grad.subtitleColor ?? "text-white/80"}`}>
+        <p
+          className={`text-sm md:text-lg ${
+            grad.subtitleColor ?? "text-white/80"
+          }`}
+        >
           {subtitle}
         </p>
       )}

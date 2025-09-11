@@ -3,7 +3,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import Title from "@/components/global/Title";
-import Container from "@/components/global/Container";
+import Container from "@/components/layout/Container";
 
 export default function AboutPage() {
   return (
