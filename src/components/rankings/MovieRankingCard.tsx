@@ -73,7 +73,7 @@ export default function MovieRankingCard({ movie, rank, type }: Props) {
           src={imageSrc}
           alt={imageAlt}
           fill
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw"
           className={`object-cover transition-transform duration-500 group-hover:scale-105 ${
             hasBackdrop ? "object-[center_20%]" : "object-contain bg-black/30"
           }`}

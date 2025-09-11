@@ -5,6 +5,7 @@ import LayoutBackground from "@/components/global/LayoutBackground";
 import { Archivo } from "next/font/google";
 import LenisProvider from "@/components/global/LenisProvider";
 
+
 const archivo = Archivo({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700"],
@@ -26,9 +27,13 @@ export const metadata = {
   manifest: "/manifest.json",
 };
 
-export default function RootLayout({ children }: { children: ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: ReactNode;
+}) {
   return (
-    <html lang="pl">
+    <html lang="pl" suppressHydrationWarning>
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta

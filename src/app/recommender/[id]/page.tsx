@@ -136,9 +136,18 @@ export default function RecommendationResultPage() {
           <div className="flex flex-col items-center w-full mx-auto">
             <Title
               subtitle={`Wygenerowane specjalnie dla Ciebie • Model: ${engine.toUpperCase()}`}
-              gradientFrom="from-pink-400"
-              gradientVia="via-purple-300"
-              gradientTo="to-violet-400"
+              gradientLight={{
+              from: "from-pink-300",
+              via: "via-rose-200",
+              to: "to-violet-300",
+              subtitleColor: "text-white",
+            }}
+            gradientDark={{
+              from: "from-pink-400",
+              via: "via-purple-300",
+              to: "to-violet-400",
+              subtitleColor: "text-white/80",
+            }}
             >
               Rekomendacje Filmowe
             </Title>

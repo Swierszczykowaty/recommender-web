@@ -12,9 +12,18 @@ export default function AboutPage() {
         <div className="relative flex flex-col items-center z-10 w-full mx-auto">
           <Title
             subtitle="Dowiedz się więcej"
-            gradientFrom="from-emerald-400"
-            gradientVia="via-green-400"
-            gradientTo="to-lime-300"
+            gradientLight={{
+              from: "from-emerald-300",
+              via: "via-green-300",
+              to: "to-lime-300",
+              subtitleColor: "text-white",
+            }}
+            gradientDark={{
+              from: "from-emerald-400",
+              via: "via-green-400",
+              to: "to-lime-300",
+              subtitleColor: "text-white/80",
+            }}
           >
             O Projekcie
           </Title>

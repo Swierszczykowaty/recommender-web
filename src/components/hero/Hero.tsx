@@ -13,9 +13,18 @@ export default function Hero() {
           <div className="relative z-10 w-full max-w-4xl text-center">
             <Title
               subtitle="Wybierz, co Cię interesuje"
-  gradientFrom="from-pink-300"
-  gradientVia="via-purple-400"
-  gradientTo="to-sky-400"
+              gradientLight={{
+              from: "from-pink-300",
+              via: "via-purple-300",
+              to: "to-sky-300",
+              subtitleColor: "text-white",
+            }}
+            gradientDark={{
+              from: "from-pink-300",
+              via: "via-purple-400",
+              to: "to-sky-400",
+              subtitleColor: "text-white/80",
+            }}
             >
               Rekomender WWSI
             </Title>
@@ -39,7 +48,7 @@ export default function Hero() {
               href="/rankings"
               icon="leaderboard"
               title="Poznaj ranking filmowy"
-              description="Sprawdź najwyżej oceniane filmy i rankingi gatunków."
+              description="Sprawdź najwyżej oceniane filmy."
               buttonText="Otwórz rankingi"
             />
           </div>

@@ -77,9 +77,18 @@ export default function RecommenderSearchPage() {
         <div className="mb-6 text-center flex justify-center">
           <Title
             subtitle="Wybierz film i model - my znajdziemy podobne"
-            gradientFrom="from-pink-400"
-            gradientVia="via-purple-300"
-            gradientTo="to-violet-400"
+              gradientLight={{
+              from: "from-pink-300",
+              via: "via-rose-200",
+              to: "to-violet-300",
+              subtitleColor: "text-white",
+            }}
+            gradientDark={{
+              from: "from-pink-400",
+              via: "via-purple-300",
+              to: "to-violet-400",
+              subtitleColor: "text-white/80",
+            }}
           >
             Generowanie Rekomendacji
           </Title>
@@ -94,7 +103,7 @@ export default function RecommenderSearchPage() {
         >
           <button
             onClick={() => setEngine("v1")}
-            className={`px-4 py-2 text-sm rounded-lg border backdrop-blur-md transition cursor-pointer
+            className={`px-4 py-2 shadow-xl text-sm rounded-lg border backdrop-blur-md transition cursor-pointer
               ${
                 engine === "v1"
                   ? "bg-white/20 border-white/50 text-white"
@@ -106,7 +115,7 @@ export default function RecommenderSearchPage() {
           </button>
           <button
             onClick={() => setEngine("v2")}
-            className={`px-4 py-2 text-sm rounded-lg border backdrop-blur-md transition cursor-pointer
+            className={`px-4 py-2 shadow-xl text-sm rounded-lg border backdrop-blur-md transition cursor-pointer
               ${
                 engine === "v2"
                   ? "bg-white/20 border-white/50 text-white"
