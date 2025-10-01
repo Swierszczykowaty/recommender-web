@@ -173,7 +173,7 @@ export default function MovieDetailPage() {
               <ol className="flex items-center space-x-2 text-xs md:text-sm text-white/70 mt-2">
                 <li>
                   <Link href="/movies" className="hover:underline">
-                    Baza Filmów
+                    Movie Database
                   </Link>
                 </li>
                 <li><span>/</span></li>
@@ -185,7 +185,7 @@ export default function MovieDetailPage() {
               className="flex items-center gap-2 px-4 py-1 text-sm bg-white/7 border border-white/20 rounded-lg backdrop-blur-md shadow-xl transition cursor-pointer hover:bg-white/10 duration-300"
             >
               <Icon icon="keyboard_backspace" style={{ fontSize: "20px" }} />
-              <span className="text-sm hidden md:inline">Powrót</span>
+              <span className="text-sm hidden md:inline">Back</span>
             </button>
           </motion.div>
 
@@ -230,7 +230,7 @@ export default function MovieDetailPage() {
                     </div>
                   ) : (
                     <div className="w-full h-[750px] bg-gray-700 rounded-lg flex items-center justify-center">
-                      Brak plakatu
+                      No poster
                     </div>
                   )}
                 </div>
@@ -242,17 +242,17 @@ export default function MovieDetailPage() {
                       className={`px-4 py-2 rounded-full text-sm font-bold shadow ${getRatingColor(
                         movie.vote_average
                       )}`}
-                      title={`${movie.vote_count} głosów`}
+                      title={`${movie.vote_count} votes`}
                     >
                       ★ {movie.vote_average?.toFixed(1)}
                     </span>
-                    <span className="text-white/60 text-sm">{movie.vote_count} głosów</span>
+                    <span className="text-white/60 text-sm">{movie.vote_count} votes</span>
                   </p>
 
                   <div className="space-y-4">
                     <p className="text-white/80 mt-4 text-sm md:text-md">{movie.overview}</p>
                     <p className="text-sm md:text-md">
-                      <strong>Reżyser:</strong>{" "}
+                      <strong>Director:</strong>{" "}
                       {typeof movie.directors === "string" && movie.directors
                         ? movie.directors.split(",").map((dir, i, arr) => (
                             <span
@@ -266,18 +266,18 @@ export default function MovieDetailPage() {
                               {i < arr.length - 1 ? ", " : ""}
                             </span>
                           ))
-                        : "brak danych"}
+                        : "no data"}
                     </p>
-                    <p className="text-sm md:text-md"><strong>Data premiery:</strong> {movie.release_date}</p>
-                    <p className="text-sm md:text-md"><strong>Czas trwania:</strong> {movie.runtime} min</p>
-                    <p className="mb-4 text-sm md:text-md"><strong>Gatunki:</strong> {movie.genres}</p>
+                    <p className="text-sm md:text-md"><strong>Release date:</strong> {movie.release_date}</p>
+                    <p className="text-sm md:text-md"><strong>Runtime:</strong> {movie.runtime} min</p>
+                    <p className="mb-4 text-sm md:text-md"><strong>Genres:</strong> {movie.genres}</p>
                   </div>
 
                   {/* Platformy */}
                   {hasPlatforms && (
                     <div className="mt-auto flex flex-col">
                       <h3 className="text-white font-semibold mb-4 text-sm md:text-md">
-                        {movie.title} – gdzie zobaczyć?
+                        {movie.title} – where to watch?
                       </h3>
                       <div className="grid grid-cols-2 md:grid-cols-none md:flex md:flex-row gap-4 justify-center md:justify-start w-full">
                         {platformLogos.map(({ flag, alt, src, url }) =>
@@ -310,7 +310,7 @@ export default function MovieDetailPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, ease: "easeOut", delay: 0.1 }}
           >
-            <h2 className="mb-2 font-semibold">Obsada:</h2>
+            <h2 className="mb-2 font-semibold">Cast:</h2>
             {loading ? (
               <div className="bg-white/7 border border-white/20 p-6 md:p-8 rounded-xl backdrop-blur-md shadow-xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {Array.from({ length: 6 }).map((_, i) => (
@@ -334,7 +334,7 @@ export default function MovieDetailPage() {
                       </span>
                       <div className="flex flex-col items-start justify-center pl-1 md:pl-2">
                         <span className="text-sm font-semibold">{actor.name}</span>
-                        <span className="text-xs text-white/70 italic mt-[1px] md:mt-[2px]">jako: {actor.character || "brak danych"}</span>
+                        <span className="text-xs text-white/70 italic mt-[1px] md:mt-[2px]">as: {actor.character || "no data"}</span>
                       </div>
                     </div>
                   ))}
@@ -348,7 +348,7 @@ export default function MovieDetailPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, ease: "easeOut", delay: 0.1 }}
           >
-            <h2 className="mb-2 font-semibold">Informacje:</h2>
+            <h2 className="mb-2 font-semibold">Information:</h2>
             {loading ? (
               <div className="bg-white/7 border border-white/20 p-8 rounded-xl backdrop-blur-md shadow-xl grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {Array.from({ length: 6 }).map((_, i) => (
@@ -360,15 +360,15 @@ export default function MovieDetailPage() {
             ) : (
               <div className="bg-white/7 border border-white/20 p-8 rounded-xl backdrop-blur-md shadow-xl grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {typeof movie.budget === "number" && movie.budget > 0 && (
-                  <p className="text-sm md:text-md"><strong>Budżet:</strong> ${movie.budget.toLocaleString()}</p>
+                  <p className="text-sm md:text-md"><strong>Budget:</strong> ${movie.budget.toLocaleString()}</p>
                 )}
                 {typeof movie.revenue === "number" && movie.revenue > 0 && (
-                  <p className="text-sm md:text-md"><strong>Przychód:</strong> ${movie.revenue.toLocaleString()}</p>
+                  <p className="text-sm md:text-md"><strong>Revenue:</strong> ${movie.revenue.toLocaleString()}</p>
                 )}
-                <p className="text-sm md:text-md"><strong>Popularność:</strong> {movie.popularity}</p>
-                <p className="text-sm md:text-md"><strong>Języki:</strong> {movie.spoken_languages}</p>
-                <p className="sm:col-span-2 text-sm md:text-md"><strong>Kraje produkcji:</strong> {movie.production_countries}</p>
-                <p className="sm:col-span-2 text-sm md:text-md"><strong>Studia produkcyjne:</strong> {movie.production_companies}</p>
+                <p className="text-sm md:text-md"><strong>Popularity:</strong> {movie.popularity}</p>
+                <p className="text-sm md:text-md"><strong>Languages:</strong> {movie.spoken_languages}</p>
+                <p className="sm:col-span-2 text-sm md:text-md"><strong>Production countries:</strong> {movie.production_countries}</p>
+                <p className="sm:col-span-2 text-sm md:text-md"><strong>Production companies:</strong> {movie.production_companies}</p>
               </div>
             )}
           </motion.div>
@@ -377,17 +377,17 @@ export default function MovieDetailPage() {
           <div className="mb-10 flex flex-col-reverse md:flex-row justify-center items-center gap-4 mt-2">
             <button
               onClick={handleGoBack}
-              className="flex items-center gap-2 px-6 py-3 w-full max-w-[250px] justify-center bg-white/7 border border-white/20 rounded-lg backdrop-blur-md shadow-xl transition cursor-pointer hover:bg-white/7 duration-300"
+              className="flex items-center gap-2 px-6 py-3 w-full max-w-[270px] justify-center bg-white/7 border border-white/20 rounded-lg backdrop-blur-md shadow-xl transition cursor-pointer hover:bg-white/7 duration-300"
             >
               <Icon icon="keyboard_backspace" style={{ fontSize: "20px" }} />
-              Powrót
+              Back
             </button>
             {!loading && (
               <Link
                 href={`/recommender/${movie.id}`}
-                className="z-40 flex px-6 py-3 w-full max-w-[250px] justify-center shadow-lg hover:shadow-xl shadow-violet-500/20 bg-gradient-to-tr from-indigo-400/10 via-fuchsia-400/25 to-purple-400/15 border border-white/30 rounded-lg hover:from-indigo-400/35 hover:via-fuchsia-400/45 hover:to-purple-400/55 transition-colors duration-300"
+                className="z-40 flex px-6 py-3 w-full max-w-[270px] text-center justify-center shadow-lg hover:shadow-xl shadow-violet-500/20 bg-gradient-to-tr from-indigo-400/10 via-fuchsia-400/25 to-purple-400/15 border border-white/30 rounded-lg hover:from-indigo-400/35 hover:via-fuchsia-400/45 hover:to-purple-400/55 transition-colors duration-300"
               >
-                Generuj Rekomendacje
+                Generate Recommendations
               </Link>
             )}
           </div>
@@ -401,7 +401,7 @@ export default function MovieDetailPage() {
       {!loading && (
         <MobileScrollFAB
           href={`/recommender/${movie.id}`}
-          label="Generuj rekomendacje"
+          label="Generate recommendations"
           icon="app_registration"
           appearAfterPx={80}
           hideAtBottomPercent={0.9}

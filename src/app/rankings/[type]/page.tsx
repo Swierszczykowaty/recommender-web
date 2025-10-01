@@ -36,7 +36,7 @@ export default async function RankingPage({ params }: RankingPageProps) {
   const top100 = await importRanking(rankingType);
 
   return (
-    <Suspense fallback={<LoadingMovies message="Ładowanie rankingu..." />}>
+    <Suspense fallback={<LoadingMovies message="Loading ranking..." />}>
       <MovieRankingList movies={top100} type={rankingType} />
     </Suspense>
   );

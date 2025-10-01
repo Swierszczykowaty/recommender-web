@@ -44,7 +44,7 @@ export default function SearchBar({
           type="submit"
           className="px-4 py-2 text-sm shadow-xl bg-white/7 border border-white/30 rounded-lg text-white hover:bg-white/10 transition"
         >
-          Szukaj
+          Search
         </button>
       </form>
     </motion.div>

@@ -22,7 +22,7 @@ export default function AboutPage() {
         >
           <motion.div layout className="mb-6 text-center">
             <Title
-              subtitle="Dowiedz się więcej"
+              subtitle="Learn More"
               gradientLight={{
                 from: "from-emerald-300",
                 via: "via-green-300",
@@ -36,7 +36,7 @@ export default function AboutPage() {
                 subtitleColor: "text-white/80",
               }}
             >
-              O Projekcie
+              About the Project
             </Title>
           </motion.div>
 
@@ -83,31 +83,31 @@ export default function AboutPage() {
             {selectedSection === "overall" && (
               <>
                 <p className="text-sm md:text-lg leading-relaxed text-justify">
-                  Rekomendner Filmowy to platforma, która pozwala łatwo znaleźć
-                  filmy dopasowane do Twoich gustów. Wystarczy wybrać jeden tytuł, a
-                  system na podstawie analizy treści filmu wygeneruje osiem
-                  najbardziej podobnych propozycji. Oprócz tego możesz przeglądać
-                  kompletną bazę filmów, sprawdzać szczegółowe opisy i korzystać z
-                  rankingów: top 100 według ocen, przychodów i liczby głosów.
+                  Movie Recommender is a platform that makes it easy to find
+                  movies tailored to your tastes. Simply select one title, and
+                  the system will generate eight of the most similar recommendations
+                  based on content analysis. Additionally, you can browse
+                  the complete movie database, check detailed descriptions, and explore
+                  rankings: top 100 by ratings, revenue, and vote count.
                 </p>
                 <p className="text-sm md:text-lg mt-4 text-white text-justify">
-                  Strona wykorzystuje Content Based Filtering i dane z TMDB. Całość
-                  działa na Next.js z dynamicznymi komponentami, nowoczesnymi
-                  animacjami (Framer Motion) i responsywnymi stylami (Tailwind CSS),
-                  co zapewnia szybkie i wygodne korzystanie na każdym urządzeniu.
+                  The site uses Content Based Filtering and data from TMDB. Everything
+                  runs on Next.js with dynamic components, modern
+                  animations (Framer Motion), and responsive styles (Tailwind CSS),
+                  ensuring fast and convenient use on any device.
                 </p>
               </>
             )}
 
             {selectedSection === "v1" && (
               <p className="text-sm md:text-lg leading-relaxed text-justify">
-                Model v1 in progress
+                Model v1 in progress Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nobis, delectus officiis, similique non assumenda nostrum eaque, perferendis at sint ullam dicta quas. Fuga reprehenderit quod animi sint est dolores et. Dolor ducimus consequuntur minus, fugiat reprehenderit sit quae accusantium doloremque inventore libero, voluptatem possimus. Reiciendis vero saepe nam quo sequi assumenda, doloribus mollitia dicta odio, corrupti deserunt est! Suscipit, doloremque. Voluptatem tempora illum eum, assumenda nobis, eaque perspiciatis autem fugiat placeat animi labore aperiam dolores libero magni et. At, aliquam.
               </p>
             )}
 
             {selectedSection === "v2" && (
               <p className="text-sm md:text-lg leading-relaxed text-justify">
-                Model v2 in progress
+                Model v2 in progress Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempora voluptas ullam fugiat laborum amet neque sunt maxime aliquam perferendis nostrum, consequatur qui quos mollitia eaque odio culpa laudantium alias aut laboriosam, eius pariatur rem sint? Vel ipsum architecto et ut nisi dolores vero suscipit veritatis, ab reiciendis nesciunt illo beatae quibusdam cumque obcaecati dignissimos alias necessitatibus. Eligendi laboriosam corporis autem saepe animi ipsam? Enim illo natus velit officiis sed voluptatibus facilis nulla ullam nesciunt laudantium iusto, molestiae earum, quam minus, modi iste quibusdam. Neque, facilis! Dicta pariatur porro dolorem recusandae nesciunt, tempore velit, cupiditate reiciendis dolore placeat, totam modi accusantium?
               </p>
             )}
           </motion.div>

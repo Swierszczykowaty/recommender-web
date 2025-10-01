@@ -9,7 +9,7 @@ export default function Home() {
         <div className="relative flex flex-col items-center z-10 w-full mx-auto">
           <div className="relative z-10 w-full max-w-4xl text-center">
             <Title
-              subtitle="Wybierz, co Cię interesuje"
+              subtitle="Choose what interests you"
               gradientLight={{
               from: "from-pink-300",
               via: "via-purple-300",
@@ -23,30 +23,30 @@ export default function Home() {
               subtitleColor: "text-white/80",
             }}
             >
-              Rekomender WWSI
+              Movie Recommender
             </Title>
           </div>
           <div className="relative z-10 flex flex-col lg:flex-none lg:grid lg:grid-cols-3 items-stretch justify-center gap-6 lg:gap-8 w-full max-w-6xl mt-8">
             <HeroCard
               href="/recommender"
               icon="insights"
-              title="Wygeneruj rekomendacje"
-              description="Zobacz filmy polecane specjalnie dla Ciebie."
-              buttonText="Rozpocznij"
+              title="Try Recommendations"
+              description="Discover movies tailored just for you."
+              buttonText="Start"
             />
             <HeroCard
               href="/movies"
               icon="database"
-              title="Sprawdź bazę filmów"
-              description="Przeglądaj wszystkie dostępne filmy i ich opisy."
-              buttonText="Zobacz filmy"
+              title="Browse Movie Database"
+              description="Browse all available movies."
+              buttonText="View Movies"
             />
             <HeroCard
               href="/rankings"
               icon="leaderboard"
-              title="Poznaj ranking filmowy"
-              description="Sprawdź najwyżej oceniane filmy."
-              buttonText="Otwórz rankingi"
+              title="Explore Movie Rankings"
+              description="Check out the highest rated movies."
+              buttonText="Open Rankings"
             />
           </div>
         </div>

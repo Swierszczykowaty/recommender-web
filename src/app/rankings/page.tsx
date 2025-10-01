@@ -8,7 +8,7 @@ export default function RankingsIndex() {
       <Container>
         <div className="relative flex flex-col items-center z-10 w-full mx-auto">
           <Title
-            subtitle="Sprawdź najlepsze produkcje"
+            subtitle="Check out the best productions"
             gradientLight={{
               from: "from-rose-300",
               via: "via-pink-300",
@@ -22,29 +22,29 @@ export default function RankingsIndex() {
               subtitleColor: "text-white/80",
             }}
           >
-            Baza rankingów
+            Rankings Database
           </Title>
           <div className="relative z-10 flex flex-col lg:flex-none lg:grid lg:grid-cols-3 items-stretch justify-center gap-6 lg:gap-8 w-full max-w-6xl mt-8">
             <RankingCard
               href="/rankings/rating"
               icon="diamond_shine"
-              title="Najlepiej oceniane"
-              description="Zobacz filmy z najwyższą średnią oceną."
-              buttonText="Sprawdź"
+              title="Top Rated"
+              description="View movies with the highest average rating."
+              buttonText="Check"
             />
             <RankingCard
               href="/rankings/votes"
               icon="how_to_vote"
-              title="Najwięcej głosów"
-              description="Sprawdź, które tytuły zebrały najwięcej opinii."
-              buttonText="Sprawdź"
+              title="Most Votes"
+              description="Check which titles collected the most votes."
+              buttonText="Check"
             />
             <RankingCard
               href="/rankings/revenue"
               icon="attach_money"
-              title="Największy zysk"
-              description="Ranking filmów o największych przychodach."
-              buttonText="Sprawdź"
+              title="Highest Revenue"
+              description="Ranking of movies with the highest revenue."
+              buttonText="Check"
             />
           </div>
         </div>

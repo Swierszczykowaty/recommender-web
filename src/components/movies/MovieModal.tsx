@@ -71,7 +71,7 @@ export default function MovieModal({ isOpen, onClose, movie }: MovieModalProps) 
     ? `Plakat filmu ${movie.title}`
     : movie.backdrop_path
     ? `Kadr z filmu ${movie.title}`
-    : movie.title ?? "Podgląd";
+    : movie.title ?? "Preview";
 
   const content = (
     <AnimatePresence>

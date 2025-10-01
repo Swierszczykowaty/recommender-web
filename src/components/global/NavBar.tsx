@@ -15,8 +15,8 @@ export default function NavBar() {
           href="/"
           className="flex items-center  text-xl font-bold gap-2"
         >
-          <Icon icon="blur_on" className=" text-3xl cursor-pointer" />
-          Rekomender WWSI
+          <Icon icon="blur_on" className=" !text-3xl cursor-pointer" />
+          Movie Recommender
         </Link>
 
         {/* Desktop menu */}
@@ -31,25 +31,25 @@ export default function NavBar() {
             className="hover:text-violet-200 active:text-violet-400 duration-100"
             href="/recommender"
           >
-            Rekomender
+            Recommender
           </Link>
           <Link
             className="hover:text-sky-200 active:text-sky-400 duration-100"
             href="/movies"
           >
-            Baza filmów
+            Movie Database
           </Link>
           <Link
             className="hover:text-rose-200 active:text-rose-400 duration-100"
             href="/rankings"
           >
-            Rankingi
+            Rankings
           </Link>
           <Link
             className="hover:text-emerald-200 active:text-emerald-400 duration-100"
             href="/about"
           >
-            O Projekcie
+            About
           </Link>
         </div>
         {/* Mobile hamburger */}
@@ -78,16 +78,16 @@ export default function NavBar() {
               Home
             </Link>
             <Link href="/recommender" onClick={() => setMenuOpen(false)}>
-              Rekomender
+              Recommender
             </Link>
             <Link href="/movies" onClick={() => setMenuOpen(false)}>
-              Baza filmów
+              Movie Database
             </Link>
             <Link href="/rankings" onClick={() => setMenuOpen(false)}>
-              Rankingi
+              Rankings
             </Link>
             <Link href="/about" onClick={() => setMenuOpen(false)}>
-              O Projekcie
+              About
             </Link>
           </motion.div>
         )}

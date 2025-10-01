@@ -27,7 +27,7 @@ const shellVariants: Variants = {
 // szerokości pastylki
 const fabVariants: Variants = {
   collapsed: { width: 56, paddingRight: 12 },
-  expanded:  { width: 220, paddingRight: 20 },
+  expanded:  { width: 265, paddingRight: 20 },
 };
 const textVariants: Variants = {
   collapsed: { x: -8, opacity: 0 },

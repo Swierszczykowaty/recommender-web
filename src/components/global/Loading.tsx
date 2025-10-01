@@ -39,7 +39,7 @@ export default function Loading({ message }: LoadingProps) {
             className="flex flex-col justify-center items-center gap-2 mt-2 text-white/80 text-center"
           >
             <p className="text-white/70 max-w-[48ch] text-sm md:text-md">
-              To trwa dłużej niż zwykle — serwer może się wybudzać.
+              This is taking longer than usual — the server may be waking up.
             </p>
             <p className="text-white/60 text-sm md:text-md">Przepraszamy za utrudnienia.</p>
 
