@@ -385,7 +385,7 @@ export default function MovieDetailPage() {
             {!loading && (
               <Link
                 href={`/recommender/${movie.id}`}
-                className="z-40 flex px-6 py-3 w-full max-w-[250px] justify-center shadow-xl bg-gradient-to-tr from-indigo-400/10 via-fuchsia-400/25 to-purple-400/15 border border-white/30 rounded-lg hover:from-indigo-400/35 hover:via-fuchsia-400/45 hover:to-purple-400/55 transition-colors duration-300"
+                className="z-40 flex px-6 py-3 w-full max-w-[250px] justify-center shadow-lg hover:shadow-xl shadow-violet-500/20 bg-gradient-to-tr from-indigo-400/10 via-fuchsia-400/25 to-purple-400/15 border border-white/30 rounded-lg hover:from-indigo-400/35 hover:via-fuchsia-400/45 hover:to-purple-400/55 transition-colors duration-300"
               >
                 Generuj Rekomendacje
               </Link>

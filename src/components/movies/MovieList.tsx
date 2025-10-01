@@ -132,7 +132,7 @@ export default function MoviesList() {
   return (
     <section className="relative min-h-screen pt-32 flex justify-center mb-10">
       <Container>
-        <div className="mb-10 text-center flex justify-center">
+        <div className="mb-6 text-center flex justify-center">
           <Title
             subtitle="Zanurz się w świecie filmów"
             gradientLight={{
