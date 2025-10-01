@@ -201,7 +201,7 @@ export default function MoviesList() {
                 error
               ) : query ? (
                 <>
-                  We couldn't find anything for "
+                  We couldn&apos;t find anything for 
                   <span className="underline">{query}</span>”.
                 </>
               ) : (

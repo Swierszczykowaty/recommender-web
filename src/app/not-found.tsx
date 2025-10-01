@@ -20,8 +20,8 @@ export default function NotFound() {
       <div className="mb-2">
         <Icon icon="smart_toy" className="!text-6xl animate-bounce" />
       </div>
-      <h1 className="text-4xl text-center font-bold mb-4">Oops… this page doesn't exist.</h1>
-      <p className="mb-6">We'll redirect you to the homepage shortly.</p>
+      <h1 className="text-4xl text-center font-bold mb-4">Oops… this page doesn&apos;t exist.</h1>
+      <p className="mb-6">We&apos;ll redirect you to the homepage shortly.</p>
       <Link href="/">
         <button className="px-6 py-3 bg-white/7 border border-white/30 hover:bg-white/10 text-white rounded-lg transition">
           Back to Home
