@@ -91,7 +91,7 @@ const MovieCardSmall = ({ movie, onClick }: MovieCardSmallProps) => {
             </AnimatePresence>
 
             <span className="text-sm font-semibold text-white">
-              Generuj rekomendacje dla
+              Generate recommendations for
             </span>
             <span className="text-xs font-semibold text-white">
               {movie.title}

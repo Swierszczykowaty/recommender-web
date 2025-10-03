@@ -10,7 +10,7 @@ type MovieCardProps = {
 export default function MovieCard({ movie, isFirstCard }: MovieCardProps) {
   const {
     id,
-    title = "Brak tytułu",
+    title = "No title",
     poster_path,
     release_date = "—",
     vote_average,

@@ -27,7 +27,7 @@ const shellVariants: Variants = {
 // szerokości pastylki
 const fabVariants: Variants = {
   collapsed: { width: 56, paddingRight: 12 },
-  expanded:  { width: 220, paddingRight: 20 },
+  expanded:  { width: 265, paddingRight: 20 },
 };
 const textVariants: Variants = {
   collapsed: { x: -8, opacity: 0 },
@@ -78,7 +78,7 @@ export default function MobileScrollFABRight({
           <motion.div
             className="relative flex items-center h-14 rounded-2xl border border-white/30 backdrop-blur-lg
                        bg-gradient-to-tr from-indigo-400/10 via-fuchsia-400/25 to-purple-400/15
-                       overflow-hidden cursor-pointer shadow-xl"
+                       overflow-hidden cursor-pointer shadow-lg hover:shadow-xl shadow-violet-500/20"
             variants={fabVariants}
             initial="collapsed"
             whileHover="expanded"

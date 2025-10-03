@@ -74,7 +74,7 @@ export default function RecommendationResultPage() {
 
         if (!res.ok) {
           const txt = await res.text().catch(() => "");
-          throw new Error(`Błąd serwera rekomendacji. ${txt || ""}`.trim());
+          throw new Error(`Recommendation server error. ${txt || ""}`.trim());
         }
 
         const data = (await res.json()) as RecommendationsResponse;
@@ -102,7 +102,7 @@ export default function RecommendationResultPage() {
       } catch (err: unknown) {
         if (err instanceof DOMException && err.name === "AbortError") return;
         setError(
-          err instanceof Error ? err.message : "Wystąpił nieoczekiwany błąd."
+          err instanceof Error ? err.message : "An unexpected error occurred."
         );
       } finally {
         setLoading(false);
@@ -116,18 +116,18 @@ export default function RecommendationResultPage() {
   return (
     <section className="relative min-h-screen overflow-hidden pb-10 pt-32 ">
       <Container>
-        {loading && <Loading message={`Model ${engine.toUpperCase()} generuje twoje rekomendacje...`} />}
+        {loading && <Loading message={`Model ${engine.toUpperCase()} is generating your recommendations...`} />}
 
         {error && (
           <div className="flex flex-col items-center gap-6">
             <p className="text-red-400 text-center text-lg pt-24">{error}</p>
-            <h1>Spróbuj ponownie później!</h1>
+            <h1>Please try again later!</h1>
             <button
               onClick={handleGoBack}
               className="flex items-center gap-2 px-6 py-3 w-full max-w-[250px] justify-center bg-white/7 border border-white/20 rounded-lg backdrop-blur-md shadow-xl transition cursor-pointer hover:bg-white/20 duration-300"
             >
               <Icon icon="keyboard_backspace" className="!text-2xl" />
-              Powrót
+              Back
             </button>
           </div>
         )}
@@ -135,7 +135,7 @@ export default function RecommendationResultPage() {
         {!loading && !error && baseMovie && (
           <div className="flex flex-col items-center w-full mx-auto">
             <Title
-              subtitle={`Wygenerowane specjalnie dla Ciebie • Model: ${engine.toUpperCase()}`}
+              subtitle={`Generated especially for you • Model: ${engine.toUpperCase()}`}
               gradientLight={{
               from: "from-pink-300",
               via: "via-rose-200",
@@ -149,7 +149,7 @@ export default function RecommendationResultPage() {
               subtitleColor: "text-white/80",
             }}
             >
-              Rekomendacje Filmowe
+              Movie Recommendations
             </Title>
 
             <motion.div
@@ -159,7 +159,7 @@ export default function RecommendationResultPage() {
               transition={{ duration: 0.7, ease: "easeOut" }}
             >
               <h2 className="text-lg font-semibold text-white/80 mb-4 text-center">
-                Na podstawie filmu:
+                Based on movie:
               </h2>
               <Link href={`/movies/${baseMovie.id}`} className="flex flex-col sm:flex-row items-center bg-white/7 rounded-2xl border border-white/20 backdrop-blur-lg overflow-hidden group hover:bg-white/10 transition duration-300 cursor-pointer hover:border-white/30">
                 <div className="mt-6 sm:mt-0 w-full max-w-sm sm:max-w-2xl sm:w-52 sm:px-0 px-6 flex-shrink-0 rounded-lg overflow-hidden sm:rounded-none">
@@ -187,7 +187,7 @@ export default function RecommendationResultPage() {
               transition={{ duration: 0.4, ease: "easeOut" }}
             >
               <h2 className="text-lg font-semibold text-white/80 mb-6 text-center">
-                Oto 8 filmów, które mogą Ci się spodobać:
+                Here are 8 movies you might like:
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 w-full">
                 {recommendations.map((movie, index) => (
@@ -202,9 +202,9 @@ export default function RecommendationResultPage() {
 
             <Link
               href="/recommender"
-              className="mt-10 px-8 py-3 bg-gradient-to-br from-indigo-400/10 via-fuchsia-400/25 to-purple-400/15 border border-white/30 rounded-lg text-white hover:bg-gradient-to-tr hover:from-indigo-400/35 hover:via-fuchsia-400/45 hover:to-purple-400/55 transition-colors cursor-pointer"
+              className="mt-10 px-8 py-3 bg-gradient-to-br from-indigo-400/10 via-fuchsia-400/25 to-purple-400/15 border border-white/30 rounded-lg text-white hover:bg-gradient-to-tr hover:from-indigo-400/35 hover:via-fuchsia-400/45 hover:to-purple-400/55 transition-colors cursor-pointer shadow-lg hover:shadow-xl shadow-violet-500/20"
             >
-              Wyszukaj inne rekomendacje
+              Search for other recommendations
             </Link>
           </div>
         )}

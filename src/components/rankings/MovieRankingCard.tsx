@@ -13,8 +13,8 @@ interface Props {
 }
 
 const LABELS: Record<RankingType, string> = {
-  rating: "Ocena",
-  votes: "Głosów",
+  rating: "Rating",
+  votes: "Votes",
   revenue: "Zysk (USD)",
 };
 
@@ -23,7 +23,7 @@ export default function MovieRankingCard({ movie, rank, type }: Props) {
     id,
     backdrop_path,
     poster_path,
-    title = "Brak tytułu",
+    title = "No title",
     release_date,
     genres = "—",
     vote_average,

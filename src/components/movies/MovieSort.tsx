@@ -6,13 +6,13 @@ import Icon from "@/components/global/Icon";
 import { motion, AnimatePresence } from "framer-motion";
 
 const sortOptions = [
-  { label: "Domyślne", value: "" },
-  { label: "Tytuł A–Z", value: "title-asc" },
-  { label: "Tytuł Z–A", value: "title-desc" },
-  { label: "Ocena (malejąco)", value: "rating-desc" },
-  { label: "Ocena (rosnąco)", value: "rating-asc" },
-  { label: "Rok (najnowsze)", value: "year-desc" },
-  { label: "Rok (najstarsze)", value: "year-asc" },
+  { label: "Default", value: "" },
+  { label: "Title A–Z", value: "title-asc" },
+  { label: "Title Z–A", value: "title-desc" },
+  { label: "Rating (descending)", value: "rating-desc" },
+  { label: "Rating (ascending)", value: "rating-asc" },
+  { label: "Year (newest)", value: "year-desc" },
+  { label: "Year (oldest)", value: "year-asc" },
 ];
 
 export default function MovieSort() {
@@ -48,7 +48,7 @@ export default function MovieSort() {
   }, [open]);
 
   const selectedLabel =
-    sortOptions.find((opt) => opt.value === selected)?.label || "Domyślne";
+    sortOptions.find((opt) => opt.value === selected)?.label || "Default";
 
   return (
     <div
@@ -56,14 +56,14 @@ export default function MovieSort() {
       className="relative flex items-center gap-2 cursor-default"
     >
       <span className="hidden md:inline text-white font-semibold whitespace-nowrap">
-        Sortuj po:
+        Sort by:
       </span>
 
       <button
         onClick={() => setOpen((o) => !o)}
         className="text-white/90 text-sm font-medium flex items-center gap-1 cursor-pointer"
       >
-        <span className="inline md:hidden">Sortuj</span>
+        <span className="inline md:hidden">Sort</span>
         <span className="hidden md:inline">{selectedLabel}</span>
         <Icon
           icon="keyboard_arrow_up"

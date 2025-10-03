@@ -13,7 +13,7 @@ const archivo = Archivo({
 });
 
 export const metadata = {
-  title: "Rekomendacje Filmowe",
+  title: "Movie Recommendations",
   icons: {
     icon: [
       { url: "/favicon.ico", type: "image/x-icon" },
@@ -38,7 +38,7 @@ export default function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta
           name="description"
-          content="System rekomendacji filmów oparty na analizie treści. Przeglądaj rankingi, odkrywaj nowe tytuły i wybieraj filmy dopasowane do Twojego gustu."
+          content="A content-based movie recommendation system. Browse rankings, discover new titles, and choose movies tailored to your taste."
         />
       </head>
       <body

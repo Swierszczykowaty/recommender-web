@@ -61,7 +61,7 @@ export default function MoviesList() {
         if (!cancelled) {
           setItems([]);
           setTotalPages(1);
-          setError("Nie udało się pobrać wyników. Spróbuj ponownie.");
+          setError("Failed to fetch results. Please try again.");
         }
       })
       .finally(() => {
@@ -132,9 +132,9 @@ export default function MoviesList() {
   return (
     <section className="relative min-h-screen pt-32 flex justify-center mb-10">
       <Container>
-        <div className="mb-10 text-center flex justify-center">
+        <div className="mb-6 text-center flex justify-center">
           <Title
-            subtitle="Zanurz się w świecie filmów"
+            subtitle="Dive into the world of movies"
             gradientLight={{
               from: "from-teal-200",
               via: "via-blue-300",
@@ -149,7 +149,7 @@ export default function MoviesList() {
             }}
             link="/movies"
           >
-            Baza filmów
+            Movie Database
           </Title>
         </div>
 
@@ -169,7 +169,7 @@ export default function MoviesList() {
 
             {totalPages > 1 && (
               <span className="text-white/80 text-xs md:text-sm absolute left-1/2 transform -translate-x-1/2">
-                Strona {page} z {totalPages}
+                Page {page} of {totalPages}
               </span>
             )}
 
@@ -194,18 +194,18 @@ export default function MoviesList() {
           // EMPTY STATE
           <div className="w-full max-w-xl mx-auto text-center py-16 px-6 border border-white/15 rounded-xl bg-white/5">
             <div className="text-2xl font-semibold text-white mb-2">
-              {error ? "Ups…" : "Brak wyników"}
+              {error ? "Oops…" : "No Results"}
             </div>
             <p className="text-white/70 mb-6">
               {error ? (
                 error
               ) : query ? (
                 <>
-                  Nie znaleźliśmy nic dla frazy „
+                  We couldn&apos;t find anything for 
                   <span className="underline">{query}</span>”.
                 </>
               ) : (
-                "Dopasuj filtry albo wpisz inną frazę."
+                "Adjust filters or try a different search term."
               )}
             </p>
 
@@ -224,7 +224,7 @@ export default function MoviesList() {
                 }}
                 className="px-4 py-2 rounded-lg text-sm md:text-base border bg-white/10 hover:bg-white/20 text-white border-white/20 duration-300"
               >
-                Wyczyść filtry
+                Clear filters
               </button>
 
               {/* Pokaż wszystkie */}
@@ -237,14 +237,14 @@ export default function MoviesList() {
                 }}
                 className="px-4 py-2 rounded-lg text-sm md:text-base bg-white/10 hover:bg-white/20 text-white border border-white/20 duration-300"
               >
-                Pokaż wszystkie filmy
+                Show all movies
               </button>
             </div>
 
             {!error && (
               <ul className="text-white/60 text-sm mt-8 space-y-1">
-                <li>• Spróbuj krótszej frazy lub innej pisowni.</li>
-                <li>• Usuń część filtrów (gatunek, język, rok, ocena).</li>
+                <li>• Try a shorter phrase or different spelling.</li>
+                <li>• Remove some filters (genre, language, year, rating).</li>
               </ul>
             )}
           </div>

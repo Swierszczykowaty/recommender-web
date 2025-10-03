@@ -17,9 +17,9 @@ interface Props {
 }
 
 const LABELS: Record<RankingType, string> = {
-  rating: "Ocena",
-  votes: "Liczba głosów",
-  revenue: "Zysk (USD)",
+  rating: "Rating",
+  votes: "Vote Count",
+  revenue: "Revenue (USD)",
 };
 const containerVariants = {
   hidden: {},
@@ -45,7 +45,7 @@ export default function MovieRankingList({ movies, type }: Props) {
       <Container>
         <div className="mb-10 text-center flex justify-center">
           <Title
-            subtitle={`Na podstawie parametru: ${LABELS[type]}`}
+            subtitle={`Based on parameter: ${LABELS[type]}`}
             gradientLight={{
               from: "from-rose-300",
               via: "via-pink-300",
@@ -88,7 +88,7 @@ export default function MovieRankingList({ movies, type }: Props) {
             className="flex items-center gap-2 px-4 py-1 text-sm bg-white/7 border border-white/20 rounded-lg backdrop-blur-md shadow-xl transition cursor-pointer hover:bg-white/10"
           >
             <Icon icon="keyboard_backspace" style={{ fontSize: "20px" }} />
-            <span className="text-sm hidden md:inline">Powrót</span>
+            <span className="text-sm hidden md:inline">Back</span>
           </button>
         </motion.div>
         {/* KONIEC BREADCRUMB + POWRÓT */}

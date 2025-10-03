@@ -76,7 +76,7 @@ export default function RecommenderSearchPage() {
       <Container>
         <div className="mb-6 text-center flex justify-center">
           <Title
-            subtitle="Wybierz film i model - my znajdziemy podobne"
+            subtitle="Choose a movie and model - we'll find similar ones"
               gradientLight={{
               from: "from-pink-300",
               via: "via-rose-200",
@@ -90,7 +90,7 @@ export default function RecommenderSearchPage() {
               subtitleColor: "text-white/80",
             }}
           >
-            Generowanie Rekomendacji
+            Generate Recommendations
           </Title>
         </div>
 
@@ -132,18 +132,18 @@ export default function RecommenderSearchPage() {
 
         {/* <p className="max-w-2xl mx-auto text-center text-white/70 mb-8 px-2 text-sm md:text-base">
           Wybierz silnik rekomendacji: v1 (klasyczny) lub <strong>v2</strong> (nowszy i dokładniejszy — łączy wyszukiwanie semantyczne z BM25).
-          Po wybraniu filmu poniżej pokażemy propozycje, które najbardziej do niego pasują.
-          Zawsze możesz przełączyć silnik i porównać wyniki.
+          After selecting a movie below, we'll show you recommendations that best match it.
+          You can always switch engines and compare results.
         </p> */}
 
         <div className="max-w-2xl mx-auto mb-6">
           <SearchBar
             onSearch={handleSearch}
-            placeholder="Wpisz tytuł filmu..."
+            placeholder="Enter movie title..."
           />
           {searchQuery && !allMovies && (
             <p className="text-white/60 text-sm mt-2">
-              Ładuję pełną bazę filmów…
+              Loading full movie database…
             </p>
           )}
         </div>
@@ -169,9 +169,9 @@ export default function RecommenderSearchPage() {
                 ) : (
                   <>
                     {/* mobile */}
-                    <span className="md:hidden">Proponowane:</span>
+                    <span className="md:hidden">Suggested:</span>
                     {/* desktop */}
-                    <span className="hidden md:inline">Proponowane filmy:</span>
+                    <span className="hidden md:inline">Suggested movies:</span>
                   </>
                 )}
               </h2>
@@ -179,9 +179,9 @@ export default function RecommenderSearchPage() {
               <Link
                 href="/about"
                 className="text-sm text-white hover:underline"
-                aria-label="Jak działa rekomender?"
+                aria-label="How does the recommender work?"
               >
-                <span className="inline">Jak działa rekomender?</span>
+                <span className="inline">How does the recommender work?</span>
               </Link>
             </motion.div>
 
@@ -209,7 +209,7 @@ export default function RecommenderSearchPage() {
 
         {searchResults.length === 0 && searchQuery !== "" && (
           <p className="flex justify-center text-white/70 text-sm md:text-lg mt-8">
-            Brak wyników dla &quot;{searchQuery}&quot;. Spróbuj innej frazy.
+            No results for &quot;{searchQuery}&quot;. Try a different search term.
           </p>
         )}
       </Container>

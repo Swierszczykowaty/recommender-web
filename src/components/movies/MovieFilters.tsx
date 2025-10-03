@@ -30,10 +30,10 @@ const genresList = [
 ];
 
 const languagesList = [
-  { code: "English", label: "Angielski" },
-  { code: "Spanish", label: "Hiszpański" },
-  { code: "Polish", label: "Polski" },
-  { code: "French", label: "Francuski" },
+  { code: "English", label: "English" },
+  { code: "Spanish", label: "Spanish" },
+  { code: "Polish", label: "Polish" },
+  { code: "French", label: "French" },
 ];
 
 export default function MovieFilters({ onFilter }: MovieFiltersProps) {
@@ -82,9 +82,9 @@ export default function MovieFilters({ onFilter }: MovieFiltersProps) {
         onClick={() => setShow((v) => !v)}
       >
         {/* małe ekrany */}
-        <span className="block sm:hidden">Filtrowanie</span>
+        <span className="block sm:hidden">Filtering</span>
         {/* średnie i duże ekrany */}
-        <span className="hidden sm:block">Filtrowanie zaawansowane</span>
+        <span className="hidden sm:block">Advanced Filtering</span>
         <Icon
           icon="keyboard_arrow_up"
           className={`ml-1 transition-transform ${
@@ -119,7 +119,7 @@ export default function MovieFilters({ onFilter }: MovieFiltersProps) {
                   {/* gatunki */}
                   <div className="w-full">
                     <label className="text-white text-sm mb-2 block font-semibold">
-                      Wybierz gatunek
+                      Select genre
                     </label>
                     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
                       {genresList.map((g) => (
@@ -139,14 +139,14 @@ export default function MovieFilters({ onFilter }: MovieFiltersProps) {
                         className={`col-span-2 sm:col-span-3 md:col-span-4 px-2 py-1 mt-1 rounded-lg text-sm text-white text-center font-medium border border-white/30 bg-white/10 hover:bg-white/20 transition
                       ${!genre ? "font-bold bg-white/30 ring-1" : ""}`}
                       >
-                        Wszystkie
+                        All Genres
                       </button>
                     </div>
                   </div>
                   {/* {jezyki} */}
                   <div className="w-full">
                     <label className="text-white text-sm mb-2 block font-semibold">
-                      Wybierz język
+                      Select language
                     </label>
                     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
                       {languagesList.map((lang) => (
@@ -166,7 +166,7 @@ export default function MovieFilters({ onFilter }: MovieFiltersProps) {
                         className={`col-span-2 sm:col-span-3 md:col-span-4 px-2 py-1 mt-1 rounded-lg text-sm text-white text-center font-medium border border-white/30 bg-white/10 hover:bg-white/20 transition
         ${!language ? "font-bold bg-white/30 ring-1" : ""}`}
                       >
-                        Wszystkie języki
+                        All Languages
                       </button>
                     </div>
                   </div>
@@ -174,7 +174,7 @@ export default function MovieFilters({ onFilter }: MovieFiltersProps) {
                   <div className="flex flex-col sm:flex-row gap-2 md:gap-4 w-full justify-between">
                     <div className="flex flex-col items-start flex-1">
                       <label className="text-white text-sm mb-1 font-semibold">
-                        Minimalna ocena
+                        Minimum Rating
                       </label>
                       <input
                         type="number"
@@ -183,19 +183,19 @@ export default function MovieFilters({ onFilter }: MovieFiltersProps) {
                         max={10}
                         value={minRating}
                         onChange={(e) => setMinRating(e.target.value)}
-                        placeholder="np. 7.5"
+                        placeholder="e.g. 7.5"
                         className="w-full px-3 py-1 md:py-2 rounded-lg bg-white/10 text-white placeholder-white/60 backdrop-blur focus:outline-none focus:ring border border-white/20 focus:ring-white/60 [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
                       />
                     </div>
                     <div className="flex flex-col items-start flex-1">
                       <label className="text-white text-sm mb-1 font-semibold">
-                        Minimalny rok
+                        Minimum Year
                       </label>
                       <input
                         type="number"
                         value={minYear}
                         onChange={(e) => setMinYear(e.target.value)}
-                        placeholder="np. 2015"
+                        placeholder="e.g. 2015"
                         className="w-full px-3  py-1 md:py-2 rounded-lg bg-white/10 text-white placeholder-white/60 backdrop-blur focus:outline-none focus:ring border border-white/20 focus:ring-white/60 [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
                       />
                     </div>
@@ -217,7 +217,7 @@ export default function MovieFilters({ onFilter }: MovieFiltersProps) {
                       onClick={applyFilters}
                       className="px-8 py-2 text-sm md:text-md rounded-lg bg-white/10 border border-white/30 text-white font-bold hover:bg-white/20 transition"
                     >
-                      Filtruj
+                      Filter
                     </button>
                   </div>
                 </div>
