@@ -27,7 +27,7 @@ export default function MovieCard({ movie, isFirstCard }: MovieCardProps) {
   return (
     <Link
       href={`/movies/${id}`}
-      className="group bg-white/7 backdrop-blur-lg border border-white/20 rounded-xl overflow-hidden shadow-xl transition hover:bg-white/10 duration-300 flex flex-row h-[140px] sm:flex-col sm:h-auto relative"
+      className="group bg-white/7 backdrop-blur-lg border border-white/20 rounded-xl overflow-hidden shadow-xl transition hover:bg-white/15 duration-300 flex flex-row h-[140px] sm:flex-col sm:h-auto relative"
     >
       {typeof vote_average === "number" && (
         <div
