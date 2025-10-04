@@ -10,6 +10,7 @@ export async function GET() {
     }
     return NextResponse.json({ status: 'error' }, { status: res.status });
   } catch (error) {
+    console.error('Health check failed:', error);
     return NextResponse.json({ status: 'error', message: 'Failed to connect to the upstream server.' }, { status: 500 });
   }
 }

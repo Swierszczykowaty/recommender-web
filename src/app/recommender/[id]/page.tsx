@@ -133,7 +133,7 @@ export default function RecommendationResultPage() {
             <h1>Please try again later!</h1>
             <button
               onClick={handleGoBack}
-              className="flex items-center gap-2 px-6 py-3 w-full max-w-[250px] justify-center bg-white/7 border border-white/20 rounded-lg backdrop-blur-md shadow-xl transition cursor-pointer hover:bg-white/20 duration-300"
+              className="flex items-center gap-2 px-6 py-2 w-full max-w-[250px] justify-center bg-white/7 border border-white/20 rounded-lg backdrop-blur-md shadow-xl transition cursor-pointer hover:bg-white/20 duration-300"
             >
               <Icon icon="keyboard_backspace" className="!text-2xl" />
               Back
