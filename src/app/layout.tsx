@@ -1,19 +1,10 @@
 import "./globals.css";
 import { ReactNode } from "react";
-import NavBar from "@/components/global/NavBar";
-import LayoutBackground from "@/components/layout/LayoutBackground";
-import { Archivo } from "next/font/google";
-import LenisProvider from "@/components/layout/LenisProvider";
-
-
-const archivo = Archivo({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-  display: "swap",
-});
+import ClientLayout from "@/components/layout/ClientLayout";
 
 export const metadata = {
   title: "Movie Recommendations",
+  description: "Movie recommender system",
   icons: {
     icon: [
       { url: "/favicon.ico", type: "image/x-icon" },
@@ -41,16 +32,7 @@ export default function RootLayout({
           content="A content-based movie recommendation system. Browse rankings, discover new titles, and choose movies tailored to your taste."
         />
       </head>
-      <body
-        data-nextjs-scroll-focus-boundary
-        className={`${archivo.className} relative text-white min-h-dvh overflow-x-hidden`}
-      >
-        <NavBar />
-        <LayoutBackground />
-        <LenisProvider>
-          <main className="relative z-10 bg-transparent">{children}</main>
-        </LenisProvider>
-      </body>
+      <ClientLayout>{children}</ClientLayout>
     </html>
   );
 }

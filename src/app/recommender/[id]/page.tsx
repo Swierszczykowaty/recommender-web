@@ -12,6 +12,7 @@ import Loading from "@/components/global/Loading";
 import Icon from "@/components/global/Icon";
 import MovieRankingCard from "@/components/rankings/MovieRankingCard";
 import FadeImage from "@/components/global/FadeImage";
+import { useEngineStore } from "@/lib/engineStore";
 
 type Engine = "v1" | "v2";
 
@@ -25,6 +26,7 @@ export default function RecommendationResultPage() {
   const searchParams = useSearchParams();
   const movieId = params.id as string;
   const engine = (searchParams.get("engine") as Engine) || "v2";
+  const { setEngineReady, setLastRecommendationUrl } = useEngineStore();
 
   const handleGoBack = () => window.history.back();
 
@@ -38,6 +40,11 @@ export default function RecommendationResultPage() {
     source_id?: number | string;
     recommendations: ApiRecommendationItem[];
   };
+
+  useEffect(() => {
+    // Zapisz URL przy pierwszym renderowaniu
+    setLastRecommendationUrl(window.location.pathname + window.location.search);
+  }, [setLastRecommendationUrl]);
 
   useEffect(() => {
     if (!movieId) return;
@@ -71,6 +78,8 @@ export default function RecommendationResultPage() {
           cache: "no-store",
           signal: controller.signal,
         });
+
+        setEngineReady(true);
 
         if (!res.ok) {
           const txt = await res.text().catch(() => "");
@@ -111,7 +120,7 @@ export default function RecommendationResultPage() {
 
     fetchMovieData();
     return () => controller.abort();
-  }, [movieId, engine]);
+  }, [movieId, engine, setEngineReady]); // Dodano setEngineReady do zależności
 
   return (
     <section className="relative min-h-screen overflow-hidden pb-10 pt-32 ">
@@ -124,7 +133,7 @@ export default function RecommendationResultPage() {
             <h1>Please try again later!</h1>
             <button
               onClick={handleGoBack}
-              className="flex items-center gap-2 px-6 py-3 w-full max-w-[250px] justify-center bg-white/7 border border-white/20 rounded-lg backdrop-blur-md shadow-xl transition cursor-pointer hover:bg-white/20 duration-300"
+              className="flex items-center gap-2 px-6 py-2 w-full max-w-[250px] justify-center bg-white/7 border border-white/20 rounded-lg backdrop-blur-md shadow-xl transition cursor-pointer hover:bg-white/20 duration-300"
             >
               <Icon icon="keyboard_backspace" className="!text-2xl" />
               Back
