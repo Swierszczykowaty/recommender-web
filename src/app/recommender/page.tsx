@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Title from "@/components/global/Title";
 import Container from "@/components/layout/Container";
@@ -36,24 +36,46 @@ export default function RecommenderSearchPage() {
   }, [engine]);
 
   useEffect(() => {
-    if (searchQuery && !allMovies) {
+    // Załaduj pełną bazę danych przy pierwszym renderze
+    if (!allMovies) {
       import("@/data/full_data_web.json")
-        .then((m) => setAllMovies(m.default as Movie[]))
+        .then((m) => {
+          setAllMovies(m.default as Movie[]);
+          // Po załadowaniu danych, jeśli jest aktywne wyszukiwanie, odśwież wyniki
+          if (searchQuery.trim()) {
+            const filtered = searchMovies(m.default as Movie[], searchQuery);
+            setSearchResults(filtered.slice(0, 12));
+          }
+        })
         .catch((e) => {
           console.error("Nie udało się wczytać full_data_web.json", e);
           setAllMovies([]);
         });
     }
-  }, [searchQuery, allMovies]);
+  }, [allMovies, searchQuery]);
 
-  const searchSource: Movie[] = useMemo(
-    () => (allMovies && allMovies.length > 0 ? allMovies : TOP_MOVIES),
-    [allMovies]
-  );
+  useEffect(() => {
+    if (searchQuery === "") {
+      const randomSelection = [...TOP_MOVIES]
+        .sort(() => Math.random() - 0.5)
+        .slice(0, 12);
+      setSearchResults(randomSelection);
+    }
+  }, [searchQuery]);
 
   const handleSearch = (query: string) => {
     setSearchQuery(query);
-    const filtered = query.trim() ? searchMovies(searchSource, query) : [];
+    
+    // Jeśli nie ma query, nie szukaj
+    if (!query.trim()) {
+      setSearchResults([]);
+      return;
+    }
+    
+    // Jeśli nie ma pełnej bazy danych, użyj TOP_MOVIES jako fallback
+    // ale priorityzuj pełną bazę danych
+    const sourceToUse = allMovies && allMovies.length > 0 ? allMovies : TOP_MOVIES;
+    const filtered = searchMovies(sourceToUse, query);
     setSearchResults(filtered.slice(0, 12));
   };
 
@@ -77,7 +99,7 @@ export default function RecommenderSearchPage() {
         <div className="mb-6 text-center flex justify-center">
           <Title
             subtitle="Choose a movie and model - we'll find similar ones"
-              gradientLight={{
+            gradientLight={{
               from: "from-pink-300",
               via: "via-rose-200",
               to: "to-violet-300",
@@ -93,7 +115,18 @@ export default function RecommenderSearchPage() {
             Generate Recommendations
           </Title>
         </div>
-
+        <div className="max-w-2xl mx-auto mb-6">
+          <SearchBar
+            onSearch={handleSearch}
+            placeholder="Enter movie title..."
+            redirectType="recommender"
+          />
+          {searchQuery && !allMovies && (
+            <p className="text-white/60 text-sm mt-2">
+              Loading full movie database…
+            </p>
+          )}
+        </div>
         {/* Wybór silnika – dwa przyciski */}
         <motion.div
           className="flex items-center justify-center gap-3 mb-6"
@@ -135,18 +168,6 @@ export default function RecommenderSearchPage() {
           After selecting a movie below, we'll show you recommendations that best match it.
           You can always switch engines and compare results.
         </p> */}
-
-        <div className="max-w-2xl mx-auto mb-6">
-          <SearchBar
-            onSearch={handleSearch}
-            placeholder="Enter movie title..."
-          />
-          {searchQuery && !allMovies && (
-            <p className="text-white/60 text-sm mt-2">
-              Loading full movie database…
-            </p>
-          )}
-        </div>
 
         {searchResults.length > 0 && (
           <div>
@@ -209,7 +230,8 @@ export default function RecommenderSearchPage() {
 
         {searchResults.length === 0 && searchQuery !== "" && (
           <p className="flex justify-center text-white/70 text-sm md:text-lg mt-8">
-            No results for &quot;{searchQuery}&quot;. Try a different search term.
+            No results for &quot;{searchQuery}&quot;. Try a different search
+            term.
           </p>
         )}
       </Container>
