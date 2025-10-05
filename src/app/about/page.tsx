@@ -78,7 +78,7 @@ export default function AboutPage() {
             initial={{ opacity: 0, y: 0 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4 }}
-            className="p-8 rounded-xl bg-white/5 backdrop-blur-lg border border-white/20 text-white shadow-xl"
+            className="p-6 md:p-8 rounded-xl bg-white/5 backdrop-blur-lg border border-white/20 text-white shadow-xl"
           >
             {selectedSection === "overall" && (
               <>

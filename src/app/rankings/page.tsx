@@ -22,7 +22,7 @@ export default function RankingsIndex() {
               subtitleColor: "text-white/80",
             }}
           >
-            Rankings Database
+            Rankings
           </Title>
           <div className="relative z-10 flex flex-col lg:flex-none lg:grid lg:grid-cols-3 items-stretch justify-center gap-6 lg:gap-8 w-full max-w-6xl mt-8">
             <RankingCard

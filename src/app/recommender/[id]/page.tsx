@@ -162,7 +162,7 @@ export default function RecommendationResultPage() {
             </Title>
 
             <motion.div
-              className="mt-4 md:mt-12 mb-8 w-full max-w-3xl "
+              className="mt-4 sm:mt-12 mb-8 w-full max-w-3xl "
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.7, ease: "easeOut" }}
@@ -170,8 +170,8 @@ export default function RecommendationResultPage() {
               <h2 className="text-lg font-semibold text-white/80 mb-4 text-center">
                 Based on movie:
               </h2>
-              <Link href={`/movies/${baseMovie.id}`} className="flex flex-col sm:flex-row items-center bg-white/7 rounded-2xl border border-white/20 backdrop-blur-lg overflow-hidden group hover:bg-white/10 transition duration-300 cursor-pointer hover:border-white/30">
-                <div className="mt-6 sm:mt-0 w-full max-w-sm sm:max-w-2xl sm:w-52 sm:px-0 px-6 flex-shrink-0 rounded-lg overflow-hidden sm:rounded-none">
+              <Link href={`/movies/${baseMovie.id}`} className="flex flex-col sm:flex-row items-center p-4 sm:p-6 bg-white/7 rounded-2xl border border-white/20 backdrop-blur-lg overflow-hidden group hover:bg-white/10 transition duration-300 cursor-pointer hover:border-white/30">
+                <div className="w-full max-w-sm sm:max-w-2xl sm:w-52 flex-shrink-0 rounded-lg overflow-hidden sm:rounded-none">
                   <FadeImage
                     src={`https://image.tmdb.org/t/p/w500${baseMovie.poster_path}`}
                     alt={`Plakat filmu ${baseMovie.title}`}
@@ -180,11 +180,11 @@ export default function RecommendationResultPage() {
                     className=" transition-transform duration-300"
                   />
                 </div>
-                <div className="text-center sm:text-left p-5 md:p-6">
+                <div className="text-center sm:text-left mt-4 sm:ml-6 sm:mt-0">
                   <h3 className="text-2xl font-bold text-white">{baseMovie.title}</h3>
                   <p className="text-md text-white/70">{baseMovie.release_date?.slice(0, 4)}</p>
                   <p className="text-xs text-white/60">{baseMovie.genres}</p>
-                  <p className="hidden md:block text-sm text-white/80 line-clamp-4 mt-0 md:mt-3">{baseMovie.overview}</p>
+                  <p className="hidden sm:block text-sm text-white/80 line-clamp-4 mt-0 sm:mt-3">{baseMovie.overview}</p>
                 </div>
               </Link>
             </motion.div>

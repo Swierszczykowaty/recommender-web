@@ -26,7 +26,7 @@ export default function Loading({ message }: LoadingProps) {
 
   useEffect(() => {
     if (isSlow) {
-      const t2 = setTimeout(() => setShowButton(true), 1000);
+      const t2 = setTimeout(() => setShowButton(true), 0);
       return () => clearTimeout(t2);
     }
   }, [isSlow]);
@@ -41,7 +41,7 @@ export default function Loading({ message }: LoadingProps) {
       aria-live="polite"
     >
       <div className="w-8 h-8 border-4 border-white/20 border-t-white border-r-white/10 border-b-white/40 border-l-white/70 rounded-full animate-spin" />
-      <span className="text-xl font-bold">{message}</span>
+      <span className="text-xl font-bold text-center">{message}</span>
 
       <AnimatePresence>
         {isSlow && (

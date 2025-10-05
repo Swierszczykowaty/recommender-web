@@ -28,7 +28,7 @@ export default function HeroBox({
     >
       <Link
         href={href}
-        className="group  flex-1 h-full flex flex-col justify-between items-center bg-white/7 backdrop-blur-lg border border-white/20 rounded-xl px-4 py-6 text-center shadow-xl transition hover:bg-white/10 duration-300"
+        className="group  flex-1 h-full flex flex-col justify-between items-center bg-white/7 backdrop-blur-lg border border-white/20 rounded-xl p-4 md:p-6 text-center shadow-xl transition hover:bg-white/10 duration-300"
       >
         <div className="flex flex-col">
           <Icon

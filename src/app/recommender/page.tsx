@@ -129,14 +129,14 @@ export default function RecommenderSearchPage() {
         </div>
         {/* Wybór silnika – dwa przyciski */}
         <motion.div
-          className="flex items-center justify-center gap-3 mb-6"
+          className="flex flex-row items-center justify-center gap-3 mb-6"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.7, ease: "easeOut" }}
         >
           <button
             onClick={() => setEngine("v1")}
-            className={`px-4 py-2 shadow-xl text-sm rounded-lg border backdrop-blur-md transition cursor-pointer
+            className={`w-full sm:w-auto px-4 py-2 shadow-xl text-sm rounded-lg border backdrop-blur-md transition cursor-pointer
               ${
                 engine === "v1"
                   ? "bg-white/20 border-white/50 text-white"
@@ -148,7 +148,7 @@ export default function RecommenderSearchPage() {
           </button>
           <button
             onClick={() => setEngine("v2")}
-            className={`px-4 py-2 shadow-xl text-sm rounded-lg border backdrop-blur-md transition cursor-pointer
+            className={`w-full sm:w-auto px-4 py-2 shadow-xl text-sm rounded-lg border backdrop-blur-md transition cursor-pointer
               ${
                 engine === "v2"
                   ? "bg-white/20 border-white/50 text-white"
@@ -181,18 +181,15 @@ export default function RecommenderSearchPage() {
                 {searchQuery ? (
                   <>
                     {/* mobile */}
-                    <span className="md:hidden">Wyniki: “{searchQuery}”</span>
+                    <span className="md:hidden">Results for: “{searchQuery}”</span>
                     {/* desktop */}
                     <span className="hidden md:inline">
-                      Wyniki dla: “{searchQuery}”
+                      Results for: “{searchQuery}”
                     </span>
                   </>
                 ) : (
                   <>
-                    {/* mobile */}
-                    <span className="md:hidden">Suggested:</span>
-                    {/* desktop */}
-                    <span className="hidden md:inline">Suggested movies:</span>
+                    <span className="inline">Suggested movies:</span>
                   </>
                 )}
               </h2>
@@ -202,7 +199,8 @@ export default function RecommenderSearchPage() {
                 className="text-sm text-white hover:underline"
                 aria-label="How does the recommender work?"
               >
-                <span className="inline">How does the recommender work?</span>
+                <span className="inline sm:hidden">About recommender</span>
+                <span className="hidden sm:inline">How does the recommender work?</span>
               </Link>
             </motion.div>
 
