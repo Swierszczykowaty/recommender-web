@@ -276,9 +276,9 @@ export default function MovieDetailPage() {
                   {/* Platformy */}
                   {hasPlatforms && (
                     <div className="mt-auto flex flex-col">
-                      <h3 className="text-white font-semibold mb-4 text-sm md:text-md">
+                      <p className="text-white font-semibold mb-4 text-sm md:text-md">
                         {movie.title} – where to watch?
-                      </h3>
+                      </p>
                       <div className="grid grid-cols-2 md:grid-cols-none md:flex md:flex-row gap-4 justify-center md:justify-start w-full">
                         {platformLogos.map(({ flag, alt, src, url }) =>
                           flag ? (
