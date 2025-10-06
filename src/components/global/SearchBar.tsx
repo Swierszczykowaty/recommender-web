@@ -410,7 +410,7 @@ export default function SearchBar({
                   initial={{ opacity: 0, x: 10 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ 
-                    delay: index * 0.05 + 0.15,
+                    delay: index * 0.03 + 0.05,
                     duration: 0.2
                   }}
                 >
