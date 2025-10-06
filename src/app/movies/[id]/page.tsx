@@ -191,7 +191,7 @@ export default function MovieDetailPage() {
 
           {/* Główny kafelek: poster + opis (z widokiem skeleton) */}
           <motion.div
-            className="bg-white/7 border border-white/20 p-6 md:p-8 rounded-xl backdrop-blur-md shadow-xl"
+            className="bg-white/7 border border-white/20 p-4 md:p-8 rounded-xl backdrop-blur-md shadow-xl"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, ease: "easeOut" }}
@@ -276,9 +276,9 @@ export default function MovieDetailPage() {
                   {/* Platformy */}
                   {hasPlatforms && (
                     <div className="mt-auto flex flex-col">
-                      <h3 className="text-white font-semibold mb-4 text-sm md:text-md">
+                      <p className="text-white font-semibold mb-4 text-sm md:text-md">
                         {movie.title} – where to watch?
-                      </h3>
+                      </p>
                       <div className="grid grid-cols-2 md:grid-cols-none md:flex md:flex-row gap-4 justify-center md:justify-start w-full">
                         {platformLogos.map(({ flag, alt, src, url }) =>
                           flag ? (
@@ -312,13 +312,13 @@ export default function MovieDetailPage() {
           >
             <h2 className="mb-2 font-semibold">Cast:</h2>
             {loading ? (
-              <div className="bg-white/7 border border-white/20 p-6 md:p-8 rounded-xl backdrop-blur-md shadow-xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              <div className="bg-white/7 border border-white/20 p-4 md:p-8 rounded-xl backdrop-blur-md shadow-xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {Array.from({ length: 6 }).map((_, i) => (
                   <Skeleton key={i} className="h-16" />
                 ))}
               </div>
             ) : (
-              <div className="bg-white/7 border border-white/20 p-6 md:p-8 rounded-xl backdrop-blur-md shadow-xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              <div className="bg-white/7 border border-white/20 p-4 md:p-8 rounded-xl backdrop-blur-md shadow-xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {Array.isArray(movie.actors) &&
                   movie.actors.slice(0, 9).map((actor, index) => (
                     <div
@@ -350,7 +350,7 @@ export default function MovieDetailPage() {
           >
             <h2 className="mb-2 font-semibold">Information:</h2>
             {loading ? (
-              <div className="bg-white/7 border border-white/20 p-8 rounded-xl backdrop-blur-md shadow-xl grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="bg-white/7 border border-white/20 p-4 md:p-8 rounded-xl backdrop-blur-md shadow-xl grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {Array.from({ length: 6 }).map((_, i) => (
                   <Skeleton key={i} className="h-6" />
                 ))}
@@ -358,7 +358,7 @@ export default function MovieDetailPage() {
                 <Skeleton className="sm:col-span-2 h-6" />
               </div>
             ) : (
-              <div className="bg-white/7 border border-white/20 p-8 rounded-xl backdrop-blur-md shadow-xl grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="bg-white/7 border border-white/20 p-4 md:p-8 rounded-xl backdrop-blur-md shadow-xl grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {typeof movie.budget === "number" && movie.budget > 0 && (
                   <p className="text-sm md:text-md"><strong>Budget:</strong> ${movie.budget.toLocaleString()}</p>
                 )}

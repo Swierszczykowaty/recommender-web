@@ -66,7 +66,7 @@ export default function MovieRankingCard({ movie, rank, type }: Props) {
   return (
     <Link
       href={`/movies/${id}`}
-      className="group block w-full h-44 relative overflow-hidden rounded-xl shadow-lg border border-white/30"
+      className="group block w-full h-36 md:h-44 relative overflow-hidden rounded-xl shadow-lg border border-white/30"
     >
       {imageSrc ? (
         <FadeImage

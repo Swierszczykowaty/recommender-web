@@ -367,7 +367,7 @@ export default function SearchBar({
                   scale: 1.02,
                   transition: { duration: 0.1 }
                 }}
-                className={`px-4 py-3 cursor-pointer transition-colors duration-150 flex items-center gap-3 ${
+                className={`px-4 py-2 md:py-3 cursor-pointer transition-colors duration-150 flex items-center gap-3 ${
                   index === selectedIndex
                     ? "bg-white/20 text-white"
                     : "text-white/90 hover:bg-white/15"
@@ -406,24 +406,25 @@ export default function SearchBar({
                 
                 {/* Przycisk akcji po prawej */}
                 <motion.div 
-                  className="flex items-center gap-1 text-white/80"
+                  className="flex items-center justify-center gap-1 text-white/80"
                   initial={{ opacity: 0, x: 10 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ 
-                    delay: index * 0.05 + 0.15,
+                    delay: index * 0.03 + 0.05,
                     duration: 0.2
                   }}
                 >
-                  <span className="text-xs hidden sm:inline">
+                  <span className="text-xs hidden sm:inline leading-none">
                     {suggestion.type === 'movie' ? (redirectType === 'recommender' ? 'Zobacz' : 'Sprawdź') : 'Szukaj'}
                   </span>
                   <motion.div
+                    className="flex items-center justify-center"
                     whileHover={{ scale: 1.1 }}
                     transition={{ duration: 0.1 }}
                   >
                     <Icon 
                       icon={suggestion.type === 'movie' ? 'arrow_forward' : 'search'} 
-                      className="!text-sm"
+                      className="!text-sm leading-none"
                     />
                   </motion.div>
                 </motion.div>

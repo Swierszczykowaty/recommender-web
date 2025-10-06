@@ -1,0 +1,40 @@
+# Robots.txt for Movie Recommender Web App
+# https://recommender-web.vercel.app
+
+User-agent: *
+Allow: /
+
+# Allow all main pages
+Allow: /movies
+Allow: /rankings
+Allow: /recommender
+Allow: /about
+
+# Allow specific movie and recommendation pages
+Allow: /movies/*
+Allow: /rankings/*
+Allow: /recommender/*
+
+# Disallow API endpoints from crawling
+Disallow: /api/
+
+# Disallow Next.js internal files
+Disallow: /_next/
+Disallow: /_vercel/
+
+# Allow sitemap (if you create one later)
+# Sitemap: https://your-domain.com/sitemap.xml
+
+# Performance: Allow caching of static assets
+Allow: /favicon.ico
+Allow: /manifest.json
+Allow: /*.png
+Allow: /*.jpg
+Allow: /*.jpeg
+Allow: /*.webp
+Allow: /*.svg
+Allow: /*.css
+Allow: /*.js
+
+# Crawl delay (optional - adjust if needed)
+Crawl-delay: 1
