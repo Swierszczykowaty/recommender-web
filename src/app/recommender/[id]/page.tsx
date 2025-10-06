@@ -211,7 +211,7 @@ export default function RecommendationResultPage() {
 
             <Link
               href="/recommender"
-              className="mt-10 px-8 py-3 bg-gradient-to-br from-indigo-400/10 via-fuchsia-400/25 to-purple-400/15 border border-white/30 rounded-lg text-white hover:bg-gradient-to-tr hover:from-indigo-400/35 hover:via-fuchsia-400/45 hover:to-purple-400/55 transition-colors cursor-pointer shadow-lg hover:shadow-xl shadow-violet-500/20"
+              className="mt-10 px-8 py-3 text-center bg-gradient-to-br from-indigo-400/10 via-fuchsia-400/25 to-purple-400/15 border border-white/30 rounded-lg text-white hover:bg-gradient-to-tr hover:from-indigo-400/35 hover:via-fuchsia-400/45 hover:to-purple-400/55 transition-colors cursor-pointer shadow-lg hover:shadow-xl shadow-violet-500/20"
             >
               Search for other recommendations
             </Link>
