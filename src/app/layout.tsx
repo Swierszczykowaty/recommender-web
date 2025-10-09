@@ -1,6 +1,13 @@
 import "./globals.css";
 import { ReactNode } from "react";
 import ClientLayout from "@/components/layout/ClientLayout";
+import { Inter } from "next/font/google";
+
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+  preload: true,
+});
 
 export const metadata = {
   title: "Movie Recommendations",
@@ -24,7 +31,7 @@ export default function RootLayout({
   children: ReactNode;
 }) {
   return (
-    <html lang="pl" suppressHydrationWarning>
+    <html lang="pl" className={inter.className} suppressHydrationWarning>
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta

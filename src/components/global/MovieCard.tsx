@@ -45,6 +45,7 @@ export default function MovieCard({ movie, isFirstCard }: MovieCardProps) {
             src={`https://image.tmdb.org/t/p/w400${poster_path}`}
             alt={title}
             fill
+            sizes="(max-width: 640px) 100px, 250px"
             priority={isFirstCard}
             fetchPriority={isFirstCard ? "high" : undefined}
             className="object-cover transform transition-transform duration-300 group-hover:scale-105"
