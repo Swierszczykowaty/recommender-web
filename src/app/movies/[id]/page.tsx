@@ -291,7 +291,7 @@ export default function MovieDetailPage() {
                               title={alt}
                             >
                               <div className="relative h-10 bg-white/25 hover:bg-white/35 duration-300 cursor-pointer border border-white/20 rounded-lg shadow-md overflow-hidden w-full">
-                                <Image src={src} alt={alt} fill className="object-contain p-1" />
+                                <Image src={src} alt={alt} fill sizes="(max-width: 768px) 50vw, (max-width: 1024px) 30vw, 20vw" className="object-contain p-1" />
                               </div>
                             </a>
                           ) : null

@@ -8,8 +8,10 @@
 }
 
 :root {
-  --background: #b6ade0;   /* LIGHT */
-  --foreground: #ffffff;
+  /* --background: #b6ade0; */  /* LIGHT - ZAKOMENTOWANE */
+  /* --foreground: #ffffff; */
+  --background: #0f0f0f; /* DARK */
+  --foreground: #ededed;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: "Inter", sans-serif;
@@ -22,12 +24,12 @@
   font-size: 70px;
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0f0f0f; /* DARK */
+    --background: #0f0f0f;
     --foreground: #ededed;
   }
-}
+} */
 body {
   background: var(--background);
   color: var(--foreground);
