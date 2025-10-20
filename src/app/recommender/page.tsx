@@ -131,7 +131,7 @@ export default function RecommenderSearchPage() {
         </div>
         {/* Wybór silnika – dwa przyciski */}
         <motion.div
-          className="flex flex-row items-center justify-center gap-3 mb-6"
+          className="flex flex-row items-center justify-center gap-3 mb-2"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.7, ease: "easeOut" }}

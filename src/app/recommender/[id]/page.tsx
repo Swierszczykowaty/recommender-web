@@ -18,7 +18,7 @@ type Engine = "v1" | "v2" | "gemini";
 
 const ENGINE_ENDPOINT: Record<Engine, string> = {
   v1: "/api/recommendations_v1",
-  v2: "/api/recommendations",
+  v2: "/api/recommendations_v2",
   gemini: "/api/recommendations_gemini",
 };
 
