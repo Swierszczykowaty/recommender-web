@@ -146,6 +146,10 @@ export async function POST(req: Request) {
 
   const prompt = buildPrompt(baseMovie);
 
+  if (process.env.GEMINI_DEBUG === "1") {
+    console.log("[Gemini] prompt for movie", baseMovie.id, "\n", prompt);
+  }
+
   let response: Response;
   try {
     response = await fetch(
@@ -165,7 +169,7 @@ export async function POST(req: Request) {
           ],
           generationConfig: {
             temperature: 0.7,
-            maxOutputTokens: 512,
+            maxOutputTokens: 1536,
             topP: 0.95,
           },
         }),
@@ -198,7 +202,15 @@ export async function POST(req: Request) {
   }
 
   const geminiPayload = await response.json();
+
+  if (process.env.GEMINI_DEBUG === "1") {
+    console.log("[Gemini] raw payload", JSON.stringify(geminiPayload, null, 2));
+  }
   const rawText = extractTextFromGeminiPayload(geminiPayload);
+
+  if (process.env.GEMINI_DEBUG === "1") {
+    console.log("[Gemini] raw text", rawText);
+  }
   const structured = parseStructuredResponse(rawText);
   const recommendations = Array.isArray(structured.recommendations)
     ? structured.recommendations
