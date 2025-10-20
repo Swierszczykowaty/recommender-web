@@ -20,6 +20,18 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Environment variables
+
+Create a `.env.local` file and add your Google Gemini key so the third recommendation model can authenticate:
+
+```bash
+GEMINI_API_KEY=your_gemini_key
+# optional: override default model (defaults to gemini-1.5-flash)
+GEMINI_MODEL_ID=gemini-2.5-flash
+```
+
+The free Gemini tier currently allows up to 100 server-side requests per day. Calls are made from the Next.js API route, so the key never reaches the browser.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:

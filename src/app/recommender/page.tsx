@@ -14,14 +14,16 @@ import Link from "next/link";
 
 const TOP_MOVIES: Movie[] = top100 as Movie[];
 
-type Engine = "v1" | "v2";
+type Engine = "v1" | "v2" | "gemini";
 
 export default function RecommenderSearchPage() {
   const [engine, setEngine] = useState<Engine>("v2");
   useEffect(() => {
     try {
       const stored = window.localStorage.getItem("reco_engine");
-      if (stored === "v1" || stored === "v2") setEngine(stored as Engine);
+      if (stored === "v1" || stored === "v2" || stored === "gemini") {
+        setEngine(stored as Engine);
+      }
     } catch {}
   }, []);
 
@@ -157,6 +159,18 @@ export default function RecommenderSearchPage() {
             title="Model V2: hybryda BM25+dense"
           >
             Model v2.0
+          </button>
+          <button
+            onClick={() => setEngine("gemini")}
+            className={`w-full sm:w-auto px-4 py-2 shadow-xl text-sm rounded-lg border backdrop-blur-md transition cursor-pointer
+              ${
+                engine === "gemini"
+                  ? "bg-white/20 border-white/50 text-white"
+                  : "bg-white/7 border-white/30 text-white/80 hover:bg-white/10"
+              }`}
+            title="Model Gemini: rekomendacje z Google Gemini (limit 100 zapytań na dzień)"
+          >
+            Gemini (beta)
           </button>
           {/* <span className="text-xs text-white/60 ml-2">
             Aktywny: <strong className="text-white">{engine.toUpperCase()}</strong>

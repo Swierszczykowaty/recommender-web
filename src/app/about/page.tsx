@@ -71,6 +71,16 @@ export default function AboutPage() {
             >
               Model v2
             </button>
+            <button
+              onClick={() => setSelectedSection("gemini")}
+              className={`px-4 py-2 shadow-xl text-sm rounded-lg border backdrop-blur-md transition cursor-pointer ${
+                selectedSection === "gemini"
+                  ? "bg-white/20 border-white/50 text-white"
+                  : "bg-white/7 border-white/30 text-white/80 hover:bg-white/10"
+              }`}
+            >
+              Gemini (beta)
+            </button>
           </motion.div>
 
           <motion.div
@@ -108,6 +118,12 @@ export default function AboutPage() {
             {selectedSection === "v2" && (
               <p className="text-sm md:text-lg leading-relaxed text-justify">
                 Model v2 in progress Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempora voluptas ullam fugiat laborum amet neque sunt maxime aliquam perferendis nostrum, consequatur qui quos mollitia eaque odio culpa laudantium alias aut laboriosam, eius pariatur rem sint? Vel ipsum architecto et ut nisi dolores vero suscipit veritatis, ab reiciendis nesciunt illo beatae quibusdam cumque obcaecati dignissimos alias necessitatibus. Eligendi laboriosam corporis autem saepe animi ipsam? Enim illo natus velit officiis sed voluptatibus facilis nulla ullam nesciunt laudantium iusto, molestiae earum, quam minus, modi iste quibusdam. Neque, facilis! Dicta pariatur porro dolorem recusandae nesciunt, tempore velit, cupiditate reiciendis dolore placeat, totam modi accusantium?
+              </p>
+            )}
+
+            {selectedSection === "gemini" && (
+              <p className="text-sm md:text-lg leading-relaxed text-justify">
+                Gemini (beta) łączy naszą lokalną bazę filmów z modelem Google Gemini. Każde żądanie do silnika tworzy dedykowany prompt z opisem wybranego filmu, a sztuczna inteligencja odsyła do ośmiu najbardziej pasujących tytułów. Komunikacja odbywa się przez serwer Next.js, gdzie przechowywany jest klucz API (limit darmowy to 100 zapytań dziennie), a wygenerowane tytuły są następnie dopasowywane do katalogu TMDB dostępnego w aplikacji.
               </p>
             )}
           </motion.div>

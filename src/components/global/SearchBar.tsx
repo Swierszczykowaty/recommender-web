@@ -218,7 +218,11 @@ export default function SearchBar({
       // Przekierowanie w zależności od typu
       if (redirectType === 'recommender') {
         // W recommender - przekieruj do rekomendacji z aktualnie wybranym silnikiem
-        const currentEngine = localStorage.getItem('reco_engine') || 'v2';
+        const storedEngine = localStorage.getItem('reco_engine');
+        const currentEngine =
+          storedEngine === 'v1' || storedEngine === 'v2' || storedEngine === 'gemini'
+            ? storedEngine
+            : 'v2';
         router.push(`/recommender/${suggestion.movieId}?engine=${currentEngine}`);
       } else {
         // W movies - przekieruj do strony filmu

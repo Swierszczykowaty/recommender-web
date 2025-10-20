@@ -14,7 +14,19 @@ import MovieRankingCard from "@/components/rankings/MovieRankingCard";
 import FadeImage from "@/components/global/FadeImage";
 import { useEngineStore } from "@/lib/engineStore";
 
-type Engine = "v1" | "v2";
+type Engine = "v1" | "v2" | "gemini";
+
+const ENGINE_ENDPOINT: Record<Engine, string> = {
+  v1: "/api/recommendations_v1",
+  v2: "/api/recommendations",
+  gemini: "/api/recommendations_gemini",
+};
+
+const ENGINE_LABEL: Record<Engine, string> = {
+  v1: "V1",
+  v2: "V2",
+  gemini: "Gemini",
+};
 
 export default function RecommendationResultPage() {
   const [baseMovie, setBaseMovie] = useState<Movie | null>(null);
@@ -25,7 +37,12 @@ export default function RecommendationResultPage() {
   const params = useParams();
   const searchParams = useSearchParams();
   const movieId = params.id as string;
-  const engine = (searchParams.get("engine") as Engine) || "v2";
+  const engineParam = searchParams.get("engine");
+  const engine: Engine =
+    engineParam === "v1" || engineParam === "v2" || engineParam === "gemini"
+      ? engineParam
+      : "v2";
+  const engineLabel = ENGINE_LABEL[engine];
   const { setEngineReady, setLastRecommendationUrl } = useEngineStore();
 
   const handleGoBack = () => window.history.back();
@@ -68,8 +85,7 @@ export default function RecommendationResultPage() {
         setBaseMovie(foundBaseMovie);
 
         // wybór endpointu wg silnika (proxy Next.js eliminuje CORS)
-        const endpoint =
-          engine === "v1" ? "/api/recommendations_v1" : "/api/recommendations";
+        const endpoint = ENGINE_ENDPOINT[engine];
 
         const res = await fetch(endpoint, {
           method: "POST",
@@ -125,7 +141,7 @@ export default function RecommendationResultPage() {
   return (
     <section className="relative min-h-screen overflow-hidden pb-10 pt-32 ">
       <Container>
-        {loading && <Loading message={`Model ${engine.toUpperCase()} is generating your recommendations...`} />}
+  {loading && <Loading message={`Model ${engineLabel} is generating your recommendations...`} />}
 
         {error && (
           <div className="flex flex-col items-center gap-6">
@@ -144,7 +160,7 @@ export default function RecommendationResultPage() {
         {!loading && !error && baseMovie && (
           <div className="flex flex-col items-center w-full mx-auto">
             <Title
-              subtitle={`Generated especially for you • Model: ${engine.toUpperCase()}`}
+              subtitle={`Generated especially for you • Model: ${engineLabel}`}
               gradientLight={{
               from: "from-pink-300",
               via: "via-rose-200",
