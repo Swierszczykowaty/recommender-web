@@ -15,6 +15,8 @@ import MovieRankingCard from "@/components/rankings/MovieRankingCard";
 import FadeImage from "@/components/global/FadeImage";
 import { useEngineStore } from "@/lib/engineStore";
 import RecommenderCard from "@/components/recommender/RecommenderCard";
+import { useBackgroundStore } from "@/lib/backgroundStore";
+import ColorThief from "colorthief";
 
 type Engine = "v1" | "v2" | "gemini";
 
@@ -42,8 +44,12 @@ export default function RecommendationResultPage() {
   const router = useRouter();
   const movieId = params.id as string;
   const { setEngineReady, setLastRecommendationUrl } = useEngineStore();
+  const setDynamicColors = useBackgroundStore((state) => state.setDynamicColors);
 
-  const handleGoBack = () => router.push("/recommender");
+  const handleGoBack = () => {
+    setDynamicColors(null); // Reset colors when going back
+    router.push("/recommender");
+  };
 
   type ApiRecommendationItem = {
     id: number | string;
@@ -71,7 +77,30 @@ export default function RecommendationResultPage() {
     }
     
     setBaseMovie(foundBaseMovie);
-  }, [movieId]);
+
+    // Extract colors from poster
+    if (foundBaseMovie.poster_path) {
+      const img = document.createElement("img");
+      img.crossOrigin = "Anonymous";
+      img.src = `https://image.tmdb.org/t/p/w200${foundBaseMovie.poster_path}`;
+      
+      img.onload = () => {
+        try {
+          const colorThief = new ColorThief();
+          const palette = colorThief.getPalette(img, 5);
+          
+          if (palette && palette.length >= 5) {
+            const colors = palette.map(([r, g, b]: number[]) => 
+              `rgba(${r}, ${g}, ${b}, 0.28)`
+            );
+            setDynamicColors(colors);
+          }
+        } catch (err) {
+          console.error("Failed to extract colors:", err);
+        }
+      };
+    }
+  }, [movieId, setDynamicColors]);
 
   // Funkcja generowania rekomendacji
   const handleGenerateRecommendations = async () => {
@@ -135,6 +164,13 @@ export default function RecommendationResultPage() {
     }
   };
 
+  // Cleanup: reset colors when leaving the page
+  useEffect(() => {
+    return () => {
+      setDynamicColors(null);
+    };
+  }, [setDynamicColors]);
+
   return (
     <section className="relative min-h-screen overflow-hidden pb-10 pt-32 ">
       <Container>
@@ -157,7 +193,7 @@ export default function RecommendationResultPage() {
         {!loading && !error && baseMovie && !hasGenerated && (
           <div className="flex flex-col items-center w-full mx-auto relative">
             <motion.div
-              className="mt-4 sm:mt-8 mb-4 w-full max-w-2xl"
+              className="mb-4 w-full max-w-2xl"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.7, ease: "easeOut" }}
@@ -260,7 +296,7 @@ export default function RecommendationResultPage() {
                       selectedEngine === "gemini" ? "border-white" : "border-white/50"
                     }`}>
                       {selectedEngine === "gemini" && (
-                        <div className="w-3 h-3 rounded-full bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500"></div>
+                        <div className="w-3 h-3 rounded-full bg-white"></div>
                       )}
                     </div>
                     <Image
@@ -294,33 +330,24 @@ export default function RecommendationResultPage() {
 
         {!loading && !error && baseMovie && hasGenerated && recommendations.length > 0 && (
           <div className="flex flex-col items-center w-full mx-auto">
-            <Title
-              subtitle={`Generated especially for you • Model: ${ENGINE_LABEL[selectedEngine]}`}
-              gradientLight={{
-                from: "from-pink-300",
-                via: "via-rose-200",
-                to: "to-violet-300",
-                subtitleColor: "text-white",
-              }}
-              gradientDark={{
-                from: "from-pink-400",
-                via: "via-purple-300",
-                to: "to-violet-400",
-                subtitleColor: "text-white/80",
-              }}
-            >
-              Movie Recommendations
-            </Title>
-
             <motion.div
-              className="mt-4 sm:mt-12 mb-8 w-full max-w-3xl "
+              className="mb-8 w-full max-w-3xl "
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.7, ease: "easeOut" }}
             >
-              <h2 className="text-lg font-semibold text-white/80 mb-4 text-center">
-                Based on movie:
-              </h2>
+              <div className="flex items-end justify-between mb-3">
+                <h2 className="text-sm md:text-base font-semibold text-white/80">
+                  Based on movie:
+                </h2>
+                <button
+                  onClick={handleGoBack}
+                  className="flex items-center gap-2 px-2 md:px-4 py-1 text-sm bg-white/7 border border-white/20 rounded-lg backdrop-blur-md shadow-xl transition cursor-pointer hover:bg-white/10 duration-300"
+                >
+                  <Icon icon="keyboard_backspace" className="!text-base md:!text-lg" />
+                  Back to search
+                </button>
+              </div>
               <Link
                 href={`/movies/${baseMovie.id}`}
                 className="flex flex-col sm:flex-row items-center p-4 sm:p-6 bg-white/7 rounded-2xl border border-white/20 backdrop-blur-lg overflow-hidden group hover:bg-white/10 transition duration-300 cursor-pointer hover:border-white/30"
