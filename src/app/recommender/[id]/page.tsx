@@ -14,6 +14,7 @@ import Icon from "@/components/global/Icon";
 import MovieRankingCard from "@/components/rankings/MovieRankingCard";
 import FadeImage from "@/components/global/FadeImage";
 import { useEngineStore } from "@/lib/engineStore";
+import RecommenderCard from "@/components/recommender/RecommenderCard";
 
 type Engine = "v1" | "v2" | "gemini";
 
@@ -161,52 +162,19 @@ export default function RecommendationResultPage() {
               animate={{ opacity: 1 }}
               transition={{ duration: 0.7, ease: "easeOut" }}
             >
-              <div className="flex items-center justify-between mb-3">
-                <h2 className="text-md font-semibold text-white/80">
+              <div className="flex items-end justify-between mb-3">
+                <h2 className="text-sm md:text-base font-semibold text-white/80">
                   Your selected movie:
                 </h2>
                 <button
                   onClick={handleGoBack}
-              className="flex items-center gap-2 px-4 py-1 text-sm bg-white/7 border border-white/20 rounded-lg backdrop-blur-md shadow-xl transition cursor-pointer hover:bg-white/10 duration-300"
+              className="flex items-center gap-2 px-2 md:px-4 py-1 text-sm bg-white/7 border border-white/20 rounded-lg backdrop-blur-md shadow-xl transition cursor-pointer hover:bg-white/10 duration-300"
                 >
-                  <Icon icon="keyboard_backspace" className="!text-lg" />
+                  <Icon icon="keyboard_backspace" className="!text-base md:!text-lg" />
                   Back to search
                 </button>
               </div>
-              <div className="relative flex items-center gap-4 p-3 bg-white/7 rounded-xl border border-white/20 backdrop-blur-lg overflow-hidden">
-                {/* Backdrop background for the movie box */}
-                {baseMovie.backdrop_path && (
-                  <>
-                    <div className="absolute inset-0 z-0">
-                      <Image
-                        src={`https://image.tmdb.org/t/p/w780${baseMovie.backdrop_path}`}
-                        alt=""
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
-                    <div className="absolute inset-0 z-0 bg-black/75 backdrop-blur-xs"></div>
-                  </>
-                )}
-                <div className="w-16 sm:w-28 flex-shrink-0 rounded-lg overflow-hidden relative z-10">
-                  <FadeImage
-                    src={`https://image.tmdb.org/t/p/w200${baseMovie.poster_path}`}
-                    alt={`Plakat filmu ${baseMovie.title}`}
-                    width={200}
-                    height={300}
-                    className="transition-transform duration-300"
-                  />
-                </div>
-                <div className="flex-1 relative z-10">
-                  <h3 className="text-lg sm:text-xl font-bold text-white">
-                    {baseMovie.title}
-                  </h3>
-                  <p className="text-sm text-white/70">
-                    {baseMovie.release_date?.slice(0, 4)}
-                  </p>
-                  <p className="text-xs text-white/60">{baseMovie.genres}</p>
-                </div>
-              </div>
+              <RecommenderCard movie={baseMovie} onClick={() => {}} />
             </motion.div>
 
             <motion.div
@@ -215,7 +183,7 @@ export default function RecommendationResultPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, ease: "easeOut", delay: 0.2 }}
             >
-              <h2 className="text-xl font-bold text-white mb-6 text-center">
+              <h2 className="text-base md:text-xl font-bold text-white mb-6 text-center">
                 Choose Recommendation Model:
               </h2>
 
@@ -238,9 +206,9 @@ export default function RecommendationResultPage() {
                         <div className="w-3 h-3 rounded-full bg-white"></div>
                       )}
                     </div>
-                    <h3 className="text-lg font-bold text-white">Model v1.0 - Classic</h3>
+                    <h3 className="text-base md:text-lg font-bold text-white">Model v1.0 - Classic</h3>
                   </div>
-                  <p className="text-sm text-white/80 ml-8">
+                  <p className="text-xs md:text-sm text-white/80 ml-8">
                     Dense vector embeddings with KNN search. Fast and reliable recommendations based on semantic similarity.
                   </p>
                 </button>
@@ -255,20 +223,21 @@ export default function RecommendationResultPage() {
                         : "bg-white/7 border-white/30 hover:bg-white/10 hover:border-white/40"
                     }`}
                 >
-                  <div className="flex items-center gap-3 mb-2">
-                    <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                  <div className="flex items-center mb-2">
+                    <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center mr-3 ${
                       selectedEngine === "v2" ? "border-white" : "border-white/50"
                     }`}>
                       {selectedEngine === "v2" && (
-                        <div className="w-3 h-3 rounded-full bg-white"></div>
+                        <div className="w-3 h-3 rounded-full bg-white "></div>
                       )}
                     </div>
-                    <h3 className="text-lg font-bold text-white">Model v2.0 - Hybrid</h3>
+                    <h3 className="text-base md:text-lg font-bold text-white mr-3">Model v2.0 - Hybrid</h3>
                     <span className="px-2 py-1 text-xs font-semibold bg-gradient-to-r from-blue-500/30 to-purple-500/30 border border-blue-400/50 rounded-full text-white">
-                      Recommended
+                      <span className="hidden sm:inline">Recommended</span>
+                      <span className="sm:hidden">★</span>
                     </span>
                   </div>
-                  <p className="text-sm text-white/80 ml-8">
+                  <p className="text-xs md:text-sm text-white/80 ml-8">
                     Combines dense embeddings with BM25 keyword matching. More accurate results by balancing semantic and lexical similarity.
                   </p>
                 </button>
@@ -286,7 +255,7 @@ export default function RecommendationResultPage() {
                   {selectedEngine === "gemini" && (
                     <span className="absolute inset-0 bg-gradient-to-r from-blue-400/10 via-purple-400/10 to-pink-400/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   )}
-                  <div className="flex items-center gap-3 mb-2 relative z-10">
+                  <div className="flex items-center mb-2 relative z-10">
                     <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
                       selectedEngine === "gemini" ? "border-white" : "border-white/50"
                     }`}>
@@ -299,24 +268,24 @@ export default function RecommendationResultPage() {
                       alt="Gemini logo"
                       width={24}
                       height={24}
-                      className="w-6 h-6"
+                      className="w-6 h-6 ml-3 mr-1"
                     />
-                    <h3 className="text-lg font-bold text-white">Gemini AI</h3>
-                    <span className="px-2 py-1 text-xs font-semibold bg-gradient-to-r from-blue-500/30 via-purple-500/30 to-pink-500/30 border border-purple-400/50 rounded-full text-white">
+                    <h3 className="text-base md:text-lg font-bold text-white">Gemini AI</h3>
+                    <span className="ml-3 px-2 py-1 text-xs font-semibold bg-gradient-to-r from-blue-500/30 via-purple-500/30 to-pink-500/30 border border-purple-400/50 rounded-full text-white">
                       Beta
                     </span>
                   </div>
-                  <p className="text-sm text-white/80 ml-8 relative z-10">
-                    Powered by Google Gemini AI. Advanced contextual understanding and creative recommendations. Limited to 100 requests per day.
+                  <p className="text-xs md:text-sm text-white/80 ml-8 relative z-10">
+                    Powered by Google Gemini AI. Advanced contextual understanding and creative recommendations. <a href="/about#gemini" className="underline hover:text-white transition-colors">Read more</a>
                   </p>
                 </button>
               </div>
 
               <button
                 onClick={handleGenerateRecommendations}
-                className="w-full max-w-md mx-auto flex items-center justify-center gap-3 px-8 py-4 text-lg font-semibold bg-gradient-to-br from-pink-500/20 via-purple-500/30 to-violet-500/20 border border-white/30 rounded-xl text-white hover:from-pink-500/30 hover:via-purple-500/40 hover:to-violet-500/30 transition-all duration-300 cursor-pointer shadow-lg hover:shadow-xl shadow-violet-500/20"
+                className="w-full max-w-md mx-auto flex items-center justify-center gap-3 px-6 md:px-8 py-3 md:py-4 text-sm md:text-lg font-semibold bg-gradient-to-br from-pink-500/20 via-purple-500/30 to-violet-500/20 border border-white/30 rounded-xl text-white hover:from-pink-500/30 hover:via-purple-500/40 hover:to-violet-500/30 transition-all duration-300 cursor-pointer shadow-lg hover:shadow-xl shadow-violet-500/20"
               >
-                <Icon icon="auto_awesome" className="!text-2xl" />
+                <Icon icon="auto_awesome" className="!text-lg md:!text-2xl" />
                 Generate Recommendations
               </button>
             </motion.div>
