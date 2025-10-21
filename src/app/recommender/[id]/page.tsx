@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import Title from "@/components/global/Title";
 import Container from "@/components/layout/Container";
 import type { Movie } from "@/types/movie";
 import allMovies from "@/data/full_data_web.json";
