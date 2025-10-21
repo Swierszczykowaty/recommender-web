@@ -54,7 +54,7 @@ export default function NavBar() {
         </div>
         {/* Mobile hamburger */}
         <button
-          className="lg:hidden  flex text-2xl"
+          className="lg:hidden cursor-pointer flex text-2xl"
           onClick={() => setMenuOpen(!menuOpen)}
         >
           <Icon
