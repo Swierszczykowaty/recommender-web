@@ -11,7 +11,6 @@ import top100 from "@/data/top100_votes.json";
 import { searchMovies } from "@/lib/searchMovies";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import Image from "next/image";
 
 const TOP_MOVIES: Movie[] = top100 as Movie[];
 
