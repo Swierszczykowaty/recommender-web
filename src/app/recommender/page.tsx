@@ -11,31 +11,16 @@ import top100 from "@/data/top100_votes.json";
 import { searchMovies } from "@/lib/searchMovies";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 
 const TOP_MOVIES: Movie[] = top100 as Movie[];
 
-type Engine = "v1" | "v2" | "gemini";
-
 export default function RecommenderSearchPage() {
-  const [engine, setEngine] = useState<Engine>("v2");
-  useEffect(() => {
-    try {
-      const stored = window.localStorage.getItem("reco_engine");
-      if (stored === "v1" || stored === "v2" || stored === "gemini") {
-        setEngine(stored as Engine);
-      }
-    } catch {}
-  }, []);
-
   const [allMovies, setAllMovies] = useState<Movie[] | null>(null);
   const [searchResults, setSearchResults] = useState<Movie[]>([]);
   const [searchQuery, setSearchQuery] = useState<string>("");
 
   const router = useRouter();
-
-  useEffect(() => {
-    window.localStorage.setItem("reco_engine", engine);
-  }, [engine]);
 
   useEffect(() => {
     // Załaduj pełną bazę danych przy pierwszym renderze
@@ -82,8 +67,8 @@ export default function RecommenderSearchPage() {
   };
 
   const handleMovieSelect = (movie: Movie) => {
-    // przekazujemy wybór silnika w query
-    router.push(`/recommender/${movie.id}?engine=${engine}`);
+    // przekierowanie bez parametru engine - model będzie wybrany na następnej stronie
+    router.push(`/recommender/${movie.id}`);
   };
 
   useEffect(() => {
@@ -129,59 +114,6 @@ export default function RecommenderSearchPage() {
             </p>
           )}
         </div>
-        {/* Wybór silnika – dwa przyciski */}
-        <motion.div
-          className="flex flex-row items-center justify-center gap-3 mb-2"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.7, ease: "easeOut" }}
-        >
-          <button
-            onClick={() => setEngine("v1")}
-            className={`w-full sm:w-auto px-4 py-2 shadow-xl text-sm rounded-lg border backdrop-blur-md transition cursor-pointer
-              ${
-                engine === "v1"
-                  ? "bg-white/20 border-white/50 text-white"
-                  : "bg-white/7 border-white/30 text-white/80 hover:bg-white/10"
-              }`}
-            title="Model V1: klasyczny dense KNN"
-          >
-            Model v1.0
-          </button>
-          <button
-            onClick={() => setEngine("v2")}
-            className={`w-full sm:w-auto px-4 py-2 shadow-xl text-sm rounded-lg border backdrop-blur-md transition cursor-pointer
-              ${
-                engine === "v2"
-                  ? "bg-white/20 border-white/50 text-white"
-                  : "bg-white/7 border-white/30 text-white/80 hover:bg-white/10"
-              }`}
-            title="Model V2: hybryda BM25+dense"
-          >
-            Model v2.0
-          </button>
-          <button
-            onClick={() => setEngine("gemini")}
-            className={`w-full sm:w-auto px-4 py-2 shadow-xl text-sm rounded-lg border backdrop-blur-md transition cursor-pointer
-              ${
-                engine === "gemini"
-                  ? "bg-white/20 border-white/50 text-white"
-                  : "bg-white/7 border-white/30 text-white/80 hover:bg-white/10"
-              }`}
-            title="Model Gemini: rekomendacje z Google Gemini (limit 100 zapytań na dzień)"
-          >
-            Gemini (beta)
-          </button>
-          {/* <span className="text-xs text-white/60 ml-2">
-            Aktywny: <strong className="text-white">{engine.toUpperCase()}</strong>
-          </span> */}
-        </motion.div>
-
-        {/* <p className="max-w-2xl mx-auto text-center text-white/70 mb-8 px-2 text-sm md:text-base">
-          Wybierz silnik rekomendacji: v1 (klasyczny) lub <strong>v2</strong> (nowszy i dokładniejszy — łączy wyszukiwanie semantyczne z BM25).
-          After selecting a movie below, we'll show you recommendations that best match it.
-          You can always switch engines and compare results.
-        </p> */}
 
         {searchResults.length > 0 && (
           <div>
@@ -218,7 +150,7 @@ export default function RecommenderSearchPage() {
               </Link>
             </motion.div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 h-full w-full">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
               {searchResults.map((movie, i) => (
                 <motion.div
                   key={movie.id}
@@ -229,6 +161,7 @@ export default function RecommenderSearchPage() {
                     duration: 0.4,
                     ease: "easeOut",
                   }}
+                  className="h-full"
                 >
                   <MovieCardSmall
                     movie={movie}

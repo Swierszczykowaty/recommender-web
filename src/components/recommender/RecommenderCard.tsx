@@ -1,103 +1,65 @@
 "use client";
 
-import { useState } from "react";
 import { Movie } from "@/types/movie";
-import Icon from "@/components/global/Icon";
-import { motion, AnimatePresence } from "framer-motion";
 import FadeImage from "../global/FadeImage";
+import Image from "next/image";
 
 type MovieCardSmallProps = {
   movie: Movie;
   onClick: () => void;
 };
 
-const arrowVariants = {
-  enter: { x: -50, opacity: 0 },
-  center: { x: 0, opacity: 1 },
-  exit: { x: 50, opacity: 0 },
-};
-
 const MovieCardSmall = ({ movie, onClick }: MovieCardSmallProps) => {
-  const [isHovered, setIsHovered] = useState(false);
   const releaseYear = movie.release_date
     ? movie.release_date.slice(0, 4)
-    : "Brak daty";
-
-  const imagePath = movie.backdrop_path;
+    : "Unknown";
 
   return (
     <div
-      className="relative w-full h-full bg-white/10 border border-white/20 rounded-lg overflow-hidden shadow-2xl cursor-pointer duration-300 "
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      className="relative flex items-center gap-4 p-3 bg-white/7 rounded-xl border border-white/20 backdrop-blur-lg overflow-hidden cursor-pointer hover:bg-white/10 hover:border-white/30 transition-all duration-300 group"
       onClick={onClick}
     >
-      <div className="relative w-full h-40">
-        {imagePath ? (
+      {/* Backdrop background */}
+      {movie.backdrop_path && (
+        <>
+          <div className="absolute inset-0 z-0">
+            <Image
+              src={`https://image.tmdb.org/t/p/w780${movie.backdrop_path}`}
+              alt=""
+              fill
+              className="object-cover"
+            />
+          </div>
+          <div className="absolute inset-0 z-0 bg-black/75 backdrop-blur-xs group-hover:bg-black/70 transition-colors duration-300"></div>
+        </>
+      )}
+
+      {/* Poster */}
+      <div className="w-16 sm:w-20 h-24 sm:h-30 flex-shrink-0 rounded-lg overflow-hidden relative z-10 bg-white/10">
+        {movie.poster_path ? (
           <FadeImage
-            src={`https://image.tmdb.org/t/p/w780${imagePath}`}
-            alt={`Plakat filmu ${movie.title}`}
-            fill
-            placeholder="blur"
-            blurDataURL="data:image/svg+xml;base64,..."
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            className="object-cover transition-transform duration-300 hover:scale-105"
+            src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
+            alt={`Poster of ${movie.title}`}
+            width={200}
+            height={300}
+            className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
           />
         ) : (
-          <FadeImage
-            src={`https://image.tmdb.org/t/p/w780${movie.poster_path}`}
-            alt={`Plakat filmu ${movie.title}`}
-            fill
-            placeholder="blur"
-            blurDataURL="data:image/svg+xml;base64,..."
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            className="object-cover transition-transform duration-300 hover:scale-105"
-          />
-        )}
-
-        {/* gradient */}
-        <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/80 to-transparent pointer-events-none" />
-        {/* tytuł + rok */}
-        <div className="absolute bottom-3 left-3 right-3 text-white">
-          <h3 className="text-base font-bold truncate drop-shadow-xl">
-            {movie.title}
-          </h3>
-          <p className="text-sm text-white/80 mt-1 drop-shadow-xl">
-            {releaseYear}
-          </p>
-        </div>
-
-        {/* overlay */}
-        <div className="absolute inset-0 flex items-center justify-center backdrop-blur bg-black/40 bg-opacity-60 opacity-0 hover:opacity-100 transition-opacity duration-300">
-          <div className="flex flex-col items-center space-y-1">
-            {/* AnimatePresence + motion.span dla strzałki */}
-            <AnimatePresence>
-              {isHovered && (
-                <motion.span
-                  key="arrow"
-                  variants={arrowVariants}
-                  initial="enter"
-                  animate="center"
-                  exit="exit"
-                  transition={{ duration: 0.3 }}
-                  className="flex items-center justify-center mb-1"
-                >
-                  <Icon
-                    icon="arrow_warm_up"
-                    className="text-white rotate-90 !text-4xl"
-                  />
-                </motion.span>
-              )}
-            </AnimatePresence>
-
-            <span className="text-sm font-semibold text-white">
-              Generate recommendations for
-            </span>
-            <span className="text-xs font-semibold text-white">
-              {movie.title}
-            </span>
+          <div className="w-full h-full flex items-center justify-center text-white/40 text-xs text-center p-2">
+            No poster
           </div>
-        </div>
+        )}
+      </div>
+
+      {/* Movie info */}
+      <div className="flex-1 relative z-10">
+        <h3 className="text-lg sm:text-xl font-bold text-white line-clamp-2">
+          {movie.title}
+        </h3>
+        <p className="text-sm text-white/70">{releaseYear}</p>
+        {movie.genres && (
+          <p className="text-xs text-white/60 line-clamp-1">{movie.genres}</p>
+        )}
       </div>
     </div>
   );
