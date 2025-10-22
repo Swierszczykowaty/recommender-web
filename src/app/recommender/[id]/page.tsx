@@ -64,48 +64,56 @@ export default function RecommendationResultPage() {
     recommendations: ApiRecommendationItem[];
   };
 
-  // Załaduj dane filmu
+  // Fetch single movie from server (only depends on movieId)
   useEffect(() => {
     if (!movieId) return;
-    // Fetch single movie from server to avoid bundling full JSON into client
+    let cancelled = false;
     (async () => {
       try {
         const res = await fetch(`/api/movie?id=${encodeURIComponent(movieId)}`);
         if (!res.ok) {
-          setError("Nie znaleziono filmu o podanym ID.");
+          if (!cancelled) setError("Nie znaleziono filmu o podanym ID.");
           return;
         }
         const mv = (await res.json()) as Movie;
-        setBaseMovie(mv);
+        if (!cancelled) setBaseMovie(mv);
       } catch (e) {
         console.error("Failed to fetch base movie:", e);
-        setError("Nie znaleziono filmu o podanym ID.");
+        if (!cancelled) setError("Nie znaleziono filmu o podanym ID.");
       }
     })();
 
-    // Extract colors from poster (use baseMovie fetched from server)
-    if (baseMovie && baseMovie.poster_path) {
-      const img = document.createElement("img");
-      img.crossOrigin = "Anonymous";
-      img.src = `https://image.tmdb.org/t/p/w200${baseMovie.poster_path}`;
+    return () => {
+      cancelled = true;
+    };
+  }, [movieId]);
 
-      img.onload = () => {
-        try {
-          const colorThief = new ColorThief();
-          const palette = colorThief.getPalette(img, 5);
+  // Extract colors from poster when baseMovie becomes available
+  useEffect(() => {
+    if (!baseMovie || !baseMovie.poster_path) return;
+    const img = document.createElement("img");
+    img.crossOrigin = "Anonymous";
+    img.src = `https://image.tmdb.org/t/p/w200${baseMovie.poster_path}`;
 
-          if (palette && palette.length >= 5) {
-            const colors = palette.map(([r, g, b]: number[]) =>
-              `rgba(${r}, ${g}, ${b}, 0.28)`
-            );
-            setDynamicColors(colors);
-          }
-        } catch (err) {
-          console.error("Failed to extract colors:", err);
+    let mounted = true;
+    img.onload = () => {
+      try {
+        const colorThief = new ColorThief();
+        const palette = colorThief.getPalette(img, 5);
+
+        if (mounted && palette && palette.length >= 5) {
+          const colors = palette.map(([r, g, b]: number[]) => `rgba(${r}, ${g}, ${b}, 0.28)`);
+          setDynamicColors(colors);
         }
-      };
-    }
-  }, [movieId, setDynamicColors]);
+      } catch (err) {
+        console.error("Failed to extract colors:", err);
+      }
+    };
+
+    return () => {
+      mounted = false;
+    };
+  }, [baseMovie, setDynamicColors]);
 
   // Funkcja generowania rekomendacji
   const handleGenerateRecommendations = async () => {
@@ -123,8 +131,8 @@ export default function RecommendationResultPage() {
       // Lazily import full movie DB only when generating recommendations (reduces initial bundle)
       let allMovies: Movie[] | null = null;
       try {
-        const module = await import("@/data/full_data_web.json");
-        allMovies = module.default as unknown as Movie[];
+        const mod = await import("@/data/full_data_web.json");
+        allMovies = mod.default as unknown as Movie[];
       } catch (e) {
         // If import fails, leave allMovies null and rely on fallback behavior
         console.warn("Lazy import of full_data_web.json failed", e);
