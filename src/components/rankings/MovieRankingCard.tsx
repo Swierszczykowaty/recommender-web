@@ -106,7 +106,7 @@ export default function MovieRankingCard({ movie, rank, type, why }: Props) {
           {why ? (
             <div className="mt-3 p-2 bg-gradient-to-r from-blue-500/20 via-purple-500/20 to-pink-500/20 border border-white/30 rounded-lg backdrop-blur-sm">
               <p className="text-xs md:text-sm text-white/90 italic">
-                "{why}"
+                &quot;{why}&quot;
               </p>
             </div>
           ) : null}
