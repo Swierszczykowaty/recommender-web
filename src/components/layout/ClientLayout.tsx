@@ -19,22 +19,22 @@ export default function ClientLayout({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     if (!isEngineReady) {
-      const intervalId = setInterval(async () => {
+      // Wykonaj tylko jedno zapytanie przy pierwszym wejściu
+      const checkHealth = async () => {
         try {
           const res = await fetch('/api/health');
           if (res.ok) {
             const data = await res.json();
             if (data.status === 'ok') {
               setEngineReady(true);
-              clearInterval(intervalId);
             }
           }
         } catch (error) {
           console.error("Health check failed:", error);
         }
-      }, 5000);
+      };
 
-      return () => clearInterval(intervalId);
+      checkHealth();
     }
   }, [isEngineReady, setEngineReady]);
 

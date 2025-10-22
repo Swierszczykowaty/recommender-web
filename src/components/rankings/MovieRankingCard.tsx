@@ -10,6 +10,7 @@ interface Props {
   movie: Movie;
   rank: number;
   type?: RankingType; // opcjonalny
+  why?: string | null; // powód rekomendacji dla Gemini
 }
 
 const LABELS: Record<RankingType, string> = {
@@ -18,7 +19,7 @@ const LABELS: Record<RankingType, string> = {
   revenue: "Zysk (USD)",
 };
 
-export default function MovieRankingCard({ movie, rank, type }: Props) {
+export default function MovieRankingCard({ movie, rank, type, why }: Props) {
   const {
     id,
     backdrop_path,
@@ -66,7 +67,7 @@ export default function MovieRankingCard({ movie, rank, type }: Props) {
   return (
     <Link
       href={`/movies/${id}`}
-      className="group block w-full h-36 md:h-44 relative overflow-hidden rounded-xl shadow-lg border border-white/30"
+      className={`group block w-full ${why ? 'h-auto min-h-48 md:min-h-52' : 'h-36 md:h-44'} relative overflow-hidden rounded-xl shadow-lg border border-white/30`}
     >
       {imageSrc ? (
         <FadeImage
@@ -100,6 +101,14 @@ export default function MovieRankingCard({ movie, rank, type }: Props) {
             <p className="text-xs md:text-sm">
               {LABELS[type]}: <span className="font-medium">{getValue()}</span>
             </p>
+          ) : null}
+
+          {why ? (
+            <div className="mt-3 p-2 bg-gradient-to-r from-blue-500/20 via-purple-500/20 to-pink-500/20 border border-white/30 rounded-lg backdrop-blur-sm">
+              <p className="text-xs md:text-sm text-white/90 italic">
+                &quot;{why}&quot;
+              </p>
+            </div>
           ) : null}
         </div>
       </div>
