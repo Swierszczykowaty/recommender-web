@@ -31,9 +31,13 @@ const ENGINE_LABEL: Record<Engine, string> = {
   gemini: "Gemini",
 };
 
+type MovieWithReason = Movie & {
+  why?: string | null;
+};
+
 export default function RecommendationResultPage() {
   const [baseMovie, setBaseMovie] = useState<Movie | null>(null);
-  const [recommendations, setRecommendations] = useState<Movie[]>([]);
+  const [recommendations, setRecommendations] = useState<MovieWithReason[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [selectedEngine, setSelectedEngine] = useState<Engine>("v2");
@@ -130,16 +134,15 @@ export default function RecommendationResultPage() {
       }
 
       const data = (await res.json()) as RecommendationsResponse;
-      const apiIds: number[] = (data.recommendations ?? []).map((r) =>
-        Number(r.id)
-      );
 
       const movies: Movie[] = allMovies as Movie[];
-      const merged: Movie[] = apiIds
-        .map(
-          (id) =>
-            (movies.find((m) => Number(m.id) === id) as Movie) ||
-            ({
+      const merged: MovieWithReason[] = (data.recommendations ?? [])
+        .map((rec) => {
+          const id = Number(rec.id);
+          const movie = movies.find((m) => Number(m.id) === id);
+          
+          if (!movie) {
+            return {
               id,
               title: String(id),
               poster_path: "",
@@ -147,8 +150,15 @@ export default function RecommendationResultPage() {
               release_date: "",
               vote_average: undefined,
               genres: "",
-            } as Movie)
-        )
+              why: rec.why ?? null,
+            } as MovieWithReason;
+          }
+
+          return {
+            ...movie,
+            why: rec.why ?? null,
+          } as MovieWithReason;
+        })
         .filter((m) => Number(m.id) !== Number(baseMovie.id));
 
       setRecommendations(merged);
@@ -390,6 +400,7 @@ export default function RecommendationResultPage() {
                     movie={movie}
                     rank={index + 1}
                     key={`${movie.id}-${index}`}
+                    why={selectedEngine === "gemini" ? movie.why : undefined}
                   />
                 ))}
               </div>
