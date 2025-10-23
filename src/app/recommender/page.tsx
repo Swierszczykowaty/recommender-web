@@ -162,10 +162,12 @@ export default function RecommenderSearchPage() {
                   }}
                   className="h-full"
                 >
-                  <MovieCardSmall
-                    movie={movie}
-                    onClick={() => handleMovieSelect(movie)}
-                  />
+                  <Link href={`/recommender/${movie.id}`} prefetch={true}>
+                    <MovieCardSmall
+                      movie={movie}
+                      onClick={() => {}}
+                    />
+                  </Link>
                 </motion.div>
               ))}
             </div>
