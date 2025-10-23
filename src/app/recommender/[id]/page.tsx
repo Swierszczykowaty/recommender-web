@@ -6,6 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 import Container from "@/components/layout/Container";
 import type { Movie } from "@/types/movie";
+import allMovies from "@/data/full_data_web.json";
 import { motion } from "framer-motion";
 import Loading from "@/components/global/Loading";
 import Icon from "@/components/global/Icon";
@@ -64,56 +65,45 @@ export default function RecommendationResultPage() {
     recommendations: ApiRecommendationItem[];
   };
 
-  // Fetch single movie from server (only depends on movieId)
+  // Załaduj dane filmu
   useEffect(() => {
     if (!movieId) return;
-    let cancelled = false;
-    (async () => {
-      try {
-        const res = await fetch(`/api/movie?id=${encodeURIComponent(movieId)}`);
-        if (!res.ok) {
-          if (!cancelled) setError("Nie znaleziono filmu o podanym ID.");
-          return;
+
+    const movies: Movie[] = allMovies as Movie[];
+    const foundBaseMovie = movies.find(
+      (m) => String(m.id) === String(movieId)
+    );
+
+    if (!foundBaseMovie) {
+      setError("Nie znaleziono filmu o podanym ID.");
+      return;
+    }
+
+    setBaseMovie(foundBaseMovie);
+
+    // Extract colors from poster
+    if (foundBaseMovie.poster_path) {
+      const img = document.createElement("img");
+      img.crossOrigin = "Anonymous";
+      img.src = `https://image.tmdb.org/t/p/w200${foundBaseMovie.poster_path}`;
+
+      img.onload = () => {
+        try {
+          const colorThief = new ColorThief();
+          const palette = colorThief.getPalette(img, 5);
+
+          if (palette && palette.length >= 5) {
+            const colors = palette.map(([r, g, b]: number[]) =>
+              `rgba(${r}, ${g}, ${b}, 0.28)`
+            );
+            setDynamicColors(colors);
+          }
+        } catch (err) {
+          console.error("Failed to extract colors:", err);
         }
-        const mv = (await res.json()) as Movie;
-        if (!cancelled) setBaseMovie(mv);
-      } catch (e) {
-        console.error("Failed to fetch base movie:", e);
-        if (!cancelled) setError("Nie znaleziono filmu o podanym ID.");
-      }
-    })();
-
-    return () => {
-      cancelled = true;
-    };
-  }, [movieId]);
-
-  // Extract colors from poster when baseMovie becomes available
-  useEffect(() => {
-    if (!baseMovie || !baseMovie.poster_path) return;
-    const img = document.createElement("img");
-    img.crossOrigin = "Anonymous";
-    img.src = `https://image.tmdb.org/t/p/w200${baseMovie.poster_path}`;
-
-    let mounted = true;
-    img.onload = () => {
-      try {
-        const colorThief = new ColorThief();
-        const palette = colorThief.getPalette(img, 5);
-
-        if (mounted && palette && palette.length >= 5) {
-          const colors = palette.map(([r, g, b]: number[]) => `rgba(${r}, ${g}, ${b}, 0.28)`);
-          setDynamicColors(colors);
-        }
-      } catch (err) {
-        console.error("Failed to extract colors:", err);
-      }
-    };
-
-    return () => {
-      mounted = false;
-    };
-  }, [baseMovie, setDynamicColors]);
+      };
+    }
+  }, [movieId, setDynamicColors]);
 
   // Funkcja generowania rekomendacji
   const handleGenerateRecommendations = async () => {
@@ -127,17 +117,6 @@ export default function RecommendationResultPage() {
 
     try {
       const endpoint = ENGINE_ENDPOINT[selectedEngine];
-
-      // Lazily import full movie DB only when generating recommendations (reduces initial bundle)
-      let allMovies: Movie[] | null = null;
-      try {
-        const mod = await import("@/data/full_data_web.json");
-        allMovies = mod.default as unknown as Movie[];
-      } catch (e) {
-        // If import fails, leave allMovies null and rely on fallback behavior
-        console.warn("Lazy import of full_data_web.json failed", e);
-        allMovies = null;
-      }
 
       const res = await fetch(endpoint, {
         method: "POST",
@@ -156,45 +135,31 @@ export default function RecommendationResultPage() {
 
       const data = (await res.json()) as RecommendationsResponse;
 
-      let merged: MovieWithReason[] = [];
-      if (allMovies) {
-        merged = (data.recommendations ?? [])
-          .map((rec) => {
-            const id = Number(rec.id);
-            const movie = (allMovies as Movie[]).find((m) => Number(m.id) === id);
+      const movies: Movie[] = allMovies as Movie[];
+      const merged: MovieWithReason[] = (data.recommendations ?? [])
+        .map((rec) => {
+          const id = Number(rec.id);
+          const movie = movies.find((m) => Number(m.id) === id);
 
-            if (!movie) {
-              return {
-                id,
-                title: String(rec.title ?? id),
-                poster_path: "",
-                overview: "",
-                release_date: "",
-                vote_average: undefined,
-                genres: "",
-                why: rec.why ?? null,
-              } as MovieWithReason;
-            }
-
+          if (!movie) {
             return {
-              ...movie,
+              id,
+              title: String(rec.title ?? id),
+              poster_path: "",
+              overview: "",
+              release_date: "",
+              vote_average: undefined,
+              genres: "",
               why: rec.why ?? null,
             } as MovieWithReason;
-          })
-          .filter((m) => Number(m.id) !== Number(baseMovie.id));
-      } else {
-        // If lazy import failed, fall back to minimal mapping (IDs only)
-        merged = (data.recommendations ?? []).map((rec) => ({
-          id: Number(rec.id),
-          title: rec.title ?? String(rec.id),
-          poster_path: "",
-          overview: "",
-          release_date: "",
-          vote_average: undefined,
-          genres: "",
-          why: rec.why ?? null,
-        }));
-      }
+          }
+
+          return {
+            ...movie,
+            why: rec.why ?? null,
+          } as MovieWithReason;
+        })
+        .filter((m) => Number(m.id) !== Number(baseMovie.id));
 
       setRecommendations(merged);
       setLastRecommendationUrl(window.location.pathname + `?engine=${selectedEngine}`);
