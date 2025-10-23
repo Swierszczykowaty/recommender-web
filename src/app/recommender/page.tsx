@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 import Title from "@/components/global/Title";
 import Container from "@/components/layout/Container";
 import SearchBar from "@/components/global/SearchBar";
@@ -18,8 +17,6 @@ export default function RecommenderSearchPage() {
   const [allMovies, setAllMovies] = useState<Movie[] | null>(null);
   const [searchResults, setSearchResults] = useState<Movie[]>([]);
   const [searchQuery, setSearchQuery] = useState<string>("");
-
-  const router = useRouter();
 
   useEffect(() => {
     // Załaduj pełną bazę danych przy pierwszym renderze
@@ -63,11 +60,6 @@ export default function RecommenderSearchPage() {
     const sourceToUse = allMovies && allMovies.length > 0 ? allMovies : TOP_MOVIES;
     const filtered = searchMovies(sourceToUse, query);
     setSearchResults(filtered.slice(0, 12));
-  };
-
-  const handleMovieSelect = (movie: Movie) => {
-    // przekierowanie bez parametru engine - model będzie wybrany na następnej stronie
-    router.push(`/recommender/${movie.id}`);
   };
 
   useEffect(() => {
@@ -162,10 +154,12 @@ export default function RecommenderSearchPage() {
                   }}
                   className="h-full"
                 >
-                  <MovieCardSmall
-                    movie={movie}
-                    onClick={() => handleMovieSelect(movie)}
-                  />
+                  <Link href={`/recommender/${movie.id}`} prefetch={true}>
+                    <MovieCardSmall
+                      movie={movie}
+                      onClick={() => {}}
+                    />
+                  </Link>
                 </motion.div>
               ))}
             </div>
