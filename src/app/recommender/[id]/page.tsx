@@ -6,6 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 import Container from "@/components/layout/Container";
 import type { Movie } from "@/types/movie";
+import allMovies from "@/data/full_data_web.json";
 import { motion } from "framer-motion";
 import Loading from "@/components/global/Loading";
 import Icon from "@/components/global/Icon";
@@ -38,6 +39,7 @@ export default function RecommendationResultPage() {
   const [baseMovie, setBaseMovie] = useState<Movie | null>(null);
   const [recommendations, setRecommendations] = useState<MovieWithReason[]>([]);
   const [loading, setLoading] = useState(false);
+  const [loadingMovie, setLoadingMovie] = useState(true); // New state for initial movie loading
   const [error, setError] = useState<string | null>(null);
   const [selectedEngine, setSelectedEngine] = useState<Engine>("v2");
   const [hasGenerated, setHasGenerated] = useState(false);
@@ -64,56 +66,56 @@ export default function RecommendationResultPage() {
     recommendations: ApiRecommendationItem[];
   };
 
-  // Fetch single movie from server (only depends on movieId)
+  // Załaduj dane filmu
   useEffect(() => {
     if (!movieId) return;
-    let cancelled = false;
-    (async () => {
-      try {
-        const res = await fetch(`/api/movie?id=${encodeURIComponent(movieId)}`);
-        if (!res.ok) {
-          if (!cancelled) setError("Nie znaleziono filmu o podanym ID.");
-          return;
-        }
-        const mv = (await res.json()) as Movie;
-        if (!cancelled) setBaseMovie(mv);
-      } catch (e) {
-        console.error("Failed to fetch base movie:", e);
-        if (!cancelled) setError("Nie znaleziono filmu o podanym ID.");
+
+    setLoadingMovie(true);
+    
+    // Simulate async loading for smooth UX
+    const loadMovie = () => {
+      const movies: Movie[] = allMovies as Movie[];
+      const foundBaseMovie = movies.find(
+        (m) => String(m.id) === String(movieId)
+      );
+
+      if (!foundBaseMovie) {
+        setError("Nie znaleziono filmu o podanym ID.");
+        setLoadingMovie(false);
+        return;
       }
-    })();
 
-    return () => {
-      cancelled = true;
-    };
-  }, [movieId]);
+      setBaseMovie(foundBaseMovie);
+      setLoadingMovie(false);
 
-  // Extract colors from poster when baseMovie becomes available
-  useEffect(() => {
-    if (!baseMovie || !baseMovie.poster_path) return;
-    const img = document.createElement("img");
-    img.crossOrigin = "Anonymous";
-    img.src = `https://image.tmdb.org/t/p/w200${baseMovie.poster_path}`;
+      // Extract colors from poster
+      if (foundBaseMovie.poster_path) {
+        const img = document.createElement("img");
+        img.crossOrigin = "Anonymous";
+        img.src = `https://image.tmdb.org/t/p/w200${foundBaseMovie.poster_path}`;
 
-    let mounted = true;
-    img.onload = () => {
-      try {
-        const colorThief = new ColorThief();
-        const palette = colorThief.getPalette(img, 5);
+        img.onload = () => {
+          try {
+            const colorThief = new ColorThief();
+            const palette = colorThief.getPalette(img, 5);
 
-        if (mounted && palette && palette.length >= 5) {
-          const colors = palette.map(([r, g, b]: number[]) => `rgba(${r}, ${g}, ${b}, 0.28)`);
-          setDynamicColors(colors);
-        }
-      } catch (err) {
-        console.error("Failed to extract colors:", err);
+            if (palette && palette.length >= 5) {
+              const colors = palette.map(([r, g, b]: number[]) =>
+                `rgba(${r}, ${g}, ${b}, 0.28)`
+              );
+              setDynamicColors(colors);
+            }
+          } catch (err) {
+            console.error("Failed to extract colors:", err);
+          }
+        };
       }
     };
 
-    return () => {
-      mounted = false;
-    };
-  }, [baseMovie, setDynamicColors]);
+    // Small delay for smooth skeleton animation
+    const timer = setTimeout(loadMovie, 300);
+    return () => clearTimeout(timer);
+  }, [movieId, setDynamicColors]);
 
   // Funkcja generowania rekomendacji
   const handleGenerateRecommendations = async () => {
@@ -127,17 +129,6 @@ export default function RecommendationResultPage() {
 
     try {
       const endpoint = ENGINE_ENDPOINT[selectedEngine];
-
-      // Lazily import full movie DB only when generating recommendations (reduces initial bundle)
-      let allMovies: Movie[] | null = null;
-      try {
-        const mod = await import("@/data/full_data_web.json");
-        allMovies = mod.default as unknown as Movie[];
-      } catch (e) {
-        // If import fails, leave allMovies null and rely on fallback behavior
-        console.warn("Lazy import of full_data_web.json failed", e);
-        allMovies = null;
-      }
 
       const res = await fetch(endpoint, {
         method: "POST",
@@ -156,45 +147,31 @@ export default function RecommendationResultPage() {
 
       const data = (await res.json()) as RecommendationsResponse;
 
-      let merged: MovieWithReason[] = [];
-      if (allMovies) {
-        merged = (data.recommendations ?? [])
-          .map((rec) => {
-            const id = Number(rec.id);
-            const movie = (allMovies as Movie[]).find((m) => Number(m.id) === id);
+      const movies: Movie[] = allMovies as Movie[];
+      const merged: MovieWithReason[] = (data.recommendations ?? [])
+        .map((rec) => {
+          const id = Number(rec.id);
+          const movie = movies.find((m) => Number(m.id) === id);
 
-            if (!movie) {
-              return {
-                id,
-                title: String(rec.title ?? id),
-                poster_path: "",
-                overview: "",
-                release_date: "",
-                vote_average: undefined,
-                genres: "",
-                why: rec.why ?? null,
-              } as MovieWithReason;
-            }
-
+          if (!movie) {
             return {
-              ...movie,
+              id,
+              title: String(rec.title ?? id),
+              poster_path: "",
+              overview: "",
+              release_date: "",
+              vote_average: undefined,
+              genres: "",
               why: rec.why ?? null,
             } as MovieWithReason;
-          })
-          .filter((m) => Number(m.id) !== Number(baseMovie.id));
-      } else {
-        // If lazy import failed, fall back to minimal mapping (IDs only)
-        merged = (data.recommendations ?? []).map((rec) => ({
-          id: Number(rec.id),
-          title: rec.title ?? String(rec.id),
-          poster_path: "",
-          overview: "",
-          release_date: "",
-          vote_average: undefined,
-          genres: "",
-          why: rec.why ?? null,
-        }));
-      }
+          }
+
+          return {
+            ...movie,
+            why: rec.why ?? null,
+          } as MovieWithReason;
+        })
+        .filter((m) => Number(m.id) !== Number(baseMovie.id));
 
       setRecommendations(merged);
       setLastRecommendationUrl(window.location.pathname + `?engine=${selectedEngine}`);
@@ -234,7 +211,39 @@ export default function RecommendationResultPage() {
           </div>
         )}
 
-        {!loading && !error && baseMovie && !hasGenerated && (
+        {/* Skeleton Loader */}
+        {loadingMovie && !error && (
+          <div className="flex flex-col items-center w-full mx-auto relative">
+            <motion.div
+              className="mb-4 w-full max-w-2xl"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.4 }}
+            >
+              <div className="flex items-end justify-between mb-3">
+                <div className="skeleton h-5 w-40 rounded-md bg-white/10"></div>
+                <div className="skeleton h-8 w-32 rounded-lg bg-white/10"></div>
+              </div>
+              <div className="skeleton border border-white/20 rounded-lg h-[140px] sm:h-[200px] bg-white/5"></div>
+            </motion.div>
+
+            <motion.div
+              className="w-full max-w-3xl"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.4, delay: 0.1 }}
+            >
+              <div className="skeleton h-7 w-64 mx-auto mb-6 rounded-md bg-white/10"></div>
+              <div className="grid grid-cols-1 gap-4">
+                {[1, 2, 3].map((i) => (
+                  <div key={i} className="skeleton h-28 rounded-xl bg-white/5 border border-white/20"></div>
+                ))}
+              </div>
+            </motion.div>
+          </div>
+        )}
+
+        {!loading && !error && !loadingMovie && baseMovie && !hasGenerated && (
           <div className="flex flex-col items-center w-full mx-auto relative">
             <motion.div
               className="mb-4 w-full max-w-2xl"
@@ -259,8 +268,8 @@ export default function RecommendationResultPage() {
 
             <motion.div
               className="w-full max-w-3xl"
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
               transition={{ duration: 0.4, ease: "easeOut", delay: 0.2 }}
             >
               <h2 className="text-base md:text-xl font-bold text-white mb-6 text-center">
