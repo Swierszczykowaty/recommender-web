@@ -39,6 +39,7 @@ export default function RecommendationResultPage() {
   const [baseMovie, setBaseMovie] = useState<Movie | null>(null);
   const [recommendations, setRecommendations] = useState<MovieWithReason[]>([]);
   const [loading, setLoading] = useState(false);
+  const [loadingMovie, setLoadingMovie] = useState(true); // New state for initial movie loading
   const [error, setError] = useState<string | null>(null);
   const [selectedEngine, setSelectedEngine] = useState<Engine>("v2");
   const [hasGenerated, setHasGenerated] = useState(false);
@@ -69,40 +70,51 @@ export default function RecommendationResultPage() {
   useEffect(() => {
     if (!movieId) return;
 
-    const movies: Movie[] = allMovies as Movie[];
-    const foundBaseMovie = movies.find(
-      (m) => String(m.id) === String(movieId)
-    );
+    setLoadingMovie(true);
+    
+    // Simulate async loading for smooth UX
+    const loadMovie = () => {
+      const movies: Movie[] = allMovies as Movie[];
+      const foundBaseMovie = movies.find(
+        (m) => String(m.id) === String(movieId)
+      );
 
-    if (!foundBaseMovie) {
-      setError("Nie znaleziono filmu o podanym ID.");
-      return;
-    }
+      if (!foundBaseMovie) {
+        setError("Nie znaleziono filmu o podanym ID.");
+        setLoadingMovie(false);
+        return;
+      }
 
-    setBaseMovie(foundBaseMovie);
+      setBaseMovie(foundBaseMovie);
+      setLoadingMovie(false);
 
-    // Extract colors from poster
-    if (foundBaseMovie.poster_path) {
-      const img = document.createElement("img");
-      img.crossOrigin = "Anonymous";
-      img.src = `https://image.tmdb.org/t/p/w200${foundBaseMovie.poster_path}`;
+      // Extract colors from poster
+      if (foundBaseMovie.poster_path) {
+        const img = document.createElement("img");
+        img.crossOrigin = "Anonymous";
+        img.src = `https://image.tmdb.org/t/p/w200${foundBaseMovie.poster_path}`;
 
-      img.onload = () => {
-        try {
-          const colorThief = new ColorThief();
-          const palette = colorThief.getPalette(img, 5);
+        img.onload = () => {
+          try {
+            const colorThief = new ColorThief();
+            const palette = colorThief.getPalette(img, 5);
 
-          if (palette && palette.length >= 5) {
-            const colors = palette.map(([r, g, b]: number[]) =>
-              `rgba(${r}, ${g}, ${b}, 0.28)`
-            );
-            setDynamicColors(colors);
+            if (palette && palette.length >= 5) {
+              const colors = palette.map(([r, g, b]: number[]) =>
+                `rgba(${r}, ${g}, ${b}, 0.28)`
+              );
+              setDynamicColors(colors);
+            }
+          } catch (err) {
+            console.error("Failed to extract colors:", err);
           }
-        } catch (err) {
-          console.error("Failed to extract colors:", err);
-        }
-      };
-    }
+        };
+      }
+    };
+
+    // Small delay for smooth skeleton animation
+    const timer = setTimeout(loadMovie, 300);
+    return () => clearTimeout(timer);
   }, [movieId, setDynamicColors]);
 
   // Funkcja generowania rekomendacji
@@ -199,7 +211,39 @@ export default function RecommendationResultPage() {
           </div>
         )}
 
-        {!loading && !error && baseMovie && !hasGenerated && (
+        {/* Skeleton Loader */}
+        {loadingMovie && !error && (
+          <div className="flex flex-col items-center w-full mx-auto relative">
+            <motion.div
+              className="mb-4 w-full max-w-2xl"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.4 }}
+            >
+              <div className="flex items-end justify-between mb-3">
+                <div className="skeleton h-5 w-40 rounded-md bg-white/10"></div>
+                <div className="skeleton h-8 w-32 rounded-lg bg-white/10"></div>
+              </div>
+              <div className="skeleton border border-white/20 rounded-lg h-[140px] sm:h-[200px] bg-white/5"></div>
+            </motion.div>
+
+            <motion.div
+              className="w-full max-w-3xl"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.4, delay: 0.1 }}
+            >
+              <div className="skeleton h-7 w-64 mx-auto mb-6 rounded-md bg-white/10"></div>
+              <div className="grid grid-cols-1 gap-4">
+                {[1, 2, 3].map((i) => (
+                  <div key={i} className="skeleton h-28 rounded-xl bg-white/5 border border-white/20"></div>
+                ))}
+              </div>
+            </motion.div>
+          </div>
+        )}
+
+        {!loading && !error && !loadingMovie && baseMovie && !hasGenerated && (
           <div className="flex flex-col items-center w-full mx-auto relative">
             <motion.div
               className="mb-4 w-full max-w-2xl"
@@ -224,8 +268,8 @@ export default function RecommendationResultPage() {
 
             <motion.div
               className="w-full max-w-3xl"
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
               transition={{ duration: 0.4, ease: "easeOut", delay: 0.2 }}
             >
               <h2 className="text-base md:text-xl font-bold text-white mb-6 text-center">
