@@ -13,6 +13,7 @@ import Container from "@/components/layout/Container";
 import AnimatedBackground from "@/components/layout/Background";
 import Icon from "@/components/global/Icon";
 import FadeImage from "@/components/global/FadeImage";
+import { useThemeStore } from "@/lib/themeStore";
 
 // Lekkie opóźnienie daje naturalny efekt "wczytywania" 350?
 const SKELETON_MIN_MS = 0;
@@ -41,6 +42,8 @@ export default function MovieDetailPage() {
   const params = useParams();
   const movieId = Number(params.id);
   const movie = useMemo(() => moviesData.find((m) => m.id === movieId), [movieId]);
+  const theme = useThemeStore((state) => state.theme);
+  const translucentBg = theme === "light" ? "bg-white/40" : "bg-white/7";
 
   // Parallax dla backdropu
   const { scrollY } = useScroll();
@@ -128,7 +131,7 @@ export default function MovieDetailPage() {
             />
           </motion.div>
           <div className="absolute inset-0 bg-gradient-to-b from-black/70 to-transparent" />
-          <motion.div
+          <motion.div data-force-white
             className="absolute inset-0 flex flex-col justify-center items-center text-center drop-shadow-2xl -mt-[0px] sm:-mt-[400px]"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -142,7 +145,7 @@ export default function MovieDetailPage() {
         </div>
       ) : (
         <div className="relative w-full h-[400px] sm:h-[800px]">
-          <motion.div
+          <motion.div data-force-white
             className="absolute inset-0 flex flex-col justify-center items-center text-center drop-shadow-2xl -mt-[400px]"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -163,7 +166,7 @@ export default function MovieDetailPage() {
       <Container>
         <div className="grid grid-cols-1 gap-6 -mt-[100px] sm:-mt-[500px]">
           {/* Górny pasek: breadcrumb + powrót */}
-          <motion.div
+          <motion.div data-force-white
             className="flex justify-between items-center -mb-2 z-50"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -182,7 +185,7 @@ export default function MovieDetailPage() {
             </nav>
             <button
               onClick={handleGoBack}
-              className="flex items-center gap-2 px-4 py-1 text-sm bg-white/7 border border-white/20 rounded-lg backdrop-blur-md shadow-xl transition cursor-pointer hover:bg-white/10 duration-300"
+              className={`flex items-center gap-2 px-4 py-1 text-sm ${translucentBg} border border-white/20 rounded-lg backdrop-blur-md shadow-xl transition cursor-pointer hover:bg-white/10 duration-300`}
             >
               <Icon icon="keyboard_backspace" style={{ fontSize: "20px" }} />
               <span className="text-sm hidden md:inline">Back</span>
@@ -191,7 +194,7 @@ export default function MovieDetailPage() {
 
           {/* Główny kafelek: poster + opis (z widokiem skeleton) */}
           <motion.div
-            className="bg-white/7 border border-white/20 p-4 md:p-8 rounded-xl backdrop-blur-md shadow-xl"
+            className={`${translucentBg} border border-white/20 p-4 md:p-8 rounded-xl backdrop-blur-md shadow-xl`}
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, ease: "easeOut" }}
@@ -312,13 +315,13 @@ export default function MovieDetailPage() {
           >
             <h2 className="mb-2 font-semibold">Cast:</h2>
             {loading ? (
-              <div className="bg-white/7 border border-white/20 p-4 md:p-8 rounded-xl backdrop-blur-md shadow-xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              <div className={`${translucentBg} border border-white/20 p-4 md:p-8 rounded-xl backdrop-blur-md shadow-xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4`}>
                 {Array.from({ length: 6 }).map((_, i) => (
                   <Skeleton key={i} className="h-16" />
                 ))}
               </div>
             ) : (
-              <div className="bg-white/7 border border-white/20 p-4 md:p-8 rounded-xl backdrop-blur-md shadow-xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              <div className={`${translucentBg} border border-white/20 p-4 md:p-8 rounded-xl backdrop-blur-md shadow-xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4`}>
                 {Array.isArray(movie.actors) &&
                   movie.actors.slice(0, 9).map((actor, index) => (
                     <div
@@ -326,7 +329,7 @@ export default function MovieDetailPage() {
                       onClick={() =>
                         router.push(`/movies?query=${encodeURIComponent(actor.name)}&page=1`)
                       }
-                      className="group shadow-md flex flex-row items-center relative bg-white/7 px-3 py-2 rounded-lg border border-white/20 cursor-pointer hover:bg-white/7 duration-300"
+                      className={`group shadow-md flex flex-row items-center relative ${translucentBg} px-3 py-2 rounded-lg border border-white/20 cursor-pointer hover:bg-white/10 duration-300`}
                     >
                       <span className="relative flex-shrink-0 flex items-center justify-center" style={{ width: 36, height: 36 }}>
                         <Icon icon="person" className="!text-3xl absolute left-0 top-0 opacity-100 group-hover:opacity-0 group-hover:scale-50 duration-300" />
@@ -350,7 +353,7 @@ export default function MovieDetailPage() {
           >
             <h2 className="mb-2 font-semibold">Information:</h2>
             {loading ? (
-              <div className="bg-white/7 border border-white/20 p-4 md:p-8 rounded-xl backdrop-blur-md shadow-xl grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className={`${translucentBg} border border-white/20 p-4 md:p-8 rounded-xl backdrop-blur-md shadow-xl grid grid-cols-1 sm:grid-cols-2 gap-4`}>
                 {Array.from({ length: 6 }).map((_, i) => (
                   <Skeleton key={i} className="h-6" />
                 ))}
@@ -358,7 +361,7 @@ export default function MovieDetailPage() {
                 <Skeleton className="sm:col-span-2 h-6" />
               </div>
             ) : (
-              <div className="bg-white/7 border border-white/20 p-4 md:p-8 rounded-xl backdrop-blur-md shadow-xl grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className={`${translucentBg} border border-white/20 p-4 md:p-8 rounded-xl backdrop-blur-md shadow-xl grid grid-cols-1 sm:grid-cols-2 gap-4`}>
                 {typeof movie.budget === "number" && movie.budget > 0 && (
                   <p className="text-sm md:text-md"><strong>Budget:</strong> ${movie.budget.toLocaleString()}</p>
                 )}
@@ -377,7 +380,7 @@ export default function MovieDetailPage() {
           <div className="mb-10 flex flex-col-reverse md:flex-row justify-center items-center gap-4 mt-2">
             <button
               onClick={handleGoBack}
-              className="flex items-center gap-2 px-6 py-3 w-full max-w-[270px] justify-center bg-white/7 border border-white/20 rounded-lg backdrop-blur-md shadow-xl transition cursor-pointer hover:bg-white/7 duration-300"
+              className={`flex items-center gap-2 px-6 py-3 w-full max-w-[270px] justify-center ${translucentBg} border border-white/20 rounded-lg backdrop-blur-md shadow-xl transition cursor-pointer hover:bg-white/10 duration-300`}
             >
               <Icon icon="keyboard_backspace" style={{ fontSize: "20px" }} />
               Back

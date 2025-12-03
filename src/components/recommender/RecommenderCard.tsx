@@ -3,6 +3,7 @@
 import { Movie } from "@/types/movie";
 import FadeImage from "../global/FadeImage";
 import Image from "next/image";
+import { useThemeStore } from "@/lib/themeStore";
 
 type MovieCardSmallProps = {
   movie: Movie;
@@ -13,9 +14,19 @@ const MovieCardSmall = ({ movie, onClick }: MovieCardSmallProps) => {
   const releaseYear = movie.release_date
     ? movie.release_date.slice(0, 4)
     : "Unknown";
+  const theme = useThemeStore((state) => state.theme);
+  const overlayBase =
+    theme === "light"
+      ? "bg-gradient-to-br from-slate-600/20 via-slate-700/25 to-slate-900/35 backdrop-blur-sm"
+      : "bg-black/75 backdrop-blur-xs";
+  const overlayHover =
+    theme === "light"
+      ? "group-hover:from-slate-700/30 group-hover:via-slate-800/35 group-hover:to-slate-950/45"
+      : "group-hover:bg-black/70";
 
   return (
     <div
+      data-color-lock="dark"
       className="relative flex items-center gap-4 p-3 bg-white/7 rounded-xl border border-white/20 backdrop-blur-lg overflow-hidden cursor-pointer hover:bg-white/10 hover:border-white/30 transition-all duration-300 group"
       onClick={onClick}
     >
@@ -30,7 +41,9 @@ const MovieCardSmall = ({ movie, onClick }: MovieCardSmallProps) => {
               className="object-cover"
             />
           </div>
-          <div className="absolute inset-0 z-0 bg-black/75 backdrop-blur-xs group-hover:bg-black/70 transition-colors duration-300"></div>
+          <div
+            className={`absolute inset-0 z-0 ${overlayBase} ${overlayHover} transition-colors duration-300`}
+          ></div>
         </>
       )}
 

@@ -30,7 +30,7 @@ export default function MovieCard({ movie, isFirstCard }: MovieCardProps) {
       className="group bg-white/7 backdrop-blur-lg border border-white/20 rounded-xl overflow-hidden shadow-xl transition hover:bg-white/15 duration-300 flex flex-row h-[140px] sm:flex-col sm:h-auto relative"
     >
       {typeof vote_average === "number" && (
-        <div
+        <div data-force-white
           className={`z-50 absolute top-2 right-2 px-3 py-1 rounded-full text-xs font-bold text-white shadow ${getRatingColor(
             vote_average
           )}`}

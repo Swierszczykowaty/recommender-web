@@ -67,6 +67,7 @@ export default function MovieRankingCard({ movie, rank, type, why }: Props) {
   return (
     <Link
       href={`/movies/${id}`}
+      data-color-lock="dark"
       className={`group block w-full ${why ? 'h-auto min-h-48 md:min-h-52' : 'h-36 md:h-44'} relative overflow-hidden rounded-xl shadow-lg border border-white/30`}
     >
       {imageSrc ? (
