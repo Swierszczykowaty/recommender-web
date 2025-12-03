@@ -24,9 +24,9 @@ export default function AboutPage() {
             <Title
               subtitle="Learn More"
               gradientLight={{
-                from: "from-emerald-300",
-                via: "via-green-300",
-                to: "to-lime-300",
+              from: "from-slate-700",
+              via: "via-slate-500",
+              to: "to-slate-800",
                 subtitleColor: "text-white",
               }}
               gradientDark={{

@@ -11,10 +11,10 @@ export default function Home() {
             <Title
               subtitle="Choose what interests you"
               gradientLight={{
-              from: "from-pink-300",
-              via: "via-purple-300",
-              to: "to-sky-300",
-              subtitleColor: "text-white",
+              from: "from-slate-700",
+              via: "via-slate-500",
+              to: "to-slate-800",
+                subtitleColor: "text-white",
             }}
             gradientDark={{
               from: "from-pink-300",

@@ -2,6 +2,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { useThemeStore } from "@/lib/themeStore";
 
 type Gradient = {
   from: string;
@@ -64,6 +65,8 @@ export default function Title({
   gradientDark,
   link,
 }: Props) {
+  const theme = useThemeStore((state) => state.theme);
+
   const Light = (
     <Heading grad={gradientLight} subtitle={subtitle}>
       {children}
@@ -75,14 +78,7 @@ export default function Title({
     </Heading>
   );
 
-  return (
-    <>
-      <div className="dark:hidden">
-        {link ? <Link href={link}>{Light}</Link> : Light}
-      </div>
-      <div className="hidden dark:block">
-        {link ? <Link href={link}>{Dark}</Link> : Dark}
-      </div>
-    </>
-  );
+  const content = theme === "light" ? Light : Dark;
+
+  return link ? <Link href={link}>{content}</Link> : content;
 }
