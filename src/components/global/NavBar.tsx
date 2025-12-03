@@ -71,9 +71,9 @@ export default function NavBar() {
         aria-label={isLight ? "Włącz tryb ciemny" : "Włącz tryb jasny"}
         aria-pressed={isLight}
         onClick={toggleTheme}
-        className={`hidden lg:flex absolute top-1/2 -translate-y-1/2 right-6 w-12 h-12 items-center justify-center rounded-full border shadow-lg transition ${buttonThemeClasses}`}
+        className={`hidden lg:flex absolute top-1/2 -translate-y-1/2 right-6 w-10 h-10 items-center justify-center rounded-full border shadow-lg transition ${buttonThemeClasses}`}
       >
-        <Icon icon={isLight ? "light_mode" : "dark_mode"} className="!text-2xl" />
+        <Icon icon={isLight ? "light_mode" : "dark_mode"} className="!text-xl" />
       </button>
       {/* Mobile menu */}
       <AnimatePresence>

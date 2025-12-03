@@ -16,7 +16,6 @@ import { useEngineStore } from "@/lib/engineStore";
 import RecommenderCard from "@/components/recommender/RecommenderCard";
 import { useBackgroundStore } from "@/lib/backgroundStore";
 import ColorThief from "colorthief";
-import { useThemeStore } from "@/lib/themeStore";
 
 type Engine = "v1" | "v2" | "gemini";
 
@@ -49,8 +48,6 @@ export default function RecommendationResultPage() {
   const movieId = params.id as string;
   const { setEngineReady, setLastRecommendationUrl } = useEngineStore();
   const setDynamicColors = useBackgroundStore((state) => state.setDynamicColors);
-  const theme = useThemeStore((state) => state.theme);
-  const isLight = theme === "light";
 
   const recommendedBadgeClasses =
     "px-2 py-1 text-xs font-semibold rounded-full border transition-colors text-white bg-gradient-to-r from-blue-500/30 to-purple-500/30 border-blue-400/50";
