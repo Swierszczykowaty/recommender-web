@@ -5,6 +5,7 @@ import Link from "next/link";
 import type { Movie } from "@/types/movie";
 import type { RankingType } from "@/lib/ranking-types";
 import FadeImage from "../global/FadeImage";
+import { useThemeStore } from "@/lib/themeStore";
 
 interface Props {
   movie: Movie;
@@ -20,6 +21,15 @@ const LABELS: Record<RankingType, string> = {
 };
 
 export default function MovieRankingCard({ movie, rank, type, why }: Props) {
+  const theme = useThemeStore((state) => state.theme);
+  const isLight = theme === "light";
+  const gradientOverlayClass = isLight
+    ? "bg-white/30"
+    : "bg-gradient-to-t from-black/45 to-transparent";
+  const veilOverlayClass = isLight
+    ? "bg-white/20 group-hover:bg-white/10"
+    : "bg-black/35 group-hover:bg-black/15";
+
   const {
     id,
     backdrop_path,
@@ -67,7 +77,6 @@ export default function MovieRankingCard({ movie, rank, type, why }: Props) {
   return (
     <Link
       href={`/movies/${id}`}
-      data-color-lock="dark"
       className={`group block w-full ${why ? 'h-auto min-h-48 md:min-h-52' : 'h-36 md:h-44'} relative overflow-hidden rounded-xl shadow-lg border border-white/30`}
     >
       {imageSrc ? (
@@ -87,10 +96,10 @@ export default function MovieRankingCard({ movie, rank, type, why }: Props) {
       )}
 
       {/* gradient (poprawiona klasa) */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/45 to-transparent" />
+      <div className={`absolute inset-0 ${gradientOverlayClass}`} />
 
       <div className="absolute inset-0 flex items-center p-4 z-10">
-        <div className="flex-1 text-white">
+        <div data-force-white className="flex-1 text-white">
           <p className="text-lg font-semibold mb-1">
             {rank}. {title}
           </p>
@@ -114,7 +123,7 @@ export default function MovieRankingCard({ movie, rank, type, why }: Props) {
         </div>
       </div>
 
-      <div className="absolute inset-0 bg-black/35 group-hover:bg-black/15 transition duration-300" />
+      <div className={`absolute inset-0 ${veilOverlayClass} transition duration-300`} />
     </Link>
   );
 }
