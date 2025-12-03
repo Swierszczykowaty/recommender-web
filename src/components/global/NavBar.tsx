@@ -18,7 +18,7 @@ export default function NavBar() {
   ];
 
   const navThemeClasses = isLight
-    ? "bg-white/60 text-slate-900 border-slate-200 shadow-md"
+    ? "bg-white/70 text-slate-900 border-slate-200 shadow-md"
     : "bg-white/7 text-white border-white/20 shadow-sm";
 
   const buttonThemeClasses = isLight

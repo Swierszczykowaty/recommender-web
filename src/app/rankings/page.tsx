@@ -10,9 +10,9 @@ export default function RankingsIndex() {
           <Title
             subtitle="Check out the best productions"
             gradientLight={{
-              from: "from-rose-300",
-              via: "via-pink-300",
-              to: "to-fuchsia-300",
+              from: "from-slate-700",
+              via: "via-slate-500",
+              to: "to-slate-800",
               subtitleColor: "text-white",
             }}
             gradientDark={{

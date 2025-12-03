@@ -136,9 +136,9 @@ export default function MoviesList() {
           <Title
             subtitle="Dive into the world of movies"
             gradientLight={{
-              from: "from-teal-200",
-              via: "via-blue-300",
-              to: "to-blue-200",
+              from: "from-slate-700",
+              via: "via-slate-500",
+              to: "to-slate-800",
               subtitleColor: "text-white",
             }}
             gradientDark={{

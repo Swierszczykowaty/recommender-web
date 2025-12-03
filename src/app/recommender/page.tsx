@@ -78,9 +78,9 @@ export default function RecommenderSearchPage() {
           <Title
             subtitle="Choose a movie and model - we'll find similar ones"
             gradientLight={{
-              from: "from-pink-300",
-              via: "via-rose-200",
-              to: "to-violet-300",
+              from: "from-slate-700",
+              via: "via-slate-500",
+              to: "to-slate-800",
               subtitleColor: "text-white",
             }}
             gradientDark={{
