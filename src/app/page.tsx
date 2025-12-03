@@ -14,7 +14,7 @@ export default function Home() {
               from: "from-slate-700",
               via: "via-slate-500",
               to: "to-slate-800",
-              subtitleColor: "text-slate-600",
+                subtitleColor: "text-white",
             }}
             gradientDark={{
               from: "from-pink-300",

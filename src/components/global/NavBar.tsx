@@ -29,6 +29,10 @@ export default function NavBar() {
     ? "text-slate-700 hover:text-slate-900 active:text-slate-950"
     : "text-white hover:text-white/70 active:text-white/60";
 
+  const brandThemeClasses = isLight
+    ? "text-transparent bg-clip-text bg-gradient-to-tr from-slate-900 via-slate-600 to-slate-800"
+    : "text-white";
+
   return (
     <nav
       className={`fixed top-0 left-0 w-full z-40 backdrop-blur-md border-b transition-colors duration-300 ${navThemeClasses}`}
@@ -37,7 +41,7 @@ export default function NavBar() {
         {/* Logo + nazwa */}
         <Link
           href="/"
-          className="flex items-center text-xl font-bold gap-2"
+          className={`flex items-center text-xl font-bold gap-2 ${brandThemeClasses}`}
         >
           <Icon icon="blur_on" className="!text-3xl cursor-pointer" />
           Movie Recommender
