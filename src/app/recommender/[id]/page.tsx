@@ -49,6 +49,12 @@ export default function RecommendationResultPage() {
   const { setEngineReady, setLastRecommendationUrl } = useEngineStore();
   const setDynamicColors = useBackgroundStore((state) => state.setDynamicColors);
 
+  const recommendedBadgeClasses =
+    "px-2 py-1 text-xs font-semibold rounded-full border transition-colors text-white bg-gradient-to-r from-blue-500/30 to-purple-500/30 border-blue-400/50";
+
+  const betaBadgeClasses =
+    "ml-3 px-2 py-1 text-xs font-semibold rounded-full border transition-colors text-white bg-gradient-to-r from-blue-500/30 via-purple-500/30 to-pink-500/30 border-purple-400/50";
+
   const handleGoBack = () => {
     setDynamicColors(null); // Reset colors when going back
     router.push("/recommender");
@@ -202,7 +208,7 @@ export default function RecommendationResultPage() {
         {!loading && !error && baseMovie && !hasGenerated && (
           <div className="flex flex-col items-center w-full mx-auto relative">
             <motion.div
-              className="mb-4 w-full max-w-2xl"
+              className="mb-4 w-full max-w-3xl"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.7, ease: "easeOut" }}
@@ -277,7 +283,7 @@ export default function RecommendationResultPage() {
                       )}
                     </div>
                     <h3 className="text-base md:text-lg font-bold text-white mr-3">Model v2.0 - Hybrid</h3>
-                    <span className="px-2 py-1 text-xs font-semibold bg-gradient-to-r from-blue-500/30 to-purple-500/30 border border-blue-400/50 rounded-full text-white">
+                    <span data-force-white className={recommendedBadgeClasses}>
                       <span className="hidden sm:inline">Recommended</span>
                       <span className="sm:hidden">★</span>
                     </span>
@@ -316,7 +322,7 @@ export default function RecommendationResultPage() {
                       className="w-6 h-6 ml-3 mr-1"
                     />
                     <h3 className="text-base md:text-lg font-bold text-white">Gemini AI</h3>
-                    <span className="ml-3 px-2 py-1 text-xs font-semibold bg-gradient-to-r from-blue-500/30 via-purple-500/30 to-pink-500/30 border border-purple-400/50 rounded-full text-white">
+                    <span data-force-white className={betaBadgeClasses}>
                       Beta
                     </span>
                   </div>

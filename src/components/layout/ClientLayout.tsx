@@ -6,6 +6,7 @@ import LayoutBackground from "@/components/layout/LayoutBackground";
 import LenisProvider from "@/components/layout/LenisProvider";
 import EngineStatusToast from "@/components/global/EngineStatusToast";
 import { useEngineStore } from "@/lib/engineStore";
+import { useThemeStore } from "@/lib/themeStore";
 import { Archivo } from "next/font/google";
 
 const archivo = Archivo({
@@ -16,6 +17,7 @@ const archivo = Archivo({
 
 export default function ClientLayout({ children }: { children: ReactNode }) {
   const { isEngineReady, setEngineReady } = useEngineStore();
+  const theme = useThemeStore((state) => state.theme);
 
   useEffect(() => {
     if (!isEngineReady) {
@@ -41,7 +43,8 @@ export default function ClientLayout({ children }: { children: ReactNode }) {
   return (
     <body
       data-nextjs-scroll-focus-boundary
-      className={`${archivo.className} relative text-white min-h-dvh overflow-x-hidden`}
+      data-theme={theme}
+      className={`${archivo.className} relative min-h-dvh overflow-x-hidden transition-colors duration-300`}
     >
       <NavBar />
       <LayoutBackground />

@@ -8,16 +8,34 @@
 }
 
 :root {
-  /* --background: #b6ade0; */  /* LIGHT - ZAKOMENTOWANE */
-  /* --foreground: #ffffff; */
-  --background: #0f0f0f; /* DARK */
-  --foreground: #ededed;
+  --background-dark: #05060a;
+  --foreground-dark: #ededed;
+  --background-light: #f7f8fb;
+  --foreground-light: #282d3b;
+  --glass-dark: rgba(201, 18, 18, 0.07);
+  --glass-light: rgba(15, 23, 42, 0.06);
+  --glass-light-strong: rgba(15, 23, 42, 0.12);
+  --border-dark: rgba(255, 255, 255, 0.15);
+  --border-light: rgba(15, 23, 42, 0.12);
+  --border-light-strong: rgba(15, 23, 42, 0.22);
+  --background: var(--background-dark);
+  --foreground: var(--foreground-dark);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: "Inter", sans-serif;
   --font-mono: "Fira Code", monospace;
   --font-material-outlined: "Material Symbols Outlined";
   --font-material-filled: "Material Symbols Filled";
+}
+
+body[data-theme="dark"] {
+  --background: var(--background-dark);
+  --foreground: var(--foreground-dark);
+}
+
+body[data-theme="light"] {
+  --background: var(--background-light);
+  --foreground: var(--foreground-light);
 }
 
 .material-icons.md-60 {
@@ -34,6 +52,186 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  transition: background 0.4s ease, color 0.4s ease;
+}
+
+body[data-theme="light"] {
+  color: var(--foreground-light);
+}
+
+body[data-theme="light"] ::selection {
+  background: rgba(79, 70, 229, 0.3);
+  color: var(--foreground-light);
+}
+
+body[data-theme="light"] ::placeholder {
+  color: rgba(15, 23, 42, 0.55);
+}
+
+body[data-theme="light"] .text-white {
+  color: var(--foreground-light) !important;
+}
+
+body[data-theme="light"] .text-white\/90 {
+  color: rgba(15, 23, 42, 0.9) !important;
+}
+
+body[data-theme="light"] .text-white\/80 {
+  color: rgba(15, 23, 42, 0.8) !important;
+}
+
+body[data-theme="light"] .text-white\/70 {
+  color: rgba(15, 23, 42, 0.7) !important;
+}
+
+body[data-theme="light"] .text-white\/60 {
+  color: rgba(15, 23, 42, 0.6) !important;
+}
+
+body[data-theme="light"] .text-white\/50 {
+  color: rgba(15, 23, 42, 0.5) !important;
+}
+
+body[data-theme="light"] .text-white\/40 {
+  color: rgba(15, 23, 42, 0.4) !important;
+}
+
+body[data-theme="light"] .text-white\/30 {
+  color: rgba(15, 23, 42, 0.3) !important;
+}
+
+body[data-theme="light"] .text-white\/20 {
+  color: rgba(15, 23, 42, 0.2) !important;
+}
+
+body[data-theme="light"] .text-white\/10 {
+  color: rgba(15, 23, 42, 0.1) !important;
+}
+
+body[data-theme="light"] .bg-white\/5 {
+  background-color: rgba(15, 23, 42, 0.03) !important;
+}
+
+body[data-theme="light"] .bg-white\/7 {
+  background-color: rgba(15, 23, 42, 0.04) !important;
+}
+
+body[data-theme="light"] .bg-white\/10 {
+  background-color: rgba(15, 23, 42, 0.06) !important;
+}
+
+body[data-theme="light"] .bg-white\/15 {
+  background-color: rgba(15, 23, 42, 0.09) !important;
+}
+
+body[data-theme="light"] .bg-white\/20 {
+  background-color: rgba(15, 23, 42, 0.12) !important;
+}
+
+body[data-theme="light"] .bg-white\/30 {
+  background-color: rgba(15, 23, 42, 0.18) !important;
+}
+
+body[data-theme="light"] .hover\:bg-white\/10:hover {
+  background-color: rgba(15, 23, 42, 0.08) !important;
+}
+
+body[data-theme="light"] .hover\:bg-white\/15:hover {
+  background-color: rgba(15, 23, 42, 0.1) !important;
+}
+
+body[data-theme="light"] .hover\:bg-white\/20:hover {
+  background-color: rgba(15, 23, 42, 0.14) !important;
+}
+
+body[data-theme="light"] .hover\:bg-white\/30:hover {
+  background-color: rgba(15, 23, 42, 0.18) !important;
+}
+
+body[data-theme="light"] .border-white\/10 {
+  border-color: rgba(15, 23, 42, 0.1) !important;
+}
+
+body[data-theme="light"] .border-white\/15 {
+  border-color: rgba(15, 23, 42, 0.12) !important;
+}
+
+body[data-theme="light"] .border-white\/20 {
+  border-color: rgba(15, 23, 42, 0.15) !important;
+}
+
+body[data-theme="light"] .border-white\/30 {
+  border-color: rgba(15, 23, 42, 0.22) !important;
+}
+
+body[data-theme="light"] .hover\:border-white\/30:hover {
+  border-color: rgba(15, 23, 42, 0.28) !important;
+}
+
+body[data-theme="light"] .focus\:ring-white\/40:focus {
+  --tw-ring-color: rgba(15, 23, 42, 0.25) !important;
+}
+
+body[data-theme="light"] .focus\:ring-white\/60:focus {
+  --tw-ring-color: rgba(15, 23, 42, 0.3) !important;
+}
+
+body[data-theme="light"] .ring-white\/60 {
+  --tw-ring-color: rgba(15, 23, 42, 0.3) !important;
+}
+
+body[data-theme="light"] .placeholder-white\/60::placeholder {
+  color: rgba(15, 23, 42, 0.55) !important;
+}
+
+body[data-theme="light"] .text-white\/90 .material-symbols-outlined,
+body[data-theme="light"] .text-white .material-symbols-outlined {
+  color: inherit;
+}
+
+body[data-theme="light"] [data-color-lock="dark"] .text-white {
+  color: #ffffff !important;
+}
+
+body[data-theme="light"] [data-color-lock="dark"] .text-white\/90 {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+body[data-theme="light"] [data-color-lock="dark"] .text-white\/80 {
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+
+body[data-theme="light"] [data-color-lock="dark"] .text-white\/70 {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+body[data-theme="light"] [data-color-lock="dark"] .text-white\/60 {
+  color: rgba(255, 255, 255, 0.6) !important;
+}
+
+body[data-theme="light"] [data-color-lock="dark"] .text-white\/50 {
+  color: rgba(255, 255, 255, 0.5) !important;
+}
+
+body[data-theme="light"] [data-color-lock="dark"] .text-white\/40 {
+  color: rgba(255, 255, 255, 0.4) !important;
+}
+
+body[data-theme="light"] [data-color-lock="dark"] .text-white\/30 {
+  color: rgba(255, 255, 255, 0.3) !important;
+}
+
+body[data-theme="light"] [data-color-lock="dark"] .text-white\/20 {
+  color: rgba(255, 255, 255, 0.2) !important;
+}
+
+body[data-theme="light"] [data-color-lock="dark"] .text-white\/10 {
+  color: rgba(255, 255, 255, 0.1) !important;
+}
+
+body[data-theme="light"] [data-force-white],
+body[data-theme="light"] [data-force-white] * {
+  color: #ffffff !important;
 }
 .parallax {
   background-attachment: fixed;

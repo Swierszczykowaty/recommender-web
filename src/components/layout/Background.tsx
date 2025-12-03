@@ -3,6 +3,7 @@
 import { useMemo } from "react";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
+import { ThemeMode } from "@/lib/themeStore";
 
 const colorConfig = {
   default: [
@@ -40,7 +41,47 @@ const colorConfig = {
     "rgba(225, 29, 72, 0.24)", // rose-600
     "rgba(139, 92, 246, 0.22)", // violet-500
   ],
-} as const;
+};
+
+type ColorConfig = typeof colorConfig;
+
+const lightColorConfig: ColorConfig = {
+  default: [
+    "rgba(248, 250, 252, 1)", // slate-50
+    "rgba(191, 219, 254, 1)", // sky-200
+    "rgba(254, 226, 226, 1)", // rose-100
+    "rgba(221, 214, 254, 1)", // indigo-100
+    "rgba(148, 163, 184, 1)", // slate-400
+  ],
+  "/movies": [
+    "rgba(236, 254, 255, 1)", // cyan-50
+    "rgba(191, 219, 254, 1)", // blue-200
+    "rgba(165, 243, 252, 1)", // cyan-200
+    "rgba(254, 249, 195, 1)", // yellow-100
+    "rgba(245, 208, 254, 1)", // fiolet pastelowy
+  ],
+  "/recommender": [
+    "rgba(254, 240, 250, 1)", // pink-50
+    "rgba(252, 231, 243, 1)", // pink-100
+    "rgba(233, 213, 255, 1)", // violet-200
+    "rgba(219, 234, 254, 1)", // sky-100
+    "rgba(251, 213, 141, 1)", // amber pastel
+  ],
+  "/about": [
+    "rgba(240, 253, 244, 1)", // green-50
+    "rgba(236, 253, 245, 1)", // emerald-50
+    "rgba(254, 252, 232, 1)", // amber-50
+    "rgba(224, 245, 255, 1)", // sky-50
+    "rgba(148, 163, 184, 1)", // slate-400
+  ],
+  "/rankings": [
+    "rgba(255, 241, 242, 1)", // rose-50
+    "rgba(254, 228, 226, 1)", // rose-100
+    "rgba(254, 215, 226, 1)", // pink-100
+    "rgba(233, 213, 255, 1)", // violet-200
+    "rgba(186, 230, 253, 1)", // sky-200
+  ],
+};
 
 function buildMesh() {
   return [
@@ -54,8 +95,10 @@ function buildMesh() {
 
 export default function AnimatedBackground({
   dynamicColors,
+  mode = "dark",
 }: {
   dynamicColors?: string[];
+  mode?: ThemeMode;
 }) {
   const pathname = usePathname();
 
@@ -63,10 +106,12 @@ export default function AnimatedBackground({
     if (Array.isArray(dynamicColors) && dynamicColors.length >= 5)
       return dynamicColors;
     const basePath = "/" + pathname.split("/")[1];
+    const palette: ColorConfig =
+      mode === "light" ? lightColorConfig : colorConfig;
     return Array.from(
-      colorConfig[basePath as keyof typeof colorConfig] ?? colorConfig.default
+      palette[basePath as keyof ColorConfig] ?? palette.default
     );
-  }, [pathname, dynamicColors]);
+  }, [pathname, dynamicColors, mode]);
 
   return (
     <AnimatePresence mode="wait">
