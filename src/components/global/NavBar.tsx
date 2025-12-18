@@ -37,7 +37,7 @@ export default function NavBar() {
     <nav
       className={`fixed top-0 left-0 w-full z-40 backdrop-blur-md border-b transition-colors duration-300 ${navThemeClasses}`}
     >
-      <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center lg:pr-24">
         {/* Logo + nazwa */}
         <Link
           href="/"
