@@ -22,21 +22,54 @@ export default function ClientLayout({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (!isEngineReady) {
       // Wykonaj tylko jedno zapytanie przy pierwszym wejściu
-      const checkHealth = async () => {
+      const checkHealth = async (retryCount = 0) => {
         try {
-          const res = await fetch('/api/health');
+          console.log(`Starting health check... (attempt ${retryCount + 1})`);
+          // Upewnij się, że jesteśmy w przeglądarce
+          if (typeof window === 'undefined') {
+            console.log('Not in browser, skipping');
+            return;
+          }
+          
+          const url = `${window.location.origin}/api/health`;
+          console.log('Fetching:', url);
+          
+          const controller = new AbortController();
+          // Timeout 30s per próba
+          const timeoutId = setTimeout(() => controller.abort(), 30000);
+          
+          const res = await fetch(url, { 
+            cache: 'no-store',
+            signal: controller.signal 
+          });
+          
+          clearTimeout(timeoutId);
+          console.log('Response status:', res.status, res.ok);
+          
           if (res.ok) {
             const data = await res.json();
+            console.log('Health data:', data);
             if (data.status === 'ok') {
               setEngineReady(true);
             }
+          } else if (retryCount < 2) {
+            // Retry po 5 sekundach
+            console.log('Retrying in 5 seconds...');
+            setTimeout(() => checkHealth(retryCount + 1), 5000);
           }
         } catch (error) {
           console.error("Health check failed:", error);
+          if (retryCount < 2) {
+            // Retry po 5 sekundach
+            console.log('Retrying in 5 seconds...');
+            setTimeout(() => checkHealth(retryCount + 1), 5000);
+          }
         }
       };
 
-      checkHealth();
+      // Małe opóźnienie, żeby dać czas Next.js na załadowanie routera
+      const timer = setTimeout(() => checkHealth(0), 100);
+      return () => clearTimeout(timer);
     }
   }, [isEngineReady, setEngineReady]);
 
