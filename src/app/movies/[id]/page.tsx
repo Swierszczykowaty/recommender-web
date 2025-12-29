@@ -245,11 +245,13 @@ export default function MovieDetailPage() {
                       className={`px-4 py-2 rounded-full text-sm font-bold shadow ${getRatingColor(
                         movie.vote_average
                       )}`}
-                      title={`${movie.vote_count} votes`}
+                      title={movie.vote_count ? `${movie.vote_count} votes` : "No rating"}
                     >
-                      ★ {movie.vote_average?.toFixed(1)}
+                      ★ {movie.vote_average ? movie.vote_average.toFixed(1) : "N/A"}
                     </span>
-                    <span className="text-white/60 text-sm">{movie.vote_count} votes</span>
+                    {movie.vote_count && movie.vote_count > 0 && (
+                      <span className="text-white/60 text-sm">{movie.vote_count} votes</span>
+                    )}
                   </p>
 
                   <div className="space-y-4">
@@ -272,7 +274,9 @@ export default function MovieDetailPage() {
                         : "no data"}
                     </p>
                     <p className="text-sm md:text-md"><strong>Release date:</strong> {movie.release_date}</p>
-                    <p className="text-sm md:text-md"><strong>Runtime:</strong> {movie.runtime} min</p>
+                    {movie.runtime && movie.runtime > 0 && (
+                      <p className="text-sm md:text-md"><strong>Runtime:</strong> {movie.runtime} min</p>
+                    )}
                     <p className="mb-4 text-sm md:text-md"><strong>Genres:</strong> {movie.genres}</p>
                   </div>
 
