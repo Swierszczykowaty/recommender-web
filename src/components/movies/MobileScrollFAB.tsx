@@ -9,6 +9,7 @@ import {
   useMotionValueEvent,
   Variants,
 } from "framer-motion";
+import { useThemeStore } from "@/lib/themeStore";
 
 type Props = {
   href: string;
@@ -42,6 +43,7 @@ export default function MobileScrollFABRight({
   hideAtBottomPercent = 0.9,
 }: Props) {
   const { scrollY, scrollYProgress } = useScroll();
+  const theme = useThemeStore((state) => state.theme);
 
   // wykrywanie mobile
   const [isMobile, setIsMobile] = useState(false);
@@ -76,9 +78,12 @@ export default function MobileScrollFABRight({
       >
         <Link href={href} className="block" aria-label={label}>
           <motion.div
-            className="relative flex items-center h-14 rounded-2xl border border-white/30 backdrop-blur-lg
-                       bg-gradient-to-tr from-indigo-400/10 via-fuchsia-400/25 to-purple-400/15
-                       overflow-hidden cursor-pointer shadow-lg hover:shadow-xl shadow-violet-500/20"
+            className={`relative flex items-center h-14 rounded-2xl border border-white/30 backdrop-blur-lg
+                       overflow-hidden cursor-pointer shadow-lg hover:shadow-xl shadow-violet-500/20 ${
+                         theme === "light"
+                           ? "bg-gradient-to-tr from-indigo-500/20 via-fuchsia-500/35 to-purple-500/25 hover:from-indigo-500/40 hover:via-fuchsia-500/55 hover:to-purple-500/65"
+                           : "bg-gradient-to-tr from-indigo-400/10 via-fuchsia-400/25 to-purple-400/15"
+                       }`}
             variants={fabVariants}
             initial="collapsed"
             whileHover="expanded"
@@ -86,11 +91,11 @@ export default function MobileScrollFABRight({
             transition={{ duration: 0.22, ease: "easeOut" }}
             style={{ paddingLeft: 14 }}
           >
-            <span className="material-symbols-outlined text-white !text-2xl ml-[2px] mr-[6px]">
+            <span className="material-symbols-outlined !text-2xl ml-[2px] mr-[6px] !text-white">
               {icon}
             </span>
             <motion.span
-              className="text-white font-medium whitespace-nowrap pr-2"
+              className="font-medium whitespace-nowrap pr-2 !text-white"
               variants={textVariants}
               transition={{ duration: 0.16, ease: "easeOut" }}
             >
@@ -115,9 +120,12 @@ export default function MobileScrollFABRight({
         >
           <Link href={href} className="block" aria-label={label}>
             <motion.div
-              className="relative flex items-center h-14 rounded-2xl border border-white/30 backdrop-blur-lg
-                         bg-gradient-to-tr from-indigo-400/10 via-fuchsia-400/25 to-purple-400/15
-                         overflow-hidden cursor-pointer shadow-xl"
+              className={`relative flex items-center h-14 rounded-2xl border border-white/30 backdrop-blur-lg
+                         overflow-hidden cursor-pointer shadow-xl ${
+                           theme === "light"
+                             ? "bg-gradient-to-tr from-indigo-500/40 via-fuchsia-500/55 to-purple-500/45"
+                             : "bg-gradient-to-tr from-indigo-400/10 via-fuchsia-400/25 to-purple-400/15"
+                         }`}
               variants={fabVariants}
               initial="collapsed"
               animate="collapsed"          // ← nie rozszerzaj na mobile
@@ -125,7 +133,7 @@ export default function MobileScrollFABRight({
               transition={{ duration: 0.18, ease: "easeOut" }}
               style={{ paddingLeft: 14 }}
             >
-              <span className="material-symbols-outlined text-white !text-2xl ml-[2px] mr-[6px]">
+              <span className="material-symbols-outlined !text-2xl ml-[2px] mr-[6px] !text-white">
                 {icon}
               </span>
 
