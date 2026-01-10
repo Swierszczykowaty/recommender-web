@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import Icon from "@/components/global/Icon";
 import { useThemeStore } from "@/lib/themeStore";
@@ -8,7 +9,10 @@ import { useThemeStore } from "@/lib/themeStore";
 export default function NavBar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const { theme, toggleTheme } = useThemeStore();
+  const pathname = usePathname();
   const isLight = theme === "light";
+  const isMovieDetailPage = /^\/movies\/\d+$/.test(pathname);
+  
   const navLinks = [
     { href: "/", label: "Home" },
     { href: "/recommender", label: "Recommender" },
@@ -17,25 +21,33 @@ export default function NavBar() {
     { href: "/about", label: "About" },
   ];
 
-  const navThemeClasses = isLight
-    ? "bg-white/70 text-slate-900 border-slate-200 shadow-md"
-    : "bg-white/7 text-white border-white/20 shadow-sm";
+  // Dla strony filmu w light mode używamy stylów jak w dark mode
+  const useDarkStyle = !isLight || (isMovieDetailPage && isLight);
 
-  const buttonThemeClasses = isLight
-    ? "bg-slate-900/5 border-slate-200 text-slate-900 hover:bg-slate-900/10"
-    : "bg-white/10 border-white/30 text-white hover:bg-white/20";
+  const navThemeClasses = useDarkStyle
+    ? "bg-white/7 text-white border-white/20 shadow-sm"
+    : "bg-white/70 text-slate-900 border-slate-200 shadow-md";
 
-  const linkThemeClasses = isLight
-    ? "text-slate-700 hover:text-slate-900 active:text-slate-950"
-    : "text-white hover:text-white/70 active:text-white/60";
+  const buttonThemeClasses = useDarkStyle
+    ? "bg-white/10 border-white/30 text-white hover:bg-white/20"
+    : "bg-slate-900/5 border-slate-200 text-slate-900 hover:bg-slate-900/10";
 
-  const brandThemeClasses = isLight
-    ? "text-transparent bg-clip-text bg-gradient-to-tr from-slate-900 via-slate-600 to-slate-800"
-    : "text-white";
+  const linkThemeClasses = useDarkStyle
+    ? "text-white hover:text-white/70 active:text-white/60"
+    : "text-slate-700 hover:text-slate-900 active:text-slate-950";
+
+  const brandThemeClasses = useDarkStyle
+    ? "text-white"
+    : "text-transparent bg-clip-text bg-gradient-to-tr from-slate-900 via-slate-600 to-slate-800";
 
   return (
     <nav
+      {...(isMovieDetailPage && isLight ? { "data-force-white": true } : {})}
       className={`fixed top-0 left-0 w-full z-40 backdrop-blur-md border-b transition-colors duration-300 ${navThemeClasses}`}
+      style={isMovieDetailPage && isLight ? {
+        backgroundColor: 'rgba(255, 255, 255, 0.07)',
+        borderColor: 'rgba(255, 255, 255, 0.2)'
+      } : undefined}
     >
       <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center lg:pr-24">
         {/* Logo + nazwa */}

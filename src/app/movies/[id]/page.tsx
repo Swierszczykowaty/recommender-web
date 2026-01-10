@@ -229,7 +229,7 @@ export default function MovieDetailPage() {
                         className="rounded-lg object-cover w-full"
                       />
                       <div className="absolute inset-0 bg-black/50 rounded-lg flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <Icon icon="zoom_in" className="!text-3xl" />
+                        <Icon icon="zoom_in" className="!text-3xl !text-white" />
                       </div>
                     </div>
                   ) : (
