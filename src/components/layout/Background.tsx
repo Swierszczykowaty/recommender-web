@@ -56,7 +56,7 @@ const lightColorConfig: ColorConfig = {
   "/movies": [
     "rgba(236, 254, 255, 1)", // cyan-50
     "rgba(191, 219, 254, 1)", // blue-200
-    "rgba(165, 243, 252, 1)", // cyan-200
+    "rgba(191, 219, 254, 1)", // sky-200
     "rgba(254, 249, 195, 1)", // yellow-100
     "rgba(245, 208, 254, 1)", // fiolet pastelowy
   ],

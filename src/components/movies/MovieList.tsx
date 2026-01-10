@@ -49,7 +49,7 @@ export default function MoviesList() {
     setLoading(true);
     setError(null);
 
-    fetch(apiUrl, { cache: "force-cache" })
+    fetch(apiUrl, { cache: "no-store" })
       .then((r) => r.json())
       .then((data) => {
         if (cancelled) return;
