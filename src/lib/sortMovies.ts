@@ -17,11 +17,14 @@ export function sortMovies(movies: Movie[], sortBy: string): Movie[] {
     case "rating-asc":
       return sorted.sort((a, b) => (a.vote_average ?? 0) - (b.vote_average ?? 0));
     case "year-desc":
-      return sorted.sort(
+      const result = sorted.sort(
         (a, b) =>
           parseInt(b.release_date?.slice(0, 4) || "0") -
           parseInt(a.release_date?.slice(0, 4) || "0")
       );
+      // Log pierwszych 5 filmów dla debugowania
+      console.log("Top 5 movies (year-desc):", result.slice(0, 5).map(m => ({ title: m.title, year: m.release_date?.slice(0, 4) })));
+      return result;
     case "year-asc":
       return sorted.sort(
         (a, b) =>

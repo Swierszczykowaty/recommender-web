@@ -64,6 +64,6 @@ export async function GET(req: Request) {
     items: minimalItems,
   }, {
     // cache na chwilę (jeśli dane statyczne, możesz podnieść)
-    headers: { "Cache-Control": "public, max-age=60" }
+    headers: { "Cache-Control": "no-cache, no-store, must-revalidate" }
   });
 }
