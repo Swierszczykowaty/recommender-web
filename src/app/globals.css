@@ -57,6 +57,7 @@ body {
 
 body[data-theme="light"] {
   color: var(--foreground-light);
+  background: transparent;
 }
 
 body[data-theme="light"] ::selection {

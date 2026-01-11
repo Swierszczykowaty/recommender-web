@@ -85,11 +85,11 @@ const lightColorConfig: ColorConfig = {
 
 function buildMesh() {
   return [
-    `radial-gradient(60% 50% at 15% 25%, var(--c0) 0%, transparent 90%)`,
-    `radial-gradient(55% 45% at 85% 30%, var(--c1) 0%, transparent 80%)`,
+    `radial-gradient(60% 50% at 15% 25%, var(--c0) 0%, transparent 100%)`,
+    `radial-gradient(55% 45% at 85% 30%, var(--c1) 0%, transparent 95%)`,
     `radial-gradient(70% 60% at 50% 85%, var(--c2) 0%, transparent 100%)`,
-    `radial-gradient(65% 55% at 25% 80%, var(--c3) 0%, transparent 70%)`,
-    `radial-gradient(55% 55% at 75% 10%, var(--c4) 0%, transparent 80%)`,
+    `radial-gradient(65% 55% at 25% 80%, var(--c3) 0%, transparent 90%)`,
+    `radial-gradient(55% 55% at 75% 10%, var(--c4) 0%, transparent 95%)`,
   ].join(", ");
 }
 

@@ -71,8 +71,9 @@ export default function MovieDetailPage() {
           try {
             const palette = new ColorThief().getPalette(img, 5) as [number, number, number][];
             if (!cancelled) {
+              const isLight = theme === "light";
               setColors(
-                palette.map(([r, g, b], i) => `rgba(${r},${g},${b},${i < 3 ? 0.3 : 0.2})`)
+                palette.map(([r, g, b], i) => `rgba(${r},${g},${b},${isLight ? 0.4 : (i < 3 ? 0.3 : 0.2)})`)
               );
             }
           } catch (err) {
@@ -112,7 +113,7 @@ export default function MovieDetailPage() {
 
   return (
     <section className="relative min-h-screen text-white">
-      <AnimatedBackground dynamicColors={colors} />
+      <AnimatedBackground dynamicColors={colors} mode={theme} />
 
       {/* Backdrop z parallax (z lekkim szkieletem dla tytułu) */}
       {movie.backdrop_path ? (
@@ -228,7 +229,7 @@ export default function MovieDetailPage() {
                         className="rounded-lg object-cover w-full"
                       />
                       <div className="absolute inset-0 bg-black/50 rounded-lg flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <Icon icon="zoom_in" className="!text-3xl" />
+                        <Icon icon="zoom_in" className="!text-3xl !text-white" />
                       </div>
                     </div>
                   ) : (
@@ -244,13 +245,13 @@ export default function MovieDetailPage() {
                     <span
                       className={`px-4 py-2 rounded-full text-sm font-bold shadow ${getRatingColor(
                         movie.vote_average
-                      )}`}
+                      )} ${theme === "light" ? "!text-white" : ""}`}
                       title={movie.vote_count ? `${movie.vote_count} votes` : "No rating"}
                     >
                       ★ {movie.vote_average ? movie.vote_average.toFixed(1) : "N/A"}
                     </span>
                     {movie.vote_count && movie.vote_count > 0 && (
-                      <span className="text-white/60 text-sm">{movie.vote_count} votes</span>
+                      <span className={`text-sm ${theme === "light" ? "text-gray-800" : "text-white/60"}`}>{movie.vote_count} votes</span>
                     )}
                   </p>
 
@@ -392,7 +393,11 @@ export default function MovieDetailPage() {
             {!loading && (
               <Link
                 href={`/recommender/${movie.id}`}
-                className="z-40 flex px-6 py-3 w-full max-w-[270px] text-center justify-center shadow-lg hover:shadow-xl shadow-violet-500/20 bg-gradient-to-tr from-indigo-400/10 via-fuchsia-400/25 to-purple-400/15 border border-white/30 rounded-lg hover:from-indigo-400/35 hover:via-fuchsia-400/45 hover:to-purple-400/55 transition-colors duration-300"
+                className={`z-40 flex px-6 py-3 w-full max-w-[270px] text-center justify-center shadow-lg hover:shadow-xl shadow-violet-500/20 rounded-lg border border-white/30 transition-colors duration-300 !text-white ${
+                  theme === "light"
+                    ? "bg-gradient-to-tr from-indigo-500/20 via-fuchsia-500/35 to-purple-500/25 hover:from-indigo-500/40 hover:via-fuchsia-500/55 hover:to-purple-500/65"
+                    : "bg-gradient-to-tr from-indigo-400/10 via-fuchsia-400/25 to-purple-400/15 hover:from-indigo-400/35 hover:via-fuchsia-400/45 hover:to-purple-400/55"
+                }`}
               >
                 Generate Recommendations
               </Link>

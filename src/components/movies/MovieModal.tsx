@@ -124,17 +124,17 @@ export default function MovieModal({ isOpen, onClose, movie }: MovieModalProps) 
             </div>
 
             <div className="text-center text-white mt-4">
-              <h2 id="movie-modal-title" className="text-xl font-bold">
+              <h2 id="movie-modal-title" className="text-xl font-bold !text-white">
                 {movie.title}
               </h2>
               {movie.release_date && (
-                <p className="text-sm text-white/70">{movie.release_date.slice(0, 4)}</p>
+                <p className="text-sm !text-white/70">{movie.release_date.slice(0, 4)}</p>
               )}
             </div>
 
             <button
               onClick={onClose}
-              className="absolute top-[-50] sm:top-0 right-0 bg-white/10 border border-white/30 text-white px-4 py-2 rounded hover:bg-white/20 cursor-pointer"
+              className="absolute top-[-50] sm:top-0 right-0 border border-white/30 text-white px-4 py-2 rounded cursor-pointer !text-white !bg-white/10 hover:!bg-white/20"
             >
               ✕
             </button>
