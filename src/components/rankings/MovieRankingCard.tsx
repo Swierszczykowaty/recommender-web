@@ -77,7 +77,7 @@ export default function MovieRankingCard({ movie, rank, type, why }: Props) {
   return (
     <Link
       href={`/movies/${id}`}
-      className={`group block w-full ${why ? 'h-auto min-h-48 md:min-h-52' : 'h-36 md:h-44'} relative overflow-hidden rounded-xl shadow-lg border border-white/30`}
+      className={`group block w-full ${why ? 'h-auto min-h-48 md:min-h-52' : 'h-36 md:h-'} relative overflow-hidden rounded-xl shadow-lg border border-white/30`}
     >
       {imageSrc ? (
         <FadeImage
@@ -94,6 +94,15 @@ export default function MovieRankingCard({ movie, rank, type, why }: Props) {
           Brak obrazu
         </div>
       )}
+
+      {/* blur gradient z lewej */}
+      <div 
+        className="absolute inset-0 backdrop-blur-xl"
+        style={{
+          maskImage: 'linear-gradient(to right, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 60%)',
+          WebkitMaskImage: 'linear-gradient(to right, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 60%)',
+        }}
+      />
 
       {/* gradient (poprawiona klasa) */}
       <div className={`absolute inset-0 ${gradientOverlayClass}`} />
