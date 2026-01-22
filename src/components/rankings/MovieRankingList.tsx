@@ -93,15 +93,30 @@ export default function MovieRankingList({ movies, type }: Props) {
         </motion.div>
         {/* KONIEC BREADCRUMB + POWRÓT */}
 
+        {/* Pierwsze 3 filmy - grid 1 kolumna */}
         <motion.div
-          className="space-y-4"
+          className="gap-4 grid-cols-1 grid mb-4"
           variants={containerVariants}
           initial="hidden"
           animate="show"
         >
-          {movies.map((movie, idx) => (
+          {movies.slice(0, 3).map((movie, idx) => (
             <motion.div key={movie.id} variants={cardVariants}>
               <MovieRankingCard movie={movie} rank={idx + 1} type={type} />
+            </motion.div>
+          ))}
+        </motion.div>
+
+        {/* Pozostałe filmy - grid 2 kolumny */}
+        <motion.div
+          className="gap-4 grid-cols-2 grid"
+          variants={containerVariants}
+          initial="hidden"
+          animate="show"
+        >
+          {movies.slice(3).map((movie, idx) => (
+            <motion.div key={movie.id} variants={cardVariants}>
+              <MovieRankingCard movie={movie} rank={idx + 4} type={type} />
             </motion.div>
           ))}
         </motion.div>

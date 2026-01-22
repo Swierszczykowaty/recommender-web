@@ -27,7 +27,7 @@ export default function RecommenderSearchPage() {
           // Po załadowaniu danych, jeśli jest aktywne wyszukiwanie, odśwież wyniki
           if (searchQuery.trim()) {
             const filtered = searchMovies(m.default as Movie[], searchQuery);
-            setSearchResults(filtered.slice(0, 12));
+            setSearchResults(filtered.slice(0, 24));
           }
         })
         .catch((e) => {
@@ -41,7 +41,7 @@ export default function RecommenderSearchPage() {
     if (searchQuery === "") {
       const randomSelection = [...TOP_MOVIES]
         .sort(() => Math.random() - 0.5)
-        .slice(0, 12);
+        .slice(0, 24);
       setSearchResults(randomSelection);
     }
   }, [searchQuery]);
@@ -59,14 +59,14 @@ export default function RecommenderSearchPage() {
     // ale priorityzuj pełną bazę danych
     const sourceToUse = allMovies && allMovies.length > 0 ? allMovies : TOP_MOVIES;
     const filtered = searchMovies(sourceToUse, query);
-    setSearchResults(filtered.slice(0, 12));
+    setSearchResults(filtered.slice(0, 24));
   };
 
   useEffect(() => {
     if (searchQuery === "") {
       const randomSelection = [...TOP_MOVIES]
         .sort(() => Math.random() - 0.5)
-        .slice(0, 12);
+        .slice(0, 24);
       setSearchResults(randomSelection);
     }
   }, [searchQuery]);
@@ -141,7 +141,7 @@ export default function RecommenderSearchPage() {
               </Link>
             </motion.div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 w-full">
               {searchResults.map((movie, i) => (
                 <motion.div
                   key={movie.id}

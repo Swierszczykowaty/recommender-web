@@ -17,7 +17,7 @@ const MovieCardSmall = ({ movie, onClick }: MovieCardSmallProps) => {
   const theme = useThemeStore((state) => state.theme);
   const overlayBase =
     theme === "light"
-      ? "bg-gradient-to-br from-slate-600/20 via-slate-700/25 to-slate-900/35 backdrop-blur-sm"
+      ? "bg-gradient-to-br from-slate-600/20 via-slate-700/15 to-slate-900/25 backdrop-blur-sm"
       : "bg-black/75 backdrop-blur-xs";
   const overlayHover =
     theme === "light"
@@ -48,7 +48,7 @@ const MovieCardSmall = ({ movie, onClick }: MovieCardSmallProps) => {
       )}
 
       {/* Poster */}
-      <div className="w-16 sm:w-20 h-24 sm:h-30 flex-shrink-0 rounded-lg overflow-hidden relative z-10 bg-white/10">
+      <div className="w-16 sm:w-24 h-24 sm:h-36 flex-shrink-0 rounded-lg overflow-hidden relative z-10 bg-white/10 flex items-center">
         {movie.poster_path ? (
           <FadeImage
             src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
