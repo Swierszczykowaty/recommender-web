@@ -16,6 +16,7 @@ import { useEngineStore } from "@/lib/engineStore";
 import RecommenderCard from "@/components/recommender/RecommenderCard";
 import { useBackgroundStore } from "@/lib/backgroundStore";
 import ColorThief from "colorthief";
+import { useThemeStore } from "@/lib/themeStore";
 
 type Engine = "v1" | "v2" | "gemini";
 
@@ -48,6 +49,7 @@ export default function RecommendationResultPage() {
   const movieId = params.id as string;
   const { setEngineReady, setLastRecommendationUrl } = useEngineStore();
   const setDynamicColors = useBackgroundStore((state) => state.setDynamicColors);
+  const theme = useThemeStore((state) => state.theme);
 
   const recommendedBadgeClasses =
     "px-2 py-1 text-xs font-semibold rounded-full border transition-colors text-white bg-gradient-to-r from-blue-500/30 to-purple-500/30 border-blue-400/50";
@@ -208,7 +210,7 @@ export default function RecommendationResultPage() {
         {!loading && !error && baseMovie && !hasGenerated && (
           <div className="flex flex-col items-center w-full mx-auto relative">
             <motion.div
-              className="mb-4 w-full max-w-3xl"
+              className="mb-4 w-full"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.7, ease: "easeOut" }}
@@ -229,7 +231,7 @@ export default function RecommendationResultPage() {
             </motion.div>
 
             <motion.div
-              className="w-full max-w-3xl"
+              className="w-full "
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.4, ease: "easeOut", delay: 0.2 }}
@@ -334,7 +336,11 @@ export default function RecommendationResultPage() {
 
               <button
                 onClick={handleGenerateRecommendations}
-                className="w-full max-w-md mx-auto flex items-center justify-center gap-3 px-6 md:px-8 py-3 md:py-4 text-sm md:text-lg font-semibold bg-gradient-to-br from-pink-500/20 via-purple-500/30 to-violet-500/20 border border-white/30 rounded-xl text-white hover:from-pink-500/30 hover:via-purple-500/40 hover:to-violet-500/30 transition-all duration-300 cursor-pointer shadow-lg hover:shadow-xl shadow-violet-500/20"
+                className={`w-full max-w-md mx-auto flex items-center justify-center gap-3 px-6 md:px-8 py-3 md:py-4 text-sm md:text-lg font-semibold rounded-xl !text-white border border-white/30 transition-all duration-300 cursor-pointer shadow-lg hover:shadow-xl shadow-violet-500/20 ${
+                  theme === "light"
+                    ? "bg-gradient-to-tr from-indigo-500/20 via-fuchsia-500/35 to-purple-500/25 hover:from-indigo-500/40 hover:via-fuchsia-500/55 hover:to-purple-500/65"
+                    : "bg-gradient-to-br from-pink-500/20 via-purple-500/30 to-violet-500/20 hover:from-pink-500/30 hover:via-purple-500/40 hover:to-violet-500/30"
+                }`}
               >
                 <Icon icon="auto_awesome" className="!text-lg md:!text-2xl" />
                 Generate Recommendations
@@ -414,7 +420,11 @@ export default function RecommendationResultPage() {
 
             <Link
               href="/recommender"
-              className="mt-10 px-8 py-3 text-center bg-gradient-to-br from-indigo-400/10 via-fuchsia-400/25 to-purple-400/15 border border-white/30 rounded-lg text-white hover:bg-gradient-to-tr hover:from-indigo-400/35 hover:via-fuchsia-400/45 hover:to-purple-400/55 transition-colors cursor-pointer shadow-lg hover:shadow-xl shadow-violet-500/20"
+              className={`mt-10 px-8 py-3 text-center border border-white/30 rounded-lg !text-white transition-colors cursor-pointer shadow-lg hover:shadow-xl shadow-violet-500/20 ${
+                theme === "light"
+                  ? "bg-gradient-to-tr from-indigo-500/20 via-fuchsia-500/35 to-purple-500/25 hover:from-indigo-500/40 hover:via-fuchsia-500/55 hover:to-purple-500/65"
+                  : "bg-gradient-to-br from-indigo-400/10 via-fuchsia-400/25 to-purple-400/15 hover:from-indigo-400/35 hover:via-fuchsia-400/45 hover:to-purple-400/55"
+              }`}
             >
               Search for other recommendations
             </Link>
