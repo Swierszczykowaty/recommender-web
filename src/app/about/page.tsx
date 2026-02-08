@@ -93,37 +93,63 @@ export default function AboutPage() {
             {selectedSection === "overall" && (
               <>
                 <p className="text-sm md:text-lg leading-relaxed text-justify">
-                  Movie Recommender is a platform that makes it easy to find
-                  movies tailored to your tastes. Simply select one title, and
-                  the system will generate eight of the most similar recommendations
-                  based on content analysis. Additionally, you can browse
-                  the complete movie database, check detailed descriptions, and explore
-                  rankings: top 100 by ratings, revenue, and vote count.
+                  Movie Recommender is an engineering thesis project designed to
+                  help users discover movies tailored to their specific tastes.
+                  Unlike generic popularity lists, this system analyzes the
+                  internal characteristics of a film to generate eight highly
+                  similar recommendations.
                 </p>
                 <p className="text-sm md:text-lg mt-4 text-white text-justify">
-                  The site uses Content Based Filtering and data from TMDB. Everything
-                  runs on Next.js with dynamic components, modern
-                  animations (Framer Motion), and responsive styles (Tailwind CSS),
-                  ensuring fast and convenient use on any device.
+                  The application is built on <strong>Next.js</strong>, leveraging
+                  Server Side Rendering for performance and <strong>Tailwind CSS</strong>{" "}
+                  with <strong>Framer Motion</strong> for a fluid, modern user
+                  interface. Data is sourced from the TMDB and IMDB databases.
                 </p>
               </>
             )}
 
             {selectedSection === "v1" && (
               <p className="text-sm md:text-lg leading-relaxed text-justify">
-                Model v1 in progress Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nobis, delectus officiis, similique non assumenda nostrum eaque, perferendis at sint ullam dicta quas. Fuga reprehenderit quod animi sint est dolores et. Dolor ducimus consequuntur minus, fugiat reprehenderit sit quae accusantium doloremque inventore libero, voluptatem possimus. Reiciendis vero saepe nam quo sequi assumenda, doloribus mollitia dicta odio, corrupti deserunt est! Suscipit, doloremque. Voluptatem tempora illum eum, assumenda nobis, eaque perspiciatis autem fugiat placeat animi labore aperiam dolores libero magni et. At, aliquam.
+                The initial iteration of the recommendation engine focuses
+                strictly on <strong>Natural Language Processing (NLP)</strong>.
+                By utilizing the <strong>TF-IDF</strong> (Term Frequency-Inverse
+                Document Frequency) algorithm, the model analyzes the "Overview"
+                and "Tagline" of every movie in the dataset.
+                This process converts text into mathematical vectors. We then
+                calculate the <strong>Cosine Similarity</strong> between these
+                vectors to find movies with the most semantically similar plots.
+                This model excels at recommending movies based on narrative
+                structure but ignores metadata like cast or genre.
               </p>
             )}
 
             {selectedSection === "v2" && (
               <p className="text-sm md:text-lg leading-relaxed text-justify">
-                Model v2 in progress Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempora voluptas ullam fugiat laborum amet neque sunt maxime aliquam perferendis nostrum, consequatur qui quos mollitia eaque odio culpa laudantium alias aut laboriosam, eius pariatur rem sint? Vel ipsum architecto et ut nisi dolores vero suscipit veritatis, ab reiciendis nesciunt illo beatae quibusdam cumque obcaecati dignissimos alias necessitatibus. Eligendi laboriosam corporis autem saepe animi ipsam? Enim illo natus velit officiis sed voluptatibus facilis nulla ullam nesciunt laudantium iusto, molestiae earum, quam minus, modi iste quibusdam. Neque, facilis! Dicta pariatur porro dolorem recusandae nesciunt, tempore velit, cupiditate reiciendis dolore placeat, totam modi accusantium?
+                The second version introduces a "Metadata Soup" approach to
+                improve accuracy. Instead of relying solely on plot descriptions,
+                this model aggregates <strong>Genres, Keywords, Top 3 Cast Members,
+                and Directors</strong> into a single tokenized string for each movie.
+                We utilize <strong>CountVectorizer</strong> instead of TF-IDF
+                here to ensure that recurring actors or directors are not
+                penalized by the weighting algorithm. This results in
+                recommendations that align better with the user's stylistic
+                preferences, capturing the "vibe" of a movie rather than just
+                its story.
               </p>
             )}
 
             {selectedSection === "gemini" && (
               <p className="text-sm md:text-lg leading-relaxed text-justify">
-                Gemini (beta) łączy naszą lokalną bazę filmów z modelem Google Gemini. Każde żądanie do silnika tworzy dedykowany prompt z opisem wybranego filmu, a sztuczna inteligencja odsyła do ośmiu najbardziej pasujących tytułów. Komunikacja odbywa się przez serwer Next.js, gdzie przechowywany jest klucz API (limit darmowy to 100 zapytań dziennie), a wygenerowane tytuły są następnie dopasowywane do katalogu TMDB dostępnego w aplikacji.
+                This experimental feature bridges our local movie database with
+                Google's <strong>Gemini Pro</strong> model. When triggered, the
+                system constructs a detailed prompt describing the selected movie
+                and asks the AI to generate a list of eight naturally similar
+                titles based on its vast training data.
+                The communication is handled via a secure Next.js server action
+                (managing the API key and rate limits). The AI's text response
+                is then parsed and cross-referenced with our internal TMDB
+                catalog to display valid, clickable movie cards, offering a more
+                "human-like" curation experience.
               </p>
             )}
           </motion.div>

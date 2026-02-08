@@ -68,11 +68,11 @@ const lightColorConfig: ColorConfig = {
     "rgba(251, 213, 141, 1)", // amber pastel
   ],
   "/about": [
-    "rgba(240, 253, 244, 1)", // green-50
-    "rgba(236, 253, 245, 1)", // emerald-50
-    "rgba(254, 252, 232, 1)", // amber-50
-    "rgba(224, 245, 255, 1)", // sky-50
-    "rgba(148, 163, 184, 1)", // slate-400
+    "rgba(34, 197, 94, 0.26)", // green-500
+    "rgba(20, 184, 166, 0.22)", // teal-500
+    "rgba(234, 179, 8, 0.24)", // amber-500
+    "rgba(14, 165, 233, 0.28)", // sky-500
+    "rgba(2, 6, 23, 0.34)", // slate-950 (ciemny bind)
   ],
   "/rankings": [
     "rgba(255, 241, 242, 1)", // rose-50
