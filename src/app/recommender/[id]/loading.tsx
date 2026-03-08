@@ -9,7 +9,7 @@ export default function Loading() {
       <Container>
         <div className="flex flex-col items-center w-full mx-auto relative">
           <motion.div
-            className="mb-4 w-full max-w-2xl"
+            className="mb-4 w-full "
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.4 }}
@@ -22,7 +22,7 @@ export default function Loading() {
           </motion.div>
 
           <motion.div
-            className="w-full max-w-3xl"
+            className="w-full"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.4, delay: 0.1 }}
